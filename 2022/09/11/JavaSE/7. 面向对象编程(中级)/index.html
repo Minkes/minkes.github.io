@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 面向对象编程(中级)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7. 面向对象编程(中级)">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 面向对象编程(中级)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-11T10:52:03.377Z">
+<meta property="article:modified_time" content="2022-09-11T11:01:49.455Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/","path":"2022/09/11/JavaSE/7. 面向对象编程(中级)/","title":"7. 面向对象编程(中级)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>7. 面向对象编程(中级) | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#7-1-IDEA-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">7.1 IDEA 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-1-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.1.</span> <span class="nav-text">7.1.1 常用快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-2-%E6%A8%A1%E6%9D%BF%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">1.2.</span> <span class="nav-text">7.1.2 模板快捷键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-2-%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">7.2 包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-1-%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5"><span class="nav-number">2.1.</span> <span class="nav-text">7.4.1 静态导入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-3-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">7.3 访问修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-1-%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E7%89%B9%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">7.3.1 访问权限特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-2-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">3.2.</span> <span class="nav-text">7.3.2 使用说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-4-%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">7.4 封装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-1-%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5-1"><span class="nav-number">4.1.</span> <span class="nav-text">7.4.1 静态导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-2-JAR-%E6%96%87%E4%BB%B6"><span class="nav-number">4.2.</span> <span class="nav-text">7.4.2 JAR 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-5-%E7%BB%A7%E6%89%BF"><span class="nav-number">5.</span> <span class="nav-text">7.5 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">5.1.</span> <span class="nav-text">7.5.1 使用细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-2-%E7%BB%A7%E6%89%BF%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">5.2.</span> <span class="nav-text">7.5.2 继承的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-3-super%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">5.3.</span> <span class="nav-text">7.5.3 super关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-4-%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99-x2F-%E8%A6%86%E7%9B%96"><span class="nav-number">5.4.</span> <span class="nav-text">7.5.4 方法重写&#x2F;覆盖</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-6-%E5%A4%9A%E6%80%81"><span class="nav-number">6.</span> <span class="nav-text">7.6 多态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-1-%E5%A4%9A%E6%80%81%E7%9A%84%E4%BD%93%E7%8E%B0"><span class="nav-number">6.1.</span> <span class="nav-text">7.6.1 多态的体现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-2-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">6.2.</span> <span class="nav-text">7.6.2 使用细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-6-3-%E7%90%86%E8%A7%A3%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="nav-number">6.3.</span> <span class="nav-text">7.6.3 理解方法调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-7-Object%E7%B1%BB"><span class="nav-number">7.</span> <span class="nav-text">7.7 Object类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-1-equals-%E6%96%B9%E6%B3%95"><span class="nav-number">7.1.</span> <span class="nav-text">7.7.1 equals 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-2-hashCode-%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">7.7.2 hashCode 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-3-toString-%E6%96%B9%E6%B3%95"><span class="nav-number">7.3.</span> <span class="nav-text">7.7.3 toString 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-7-4-findlize-%E6%96%B9%E6%B3%95"><span class="nav-number">7.4.</span> <span class="nav-text">7.7.4 findlize 方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-8-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95-Debug"><span class="nav-number">8.</span> <span class="nav-text">7.8 断点调试(Debug)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-9-%E9%9B%B6%E9%92%B1%E9%80%9A%E7%A8%8B%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">7.9 零钱通程序</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="7. 面向对象编程(中级) | 安之">
+      <meta itemprop="description" content="Java 面向对象编程(中级)">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7. 面向对象编程(中级)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:52:03 / 修改时间：19:01:49" itemprop="dateCreated datePublished" datetime="2022-09-11T18:52:03+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 面向对象编程(中级)</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>IDE：集成开发环境</p>
+<ul>
+<li>IDEA</li>
+<li>Eeclipse：一个开源的、基于 Java 的可扩展开发平台。是由 IBM 公司开发，在 2001 年 11 月贡献给开源社区的，目前最优秀的 Java 开发 IDE 之一。</li>
+</ul>
+</blockquote>
+<h1 id="7-1-IDEA-的使用"><a href="#7-1-IDEA-的使用" class="headerlink" title="7.1 IDEA 的使用"></a>7.1 IDEA 的使用</h1><blockquote>
+<p>IDEA：全程 IntelliJ IDEA。在业界被公认为最好的 Java 开发工具。是捷克 JetBrains 公司的产品。除了 Java 开发，还支持 HTML，CSS，PHP，MySQL，Python 等。<a target="_blank" rel="noopener" href="https://www.jetbrains.com/zh-cn/idea/download/#section=windows">下载地址</a></p>
+</blockquote>
+<h2 id="7-1-1-常用快捷键"><a href="#7-1-1-常用快捷键" class="headerlink" title="7.1.1 常用快捷键"></a>7.1.1 常用快捷键</h2><ul>
+<li>删除当前行：<code>ctrl + Y</code></li>
+<li>复制当前行：<code>ctrl + D</code></li>
+<li>补全代码：<code>alt + /</code></li>
+<li>添加 &#x2F; 取消注释：<code>ctrl + /</code></li>
+<li>导入该行需要的类：<code>alt + enter</code></li>
+<li>快速格式化代码：<code>ctrl + alt + L</code></li>
+<li>快速运行程序：<code>shift + F10</code>（我改成了<code>alt + R</code>）</li>
+<li>生成构造器：<code>alt + insert</code></li>
+<li>查看一个类的层级关系：<code>ctrl + H</code></li>
+<li>定位一个方法：把光标放在一个方法上，按<code> ctrl + B</code></li>
+<li>自动分配变量名：在后面加上<code> .var</code></li>
+<li>查看模板快捷键：<code>ctrl + J</code></li>
+<li>快速环绕代码：<code>ctrl + alt + T</code></li>
+</ul>
+<h2 id="7-1-2-模板快捷键"><a href="#7-1-2-模板快捷键" class="headerlink" title="7.1.2 模板快捷键"></a>7.1.2 模板快捷键</h2><ul>
+<li><code>main</code>：<code>public static void main(String[] args) &#123;&#125;</code></li>
+<li><code>sout</code>：<code>System.out.println();</code></li>
+<li><code>fori</code>：<code>for (int i = 0; i &lt; ; i++) &#123;&#125;</code></li>
+<li><code>xxx.for</code>：<code>for(int i = 0; i &lt; xxx; i++) &#123;&#125;</code></li>
+</ul>
+<p>更多的请在 File - Settings - Editor - Live template 中查看或添加或者，通过下列快捷键查看</p>
+<ul>
+<li><code>ctrl + J</code>：查看模板快捷键</li>
+</ul>
+<h1 id="7-2-包"><a href="#7-2-包" class="headerlink" title="7.2 包"></a>7.2 包</h1><blockquote>
+<p>包的作用：1. 区分相同名字的类 2. 当类很多时，便于管理 3. 控制访问范围<br>语法：<code>package com.name</code> 其中 <code>com name</code> 分别是 一级 和 二级目录，用 . 分隔<br>包的本质：就是创建不同 文件夹&#x2F;目录 来保存 类 文件</p>
+</blockquote>
+<p>如何使用包中的对象：</p>
+<ol>
+<li><p>先引入包，之后创建对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.name.T;</span><br><span class="line">...</span><br><span class="line"><span class="type">T</span> <span class="variable">tools</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">T</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不引入包，而在创建对象时写全路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.name.<span class="type">T</span> <span class="variable">tools</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">com</span>.name.T();</span><br></pre></td></tr></table></figure>
+<p><strong>命名规则：</strong></p>
+</li>
+</ol>
+<ul>
+<li>只能包含 数字<code> 1 2 3</code>、字母 <code>a b A b</code>、下划线 <code>_</code>、小圆点 <code>.</code></li>
+<li>不能用 数字 开头。每级目录都不能</li>
+</ul>
+<p><strong>命名规范：</strong></p>
+<ul>
+<li>全小写字母 + 小圆点</li>
+<li><code>com.公司名.项目名.业务模块</code></li>
+</ul>
+<p><strong>常用的包：</strong><br><code>java.lang</code>：基本包，默认引入，不需要再引入<br><code>java.util</code>：系统提供的工具包。工具类。<br><code>java.net</code>：网络包，网络开发。<br><code>java.awt</code>：Java 的界面开发，GUI。<br><strong>引入包：</strong></p>
+<ul>
+<li>只引入该包下的一个类：<code>import java.util.Scanner</code></li>
+<li>引入该包的所有内容（不建议）：<code>import java.util.*</code></li>
+</ul>
+<p><strong>使用细节：</strong></p>
+<ol>
+<li><code>package</code> 的作用是声明当前类所在的包，要放在 类 的 最上面。一个 类 中最多有一句 <code>package</code></li>
+<li><code>import</code> 放在<code> package</code> 下面，类定义 前面。可以有多条语句，且没有顺序要求</li>
+<li>编译器编译时 <strong>不会</strong> 检查目录结构。即使一个包处于错误的目录下（只要其不依赖其他包）也可能通过编译。但是，虚拟机会找不到该包，最终程序无法运行。</li>
+<li>从 1.2 版本开始，用户不能再把包放在 java. 开头的目录下了。若如此做，这些包会被禁止加载。</li>
+</ol>
+<h2 id="7-4-1-静态导入"><a href="#7-4-1-静态导入" class="headerlink" title="7.4.1 静态导入"></a>7.4.1 静态导入</h2><blockquote>
+<p>有一种import 语句允许导入静态方法和字段，而不只是类</p>
+</blockquote>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.Math.*;</span><br></pre></td></tr></table></figure>
+<p>这个场合，使用 Math 包内的静态方法、字段时，不需要再添加类名前缀。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">n</span> <span class="operator">=</span> pow(<span class="number">10</span>, <span class="number">5</span>);					<span class="comment">// &lt;———— 本来是 double n = Math.pow(10, 5);</span></span><br><span class="line"><span class="type">double</span> <span class="variable">pi</span> <span class="operator">=</span> PI;							<span class="comment">// &lt;———— 本来是 double pi = Math.PI;</span></span><br></pre></td></tr></table></figure>
+<h1 id="7-3-访问修饰符"><a href="#7-3-访问修饰符" class="headerlink" title="7.3 访问修饰符"></a>7.3 访问修饰符</h1><h2 id="7-3-1-访问权限特点"><a href="#7-3-1-访问权限特点" class="headerlink" title="7.3.1 访问权限特点"></a>7.3.1 访问权限特点</h2><p>Java 提供 4 种 访问控制修饰符号，用于控制方法和属性（成员变量）的访问权限（范围）</p>
+<ul>
+<li>公开级别：<code>public</code>，对外公开。</li>
+<li>受保护级别：<code>protected</code>，对 子类 和 同一个包中的类 公开。</li>
+<li>默认级别：没有修饰符号，向 同一个包的类 公开。</li>
+<li>私有级别：<code>private</code>，只有 同类 可以访问，不对外公开。<table>
+<thead>
+<tr>
+<th><strong>(⌐■_■)</strong></th>
+<th><strong>默认（无修饰符）</strong></th>
+<th><strong>private</strong></th>
+<th><strong>protected</strong></th>
+<th><strong>public</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>本类</td>
+<td>可</td>
+<td>可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>同包中的子类</td>
+<td>可</td>
+<td>不可以</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>同包的非子类</td>
+<td>可</td>
+<td>不可以</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>其他包的子类</td>
+<td>不可以</td>
+<td>不可以</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>其他包的非子类</td>
+<td>不可以</td>
+<td>不可以</td>
+<td>不可以</td>
+<td>可</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="7-3-2-使用说明"><a href="#7-3-2-使用说明" class="headerlink" title="7.3.2 使用说明"></a>7.3.2 使用说明</h2><ol>
+<li>修饰符可以修饰类中的 属性、成员方法 及 类</li>
+<li>只有 默认 和 <code>public</code> 才能修饰 类，并遵循上述访问权限特点</li>
+<li>成员方法 的访问规则和 属性 相同</li>
+<li>private 修饰的变量可以被 任意本对象同类的对象访问</li>
+</ol>
+<h1 id="7-4-封装"><a href="#7-4-封装" class="headerlink" title="7.4 封装"></a>7.4 封装</h1><blockquote>
+<p>封装（encapsulation）就是把抽象出的 数据[属性] 和对数据的 操作[方法] 封装在一起。数据 被保护在内部，程序的其他部分只有通过被授权的 操作[方法]，才能对数据进行操作。</p>
+</blockquote>
+<p>封装的好处：</p>
+<ul>
+<li>隐藏实现细节</li>
+<li>可以对数据进行验证，保证安全合理</li>
+</ul>
+<p><strong>实现步骤：</strong></p>
+<ol>
+<li>将属性私有化 <code>private</code></li>
+<li>提供一个公共的 <code>set</code> 方法，用于对属性判断并赋值</li>
+<li>提供一个公共的 <code>get</code> 方法，用于获取属性的值</li>
+</ol>
+<p><strong>编译多个源文件：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac MyClass.java</span><br></pre></td></tr></table></figure>
+<p>该文件中使用了其他类时，Java 编译器会查找对应名称的 .class 文件。没有找到的场合，转而寻找 .java 文件，并对其编译。倘若 .java 文件相较原有 .class 文件更新，编译器也会自动重新编译该文件。</p>
+<h2 id="7-4-1-静态导入-1"><a href="#7-4-1-静态导入-1" class="headerlink" title="7.4.1 静态导入"></a>7.4.1 静态导入</h2><blockquote>
+<p>有一种import语句允许导入静态方法和字段，而不只是类。</p>
+</blockquote>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.Math.*;</span><br></pre></td></tr></table></figure>
+<p>这个场合，使用 Math 包内的静态方法、字段时，不需要再添加类名前缀。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">n</span> <span class="operator">=</span> pow(<span class="number">10</span>, <span class="number">5</span>);					<span class="comment">// &lt;———— 本来是 double n = Math.pow(10, 5);</span></span><br><span class="line"><span class="type">double</span> <span class="variable">pi</span> <span class="operator">=</span> PI;							<span class="comment">// &lt;———— 本来是 double pi = Math.PI;</span></span><br></pre></td></tr></table></figure>
+<h2 id="7-4-2-JAR-文件"><a href="#7-4-2-JAR-文件" class="headerlink" title="7.4.2 JAR 文件"></a>7.4.2 JAR 文件</h2><blockquote>
+<p>为了避免向用户提供包含大量类文件的复杂目录结构，可以将 Java 程序打包成 JAR （Java 归档）文件。<br>一个 JAR 文件既可以包含类文件，也可以包含诸如图像和声音等其他类型的文件。<br>JAR 文件是压缩的。其使用了 ZIP压缩格式。</p>
+</blockquote>
+<p><strong>创建 JAR：</strong><br>使用 jar 工具以制作 JAR 文件。该工具在 jdk&#x2F;bin 目录下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cvf 包名 文件名<span class="number">1</span> 文件名<span class="number">2</span> ...</span><br></pre></td></tr></table></figure>
+<p>关于 jar 工具的各种指令，还是自己去百度一下吧</p>
+<h1 id="7-5-继承"><a href="#7-5-继承" class="headerlink" title="7.5 继承"></a>7.5 继承</h1><blockquote>
+<p>继承：能解决代码复用，让我们的编程更接近人类思维。当多个类存在相同的 属性（变量）和 方法 时，可以从这些类中抽象出 父类（基类&#x2F;超类）。在 父类 中定义这些属性·方法，所有的子类不需要重新定义这些属性和方法，只需要通过 <code>extends</code> 来声明继承父类即可。<br>通过继承的方法，代码的复用性提高了，代码的维护性和拓展性也提高了。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_">Father</span> &#123;&#125;;				<span class="comment">// Son 类继承了 Father 类</span></span><br></pre></td></tr></table></figure>
+<p>定义类时可以指明其父类，也能不指明。不指明的场合，默认继承 Object 类。<br>所有类有且只有一个父类。Object 是所有类的直接或间接父类。只有 Object 本身没有父类。</p>
+<h2 id="7-5-1-使用细节"><a href="#7-5-1-使用细节" class="headerlink" title="7.5.1 使用细节"></a>7.5.1 使用细节</h2><ol>
+<li>子类 继承了所有属性和方法，但私有（<code>private</code>）的 属性·方法 不能在 子类 直接访问。要调用父类提供的 公共（<code>public</code>）等方法 访问。</li>
+<li>子类 必须调用 父类 的 构造器，完成 父类 的 初始化。</li>
+<li>当创建 子类对象 时，不管使用 子类的哪个构造器，默认情况下总会调用 父类的无参构造器。如果 父类 没有提供 无参构造器，则必须在 子类的构造器 中用 <code>super</code> 去指定使用 父类的哪个构造器 完成 对父类的初始化。否则编译不能通过。</li>
+<li>如果希望指定调用 父类的某构造器，则显式地调用一下：<code>super(形参列表);</code></li>
+<li><code>super</code> 在使用时，必须放在构造器第一行。<code>super</code> 只能在构造器中使用。</li>
+<li>由于 <code>super </code>与 <code>this</code> 都要求放在第一行，所以此两个方法不能同时存在于同一构造器。</li>
+<li>Java 所有的类都是 <code>Object</code> 的子类。换言之，<code>Object</code> 是所有类的父类。</li>
+<li>父类构造器的调用不限于直接父类，将持续向上直至追溯到顶级父类 <code>Object</code></li>
+<li>子类 最多只能直接继承 一个 父类。即，Java 中是 单继承机制。</li>
+<li>不能滥用继承。子类 和 父类 之间必须满足 is - a 的逻辑关系。</li>
+</ol>
+<h2 id="7-5-2-继承的本质"><a href="#7-5-2-继承的本质" class="headerlink" title="7.5.2 继承的本质"></a>7.5.2 继承的本质</h2><ul>
+<li>内存布局：<ol>
+<li>在 方法区，自顶级父类起，依次加载 类信息。</li>
+<li>在 堆 中开辟一个空间，自顶级父类起，依次创建并初始化各个类包含的所有属性信息。</li>
+<li>在 栈 中存放该空间的 地址。</li>
+</ol>
+</li>
+<li>如何查找信息？<ol>
+<li>查看该子类是否有该属性。如果该子类有这个属性且可以访问，则返回信息。</li>
+<li>子类没有该属性的场合，查看父类是否有该属性。如有且可访问，则返回信息。如不可访问，则报错。</li>
+<li>父类也没有该属性的场合，继续查找上级父类，直到顶级父类（Object）。</li>
+<li>如需调用某个特定类包含的特定信息，可以调用该类提供的方法。</li>
+</ol>
+</li>
+</ul>
+<h2 id="7-5-3-super关键字"><a href="#7-5-3-super关键字" class="headerlink" title="7.5.3 super关键字"></a>7.5.3 <code>super</code>关键字</h2><blockquote>
+<p><code>super</code> 代表父类的引用。用于访问父类的 属性、方法、构造器。</p>
+</blockquote>
+<p><strong>super 的使用：</strong></p>
+<ul>
+<li><code>super.属性名</code>：访问父类的属性。不能访问父类的私有（private）属性。</li>
+<li><code>super.方法名(形参列表)</code>：访问父类的方法。不能访问父类的私有（private）方法。</li>
+<li><code>super(参数列表);</code>：访问父类的构造器。此时，super 语句必须放在第一句。</li>
+</ul>
+<p><strong>使用细节：</strong></p>
+<ol>
+<li>调用父类构造器，好处是分工明确。父类属性由父类初始化，子类由子类初始化。</li>
+<li>子类中由和父类中成员（属性和方法）重名时，要调用父类成员必须用 super。没有重名的场合，<code>super</code>、<code>this</code> 及直接调用的效果相同。</li>
+<li><code>super</code> 的访问不限于直接父类。如果爷爷类和本类中都有同名成员也能使用。如果多个基类中都有同名成员，则遵循就近原则。</li>
+</ol>
+<h2 id="7-5-4-方法重写-x2F-覆盖"><a href="#7-5-4-方法重写-x2F-覆盖" class="headerlink" title="7.5.4 方法重写&#x2F;覆盖"></a>7.5.4 方法重写&#x2F;覆盖</h2><blockquote>
+<p>方法重写&#x2F;覆盖（Override）：如若子类有一个方法，和父类的某方法的 名称、返回类型、参数 一样，那么我们就说该子类方法 覆盖 了那个父类方法。</p>
+</blockquote>
+<p><strong>使用细节：</strong></p>
+<ol>
+<li>子类方法的参数，方法名称，要和父类方法完全一致。</li>
+<li>子类方法的返回类型需和父类方法 一致，或者是父类返回类型的子类。</li>
+<li>子类方法 <strong>不能缩小</strong> 父类方法的访问范围（访问修饰符）。</li>
+</ol>
+<h1 id="7-6-多态"><a href="#7-6-多态" class="headerlink" title="7.6 多态"></a>7.6 多态</h1><blockquote>
+<p>多态：方法 或 对象 有多种形态。多态 是面向对象的第三大特征，是建立在 封装 和 继承 的基础之上的</p>
+</blockquote>
+<h2 id="7-6-1-多态的体现"><a href="#7-6-1-多态的体现" class="headerlink" title="7.6.1 多态的体现"></a>7.6.1 多态的体现</h2><ol>
+<li>方法的多态：重写 和 重载 体现了 方法的多态。</li>
+<li><strong>对象的多态：</strong><ul>
+<li>一个对象的 编译类型 和 运行类型 可以不一致。<code>Animal animal = new Dog();</code>上例，编译类型是 <code>Animal</code>，运行类型是子类 <code>Dog</code>。</li>
+<li>编译类型在定义对象时就确定了，不能改变。</li>
+<li>运行类型是可以变化的。上例中，再让 <code>animal = new Cat();</code>，这样，运行类型变为了 <code>Cat</code></li>
+<li>编译类型看定义时 <code>=</code> 的左边，运行类型看 <code>=</code> 的右边。</li>
+</ul>
+</li>
+</ol>
+<h2 id="7-6-2-使用细节"><a href="#7-6-2-使用细节" class="headerlink" title="7.6.2 使用细节"></a>7.6.2 使用细节</h2><ol>
+<li>多态的前提：两个对象 &#x2F; 类存在继承关系。</li>
+<li>多态的向上转型：<ul>
+<li>本质：父类的引用指向了子类的对象。（如 [ 7.6.1.2 ]）</li>
+<li>语法：<code>父类类型 引用名 = new 子类类型(参数列表);</code></li>
+<li>编译类型看左边，运行类型看右边。</li>
+<li>可以调用父类中的所有成员，但不能调用子类特有的成员，而且需要遵守访问权限。因为在编译阶段，能调用哪些成员是由编译类型决定的。</li>
+<li>最终的运行结果要看子类的具体实现。即从子类起向上查找方法调用（与 [ 7.5.2 ] 规则相同）。</li>
+</ul>
+</li>
+<li>多态的向下转型：<ul>
+<li>语法：<code>子类类型 引用名 = (子类类型)父类引用;</code></li>
+</ul>
+</li>
+</ol>
+<p>[7.6.2.2] 的例子里，向下转型。这个语法其实和 [2.8.2 强制类型转换] 很像。<br><code>Dog dog = (Dog)animal;</code></p>
+<ul>
+<li>只能强转父类的引用，不能强转父类的对象。</li>
+<li>要求父类的引用必须指向的是当前目标类型的对象。即上例中的 animal 运行类型需是 Dog</li>
+<li>向下转型后，可以调用子类类型中的所有成员。</li>
+</ul>
+<ol start="4">
+<li>属性没有重写一说。<strong>和 方法 不同，属性的值 看编译类型。</strong></li>
+<li>instanceof 比较操作符。用于判断对象类型是否是某类型或其子类型。此时判断的是 <strong>运行类型。</strong></li>
+</ol>
+<h2 id="7-6-3-理解方法调用"><a href="#7-6-3-理解方法调用" class="headerlink" title="7.6.3 理解方法调用"></a>7.6.3 理解方法调用</h2><p>在对象上调用方法的过程如下：</p>
+<ol>
+<li>编译器查看对象的声明类型和方法名。该类和其父类中，所有同名方法（包括参数不同的方法）都被列举。至此，编译器已经知道所有可能被调用的方法。</li>
+<li>编译器确认方法调用中提供的参数类型。那些列举方法中存在参数类型完全匹配的方法时，即调用该方法。没有发现匹配方法，抑或是发现经过类型转换产生了多个匹配方法时，就会报错至此，编译器已经知道要调用方法的名字和参数类型</li>
+<li>如若是 private 方法、static 方法、final 方法、构造器，那么编译器将能准确知道要调用哪个方法。这称为 <strong>静态绑定</strong> 与之相对的，如果调用方法依赖于隐式参数类型，那么必须在运行时 <strong>动态绑定</strong></li>
+<li>程序运行并采取动态绑定方法时，JVM 将调用那个** 实际类型** 对应的方法。</li>
+</ol>
+<p>倘若每次调用方法都进行以上搜索，会造成庞大的时间开销。为此，JVM 预先为每个类计算了** 方法表。**<br>方法表中列举了所有方法的签名与实际调用的方法。如此，每次调用方法时，只需查找该表即可。<br>特别地，使用 super 关键字时，JVM 会查找其父类的方法表。<br><strong>动态绑定机制：</strong></p>
+<ul>
+<li>当调用对象方法的时候，该方法和该对象（隐式参数）的内存地址&#x2F;运行类型绑定。</li>
+<li>当调用对象属性时，没有动态绑定机制。于是哪里声明，哪里调用。</li>
+</ul>
+<h1 id="7-7-Object类"><a href="#7-7-Object类" class="headerlink" title="7.7 Object类"></a>7.7 Object类</h1><h2 id="7-7-1-equals-方法"><a href="#7-7-1-equals-方法" class="headerlink" title="7.7.1 equals 方法"></a>7.7.1 equals 方法</h2><blockquote>
+<p><code>对象名.equals(形参);</code></p>
+</blockquote>
+<ul>
+<li><code>==</code>：既可以判断基本类型，也可以判断引用类型。如果判断基本类型，判断的是值是否相等。如果判断引用类型，判断的是地址是否相等。</li>
+<li><code>equals</code>：是 Object 中的方法，只能判断引用类型。默认判断地址是否相等，但子类中往往重写该代码，以判断内容是否相等。</li>
+</ul>
+<h2 id="7-7-2-hashCode-方法"><a href="#7-7-2-hashCode-方法" class="headerlink" title="7.7.2 hashCode 方法"></a>7.7.2 hashCode 方法</h2><blockquote>
+<p><code>对象名.hashCode();</code><br>返回对象的 哈希码值</p>
+</blockquote>
+<ol>
+<li>提高哈希结构的容器的效率。</li>
+<li>两个引用，若是指向同一对象，则哈希值必定相同，反之不同（但，严谨的说，也有极低概率发生碰撞）</li>
+<li>哈希值是根据地址生成的，因而，哈希值不能等同于地址</li>
+<li>如何重写该方法：后面学习 [ 集合 ] 时说明</li>
+</ol>
+<h2 id="7-7-3-toString-方法"><a href="#7-7-3-toString-方法" class="headerlink" title="7.7.3 toString 方法"></a>7.7.3 toString 方法</h2><blockquote>
+<p><code>对象名.toString();</code></p>
+</blockquote>
+<ol>
+<li>默认返回：<code>全类名@哈希值的十六进制;</code><ul>
+<li>全类名：即包名+类名。比如 <code>com.prictice.codes.Person</code></li>
+</ul>
+</li>
+<li>重写该方法，打印对象或拼接对象时，都会自动调用该对象的 <code>toString</code></li>
+<li>当直接调用对象时，默认调用该方法。</li>
+</ol>
+<h2 id="7-7-4-findlize-方法"><a href="#7-7-4-findlize-方法" class="headerlink" title="7.7.4 findlize 方法"></a>7.7.4 findlize 方法</h2><ol>
+<li>当对象被回收时，系统会自动调用该对象的 <code>finalize</code> 方法。子类可以重写该方法，做一些释放资源的操作。</li>
+<li>何时被回收：当某对象没有任何引用时，JVM 就认为该对象是一个垃圾对象，就会（在算法决定的某个时刻）使用垃圾回收机制来销毁该对象。在销毁该对象前，会调用 <code>finalize</code> 方法。</li>
+<li>垃圾回收机制的调用，是由系统决定。也可以通过 <code>System.gc(); </code>主动触发垃圾回收机制。这个方法一经调用就会继续执行余下代码，而不会等待回收完毕。</li>
+<li>实际开发中，几乎不会运用该方法。</li>
+</ol>
+<h1 id="7-8-断点调试-Debug"><a href="#7-8-断点调试-Debug" class="headerlink" title="7.8 断点调试(Debug)"></a>7.8 断点调试(Debug)</h1><blockquote>
+<p>断点调试：在程序某一行设置一个断点，调试时，代码运行至此就会停住，然后可以一步一步往下调试。调试过程中可以看各个变量当前的值。如若出错，则测试到该出错代码行即显示错误并停下。进行分析从而找到这个 Bug。<br>调试过程中是运行状态，所以，是以对象的 运行类型 执行。<br>断点调试是程序员必须掌握的技能，能帮助我们查看 Java 底层源代码的执行过程，提高程序员 Java 水平。</p>
+</blockquote>
+<p>快捷键如下</p>
+<ul>
+<li>跳入：<code>F7</code></li>
+<li>跳过：<code>F8</code></li>
+<li>跳出：<code>shift + F8</code></li>
+<li>resume，执行到下一个断点：<code>F9</code></li>
+</ul>
+<h1 id="7-9-零钱通程序"><a href="#7-9-零钱通程序" class="headerlink" title="7.9 零钱通程序"></a>7.9 零钱通程序</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wlm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeApp</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">SmallChangeOop</span> <span class="variable">smallChangeOop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SmallChangeOop</span>();</span><br><span class="line">        smallChangeOop.menu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeOop</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">details</span> <span class="operator">=</span> <span class="string">&quot;------------零钱通明细------------&quot;</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">money</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 菜单</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">menu</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n=============零钱通菜单=============&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 1 零 钱 通 明 细&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 2 收 益 入 账&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 3 消      费&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 4 退      出&quot;</span>);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">&quot;请选择(1-4): &quot;</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                    show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                    income();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                    pay();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;4&quot;</span>:</span><br><span class="line">                    exit();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (loop);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 零钱通明细</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(details);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 收入细明</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">income</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入入账金额： &quot;</span>);</span><br><span class="line">        money = scanner.nextDouble();</span><br><span class="line">        <span class="keyword">if</span>(money &lt;=<span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;存不进去，请输入正确金额&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        balance += money;</span><br><span class="line">        details += <span class="string">&quot;\n收益入账\t+&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">note</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入消费金额 :&quot;</span>);</span><br><span class="line">        money = scanner.nextDouble();</span><br><span class="line">        <span class="keyword">if</span> (money &lt;= <span class="number">0</span> &amp;&amp; money &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;太贵了买不起，只能买1-100块钱的东西&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(balance &lt; money) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;买不起，存款不足啊！&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入消费说明：&quot;</span>);</span><br><span class="line">        note = scanner.next();</span><br><span class="line">        balance -= money;</span><br><span class="line">        details += <span class="string">&quot;\n&quot;</span>+note+<span class="string">&quot;\t-&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 退出程序</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;退出系统(y/n)? &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">choice</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;y&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                loop = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;n&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;输入有误,请重新输入！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wlm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeSys</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 选择菜单并且给出相应的提示</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 零钱通明细</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">details</span> <span class="operator">=</span> <span class="string">&quot;------------零钱通明细------------&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 收益入账</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">money</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消费</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">note</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n=============零钱通菜单=============&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 1 零 钱 通 明 细&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 2 收 益 入 账&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 3 消      费&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 4 退      出&quot;</span>);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">&quot;请选择(1-4): &quot;</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                    System.out.println(details);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入入账金额： &quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span>(money &lt;=<span class="number">0</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;存不进去，请输入正确金额&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    balance += money;</span><br><span class="line">                    details += <span class="string">&quot;\n收益入账\t+&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费金额 :&quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span> (money &lt;= <span class="number">0</span> &amp;&amp; money &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;太贵了买不起，只能买1-100块钱的东西&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(balance &lt; money) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;买不起，存款不足啊！&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费说明：&quot;</span>);</span><br><span class="line">                    note = scanner.next();</span><br><span class="line">                    balance -= money;</span><br><span class="line">                    details += <span class="string">&quot;\n&quot;</span>+note+<span class="string">&quot;\t-&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;4&quot;</span>:</span><br><span class="line">                    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                        System.out.print(<span class="string">&quot;退出系统(y/n)? &quot;</span>);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">choice</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;y&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            loop = <span class="literal">false</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;n&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            System.out.println(<span class="string">&quot;输入有误,请重新输入！&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    System.out.println(<span class="string">&quot;您的选择有误，请重新选择&quot;</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">while</span> (loop);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;已成功退出零钱通系统~&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/" title="7. 面向对象编程(中级)">http://example.com/2022/09/11/JavaSE/7. 面向对象编程(中级)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/" rel="prev" title="6. 面向对象编程(基础)">
+                  <i class="fa fa-chevron-left"></i> 6. 面向对象编程(基础)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/" rel="next" title="8. 房屋出租系统">
+                  8. 房屋出租系统 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>

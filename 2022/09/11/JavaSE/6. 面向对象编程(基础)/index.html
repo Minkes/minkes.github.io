@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 面向对象编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. 面向对象编程(基础)">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 面向对象编程">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-11T10:50:50.440Z">
+<meta property="article:modified_time" content="2022-09-11T11:01:18.129Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/","path":"2022/09/11/JavaSE/6. 面向对象编程(基础)/","title":"6. 面向对象编程(基础)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>6. 面向对象编程(基础) | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1-OOP"><span class="nav-number">1.</span> <span class="nav-text">6.1 类与对象(OOP)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-1-%E5%B1%9E%E6%80%A7-x2F-%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">6.1.1 属性&#x2F;成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-2-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.2.</span> <span class="nav-text">6.1.2 创建对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-3-%E8%AE%BF%E9%97%AE%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">6.1.3 访问对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-4-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">6.1.4 类与对象的内存访问机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-2-%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">6.2 成员方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-1-%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">2.1.</span> <span class="nav-text">6.2.1 方法的调用机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-2-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">2.2.</span> <span class="nav-text">6.2.2 使用细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-3-%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95%E4%BC%A0%E5%8F%82%E6%9C%BA%E5%88%B6"><span class="nav-number">2.3.</span> <span class="nav-text">6.2.3 成员方法传参机制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-%E6%96%B9%E6%B3%95%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">6.3 方法递归调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">3.1.</span> <span class="nav-text">6.3.1 使用细节</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-4-%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD"><span class="nav-number">4.</span> <span class="nav-text">6.4 方法重载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-5-%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">6.5 可变参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">5.1.</span> <span class="nav-text">6.5.1 使用细节</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-6-%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">6.</span> <span class="nav-text">6.6 作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-6-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">6.1.</span> <span class="nav-text">6.6.1 使用细节</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-7-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E3%80%81%E6%9E%84%E9%80%A0%E5%99%A8"><span class="nav-number">7.</span> <span class="nav-text">6.7 构造方法、构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">7.1.</span> <span class="nav-text">6.7.1 使用细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-2-%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="nav-number">7.2.</span> <span class="nav-text">6.7.2 流程分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-8-this%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">8.</span> <span class="nav-text">6.8 this关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-1-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">8.1.</span> <span class="nav-text">6.8.1 使用方法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="6. 面向对象编程(基础) | 安之">
+      <meta itemprop="description" content="Java 面向对象编程">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          6. 面向对象编程(基础)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:50:50 / 修改时间：19:01:18" itemprop="dateCreated datePublished" datetime="2022-09-11T18:50:50+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 面向对象编程</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>面向对象是一种开发软件的方法，使分析、设计和实现一个系统的方法尽可能接近人们认识一个系统的方法。包括三个方面：面向对象分析、面向对象设计、面向对象程序设计。<br>Java 语言是纯面向对象的语言。其所有数据类型都有相应的类，程序可以完全基于对象编写。</p>
+</blockquote>
+<h1 id="6-1-类与对象-OOP"><a href="#6-1-类与对象-OOP" class="headerlink" title="6.1 类与对象(OOP)"></a>6.1 类与对象(OOP)</h1><blockquote>
+<p><code>类</code> 就是数据类型。可以是 <code>int</code> 也可以是 <code>人类</code><br><code>对象</code> 就是其中具体的实例。可以是 <code>100</code> 也可以是 <code>韩顺平</code><br>从 <code>类</code> 到 <code>对象</code>，可以称为 创建一个对象，也可以说 实例化一个对象，或者 把对象实例化</p>
+<ol>
+<li>类 是抽象的、概念的，代表一类事物</li>
+<li>对象 是具体的、实际的，代表一个个具体事物</li>
+<li>类 是 对象 的模板，对象 是 类 的一个个体，对应一个实例</li>
+</ol>
+</blockquote>
+<p>下面，我们定义了一个类 Cat 并创建了一些 对象 cat1 cat2：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_1</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat1.name = <span class="string">&quot;福福&quot;</span>;</span><br><span class="line">		cat1.age = <span class="number">2</span>;</span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat2.name = <span class="string">&quot;妞子&quot;</span>;</span><br><span class="line">		cat2.age = <span class="number">1</span>;</span><br><span class="line">		System.out.println(cat1.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-1-属性-x2F-成员变量"><a href="#6-1-1-属性-x2F-成员变量" class="headerlink" title="6.1.1 属性&#x2F;成员变量"></a>6.1.1 属性&#x2F;成员变量</h2><blockquote>
+<p>从概念或叫法上看：成员变量 &#x3D; 属性 &#x3D; field（字段）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>String name; </code>就是一个成员变量（属性）。<br>属性可以是基本数据类型，也可以是引用数据类型。</p>
+<ol>
+<li>属性的定义语法同变量。访问修饰符 属性类型 属性名<ul>
+<li>访问修饰符：控制属性的访问范围。有四种：<code>publie</code> <code>protected</code> <code>默认(空) private</code></li>
+</ul>
+</li>
+<li>属性的定义类型可以为任意类型，包含 基本类型 或 引用类型</li>
+<li>属性如果不赋值，有默认值。</li>
+</ol>
+<h2 id="6-1-2-创建对象"><a href="#6-1-2-创建对象" class="headerlink" title="6.1.2 创建对象"></a>6.1.2 创建对象</h2><ul>
+<li><p><strong>先声明再创建</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat1;  				    <span class="comment">//声明对象cat1</span></span><br><span class="line">cat1 = <span class="keyword">new</span> <span class="title class_">Cat</span>();			<span class="comment">//创建对象</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>直接创建</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+</li>
+</ul>
+<ol>
+<li>声明对象的场合，只是在内存中建立了一个引用。此时，该地址引用不指向任何内存空间。对象的引用，也被称为对象的句柄。</li>
+<li>使用 new 运算符创建对象实例时，会为对象分配空间，就会调用类的构造方法。那之后，会将该段内存的首地址赋给刚才建立的引用。</li>
+</ol>
+<h2 id="6-1-3-访问对象"><a href="#6-1-3-访问对象" class="headerlink" title="6.1.3 访问对象"></a>6.1.3 访问对象</h2><blockquote>
+<p><strong>基本语法</strong>：<code>对象名.属性名</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(cat1.name);</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-4-类与对象的内存访问机制"><a href="#6-1-4-类与对象的内存访问机制" class="headerlink" title="6.1.4 类与对象的内存访问机制"></a>6.1.4 类与对象的内存访问机制</h2><blockquote>
+<p>栈：一般存放基本数据类型（局部变量）<br>堆：存放对象（如Cat cat1 &#x3D; new Cat()，是在这里开辟的空间）<br>方法区：常量池（常量，比如字符串），类加载信息</p>
+</blockquote>
+<ol>
+<li>创建对象时，先加载 类 信息，然后在 堆 中分配空间，栈 中的对象名被赋予指向那个空间的地址。</li>
+<li>之后进行指定初始化。该对象的 属性 中，是 基本数据类型 的直接记录在 堆 中；是 字符串 的记录一个地址，该地址指向 方法区，那里的常量池有该字符串。</li>
+</ol>
+<h1 id="6-2-成员方法"><a href="#6-2-成员方法" class="headerlink" title="6.2 成员方法"></a>6.2 成员方法</h1><p>在某些情况下，我们需要定义成员方法。比如 <code>Cat</code> 除了有属性（<code>name</code> <code>age</code>）外，还可以有一些行为比如玩耍。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">修饰符 返回数据类型 方法名(形参列表)&#123;</span><br><span class="line">	方法体语句;</span><br><span class="line">	returen 返回值;			<span class="comment">//返回数据类型是 void 的场合，return语句不是必须的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>方法名必须是一个合法的标识符</p>
+</li>
+<li><p>返回类型即返回值的类型。如果方法没有返回值，应声明为 void</p>
+</li>
+<li><p>修饰符段可以有几个不同的修饰符。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;哎咿呀~ 哎咿呀~&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>其中 public（访问修饰符）、static（static 关键字）、final（final 关键字）</p>
+</li>
+<li><p>参数列表是传递给方法的参数表。各个元素间以 , 分隔。每个元素由一个类型和一个标识符表示的参数组成。</p>
+</li>
+</ol>
+<p>特别地，<code>参数类型... 标识符</code> 这样的参数被称为可变参数</p>
+<ol start="5">
+<li>方法体是实际要执行的代码块。方法体一般用 return 作为方法的结束。</li>
+</ol>
+<p>使用 <code>成员方法</code>，能提高代码的复用性。而且能把实现的细节封装起来，供其他用户调用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;				<span class="comment">//属性 name</span></span><br><span class="line">	<span class="type">int</span> age;					<span class="comment">//属性 age</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">()</span>&#123;		<span class="comment">//方法 speak()</span></span><br><span class="line">  		System.out.println(<span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>方法写好后，不去调用就不会输出</li>
+<li>先创建对象，然后调用方法即可</li>
+</ol>
+</blockquote>
+<p>下面，展示一个含有成员方法的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">       cat1.speak(<span class="number">10</span>, <span class="number">15</span>);				<span class="comment">//调用 speak 方法，并且给 n1 = 10, n2 = 15</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);	<span class="comment">//调用 speak2 方法,返回值赋给 r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//(int n1, int n2)形参列表，当前有两个形参 n1,n2</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       System.out.println(<span class="string">&quot;喵~&quot;</span> + n1 + <span class="string">&quot; + &quot;</span> + n2 +<span class="string">&quot; 的值是：&quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//int 表示方法执行后，返回一个 int 值</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       <span class="keyword">return</span> res;						<span class="comment">//返回 res 的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-2-1-方法的调用机制"><a href="#6-2-1-方法的调用机制" class="headerlink" title="6.2.1 方法的调用机制"></a>6.2.1 方法的调用机制</h2><p>以前文代码为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);		</span><br><span class="line">...</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	</span><br><span class="line">   <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">   <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>当程序执行到方法时，在 栈 中开辟一个新的 栈空间。该空间里储存 <code>n1 = 15</code> <code>n2 = 135</code>，之后计算并储存结果 <code>res = 150</code></li>
+<li>当方法执行完毕，或执行到 <code>return</code> 语句时，就会返回</li>
+<li>把 新栈空间 中的 <code>res = 150</code> 返回 main栈 中调用方法的地方</li>
+<li>返回后，继续执行该方法的后续代码</li>
+</ol>
+<h2 id="6-2-2-使用细节"><a href="#6-2-2-使用细节" class="headerlink" title="6.2.2 使用细节"></a>6.2.2 使用细节</h2><ol>
+<li>访问修饰符：作用是控制方法的使用范围。<ul>
+<li>不写（默认访问控制范围）</li>
+<li>public：公共</li>
+<li>protected：受保护</li>
+<li>private：私有</li>
+</ul>
+</li>
+<li>返回数据类型：<ul>
+<li>一个方法最多有一个返回值。要返回多个结果可以使用 数组。</li>
+<li>返回类型为任意类型。包括 基本数据类型 和 引用数据类型。</li>
+<li>如果方法要求有返回数据类型，则方法体中最后的执行语句必为 <code>return</code> 值，且返回类型必须和 <code>return</code> 的值一致。</li>
+<li>如果 返回数据类型 为 <code>void</code>，则可以不写 <code>return </code>语句</li>
+</ul>
+</li>
+<li>方法名：<ul>
+<li>遵循驼峰命名法，最好见名知意，表达出该功能的意思。</li>
+</ul>
+</li>
+<li>参数列表（形参列表）：<ul>
+<li>一个方法可以有 0 个参数，也可以有多个参数。参数间用 , 间隔。</li>
+<li>参数类型可以为任意类型，包含 基本类型 和 引用类型。</li>
+<li>调用带参数的方法时，一定对应着 参数列表 传入 相同类型 或 兼容类型 的参数。</li>
+<li>方法定义时的参数称为 形式参数 ，简称 形参；方法调用时的参数（传入的参数）称为 实际参数，简称 实参。实参 与 形参 的类型、个数、顺序必须一致。</li>
+</ul>
+</li>
+<li>方法体：<ul>
+<li>写完成功能的具体语句。方法中不能再定义方法。即：方法不能嵌套定义。</li>
+</ul>
+</li>
+<li>调用细节：<ul>
+<li>同一个类中的方法调用，可以直接调用。</li>
+<li>跨类的方法调用，需要创建新对象，然后再调用方法。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C1</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">   m1();					<span class="comment">//同一个类中的方法调用，可以直接调用。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C2</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">C1</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">C1</span>();</span><br><span class="line">   c.m2();					<span class="comment">//跨类的方法调用，需要创建新对象，然后再调用方法。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="6-2-3-成员方法传参机制"><a href="#6-2-3-成员方法传参机制" class="headerlink" title="6.2.3 成员方法传参机制"></a>6.2.3 成员方法传参机制</h2><p>Java 语言对对象采用的是 <strong>值传递</strong>，方法得到的总是那个传入对象的副本。</p>
+<ul>
+<li>方法不能修改基本数据类型的参数。基本数据类型传递的是一个值，形参不影响实参。</li>
+<li>方法可以改变对象参数的状态。引用类型传递的是一个地址，形参和实参指向一处，两者总会相关。但改变那个形参地址指向的场合，实参的指向不会改变。</li>
+</ul>
+<h1 id="6-3-方法递归调用"><a href="#6-3-方法递归调用" class="headerlink" title="6.3 方法递归调用"></a>6.3 方法递归调用</h1><blockquote>
+<p>递归：即方法自己调用自己，每次调用时传入不同变量。递归有助于编程者解决复杂问题，同时可以让代码变得简洁。</p>
+</blockquote>
+<blockquote>
+<p>下面，示范一个斐波那契数列方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">return</span> (fib(n - <span class="number">1</span>)) + (feb(n - <span class="number">2</span>));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-3-1-使用细节"><a href="#6-3-1-使用细节" class="headerlink" title="6.3.1 使用细节"></a>6.3.1 使用细节</h2><ol>
+<li>执行一个方法时，就创建一个新的受保护的独立 栈空间。</li>
+<li>方法的局部变量是独立的，不会相互影响。</li>
+<li>如果方法中使用的是引用变量，就会共享数据。</li>
+<li>递归必须向退出递归的条件逼近，否则就是无限递归，会提示 StackOverflowError “死龟”</li>
+<li>当一个方法执行完毕，或遇到 return 就会返回。遵守谁调用就返回给谁。同时当方法执行完毕或返回时，该方法也执行完毕。</li>
+</ol>
+<h1 id="6-4-方法重载"><a href="#6-4-方法重载" class="headerlink" title="6.4 方法重载"></a>6.4 方法重载</h1><blockquote>
+<p>方法重载（Overload）：Java 中允许同一类中，多个同名方法的存在，但要求 形参列表 不一致。这样，减轻了起名和记名的麻烦。</p>
+</blockquote>
+<p><strong>使用细节:</strong></p>
+<ol>
+<li>方法名：必须相同</li>
+<li>形参列表：必须不同（参数的类型、个数、顺序，这其中至少一个不同）</li>
+<li>返回值：无要求</li>
+</ol>
+<p><strong>签名：</strong><br>由于重载的存在，要完整的描述一个方法，要指定方法名及参数类型。这叫做方法的签名。<br>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个方法的签名分别是：<code>act()</code> 和 <code>act(int n)</code></p>
+<h1 id="6-5-可变参数"><a href="#6-5-可变参数" class="headerlink" title="6.5 可变参数"></a>6.5 可变参数</h1><blockquote>
+<p>Java 允许将同一个类中多个同名同功能但参数个数不同的方法，封装成一个方法。</p>
+</blockquote>
+<p>语法：<code>访问修饰符 返回类型 方法名（数据类型... 形参名）&#123;代码块;&#125;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">int</span>... n)</span>&#123;</span><br><span class="line">	<span class="comment">//此时，n 相当于一个 数组。</span></span><br><span class="line">	<span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> n.length;</span><br><span class="line">	<span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> n[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-5-1-使用细节"><a href="#6-5-1-使用细节" class="headerlink" title="6.5.1 使用细节"></a>6.5.1 使用细节</h2><ol>
+<li>可变参数 的实参可以是 0 个，也可以是 任意多 个。</li>
+<li>可变参数 的实参可以是数组</li>
+<li>可变参数 本质就是数组</li>
+</ol>
+<p>因此，出现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>... n)</span>&#123;				<span class="comment">//这个方法与下面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的场合，不能有方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>[] n)</span>&#123;				<span class="comment">//这个方法与上面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>可变参数 和 普通参数 可以一起放在形参列表，但必须保证 可变参数 在最后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">double</span> dou, <span class="type">int</span>... n)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个形参列表最多出现 一个 可变参数。</p>
+</li>
+</ol>
+<h1 id="6-6-作用域"><a href="#6-6-作用域" class="headerlink" title="6.6 作用域"></a>6.6 作用域</h1><ol>
+<li>在 Java 编程中，主要的变量就是 属性（成员变量）和 局部变量。</li>
+<li>我们说的 局部变量 一般是指在成员方法中定义的变量。</li>
+<li>作用域的分类<ul>
+<li>全局变量：也就是 属性，作用域为整个类体</li>
+<li>局部变量：除了属性外的其他变量。作用域为定义它的代码块中</li>
+</ul>
+</li>
+<li>全局变量（属性）可以不赋值直接使用，那个场合有默认值。局部变量必须赋值使用</li>
+</ol>
+<h2 id="6-6-1-使用细节"><a href="#6-6-1-使用细节" class="headerlink" title="6.6.1 使用细节"></a>6.6.1 使用细节</h2><ol>
+<li>属性 和 局部变量 可以重名，访问时遵循就近原则</li>
+<li>在同一作用域中，两个局部变量不能重名</li>
+<li>属性 的生命周期较长。其伴随对象的创建而创建，伴随对象的销毁而销毁。局部变量 生命周期较短。其伴随代码块的执行而创建，伴随代码块的结束而销毁。</li>
+<li>全局变量&#x2F;属性 可以被本类使用，也可以被其他类（通过对象）使用。局部变量 只能被本类的对应方法中调用</li>
+<li>全局变量&#x2F;属性 <strong>可以加</strong> 修饰符局部变量 <strong>不能加</strong> 修饰符</li>
+</ol>
+<h1 id="6-7-构造方法、构造器"><a href="#6-7-构造方法、构造器" class="headerlink" title="6.7 构造方法、构造器"></a>6.7 构造方法、构造器</h1><blockquote>
+<p>构造方法又叫构造器（constructor），是类的一种特殊的方法。它的主要作用是完成对新对象的初始化。</p>
+</blockquote>
+<p>语法：<code>[修饰符] 方法名(形参列表)&#123;方法体&#125;</code></p>
+<ol>
+<li>构造器的修饰符可以是默认。也可以是别的</li>
+<li>参数列表 规则同 成员方法</li>
+</ol>
+<p>以下示范一个构造器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> mun;</span><br><span class="line">    <span class="comment">//下面这块就是构造器</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">T</span><span class="params">(String str, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">		name = str;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-7-1-使用细节"><a href="#6-7-1-使用细节" class="headerlink" title="6.7.1 使用细节"></a>6.7.1 使用细节</h2><ol>
+<li>构造器本质也是方法。所以，可以 构造器重载。</li>
+<li>构造器名 和 类名 相同</li>
+<li>构造器无返回值</li>
+<li>构造器是完成对象的初始化，而不是创建</li>
+<li>创建对象时，系统自动调用构造器</li>
+<li>如果程序员没有定义构造器，系统会自动给类生成一个无参构造器（默认构造器）</li>
+<li>一旦定义了自己的构造器，就不能用无参构造器了。除非显式的定义一个无参构造器</li>
+</ol>
+<h2 id="6-7-2-流程分析"><a href="#6-7-2-流程分析" class="headerlink" title="6.7.2 流程分析"></a>6.7.2 流程分析</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Amy&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pName, <span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">		name = pName;</span><br><span class="line">		age = pAge;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>加载 类信息（方法区）</li>
+<li>在 <strong>堆</strong> 中开辟空间（地址）</li>
+<li>完成对象初始化<ul>
+<li>首先默认初始化。<code>age = 0;</code> <code>name = null</code></li>
+<li>之后显式初始化。<code>age = 20;</code> <code>name = null</code>其中，显式初始化和代码块初始化按编写的先后顺序依次进行。</li>
+<li>之后构造器的初始化。<code>age = 10; name = &quot;Amy&quot;</code></li>
+</ul>
+</li>
+<li>把对象在 <strong>堆</strong> 中的 <strong>地址</strong>，返回给 <code>p1</code></li>
+</ol>
+<h1 id="6-8-this关键字"><a href="#6-8-this关键字" class="headerlink" title="6.8 this关键字"></a>6.8 <code>this</code>关键字</h1><blockquote>
+<p>JVM 会给每个对象分配 this 代表当前对象。<br>相当于在 堆 中，this 指向自己（对象）<br>在类定义的方法中，Java 会自动用 this 关键字把所有变量和方法引用结合在一起。<br>遇到有同名的局部变量的场合，需要程序员加入 this 关键字进行区分。不加入 this 关键字的场合，Java 遵循就近原则。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个类的 <code>act()</code> 方法实际有 2 个参数。对其调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Example</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exmaple</span>();</span><br><span class="line">e.act(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>可见，出现在方法名前的参数 e，以及出现在方法名后的括号中的参数 100<br>出现在方法名前的参数被称为 <strong>隐式参数</strong>（也称为 方法调用的 目标 或 接收者）<br>出现在方法名后的参数被称为 <strong>显式参数</strong>，就是所谓的实参<br>在每一个方法中，用 this 指代隐式参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，再以相同方式调用方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">e.act(<span class="number">100</span>);					<span class="comment">// &lt;———— 相当于 e.n = 100;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-8-1-使用方法"><a href="#6-8-1-使用方法" class="headerlink" title="6.8.1 使用方法"></a>6.8.1 使用方法</h2><ol>
+<li><code>this</code> 关键字可以用来访问本类的属性、方法、构造器</li>
+<li><code>this</code> 用于区分当前类的 属性 和 局部变量</li>
+<li>访问本类中成员方法的语法：<code>this.方法名</code></li>
+<li>访问构造器的语法：<code>this(参数列表);</code></li>
+<li>注意：只能在构造器中访问另一个构造器。而且，如果有这个语法，必须放置在第一条语句。</li>
+<li><code>this</code> 不能在类定义的 外部 使用，只能在类定义的 方法中 使用</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/" title="6. 面向对象编程(基础)">http://example.com/2022/09/11/JavaSE/6. 面向对象编程(基础)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/5.%20%E6%95%B0%E7%BB%84%E3%80%81%E6%8E%92%E5%BA%8F%E5%92%8C%E6%9F%A5%E6%89%BE/" rel="prev" title="5. 数组 排序和查找">
+                  <i class="fa fa-chevron-left"></i> 5. 数组 排序和查找
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/" rel="next" title="7. 面向对象编程(中级)">
+                  7. 面向对象编程(中级) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>

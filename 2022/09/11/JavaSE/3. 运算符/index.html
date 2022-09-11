@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 运算符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. 运算符">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 运算符">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-11T10:46:27.515Z">
+<meta property="article:modified_time" content="2022-09-11T10:47:44.349Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/","path":"2022/09/11/JavaSE/3. 运算符/","title":"3. 运算符"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>3. 运算符 | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-1-%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">3.1 算数运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">3.2 关系运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3-%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">3.3 逻辑运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-4-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">3.4 赋值运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-5-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">3.5 三元运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-6-%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">6.</span> <span class="nav-text">3.6 运算符优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-7-%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">7.</span> <span class="nav-text">3.7 标识符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-1-%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="nav-number">7.1.</span> <span class="nav-text">3.7.1 命名规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-7-2-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="nav-number">7.2.</span> <span class="nav-text">3.7.2 命名规范</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-8-%E8%BE%93%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA"><span class="nav-number">8.</span> <span class="nav-text">3.8 输入与输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-1-Scanner-%E7%B1%BB"><span class="nav-number">8.1.</span> <span class="nav-text">3.8.1 Scanner 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8-2-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">8.2.</span> <span class="nav-text">3.8.2 格式化输出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-9-%E8%BF%9B%E5%88%B6"><span class="nav-number">9.</span> <span class="nav-text">3.9 进制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-1-%E8%BF%9B%E5%88%B6%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">9.1.</span> <span class="nav-text">3.9.1 进制的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-2-%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81"><span class="nav-number">9.2.</span> <span class="nav-text">3.9.2 原码、反码、补码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-10-%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">10.</span> <span class="nav-text">3.10 位运算符</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="3. 运算符 | 安之">
+      <meta itemprop="description" content="Java 运算符">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3. 运算符
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:46:27 / 修改时间：18:47:44" itemprop="dateCreated datePublished" datetime="2022-09-11T18:46:27+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 运算符</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>运算符：一种特殊的符号，用于表示数据的运算、赋值和比较等。</p>
+</blockquote>
+<h1 id="3-1-算数运算符"><a href="#3-1-算数运算符" class="headerlink" title="3.1 算数运算符"></a>3.1 算数运算符</h1><blockquote>
+<p>算术运算符是对数值类型的变量进行运算的运算符，在 Java 程序中使用得非常多。其运算结果是一个数值量。</p>
+</blockquote>
+<ul>
+<li><p><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>：加、减、乘、除</p>
+<blockquote>
+<p><code>5 / 2 = 2;</code> 因为是 <code>int</code> 。 同理 <code>5.0 / 2 = 2.5</code></p>
+</blockquote>
+</li>
+<li><p><code>%</code>：取模符，就是取余数</p>
+<blockquote>
+<p><code>5 % 2 = 1</code> 5 除以 2 的 余数为 1</p>
+</blockquote>
+</li>
+<li><p><code>++</code>：自增</p>
+<blockquote>
+<p><code>++i</code>: 先自增后运算 |  <code>i++</code>: 先运算后自增</p>
+</blockquote>
+</li>
+<li><p><code>--</code>：自减</p>
+<blockquote>
+<p>与 <code>++</code> 同理</p>
+</blockquote>
+</li>
+<li><p><code>+</code>：字符串相加</p>
+</li>
+</ul>
+<h1 id="3-2-关系运算符"><a href="#3-2-关系运算符" class="headerlink" title="3.2 关系运算符"></a>3.2 关系运算符</h1><blockquote>
+<p>关系运算符结果都为 <code>boolean</code> 型，要么是 <code>ture</code> 要么是 <code>false</code>。其关系表达式经常用在 <code>if 结构</code>的条件中或循环结构的条件中。</p>
+</blockquote>
+<ul>
+<li><code>==</code>：相等于</li>
+<li><code>!=</code> : 不等于</li>
+<li><code>&lt;``&gt;</code>: 小于、大于</li>
+<li><code>&lt;=</code> <code>&gt;=</code> : 小于等于、大于等于</li>
+<li><code>instanceof</code> : 检查是否是类的对象</li>
+</ul>
+<p><strong>细节：</strong></p>
+<ol>
+<li><strong>关系运算符的结果都是 <code>boolean</code> 类型，即要么为 <code>true</code> 要么为 <code>false</code>。</strong></li>
+<li><strong>关系运算符的表达式被称为_关系表达式_</strong></li>
+<li><strong>比较运算符<code>==</code>要和赋值运算符<code>=</code>区分。(新手易混)</strong></li>
+<li><strong>Java 允许将 <code>==</code>、<code>!=</code>两种运算用于任何数据类型</strong></li>
+<li><strong>字符串的比较通常用 <code>equals()</code> 方法来比较。</strong></li>
+</ol>
+<h1 id="3-3-逻辑运算符"><a href="#3-3-逻辑运算符" class="headerlink" title="3.3 逻辑运算符"></a>3.3 逻辑运算符</h1><blockquote>
+<p>用于连接多个条件（多个关系表达式），最终的结果也是一个 <code>boolean</code> 值。</p>
+</blockquote>
+<ul>
+<li><p><code>&amp;&amp;</code>: <strong>短路与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+<li><p><code>&amp;</code>：<strong>逻辑与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
+<blockquote>
+<p><strong>区别：短路与当前者为<code>false</code>时就暂停不会去判断后者，而逻辑与会完成整个判断。在实际开发中多用短路与。因为效率更高。</strong></p>
+</blockquote>
+</li>
+<li><p><code>||</code>：<strong>短路或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+<li><p><code>|</code> ：<strong>逻辑或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
+<blockquote>
+<p><strong>区别：和短语与相同，若前者为true，就不会去判断后者的结果。</strong></p>
+</blockquote>
+</li>
+<li><p><code>！</code>：<strong>取反</strong>。<code>true</code>变成<code>false</code>，<code>false</code>变为<code>true</code>。</p>
+</li>
+<li><p><code>^</code>：<strong>逻辑异或</strong>。前后不同时为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+</ul>
+<h1 id="3-4-赋值运算符"><a href="#3-4-赋值运算符" class="headerlink" title="3.4 赋值运算符"></a>3.4 赋值运算符</h1><blockquote>
+<p>将某个运算后的值，赋给指定变量</p>
+</blockquote>
+<ul>
+<li>基本赋值运算符：<code>=</code></li>
+<li>符合赋值运算符：<code>+=</code>、<code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code><blockquote>
+<p>a +&#x3D; b  &#x3D;&gt; a &#x3D; a + b;  &#x2F;&#x2F; 二者相等</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>细节:</strong></p>
+<ol>
+<li><strong>运算顺序从右往左。</strong></li>
+<li><strong>运算符左边只能是变量，右边可以是变量、表达式、常量值。</strong></li>
+<li><strong>复合赋值运算符会进行类型转换。</strong></li>
+</ol>
+<h1 id="3-5-三元运算符"><a href="#3-5-三元运算符" class="headerlink" title="3.5 三元运算符"></a>3.5 三元运算符</h1><blockquote>
+<p>基本语法：<code>条件表达式 ? 表达式1 : 表达式2;</code></p>
+</blockquote>
+<p>运算规则：如果条件表达式的结果为<code>true</code>， 则执行表达式1，否则执行表达式2。<br><strong>细节：</strong></p>
+<ol>
+<li><strong>表达式1和表达式2要为可以赋给接受变量的类型（可以自己转换）</strong></li>
+<li>**三元运算符可以转换为<code>if-else</code></li>
+<li><strong>三元运算符是一个整体。</strong></li>
+</ol>
+<h1 id="3-6-运算符优先级"><a href="#3-6-运算符优先级" class="headerlink" title="3.6 运算符优先级"></a>3.6 运算符优先级</h1><h1 id="3-7-标识符"><a href="#3-7-标识符" class="headerlink" title="3.7 标识符"></a>3.7 标识符</h1><blockquote>
+<p>Java 对各种变量、方法和类等命名时使用的字符序列称为标识符凡是自己可以起名字的地方都叫标识符</p>
+</blockquote>
+<h2 id="3-7-1-命名规则"><a href="#3-7-1-命名规则" class="headerlink" title="3.7.1 命名规则"></a>3.7.1 命名规则</h2><ol>
+<li>标识符由字母、数字、_或$组成。</li>
+<li>数字不能开头。</li>
+<li>不可以使用关键字和保留字。</li>
+<li>不能包含空格。</li>
+<li>可以使用任何的Unicode字符作为标识符。但不推荐。</li>
+</ol>
+<h2 id="3-7-2-命名规范"><a href="#3-7-2-命名规范" class="headerlink" title="3.7.2 命名规范"></a>3.7.2 命名规范</h2><ol>
+<li>包名：多单词组成时所有字母都小写：aaa.bbb.ccc</li>
+<li>类名、接口名：多单词组成时，采用大驼峰法，所有单词的首字母大写：XxxYyyZzz</li>
+<li>变量名、方法名：多单词组成时，采小驼峰法（驼峰法），第一个单词首字母小写，第二个开始每个单词首字母大写：xxxYyyZzz</li>
+<li>常量名：所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ</li>
+<li>更详细的规则查看 <a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/709470">Java 编码规范</a></li>
+</ol>
+<h1 id="3-8-输入与输出"><a href="#3-8-输入与输出" class="headerlink" title="3.8 输入与输出"></a>3.8 输入与输出</h1><blockquote>
+<p>为满足读取用户输入、输出的需求，Java 提供了几个基本类</p>
+</blockquote>
+<h2 id="3-8-1-Scanner-类"><a href="#3-8-1-Scanner-类" class="headerlink" title="3.8.1 Scanner 类"></a>3.8.1 Scanner 类</h2><blockquote>
+<p>在编程中，需要接收用户输入的数据，就可以使用键盘输入语句来获取。<code>Input.java</code> ，需要一个 扫描器（对象），就是 <code>Scanner</code>。<code>Scanner</code> 属于 <code>java.util</code> 包。其包含许多方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner; <span class="comment">// 1. 导入包名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Input</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in); <span class="comment">// 2. 创建对象</span></span><br><span class="line">        System.out.println(<span class="string">&quot;请输入一行字符：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> scanner.next(); <span class="comment">// 3. 接收用户输入</span></span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>构造方法：</strong></p>
+<ul>
+<li><code>new Scanner(System.in)</code>：该方法接收一个参数（输入源）。其中 <code>System.in</code> 代表标准输入流。默认情况指键盘。</li>
+</ul>
+<p><strong>常用方法：</strong></p>
+<ul>
+<li><code>String next()</code>：读取下一个输入对象<code>Scanner</code> 对象用空白（空格、水平制表符或回车换行符）作为输入的分隔元素</li>
+<li><code>Double nextDouble()</code>：读取下一个 <code>double</code></li>
+<li><code>Int nextInt()</code>：读取下一个<code> int</code></li>
+<li><code>String nextLine()</code>：读入当前行的所有输入，直到行尾</li>
+<li><code>boolean hasNext()</code>：输入中是否还有其他单词</li>
+<li><code>boolean hasNextInt()</code>、<code>boolean hasNextDouble()</code></li>
+</ul>
+<h2 id="3-8-2-格式化输出"><a href="#3-8-2-格式化输出" class="headerlink" title="3.8.2 格式化输出"></a>3.8.2 格式化输出</h2><blockquote>
+<p><code>System.out</code> 标准输出流。调用该流方法以输出内容至控制台窗口</p>
+</blockquote>
+<ul>
+<li><code>println(String s)</code>：输出字符，结束后换行</li>
+<li><code>print(String s)</code>：输出字符，结束后不换行</li>
+<li><code>println(int n)</code>、<code>println(char c)</code>、<code>println(Object obj)</code>……</li>
+<li><code>printf(String format, Object ... args)</code>：格式化输出<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.printf(<span class="string">&quot;%s测试%d&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="number">1</span>);	<span class="comment">// &lt;—— abcd测试1</span></span><br></pre></td></tr></table></figure>
+以 % 开头的 格式说明符 都用相应参数替换。格式说明符尾部的转换符表示要格式化的数值类型</li>
+</ul>
+<h1 id="3-9-进制"><a href="#3-9-进制" class="headerlink" title="3.9 进制"></a>3.9 进制</h1><ul>
+<li><strong>二进制</strong>：数字有 0 - 1，满 2 进 1，以 <code>0b</code> 或 <code>0B </code>开头</li>
+<li><strong>十进制</strong></li>
+<li><strong>八进制</strong>：0 - 7，满 8 进 1，以 <code>0 </code>开头表示</li>
+<li><strong>十六进制</strong>：0 - 9 及 A - F，满 16 进 1，以<code>0x </code>或 <code>0X </code>开头。此处的 A - F 不分大小写。</li>
+</ul>
+<h2 id="3-9-1-进制的转换"><a href="#3-9-1-进制的转换" class="headerlink" title="3.9.1 进制的转换"></a>3.9.1 进制的转换</h2><ul>
+<li><strong>其他进制 转 十进制</strong>：略</li>
+<li><strong>十进制 转 其他进制</strong>：将该数不断除以对象进制数，直到商为0为止，将每步得到的余数倒过来。</li>
+<li><strong>二进制 与 八进制 或 十六进制 互相转换</strong>：二进制 从低位开始，<strong>每 3 位一组</strong>，转成对应的 八进制 即可。反之同理。十六进制亦同理（<strong>每 4 位一组</strong>）。</li>
+</ul>
+<h2 id="3-9-2-原码、反码、补码"><a href="#3-9-2-原码、反码、补码" class="headerlink" title="3.9.2 原码、反码、补码"></a>3.9.2 原码、反码、补码</h2><ol>
+<li>二进制的最高位是符号位：0表示正数，1表示负数。</li>
+<li><strong>正数的原码、反码、补码都一样。</strong></li>
+<li>负数的反码 &#x3D; 原码符号位不变，其他位取反（0 变 1，1 变 0）</li>
+<li><strong>负数的补码 &#x3D; 反码 + 1。也就是说，负数的反码 &#x3D; 补码 - 1</strong></li>
+<li>0 的反码、补码都是 0。</li>
+<li>Java 没有无符号数。换言之，Java 的数都是有符号的。</li>
+<li><strong>计算机运算时，都是以补码的方式来运算的。</strong></li>
+<li><strong>当我们看运算结果时，要看其原码。</strong></li>
+</ol>
+<h1 id="3-10-位运算符"><a href="#3-10-位运算符" class="headerlink" title="3.10 位运算符"></a>3.10 位运算符</h1><ul>
+<li><code>&amp;</code> <strong>按位与</strong>：两位都为 1，结果为 1，否则为 0</li>
+<li><code>|</code>按位或**：两位有一个为 1，结果为 1，否则为 0</li>
+<li><code>^</code> <strong>按位异或</strong>：两位不同，结果为 1，否则为 0</li>
+<li><code>~</code> <strong>按位取反</strong>：把 0 变 1，1 变 0</li>
+<li><code>&gt;&gt;</code> <strong>算术右移</strong>：低位溢出，符号位不变，用符号位补溢出的高位</li>
+<li><code>&lt;&lt;</code> <strong>算数左移</strong>：符号位不变，低位补 0</li>
+<li><code>&gt;&gt;&gt;</code> <strong>逻辑右移（无符号右移）</strong>：低位溢出，高位补 0</li>
+</ul>
+<p><strong>细节:</strong></p>
+<ol>
+<li>位运算符只对整型、字符类型有效</li>
+<li>移位运算中，左侧操作 int 的场合，右侧操作数以 32 取模；long 的场合，右侧操作数以 64 取模。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/" title="3. 运算符">http://example.com/2022/09/11/JavaSE/3. 运算符/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/2.%20%E5%8F%98%E9%87%8F/" rel="prev" title="2. 变量">
+                  <i class="fa fa-chevron-left"></i> 2. 变量
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/4.%20%E7%A8%8B%E5%BA%8F%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/" rel="next" title="4. 程序控制结构">
+                  4. 程序控制结构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 包装类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12. 包装类">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 包装类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-11T10:57:59.405Z">
+<meta property="article:modified_time" content="2022-09-11T11:03:40.971Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/","path":"2022/09/11/JavaSE/12. 常用类/","title":"12. 包装类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>12. 包装类 | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#12-1-%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">12.1 包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-1-%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1"><span class="nav-number">1.1.</span> <span class="nav-text">12.1.1 装箱与拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-2-%E5%8C%85%E8%A3%85%E7%B1%BB%E5%92%8CString-%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.2.</span> <span class="nav-text">12.1.2 包装类和String 的相互转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-3-%E5%8C%85%E8%A3%85%E7%B1%BB%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">12.1.3 包装类的常用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-1-4-strictfp-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">12.1.4 strictfp 关键字</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-2-String-%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">12.2 String 类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-1-String%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">12.2.1 String构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">12.2.2 字符串的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-2-3-String%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">12.2.3 String的常用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-3-StringBuffer%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">12.3 StringBuffer类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-1-StringBuffer-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">12.3.1 StringBuffer 构造方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-2-String-%E5%92%8C-StringBuffer%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">3.2.</span> <span class="nav-text">12.3.2 String 和 StringBuffer的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-3-3-StringBuffer%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">12.3.3 StringBuffer的常用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-4-StringBuilder%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">12.4 StringBuilder类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-4-1-String%E3%80%81StringBuffer%E3%80%81StringBuilder%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">4.1.</span> <span class="nav-text">12.4.1 String、StringBuffer、StringBuilder的对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-5-Math%E7%B1%BB"><span class="nav-number">5.</span> <span class="nav-text">12.5 Math类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-6-Arrays%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">12.6 Arrays类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-7-System%E7%B1%BB"><span class="nav-number">7.</span> <span class="nav-text">12.7 System类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-8-BigInteger%E5%92%8CBigDecimal%E7%B1%BB"><span class="nav-number">8.</span> <span class="nav-text">12.8 BigInteger和BigDecimal类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-9-%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">9.</span> <span class="nav-text">12.9 日期类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#12-9-1-%E7%AC%AC%E4%B8%80%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">9.1.</span> <span class="nav-text">12.9.1 第一代日期类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-9-2-%E7%AC%AC%E4%BA%8C%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">9.2.</span> <span class="nav-text">12.9.2 第二代日期类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-9-3-%E7%AC%AC%E4%B8%89%E4%BB%A3%E6%97%A5%E6%9C%9F%E7%B1%BB"><span class="nav-number">9.3.</span> <span class="nav-text">12.9.3 第三代日期类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-10-%E6%B3%9B%E5%9E%8B"><span class="nav-number">10.</span> <span class="nav-text">12.10 泛型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%BB%A7%E6%89%BF%EF%BC%9A"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">泛型继承：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="12. 包装类 | 安之">
+      <meta itemprop="description" content="Java 包装类">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          12. 包装类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:57:59 / 修改时间：19:03:40" itemprop="dateCreated datePublished" datetime="2022-09-11T18:57:59+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 包装类</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="12-1-包装类"><a href="#12-1-包装类" class="headerlink" title="12.1 包装类"></a>12.1 包装类</h1><blockquote>
+<p>包装类（Wrapper）：针对 八种基本数据类型 相应的 引用类型<br>有了类的特点，就可以调用类中的方法</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>基本数据类型</strong></th>
+<th><strong>包装类</strong></th>
+<th><strong>父类</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>Boolean</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>void</td>
+<td>Void</td>
+<td>Object</td>
+</tr>
+</tbody></table>
+<h2 id="12-1-1-装箱与拆箱"><a href="#12-1-1-装箱与拆箱" class="headerlink" title="12.1.1 装箱与拆箱"></a>12.1.1 装箱与拆箱</h2><ul>
+<li><p>手动装箱与拆箱(Jdk 5 之前)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">integer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(n1);			<span class="comment">// 手动装箱</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">integer2</span> <span class="operator">=</span> Integer.valueOf(n1);		<span class="comment">// 手动装箱</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> integer.intValue();					<span class="comment">// 手动拆箱</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自动装箱与拆箱(Jdk 5 之后)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">n2 = <span class="number">200</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">integer3</span> <span class="operator">=</span> n2;						<span class="comment">// 自动装箱</span></span><br><span class="line"><span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> integer3;							<span class="comment">// 自动拆箱</span></span><br></pre></td></tr></table></figure>
+<p>虽然可以自动装箱、拆箱，但使用 &#x3D;&#x3D; 直接比较两个包装类时，仍然是比较其地址。以下比较通常会失败：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">ia</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">ib</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line">System.out.print(ia == ib);					<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>但，Java 实现仍有可能使其成立。Byte、Boolean 以及 Short、Integer 中 [-128, 127] 间的值已被包装到固定的对象中。对他们的比较可以成功。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">ia</span> <span class="operator">=</span> <span class="number">127</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">ib</span> <span class="operator">=</span> <span class="number">127</span>;</span><br><span class="line">System.out.print(ia == ib);					<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>由此可见，使用 &#x3D;&#x3D; 直接比较两个包装类会带来不确定性。尽量使用 equals 方法对包装类进行比较。<br>装箱与拆箱是 编译器 的工作。在生成可执行的字节码文件时，编译器已经插入了必要的方法调用。</p>
+</li>
+</ul>
+<h2 id="12-1-2-包装类和String-的相互转换"><a href="#12-1-2-包装类和String-的相互转换" class="headerlink" title="12.1.2 包装类和String 的相互转换"></a>12.1.2 包装类和<code>String</code> 的相互转换</h2><ul>
+<li><p>包装类转换为<code>String</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="type">Integer</span> <span class="variable">integer</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">&gt;<span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> integer + <span class="string">&quot;&quot;</span>;					<span class="comment">//方法1（自动拆箱）</span></span><br><span class="line">&gt;<span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> integer.toString();			<span class="comment">//方法2（toString方法）</span></span><br><span class="line">&gt;<span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> String.valueOf(integer);		<span class="comment">//方法3（自动拆箱）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>String</code>转换为包装类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot;100&quot;</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">integer2</span> <span class="operator">=</span> Integer.parseInt(str4);	<span class="comment">//方法1（自动装箱）</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">integer3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(str4);		<span class="comment">//方法2（构造器）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="12-1-3-包装类的常用方法"><a href="#12-1-3-包装类的常用方法" class="headerlink" title="12.1.3 包装类的常用方法"></a>12.1.3 包装类的常用方法</h2><ul>
+<li><code>Integer.MIN_VALUE</code>：返回最大值</li>
+<li><code>Double.MAX_VALUE</code>：返回最小值</li>
+<li><code>byteValue()、doubleValue()、floatValue()、intValue()、longValue()</code>按各种基本数据类型返回该对象的值</li>
+<li><code>Character.isDigit(int)</code>：判断是不是数字</li>
+<li><code>Character.isLetter(int)</code>：判断是不是字母</li>
+<li><code>Character.isUpperCase(int)</code>：判断是不是大写字母</li>
+<li><code>Character.isLowerCase(int)</code>：判断是不是小写字母</li>
+<li><code>Characher.isWhitespace(int)</code>：判断是不是空格</li>
+<li><code>Character.toUpperCase(int)</code>：转成大写字母</li>
+<li><code>Character.toLowerCase(int)</code>：转成小写字母</li>
+<li><code>Integer.parseInt(string)</code>：将 <code>String</code> 内容转为 <code>intDouble.parseDouble(string)</code></li>
+<li><code>Integer.toBinaryString(int)</code>：将数字转为 2 进制表示的字符串</li>
+<li><code>Integer.toHexString(int)</code>：将数字转为 16 进制表示的字符串</li>
+<li><code>Integer.toOctalString(int)</code>：将数字转为 8 进制表示的字符串特别地，浮点数类型的包装类只有转成 16 进制的方法。而 Short、Byte 及其他包装类无此方法</li>
+<li><code>int Integer.bitCount(i int)</code>：统计指定数字的二进制格式中 1 的数量</li>
+</ul>
+<h2 id="12-1-4-strictfp-关键字"><a href="#12-1-4-strictfp-关键字" class="headerlink" title="12.1.4 strictfp 关键字"></a>12.1.4 <code>strictfp</code> 关键字</h2><blockquote>
+<p>由于不同处理器对于浮点数寄存采取不同策略（有些处理器使用 64 位寄存 double，有些则是 80 位），对于浮点数的运算在不同平台上可能出现不同结果。</p>
+</blockquote>
+<p>使用 strictfp 关键字标记的方法或类中，所有指令都会使用严格统一的浮点数运算。比如，把 main 方法标记为 strictfp</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">double</span> ᓚᘏᗢ = <span class="number">1</span> / <span class="number">13.97</span>;</span><br><span class="line">    System.out.println(ᓚᘏᗢ);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="12-2-String-类"><a href="#12-2-String-类" class="headerlink" title="12.2 String 类"></a>12.2 <code>String</code> 类</h1><ol>
+<li><code>String</code> 对象用于保存字符串，也就是一组字符序列</li>
+<li>字符串常量对象是用双引号扩起的字符序列。例如 “你好”</li>
+<li>字符串的字符使用 Unicode 字符编码。一个字符（不论字母汉字）占 2 字节</li>
+<li>常用构造器：<ul>
+<li><code>String str1 = new String();</code></li>
+<li><code>String str2 = new String(String original);</code></li>
+<li><code>String str3 = new String(char[] a);</code></li>
+<li><code>String str4 = new String(char[] a, int startIndex, int count);</code>这句意思是：<code>char[]</code> 从 <code>startIndex</code> 起的 <code>count</code> 个字符</li>
+</ul>
+</li>
+<li><code>String</code> 实现了接口 <code>Serializable</code> 和 <code>Comparable</code> ，可以 串行化和 比较大小串行化：即，可以被网络传输，也能保存到文件</li>
+<li><code>String</code> 是<code>final</code> 类，不能被继承</li>
+<li><code>String</code> 有属性 <code>private final char[] value;</code> 用于存放字符串内容。<code>value</code> 是 <code>final</code> 属性。其在栈中的地址不能修改，但堆中的内容可以修改。</li>
+</ol>
+<h2 id="12-2-1-String构造方法"><a href="#12-2-1-String构造方法" class="headerlink" title="12.2.1 String构造方法"></a>12.2.1 <code>String</code>构造方法</h2><ul>
+<li><p>直接指定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;test&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>该方法：先从常量池看是否有 “test” 数据空间。有的场合，指向那个空间；否则重新创建然后指向。<br>这个方法，str1 指向 常量池中的地址。</p>
+</li>
+<li><p>构造器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;test02&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>该方法：先在堆中创建空间，里面维护一个 <code>value</code> 属性，指向 或 创建后指向 常量池的 “test02” 空间。<br>这个方法，str2 指向 堆中的地址</p>
+</li>
+</ul>
+<h2 id="12-2-2-字符串的特性"><a href="#12-2-2-字符串的特性" class="headerlink" title="12.2.2 字符串的特性"></a>12.2.2 字符串的特性</h2><ul>
+<li><p>常量相加，看的是池</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;aa&quot;</span> + <span class="string">&quot;bb&quot;</span>;				<span class="comment">//常量相加，看的是池</span></span><br><span class="line"><span class="comment">//上例由于构造器自身优化，相当于 String str1 = &quot;aabb&quot;;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量相加，是在堆中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;aa&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">b</span> <span class="operator">=</span> <span class="string">&quot;bb&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> a + b;					<span class="comment">//变量相加，是在堆中</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="12-2-3-String的常用方法"><a href="#12-2-3-String的常用方法" class="headerlink" title="12.2.3 String的常用方法"></a>12.2.3 <code>String</code>的常用方法</h2><p>以下方法不需死记硬背，手熟自然牢记</p>
+<ul>
+<li>boolean equals(String s)：区分大小写，判断内容是否相等boolean equalsIgnoreCase(String s)：判断内容是否相等（忽略大小写）</li>
+<li>boolean empty()：返回是否为空</li>
+<li>int charAt(int index)：获取某索引处的字符（代码单元）。必须用 char c &#x3D; str.charAt(15);，不能用 char c &#x3D; str[15];</li>
+<li>int codePointAt(int index)int length()：获取字符（代码单元）的个数</li>
+<li>IntStream codePoints()：返回字符串中全部码点构成的流</li>
+<li>long codePoints().count()：返回真正长度（码点数量）</li>
+<li>int indexOf(String str)：获取字符（串）在字符串中第一次出现的索引。如果找不到，返回 -1</li>
+<li>int indexOf(int char) 参数也可以传入一个 int。由于自动类型转换的存在，也能填入 </li>
+<li>charint indexOf(String str, int index)：从 index 处（包含）开始查找指定字符（串）</li>
+<li>int lastIndexOf(String str)：获取字符在字符串中最后一次出现的索引。如果找不到，返回 -1</li>
+<li>String substring(int start, int end)：返回截取指定范围 [start, end) 的 新 字符串</li>
+<li>String substring(int index)：截取 index（包含）之后的部分</li>
+<li>String trim()：返回去前后空格的新字符串</li>
+<li>String toUperCase()：返回字母全部转为大写的新字符串</li>
+<li>String toLowerCase()：返回字母全部转为小写的新字符串</li>
+<li>String concat(String another)：返回拼接字符串</li>
+<li>String replace(char oldChar, char newChar)：替换字符串中的元素String str1 &#x3D; “Foolish cultists”; String str2 &#x3D; str1.replace(“cultists”, “believers”);	&#x2F;&#x2F;str1不变，str2为改变的值JAVA</li>
+<li>String[] split(String regex)：分割字符串。对于某些分割字符，我们需要转义</li>
+<li>int compareTo(String another)：按照字典顺序比较两个字符串（的大小）。返回出现第一处不同的字符的编号差。前面字符相同，长度不同的场合，返回那个长度差。S</li>
+<li>char[] toCharArray()：转换成字符数组byte[] getBytes()：字符串转为字节数组</li>
+<li>String String.format(String format, Object… args)：（静态方法）格式字符串String name &#x3D; “Roin”; String age &#x3D; “1M”; String state &#x3D; “computer”; String formatStr &#x3D; “I am %s, I am %s old, I am a %s”; String str &#x3D; String.format(formatStr, name, age, state); &#x2F;&#x2F;其中 %s 是占位符。此时，str &#x3D; “I am Roin, I am 1M old, I am a computer”; &#x2F;&#x2F;%s 表示字符串替换；%d 表示整数替换；#.2f 表示小数（四舍五入保留2位）替换；%c 表示字符替换JAVA</li>
+<li>String join(deli, ele…)：拼接字符串（ele…），以 deli 间隔。</li>
+<li>boolean startsWith(str)：测试 str 是否为当前字符串的前缀</li>
+<li>String repeat(int n)：返回该字符串重复 n 次的结果</li>
+</ul>
+<h1 id="12-3-StringBuffer类"><a href="#12-3-StringBuffer类" class="headerlink" title="12.3 StringBuffer类"></a>12.3 <code>StringBuffer</code>类</h1><p><code>java.lang.StringBuffer</code> 代表可变的字符序列。可以对字符串内容进行增删。<br>很多方法和 <code>String</code> 相同，但 <code>StringBuffer</code> 是可变长度。同时，<code>StringBuffer</code> 是一个容器</p>
+<ol>
+<li><code>StringBuffer</code> 的直接父类是<code> AbstractStringBuffer</code></li>
+<li><code>StringBuffer</code> 实现了 <code>Serialiazable</code>，可以串行化</li>
+<li>在父类中，<code>AbstractStringBuffer</code> 有属性 <code>char[] value</code> 不是<code>final</code></li>
+<li><code>StringBuffer</code> 是一个 <code>final</code> 类，不能被继承</li>
+</ol>
+<p><code>String</code> 对比 <code>StringBuffer</code></p>
+<ul>
+<li><code>String</code> 保存字符串常量，其中的值不能更改。每次更新实际上是更改地址，效率较低</li>
+<li><code>StringBuffer</code> 保存字符串变量，里面的值可以更改。每次更新是更新内容，不用每次更新地址。</li>
+</ul>
+<h2 id="12-3-1-StringBuffer-构造方法"><a href="#12-3-1-StringBuffer-构造方法" class="headerlink" title="12.3.1 StringBuffer 构造方法"></a>12.3.1 <code>StringBuffer</code> 构造方法</h2><ol>
+<li><p>无参构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuffer</span> <span class="variable">strb1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>创造一个16位容量的空<code>StringBuffer</code></p>
+</blockquote>
+</li>
+<li><p>传入字符串构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;abcabc&quot;</span>;</span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">strb2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(str1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定容器构造</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">StringBuffer</span> <span class="variable">strb3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="number">3</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="12-3-2-String-和-StringBuffer的转换"><a href="#12-3-2-String-和-StringBuffer的转换" class="headerlink" title="12.3.2 String 和 StringBuffer的转换"></a>12.3.2 <code>String</code> 和 <code>StringBuffer</code>的转换</h2><ol>
+<li><p>转 <code>StringBuffer</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;abcabc&quot;</span>;</span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">strb1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(str1);	<span class="comment">//方法1（构造器）</span></span><br><span class="line"><span class="type">StringBuffer</span> <span class="variable">strb1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();		</span><br><span class="line">strb1 = strb1.append(str1);						<span class="comment">//方法2（先空再append）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>转 <code>String</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> strb1.toString();					<span class="comment">//方法1（toString）</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(strb1);				<span class="comment">//方法2（构造器）</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="12-3-3-StringBuffer的常用方法"><a href="#12-3-3-StringBuffer的常用方法" class="headerlink" title="12.3.3 StringBuffer的常用方法"></a>12.3.3 <code>StringBuffer</code>的常用方法</h2><ul>
+<li><code>append(char c)</code>：增加</li>
+<li><code>append(String s)</code> 参数也能是字符串特别的，append(null); 的场合，等同于 append(“null”);</li>
+<li><code>delete(start, end)</code>：删减 [start, end) 的内容</li>
+<li><code>replace(start, end, string)</code>：将 start 与 end 间的内容替换为 string</li>
+<li><code>indexOf</code>：查找指定字符串第一次出现时的索引。没找到的场合返回 -1</li>
+<li><code>insert</code>：在指定索引位置之前插入指定字符串</li>
+<li><code>length()</code>：返回字符长度</li>
+<li><code>capacity()</code>：返回当前的容量String 类对象分配内存时，按照对象中所含字符个数等量分配。StringBuffer 类对象分配内存时，除去字符所占空间外，会另加 16 字符大小的缓冲区。对于 length() 方法，返回的是字符串长度。对于 capacity() 方法，返回的是 字符串 + 缓冲区 的大小。</li>
+</ul>
+<h1 id="12-4-StringBuilder类"><a href="#12-4-StringBuilder类" class="headerlink" title="12.4 StringBuilder类"></a>12.4 <code>StringBuilder</code>类</h1><blockquote>
+<p>一个可变的字符序列。此类提供一个与 StringBuffer 兼容的 API，但不保证同步（有线程安全问题）。该类被设计成 StringBuffer 的一个简易替换，用在字符串缓冲区被单个线程使用的时候。如果可能，建议优先使用该类。因为在大多数实现中，它比起 StringBuffer 要快。<br>在 StringBuilder 是的主要操作是 append 和 insert 方法。可以重载这些方法，以接受任意类型的数据。</p>
+</blockquote>
+<ol>
+<li><code>StringBuilder</code> 也继承了 <code>AbstractStringBuffer</code></li>
+<li><code>StringBuilder</code> 也实现了 <code>Serialiazable</code>，可以串行化</li>
+<li>仍然是在父类中有属性 <code>char[] value</code> ，而且不是 <code>final</code></li>
+<li><code>StringBuilder</code> 也是一个 <code>final</code> 类，不能被继承</li>
+<li><code>StringBuilder</code> 的方法，没有做互斥的处理（没有 <code>synchronize</code>），故而存在线程安全问题</li>
+</ol>
+<h2 id="12-4-1-String、StringBuffer、StringBuilder的对比"><a href="#12-4-1-String、StringBuffer、StringBuilder的对比" class="headerlink" title="12.4.1 String、StringBuffer、StringBuilder的对比"></a>12.4.1 <code>String</code>、<code>StringBuffer</code>、<code>StringBuilder</code>的对比</h2><ol>
+<li><code>StringBuilder</code> 和 <code>StringBuffer</code> 类似，均代表可变字符序列，而且方法也一样</li>
+<li><code>String</code>：不可变字符序列，效率低，但复用率高</li>
+<li><code>StringBuffer</code>：可变字符序列，效率较高，线程安全</li>
+<li><code>StringBuilder</code>：可变字符序列，效率最高，存在线程安全问题</li>
+<li><code>String</code> 为何效率低：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;aa&quot;</span>;					<span class="comment">//创建了一个字符串</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>; n &lt; <span class="number">100</span>; n++)&#123;		</span><br><span class="line">	str1 += <span class="string">&quot;bb&quot;</span>;					<span class="comment">//这里，原先的字符串被丢弃，创建新字符串</span></span><br><span class="line">&#125;									<span class="comment">//多次执行后，大量副本字符串留在内存中</span></span><br><span class="line">									<span class="comment">//导致效率降低，也会影响程序性能</span></span><br><span class="line"><span class="comment">//如上，对 String 大量修改的场合，不要使用 String</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="12-5-Math类"><a href="#12-5-Math类" class="headerlink" title="12.5 Math类"></a>12.5 <code>Math</code>类</h1><ul>
+<li>Math.multiplyExact(int n1, int n2)：进行乘法运算，返回运算结果通常的乘法 n1 * n2 在结果大于那个数据类型存储上限时，可能返回错误的值。使用此方法，结果大于那个数据类型存储上限时，会抛出异常</li>
+<li>Math.addExact(int n1, int n2)：加法</li>
+<li>Math.subtractExact(int n1, int n2)：减法</li>
+<li>Math.incrementExact(int n1)：自增</li>
+<li>Math.decrementExact(int n1)：自减</li>
+<li>Math.negateExact(int n1, int n2)：改变符号</li>
+<li>Math.abs(n)：求绝对值，返回 |n1|</li>
+<li>Math.pow(n, i)：求幂，返回 n3 ^ i</li>
+<li>Math.ceil(n)：向上取整，返回 &gt;&#x3D; n3 的最小整数（转成double）</li>
+<li>Math.floor(n)：向下取整，返回 &lt;&#x3D;n4 的最小整数（转成double）</li>
+<li>Math.floorMod(int n1, int n2)：返回 n1 除以 n2 的余数n1 % n2 的场合，返回的可能是负数，而不是数学意义上的余数</li>
+<li>Math.round(n)：四舍五入，相当于 Math.floor(n5 + 0.5)</li>
+<li>Math.sqrt(n)：求开方。负数的场合，返回 NaN</li>
+<li>Math.random()：返回一个 [0, 1) 区间的随机小数</li>
+<li>Math.sin(n)：正弦函数</li>
+<li>Math.cos(n)：余弦函数</li>
+<li>Math.tan(n)、Math.atan(n)、Math.atan2(n)要注意，上述方法传入的参数是 弧度值。要得到一个角度的弧度值，应使用：Math.toRadians(n)</li>
+<li>Math.exp(n)：e 的 n 次幂</li>
+<li>Math.log10(n)：10 为底的对数</li>
+<li>Math.log()：自然对数</li>
+<li>Math.PI：圆周率的近似值</li>
+<li>Math.E：e 的近似值</li>
+</ul>
+<h1 id="12-6-Arrays类"><a href="#12-6-Arrays类" class="headerlink" title="12.6 Arrays类"></a>12.6 <code>Arrays</code>类</h1><ul>
+<li><p><code>Arrays.toString()</code>：返回数组的字符串形式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] nums = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">33</span>&#125;;</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> Array.toString(nums);		<span class="comment">//此时，str = &quot;[0, 1, 33]&quot;</span></span><br><span class="line"><span class="comment">//特别的，输入为 null 时返回 “null”</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Arrays.sort(arr)</code>：排序</p>
+</li>
+</ul>
+<p>因为数组是引用类型，使用 sort 排序后，会直接影响到实参。<br>默认（自然排序）从小到大排序。<br><code>Arrays.sort(arr, Comparator c)</code>：按照传入的比较器决定排序方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Integer[] nums;</span><br><span class="line">...</span><br><span class="line">Comparator&lt;Integer, Integer&gt; c = <span class="keyword">new</span> <span class="title class_">Comparator</span>&lt;Integer, Integer&gt;()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Integer o1, Integer o2)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n2 - n1;						<span class="comment">// 这个场合，变成从大到小排序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Arrays.sort(nums, c);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Arrays.binarySearch(array, num)</code>：通过二分搜索法查找。前提是必须先排序。</li>
+</ul>
+<p>找不到的场合，返回 - (low + 1)。即，其应该在的位置的负值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] nums2 = &#123;-<span class="number">10</span>, -<span class="number">5</span>, -<span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">9</span>&#125;;</span><br><span class="line"><span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> Arrays.binarySearch(nums2, <span class="number">7</span>);	<span class="comment">// 此时 index = -7</span></span><br><span class="line">											<span class="comment">// 如果 7 存在，应该在第 7 个位置</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Arrays.copyOf(arr, n)</code>：从 <code>arr</code> 中，复制<code>n</code> 个元素（成为新的数组）。<code>n &gt; arr.length</code> 的场合，在多余的位置添加 <code>null</code>。<code>n &lt; 0</code> 的场合，抛出异常。该方法的底层使用的是 <code>System.arraycopy</code></li>
+<li><code>Arrays.fill(arr, o)</code>：用 <code>o</code> 填充 <code>num</code> 的所有元素。</li>
+<li><code>Arrays.equals(arr1, arr2)</code>：比较两个数组元素是否完全一致（<code>true/false</code>）</li>
+<li><code>Arrays.asList(a, b, c, d)</code>：将输入数据转成一个 <code>List</code> 集合</li>
+</ul>
+<h1 id="12-7-System类"><a href="#12-7-System类" class="headerlink" title="12.7 System类"></a>12.7 <code>System</code>类</h1><ul>
+<li><code>System.exit(0)</code>：退出当前程序。0 表示一个状态，正常状态是 0</li>
+<li><code>System.arraycopy(arr, 0, newArr, 0 ,3)</code>：复制数组元素。上例是：<code>arr</code> 自下标 0 起开始，向 <code>newArr</code> 自下标 0 开始，依次拷贝 3 个值这个方法比较适合底层调用。我们一般使用 <code>Arrays.copyOf</code> 来做</li>
+<li><code>System.currentTimeMillis</code>：返回当前时间距离 1970 - 1 - 1 的毫秒数</li>
+<li><code>System.gc</code>：运行垃圾回收机制</li>
+</ul>
+<h1 id="12-8-BigInteger和BigDecimal类"><a href="#12-8-BigInteger和BigDecimal类" class="headerlink" title="12.8 BigInteger和BigDecimal类"></a>12.8 <code>BigInteger</code>和<code>BigDecimal</code>类</h1><blockquote>
+<p><code>BigInteger</code>：适合保存更大的整数<br><code>BigDecimal</code>：适合保存精度更大的浮点数</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用引号把大数变成字符串</span></span><br><span class="line"><span class="type">BigInteger</span> <span class="variable">bigNum</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BigInteger</span>(<span class="string">&quot;100000000000000000000000&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>构造方法：</strong></p>
+<ul>
+<li><code>new BigInteger(String intStr)</code>：通过一个字符串构建大数</li>
+<li><code>BigInteger BigInteger.valueOf(1)</code>：通过静态方法，让整数类型转成大数</li>
+</ul>
+<p>另外，在对 <code>BigInteger</code> 和 <code>BigDecimal</code> 进行加减乘除的时候，需要使用对应方法<br>不能直接用 <code>+ - * /</code><br><strong>常用方法：</strong></p>
+<ul>
+<li><code>BigInteger add(BigInteger)</code>：加法运算。返回新的大数</li>
+<li><code>BigInteger subtract(BigInteger)</code>：减法</li>
+<li><code>BigInteger multiply(BigInteger)</code>：乘法</li>
+<li><code>BigInteger divide(BigInteger)</code>：除法运算该方法可能抛出异常。因为可能产生是无限长度小数。解决方法（保留分子精度）：<code>bigDecimal.divide(bD3, BigDecimal.ROUND_CELLING)</code></li>
+<li>一些常量：<code>BigInteger.ONE</code>、<code>BigInteger.ZERO</code>、<code>BigInteger.TEN</code> 分别是 1、0、10</li>
+</ul>
+<p>one 就是英文的 1，zero 就是英文的 0……这个大家都懂的吧？</p>
+<h1 id="12-9-日期类"><a href="#12-9-日期类" class="headerlink" title="12.9 日期类"></a>12.9 日期类</h1><h2 id="12-9-1-第一代日期类"><a href="#12-9-1-第一代日期类" class="headerlink" title="12.9.1 第一代日期类"></a>12.9.1 第一代日期类</h2><blockquote>
+<p>Date：精确到毫秒，代表特定瞬间。这里的是 java.util.Date<br>SimpleDateFormat：格式和解析日期的类</p>
+</blockquote>
+<ol>
+<li><p><code>Date d1 = new Date();</code>：调用默认无参构造器，获取当前系统时间。默认输出日期格式是国外的格式，因此通常需要进行格式转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SimpleDateFormat</span> <span class="variable">sdf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy.MM.dd HH.mm.ss&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">dateFormated</span> <span class="operator">=</span> sdf.(d1);							<span class="comment">//日期转成指定格式。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过指定毫秒数得到时间：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Date</span> <span class="variable">d2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>(<span class="number">10000000000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把一个格式化的字符串转成对应的Date:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SimpleDateFormat</span> <span class="variable">sdf2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy年MM月dd日 HH点mm分 E&quot;</span>);</span><br><span class="line"><span class="type">Date</span> <span class="variable">d3</span> <span class="operator">=</span> sdf2.parse(<span class="string">&quot;2021年12月22日 00点03分 星期三&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>这个场合，给定的字符串格式应和 <code>sdf2</code> 格式相同，否则会抛出异常</p>
+</li>
+</ol>
+<h2 id="12-9-2-第二代日期类"><a href="#12-9-2-第二代日期类" class="headerlink" title="12.9.2 第二代日期类"></a>12.9.2 第二代日期类</h2><blockquote>
+<p>Calendar：构造器是私有的，要通过 getInstance 方法获取实例</p>
+</blockquote>
+<ol>
+<li><p>Calendar 是一个抽象类，其构造器私有</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Calendar</span> <span class="variable">c1</span> <span class="operator">=</span> Calendar.genInstance();				<span class="comment">//获取实例的方法</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提供大量方法和字段提供给程序员使用Calendar 没有专门的格式化方法，需要程序员自己组合来显示</p>
+<ul>
+<li>c1.get(Calendar.YEAR)：获取年份数</li>
+<li>c1.get(Calendar.MONTH)：获取月份数特别的，实际月份是 返回值 +1。因为 Calendar 的月份是从 0 开始编号的</li>
+<li>c1.get(Calendar.DAY_OF_MONTH)：获取日数</li>
+<li>c1.get(Calendar.HOUR)：获取小时数（12小时制）c1.get(Calendar.HOUR_OF_DATE)：获取小时数（24小时制）</li>
+<li>c1.get(Calendar.MINUTE)：获取分钟数</li>
+<li>c1.get(Calendar.SECOND)：获取秒数</li>
+</ul>
+</li>
+</ol>
+<h2 id="12-9-3-第三代日期类"><a href="#12-9-3-第三代日期类" class="headerlink" title="12.9.3 第三代日期类"></a>12.9.3 第三代日期类</h2><blockquote>
+<p>JDK 1.0 加入的 Date 在 JDK 1.1 加入 Calendar 后已被弃用<br>然而，Calendar 也存在不足：</p>
+<ol>
+<li>可变性：像日期和实际这样的类应该是不可改变的</li>
+<li>偏移性：年份都是从 1900 年开始，月份都是从 0 开始</li>
+<li>格式化：只对 Date 有用，对 Calendar 没用</li>
+<li>其他问题：如不能保证线程安全，不能处理闰秒（每隔 2 天多 1 秒）等</li>
+</ol>
+</blockquote>
+<p>于是，在 JDK 8 加入了以下新日期类：</p>
+<blockquote>
+<ul>
+<li>LocalDate：只包含 日期（年月日），可以获取 日期字段</li>
+<li>LocalTime：只包含 时间（时分秒），可以获取 时间字段</li>
+<li>LocalDateTime：包含 日期 + 时间，可以获取 日期 + 时间字段</li>
+<li>DateTimeFormatter：格式化日期</li>
+<li>Instant：时间戳</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>使用 <code>now()</code> 方法返回当前时间的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LocalDateTime</span> <span class="variable">ldt</span> <span class="operator">=</span> LocalDateTime.now();				<span class="comment">//获取当前时间</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取各字段方法：</p>
+</li>
+</ol>
+<ul>
+<li>ldt.getYear();：获取年份数</li>
+<li>ldt.getMonth();：获取月份数（英文）ldt.getMonthValue();：获取月份数（数字）</li>
+<li>ldt.getDayOfMonth();：获取日数</li>
+<li>LocalDateTime ldt2 &#x3D; ldt.plusDays(100);：获取 ldt 时间 100 天后的时间实例</li>
+<li>LocalDateTime ldt3 &#x3D; ldt.minusHours(100);：获取 ldt 时间 100 小时前的时间实例</li>
+<li>…</li>
+</ul>
+<ol start="3">
+<li><p>格式化日期：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DateTimeFormatter</span> <span class="variable">dtf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DateTimeFormatter</span>(<span class="string">&quot;yyyy.MM.dd HH.mm.ss&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">date</span> <span class="operator">=</span> dtf.format(ldt);							<span class="comment">//获取格式化字符串</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Instant</code> 和 <code>Date</code> 类似</p>
+<ul>
+<li>获取当前时间戳：<code>Instant instant = Instant.now();</code></li>
+<li>转换为 Date：<code>Date date = Date.form(instant);</code></li>
+<li>由 Date 转换：<code>Instant instant = date.toInstant;</code></li>
+</ul>
+</li>
+</ol>
+<h1 id="12-10-泛型"><a href="#12-10-泛型" class="headerlink" title="12.10 泛型"></a>12.10 泛型</h1><blockquote>
+<p>泛型（generic）：又称 参数化类型。是JDK 5 出现的新特性。解决数据类型的安全性问题。<br>在类声明或实例化时只要制定好需要的具体类型即可。</p>
+</blockquote>
+<p>举例说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Properties&lt;Person&gt; prop = <span class="keyword">new</span> <span class="title class_">Properties</span>&lt;Person&gt;();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上例表示存放到 prop 中的必须是 Person 类型。<br>如果编译器发现添加类型不符合要求，即报错。<br>遍历时，直接取出 Person 而非 Object</p>
+</blockquote>
+<ol>
+<li>编译时，检查添加元素的类型。可以保证如果编译时没发出警告，运行就不会产生 ClassCastException 异常。提高了安全性，使代码更加简洁、健壮。</li>
+<li>也减少了转换的次数，提高了效率。</li>
+<li>泛型的作用是：可以在类声明是通过一个标识表示类中某个属性的类型，或某个方法返回值的类型，或参数类型。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">P</span>&lt;E&gt; &#123;</span><br><span class="line">	E e;				<span class="comment">//E 表示 e 的数据类型，在定义 P类 时指定。在编译期间即确认类型</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">P</span><span class="params">(E e)</span>&#123;		<span class="comment">//可作为参数类型</span></span><br><span class="line">		<span class="built_in">this</span>.e = e;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> E <span class="title function_">doSth</span><span class="params">()</span>&#123;	<span class="comment">//可作为返回类型</span></span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">this</span>.e;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+实例化时指定 E 的类型，编译时上例所有 E 会被编译器替换为那个指定类型<br><strong>使用方法：</strong></li>
+</ol>
+<ul>
+<li><p><strong>声明泛型</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">InterfaceName</span>&lt;T&gt; &#123;...&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ClassName</span>&lt;A, B, C, D&gt; &#123;...&#125;</span><br><span class="line"><span class="comment">//上例 T、A、B、C、D 不是值，而是类型。可以用任意字母代替</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例化泛型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">Iterator&lt;Integer&gt; iterator = vector.interator&lt;Integer&gt;();</span><br><span class="line"><span class="comment">// 类名后面指定类型参数的值</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意细节：</strong></p>
+</li>
+</ul>
+<ol>
+<li><p>泛型只能是引用类型</p>
+</li>
+<li><p>指定泛型具体类型后，可以传入该类型或其子类类型</p>
+</li>
+<li><p>在实际开发中往往简写泛型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br></pre></td></tr></table></figure>
+<p>编译器会进行类型推断，右边 &lt; &gt; 内容可以省略</p>
+</li>
+<li><p>实例化不写泛型的场合，相当于默认泛型为 <code>Object</code></p>
+</li>
+</ol>
+<p><strong>自定义泛型类 接口：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Name</span>&lt;A, B...&gt; &#123;...&#125;				<span class="comment">//泛型标识符 可有多个，一般是单个大写字母表示</span></span><br></pre></td></tr></table></figure>
+<p>这就是自定义泛型啊</p>
+<ol>
+<li><p>普通成员可以使用泛型（属性、方法）</p>
+</li>
+<li><p>泛型类的类型，是在创建对象时确定的。因此：静态方法中不能使用类的泛型；使用泛型的数组，也不能初始化。</p>
+</li>
+<li><p>创建对象时不指定的场合，默认 Object。建议还是写上 <Object>，大气，上档次</p>
+</li>
+<li><p>自定义泛型接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Name</span>&lt;T, R...&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>泛型接口，其泛型在 继承接口 或 实现接口 时确定。<br><strong>自定义泛型方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修饰符 &lt;T, R...&gt; 返回类型 方法名(形参) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以定义在普通类中，也可以定义在泛型类中</p>
+</li>
+<li><p>当泛型方法被调用时，类型会确定</p>
+</li>
+<li><p>以下场合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class C&lt;T&gt; &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">cMethord</span><span class="params">(T t)</span>&#123;		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>没有 &lt; &gt;，不是泛型方法，而是使用了泛型的普通方法</p>
+</li>
+</ol>
+<h4 id="泛型继承："><a href="#泛型继承：" class="headerlink" title="泛型继承："></a>泛型继承：</h4><ol>
+<li>泛型不具有继承性</li>
+<li><code>&lt;?&gt;</code>：支持任意泛型类型</li>
+<li><code>&lt;? extends A&gt;</code>：支持 A 及 A的子类，规定了泛型的上限</li>
+<li><code>&lt;? super B&gt;</code>：支持 B 及 B 的父类，规定了泛型的下限</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/" title="12. 包装类">http://example.com/2022/09/11/JavaSE/12. 常用类/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/" rel="prev" title="11. 异常">
+                  <i class="fa fa-chevron-left"></i> 11. 异常
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/13.%20Java%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(%E9%9B%86%E5%90%88)/" rel="next" title="13. Java数据结构(集合)">
+                  13. Java数据结构(集合) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>

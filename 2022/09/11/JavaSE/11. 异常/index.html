@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 异常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11. 异常">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 异常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/28255706/1657289122571-8559700f-2222-401f-8eae-ce8f4171e7ce.png#clientId=u15cc0f93-f150-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=465&id=u084e2120&margin=%5Bobject%20Object%5D&name=image.png&originHeight=465&originWidth=1669&originalType=binary&ratio=1&rotation=0&showTitle=false&size=165118&status=done&style=none&taskId=u59424144-7d63-4e7a-9590-bfc3db8a4a3&title=&width=1669">
+<meta property="article:published_time" content="2022-09-11T10:57:17.365Z">
+<meta property="article:modified_time" content="2022-09-11T11:03:23.209Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/28255706/1657289122571-8559700f-2222-401f-8eae-ce8f4171e7ce.png#clientId=u15cc0f93-f150-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=465&id=u084e2120&margin=%5Bobject%20Object%5D&name=image.png&originHeight=465&originWidth=1669&originalType=binary&ratio=1&rotation=0&showTitle=false&size=165118&status=done&style=none&taskId=u59424144-7d63-4e7a-9590-bfc3db8a4a3&title=&width=1669">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/","path":"2022/09/11/JavaSE/11. 异常/","title":"11. 异常"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>11. 异常 | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#11-1-%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">11.1 异常体系图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-1-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BC%82%E5%B8%B8"><span class="nav-number">1.1.</span> <span class="nav-text">11.1.1 常见的运行时异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-2-%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BC%96%E8%AF%91%E5%BC%82%E5%B8%B8"><span class="nav-number">1.2.</span> <span class="nav-text">11.1.2 常见的编译异常</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-2-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">11.2 异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-1-try-catch%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">11.2.1 try - catch异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-1-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">2.1.1.</span> <span class="nav-text">11.2.1.1 使用细节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-2-throws%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">11.2.2 throws异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-2-2-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">2.2.1.</span> <span class="nav-text">11.2.2.1 使用细节</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-3-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">3.</span> <span class="nav-text">11.3 自定义异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-1-throw%E5%92%8C-throws"><span class="nav-number">3.1.</span> <span class="nav-text">11.3.1 throw和 throws</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-3-2-%E7%BC%96%E7%A8%8B%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">3.1.1.</span> <span class="nav-text">11.3.2 编程小技巧</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="11. 异常 | 安之">
+      <meta itemprop="description" content="Java 异常">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          11. 异常
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:57:17 / 修改时间：19:03:23" itemprop="dateCreated datePublished" datetime="2022-09-11T18:57:17+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 异常</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在 Java 语言中，将程序执行中发生的不正常情况称为 “异常”（开发过程中的语法错误和逻辑错误不是异常）<br>这些 异常事件 可分为两类：</p>
+<ul>
+<li><strong>Error（错误）</strong>：Java 虚拟机无法解决的严重问题。如：JVM 系统内部错误，资源耗尽等严重情况。Error 是严重错误，程序会崩溃。</li>
+<li><strong>Exception</strong>：其他因编程错误或偶然的外部因素导致的一般性问题，可以使用针对性的代码进行处理。如：空指针访问，试图读取不存在的文件，网络中断等等。Exception 又分为两大类：<ul>
+<li>运行时异常（程序运行时，发生的异常）</li>
+<li>编译时异常（编程时，编译器检查出的异常）</li>
+</ul>
+</li>
+</ul>
+<h1 id="11-1-异常体系图"><a href="#11-1-异常体系图" class="headerlink" title="11.1 异常体系图"></a>11.1 异常体系图</h1><p>编译异常（受检异常） 和 运行异常（非受检异常）<br>Java 源程序 ——(javac.exe)——&gt; 字节码文件 ——(java.exe)——&gt; 在内存中加载，运行类<br>编译异常↑ 运行异常↑<br><img src="https://cdn.nlark.com/yuque/0/2022/png/28255706/1657289122571-8559700f-2222-401f-8eae-ce8f4171e7ce.png#clientId=u15cc0f93-f150-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=465&id=u084e2120&margin=%5Bobject%20Object%5D&name=image.png&originHeight=465&originWidth=1669&originalType=binary&ratio=1&rotation=0&showTitle=false&size=165118&status=done&style=none&taskId=u59424144-7d63-4e7a-9590-bfc3db8a4a3&title=&width=1669" alt="image.png"><br>异常分为两大类：运行时异常 和 编译时异常</p>
+<ul>
+<li><p>运行时异常，编译器不要求强制处置的异常。一般是指编程的逻辑错误，是程序员应该避免其出现的异常。java.lang.RuntimeException 类及它的子类都是运行时异常</p>
+<pre><code>  对于运行时异常，可以不做处理。因为这类异常很普遍，若全处理会对程序的可读性和运行效率产生影响
+</code></pre>
+</li>
+<li><p>编译时异常，是编译器要求必须处置的异常</p>
+</li>
+</ul>
+<h2 id="11-1-1-常见的运行时异常"><a href="#11-1-1-常见的运行时异常" class="headerlink" title="11.1.1 常见的运行时异常"></a>11.1.1 常见的运行时异常</h2><p>常见的运行时异常（RuntimeException）包括</p>
+<ul>
+<li>NullPointerException：空指针异常</li>
+<li>ArithmeticException：数学运算异常</li>
+<li>ArrayIndexOutOfBoundsException：数组下标越界异常</li>
+<li>ClassCastException：类型转换异常</li>
+<li>NumberFormatException：数学格式异常</li>
+</ul>
+<p><strong>空指针异常</strong></p>
+<ul>
+<li><p>当应用程序试图在需要对象的地方使用 null 时，抛出该异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> str.length;					<span class="comment">//这里，出现了 空指针异常</span></span><br></pre></td></tr></table></figure>
+<p><strong>数学运算异常</strong></p>
+</li>
+<li><p>当出现异常的运算条件时，抛出该异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">100</span> / <span class="number">0</span>;					<span class="comment">//这里，出现了 数学运算异常</span></span><br></pre></td></tr></table></figure>
+<p><strong>数组下标越界异常</strong></p>
+</li>
+<li><p>用非法索引（为负或超出范围）访问数组时，抛出该异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] nums = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">nums[-<span class="number">50</span>] = <span class="number">100</span>;					<span class="comment">//这里，出现了 数组下标越界异常</span></span><br></pre></td></tr></table></figure>
+<p><strong>类型转换异常</strong></p>
+</li>
+<li><p>当试图把对象强制转换为不是实例的子类时，抛出该异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Example</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">A</span> <span class="variable">a1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A1</span>();</span><br><span class="line">        <span class="type">A2</span> <span class="variable">a1</span> <span class="operator">=</span> (A2)a1;				<span class="comment">//这里，出现了 类型转换异常</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A1</span> <span class="keyword">extends</span> <span class="title class_">A</span> &#123;&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A2</span> <span class="keyword">extends</span> <span class="title class_">A</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>数字格式不正确异常</strong></p>
+</li>
+<li><p>当应用程序试图将字符串转成一种数值类型，但该字符串不能转换为适当格式时，抛出该异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;ABC&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(str);	<span class="comment">//这里，出现了 数字格式不正确异常</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="11-1-2-常见的编译异常"><a href="#11-1-2-常见的编译异常" class="headerlink" title="11.1.2 常见的编译异常"></a>11.1.2 常见的编译异常</h2><p>常见的编译异常：</p>
+<ul>
+<li>SQLException：操作数据库时，查询表可能发生异常</li>
+<li>IOException：操作文件时，发生的异常</li>
+<li>FileNotFoundException：操作一个不存在的文件时，发生的异常</li>
+<li>ClassNotFoundException：加载类，而该类不存在时，发生的异常</li>
+<li>EOFException：操作文件，到文档末尾，发生的异常</li>
+<li>IllegalArguementException：参数异常</li>
+</ul>
+<h1 id="11-2-异常处理"><a href="#11-2-异常处理" class="headerlink" title="11.2 异常处理"></a>11.2 异常处理</h1><p>异常发生时，对异常的处理方式。如果没有显式异常处理，默认处理方式是 throws</p>
+<ul>
+<li><code>try - chatch - finally</code>：程序员在代码中捕获发生的异常，自行处理</li>
+<li><code>throws</code>：将发生的异常抛出，交给调用者（方法）来处理。最顶级的处理者就是 JVM</li>
+</ul>
+<h2 id="11-2-1-try-catch异常处理"><a href="#11-2-1-try-catch异常处理" class="headerlink" title="11.2.1 try - catch异常处理"></a>11.2.1 <code>try - catch</code>异常处理</h2><p>Java 提供 try 和 catch 块 来处理异常。try 块用于包含可能出错的代码，catch 块用于处理 try 块中的异常。可以根据需要在程序中有多个<code> try - catch</code> 块。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="comment">//可疑代码</span></span><br><span class="line">	<span class="comment">//将异常生成对应的异常对象，传递给 catch 块</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">	<span class="comment">//如果发生异常，执行这些代码</span></span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">//无论是否异常，都执行这些代码</span></span><br><span class="line">    <span class="comment">//finally 块可以不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>快捷键：选中代码后按 ctrl + alt + T</strong></p>
+</blockquote>
+<h3 id="11-2-1-1-使用细节"><a href="#11-2-1-1-使用细节" class="headerlink" title="11.2.1.1 使用细节"></a>11.2.1.1 使用细节</h3><ol>
+<li><p>如果异常发生了，则异常发生后面的代码块都不执行，直接进入 <code>catch</code> 块</p>
+</li>
+<li><p>如果异常未发生，则顺序执行 <code>try</code> 代码块，<code>catch</code> 块不执行</p>
+</li>
+<li><p>如果希望不管是否异常，都执行一些代码，则使用 <code>finally</code></p>
+</li>
+<li><p>可以有多个 <code>catch</code> 捕获不同的异常。要求 子类异常在前，父类异常在后。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">catch</span> (ArithmeticException e) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">catch</span> (ArrayIndexOutOfBoundsException e) &#123;</span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以进行 <code>try - finally</code> 配合使用（不写 <code>catch</code>）。这种用法相当于没有捕获异常，此时程序如果出错会直接退出。应用场景，就是写一段代码，不管是否发生异常，都必须执行某个业务逻辑。</p>
+</li>
+<li><p>如果没有出现异常，执行 <code>try</code> 中所有语句，不执行<code> catch</code> 语句，最后执行<code> finally</code> 语句</p>
+</li>
+<li><p>如果出现异常，则<code> try</code> 块异常发生后，剩余语句不执行。之后执行 <code>catch</code> 语句，最后，执行 <code>finally</code> 语句。</p>
+</li>
+</ol>
+<h2 id="11-2-2-throws异常处理"><a href="#11-2-2-throws异常处理" class="headerlink" title="11.2.2 throws异常处理"></a>11.2.2 <code>throws</code>异常处理</h2><p>如果一个方法可能生成某种异常，但是并不能确定如何处理这种异常，则此方法应显式地声明抛出异常，表明该方法将不对这些异常进行处理，而由调用者负责处理<br>在方法中声明 <code>throws</code> 语句可以声明抛出异常的列表。<code>throws</code> 后面的异常类型可以是方法中产生的异常类型，也可以是它的父类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">metord</span><span class="params">()</span> <span class="keyword">throws</span> FileNontFoundException ,NullPointerException &#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="11-2-2-1-使用细节"><a href="#11-2-2-1-使用细节" class="headerlink" title="11.2.2.1 使用细节"></a>11.2.2.1 使用细节</h3><ol>
+<li>对于 <strong>编译异常</strong>，程序中必须处理。</li>
+<li>对于 <strong>运行异常</strong>，程序中诺没有处理，默认处理是 <code>throws</code></li>
+<li>子类 重写 父类方法时，子类方法抛出的异常类型必须和父类一致，或者是父类抛出异常类型的子类型。</li>
+<li>如果有<code> try - catch</code> 就不必 <code>throws</code> 了</li>
+</ol>
+<h1 id="11-3-自定义异常"><a href="#11-3-自定义异常" class="headerlink" title="11.3 自定义异常"></a>11.3 自定义异常</h1><p>当程序中出现了某些 “错误”，但该信息并未在 <code>Throwable</code> 子类中描述处理，这时候可以自己设计异常类，用于描述该错误信息</p>
+<ol>
+<li>定义类：自定义异常类名，继承 <code>RuntimeException</code> 或 <code>Exception</code></li>
+<li>如果继承 <code>Exception</code>，属于 编译异常。</li>
+<li>如果继承 <code>RuntimeException</code>，属于 运行异常。（一般来说，选这个。这样利用了默认处理机制，更方便）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Metords</span> &#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">CustomException</span>(<span class="string">&quot;自定义异常&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CustomException</span> <span class="keyword">extends</span> <span class="title class_">RuntimeException</span> &#123;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">CustomException</span><span class="params">(String message)</span> &#123;</span><br><span class="line">	<span class="built_in">super</span>(message);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="11-3-1-throw和-throws"><a href="#11-3-1-throw和-throws" class="headerlink" title="11.3.1 throw和 throws"></a>11.3.1 <code>throw</code>和 <code>throws</code></h2><p>| **</p>
+<p> | <strong>意义</strong> | <strong>位置</strong> | <strong>后面跟的东西</strong> |<br>| — | — | — | — |<br>| throws | 异常处理的一种方式 | 方法声明时 | 异常类型 |<br>| throw | 手动生成异常对象关键字 | 方法体中 | 异常对象 |</p>
+<h3 id="11-3-2-编程小技巧"><a href="#11-3-2-编程小技巧" class="headerlink" title="11.3.2 编程小技巧"></a>11.3.2 编程小技巧</h3><p>老韩：编写异常时，先确定正确的情况，然后取反。这样写，你的思路就不乱。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/" title="11. 异常">http://example.com/2022/09/11/JavaSE/11. 异常/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/" rel="prev" title="10. 枚举">
+                  <i class="fa fa-chevron-left"></i> 10. 枚举
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/12.%20%E5%B8%B8%E7%94%A8%E7%B1%BB/" rel="next" title="12. 包装类">
+                  12. 包装类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>

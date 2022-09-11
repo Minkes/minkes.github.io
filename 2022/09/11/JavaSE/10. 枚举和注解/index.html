@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java 枚举">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. 枚举">
+<meta property="og:url" content="http://example.com/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Java 枚举">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-11T10:56:48.274Z">
+<meta property="article:modified_time" content="2022-09-11T11:03:02.808Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/","path":"2022/09/11/JavaSE/10. 枚举和注解/","title":"10. 枚举"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>10. 枚举 | 安之</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#10-1-%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.</span> <span class="nav-text">10.1 枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-1-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.1.</span> <span class="nav-text">10.1.1 自定义枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-1-2-enum%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.2.</span> <span class="nav-text">10.1.2 enum关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-2-1-%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">10.1.2.1 使用细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-1-2-2-Enum%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">10.1.2.2 Enum类中的常用方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-2-%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">10.2 注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-1-Override"><span class="nav-number">2.1.</span> <span class="nav-text">10.2.1 @Override</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-2-Deprecated"><span class="nav-number">2.2.</span> <span class="nav-text">10.2.2 @Deprecated</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-3-SuppressWarnings"><span class="nav-number">2.3.</span> <span class="nav-text">10.2.3 @SuppressWarnings()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-2-4-JDK-%E7%9A%84%E5%85%83%E6%B3%A8%E8%A7%A3-%E4%BB%85%E4%BD%9C%E4%BA%86%E8%A7%A3"><span class="nav-number">2.4.</span> <span class="nav-text">10.2.4 JDK 的元注解(仅作了解)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="10. 枚举 | 安之">
+      <meta itemprop="description" content="Java 枚举">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          10. 枚举
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-11 18:56:48 / 修改时间：19:03:02" itemprop="dateCreated datePublished" datetime="2022-09-11T18:56:48+08:00">2022-09-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Java 枚举</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="10-1-枚举"><a href="#10-1-枚举" class="headerlink" title="10.1 枚举"></a>10.1 枚举</h1><p>把具体的对象一一列举出来的类，就称为 枚举类（enumeration）<br>实现方法：</p>
+<ol>
+<li>自定义枚举</li>
+<li>enum 关键字枚举</li>
+</ol>
+<h2 id="10-1-1-自定义枚举"><a href="#10-1-1-自定义枚举" class="headerlink" title="10.1.1 自定义枚举"></a>10.1.1 自定义枚举</h2><ol>
+<li>构造器私有化</li>
+<li>去掉 <code>set</code> 方法（可保留 <code>get</code>），防止属性被修改。因为枚举对象值通常为只读</li>
+<li>在类内部直接创建固定对象。使用 <code>final + static</code> 共同修饰，对象名通常全部大写。</li>
+<li>枚举对象按照需要可以有多个属性</li>
+</ol>
+<h2 id="10-1-2-enum关键字"><a href="#10-1-2-enum关键字" class="headerlink" title="10.1.2 enum关键字"></a>10.1.2 <code>enum</code>关键字</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Example</span> &#123;</span><br><span class="line"> RED(<span class="string">&quot;小红&quot;</span>, <span class="number">10</span>), BLUE(<span class="string">&quot;小蓝&quot;</span>, <span class="number">11</span>), YELLOW; <span class="comment">//这句话要放在前面，第三个是无参</span></span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> <span class="title function_">Example</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">     <span class="built_in">this</span>.name = name;</span><br><span class="line">     <span class="built_in">this</span>.age = age;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>用关键字 <code>enum</code> 替代 <code>class</code></li>
+<li>用 <code>常量名.(形参列表);</code> 代替创建对象（放在前面）。多个对象的场合，用 <code>,</code> 间隔。</li>
+<li>如果使用 <code>enum</code> 枚举，要求将常量对象写在前面</li>
+</ol>
+<h3 id="10-1-2-1-使用细节"><a href="#10-1-2-1-使用细节" class="headerlink" title="10.1.2.1 使用细节"></a>10.1.2.1 使用细节</h3><ol>
+<li><p>当我们用 <code>enum</code> 关键字开发一个枚举类时，默认会继承 <code>java.lang.Enum</code> 类，而且是一个 <code>final</code> 类。这样，我们就能使用 <code>Enum</code> 中的相关方法。</p>
+<pre><code> **也正因为如此，`enum` 类不能继承其他类，亦不能被其它类继承不过，**
+
+` enum` 类和其他类一样，可以实现接口。
+</code></pre>
+</li>
+<li><p>传统的 <code>public ststic final RED(&quot;小红&quot;, 10);</code> 简化为 <code>RED(&quot;小红&quot;, 10);</code></p>
+</li>
+<li><p>如果使用无参构造器创建枚举对象，则 <code>实参列表</code> 和 <code>( )</code> 都能省略</p>
+</li>
+</ol>
+<h3 id="10-1-2-2-Enum类中的常用方法"><a href="#10-1-2-2-Enum类中的常用方法" class="headerlink" title="10.1.2.2 Enum类中的常用方法"></a>10.1.2.2 <code>Enum</code>类中的常用方法</h3><ul>
+<li><code>valueOf</code>：将字符串转换成枚举对象。要求字符串必须是已有的常量名，否则报异常。</li>
+<li><code>values</code>：返回一个数组 <code>Example[]</code>，其中包含定义的所有枚举对象</li>
+<li><code>getDeclaringClass</code>：得到枚举常量所属的 <code>class</code></li>
+<li><code>name</code>：得到当前枚举常量的名称。建议优先用 <code>toString</code></li>
+<li><code>ordinal</code>：输出该枚举对象的次序&#x2F;编号（从 0 开始编号。如上例 <code>BLUE.ordinal = 1</code>）</li>
+<li><code>compareTo</code>：比较两个枚举常量的编号（调用常量编号 减去 传入常量编号）</li>
+<li><code>clone</code>：枚举类不能 <code>clone</code>，所以，这是一个只会抛出异常的方法</li>
+</ul>
+<h1 id="10-2-注解"><a href="#10-2-注解" class="headerlink" title="10.2 注解"></a>10.2 注解</h1><p>注解（<code>Annotation</code>）也被称为元数据（<code>Metadata</code>）。用于修饰 包、类、方法、属性、构造器、局部变量 等数据信息<br>和注释一样，注解不影响程序逻辑，但注解可以被编译或运行，相当于嵌入在代码中的补充信息<br>在 JavaSE 中，注解的使用目的比较简单，例如 标记过时的功能，忽略警告 等。在 JavaEE 中注解占据了更重要的角色，例如用于配置应用程序的任何切面，代替 JavaEE 旧版中所遗留的繁冗代码和 XML 配置等。</p>
+<ol>
+<li>使用 <code>@Annotation</code> 时要在前面增加 <code>@</code> 符号，并把该注解当成一个修饰符使用。用于修饰它支持的程序元素。</li>
+<li>三个基本的 <code>@Annotation</code>：<ul>
+<li><code>@Override</code>：限定某个方法，是 重写 父类方法。该注解只能用于方法。如果你写了该注解，编译器会替你校验，看看是不是真的 重写 了父类方法。</li>
+<li><code>@Deprecated</code>：用于表示某个程序元素（类、方法等）已经过时</li>
+<li><code>@SuppressWarnings()</code>：抑制编辑器警告</li>
+</ul>
+</li>
+<li>如果发现 <code>public @interface XXX&#123;&#125;</code> 这种东西，说明是定义了一个注解类 <code>XXX</code>。这里的 <code>@interface</code> 不代表接口（<code>interface</code>）。</li>
+</ol>
+<h2 id="10-2-1-Override"><a href="#10-2-1-Override" class="headerlink" title="10.2.1 @Override"></a>10.2.1 <code>@Override</code></h2><ol>
+<li><code>@Override</code> 表示指定重写父类的方法（从编译器层面验证），如果父类没有该方法，就报错</li>
+<li>不写该注解，重写依然构成重写</li>
+<li><code>@Override</code> 只能修饰方法，不能修饰其他 类、包、属性等</li>
+<li>查看 <code>@Override</code> 注解源码为 <code>@Target(ElementType.METHOD)</code> 说明只能修饰方法</li>
+<li><code>@Target</code> 是修饰注解的注解，称为 元注解</li>
+</ol>
+<h2 id="10-2-2-Deprecated"><a href="#10-2-2-Deprecated" class="headerlink" title="10.2.2 @Deprecated"></a>10.2.2 <code>@Deprecated</code></h2><ol>
+<li><code>@Deprecated</code> 表示指定的某个程序元素（类、方法等）已过时</li>
+<li>不推荐使用，但仍能使用</li>
+<li>可以修饰方法、类、字段、包、参数<code>@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</code></li>
+<li><code>@Deprecated</code> 可以做到新旧版本的兼容和过度</li>
+</ol>
+<h2 id="10-2-3-SuppressWarnings"><a href="#10-2-3-SuppressWarnings" class="headerlink" title="10.2.3 @SuppressWarnings()"></a>10.2.3 <code>@SuppressWarnings()</code></h2><ol>
+<li>当我们不想看到警告信息时，用 <code>@SuppressWarnings()</code></li>
+</ol>
+<p>语法：<code>@SuppressWarnings(&#123;&quot;...&quot;&#125;)</code><br>在后面 <code>(&#123;&quot;unused&quot;, &quot;unchecked&quot;&#125;)</code> 这样写入你希望抑制的信息，以下是所有可以输入的关键字</p>
+<table>
+<thead>
+<tr>
+<th><strong>关键字</strong></th>
+<th><strong>用途</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>all</td>
+<td>抑制所有警告</td>
+</tr>
+<tr>
+<td>boxing</td>
+<td>抑制与装箱&#x2F;解装箱操作相关的警告</td>
+</tr>
+<tr>
+<td>cast</td>
+<td>抑制与强制转换操作相关的警告</td>
+</tr>
+<tr>
+<td>dep-ann</td>
+<td>抑制与已弃用注释相关的警告</td>
+</tr>
+<tr>
+<td>deprecation</td>
+<td>抑制与弃用有关的警告</td>
+</tr>
+<tr>
+<td>fallthrough</td>
+<td>抑制与 switch 语句中丢失断点相关的警告</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>抑制不返回的 finally 块的相关警告</td>
+</tr>
+<tr>
+<td>hiding</td>
+<td>抑制与隐藏变量的局部变量相关的警告</td>
+</tr>
+<tr>
+<td>incomplete-switch</td>
+<td>抑制与 switch 语句中缺少条目相关的警告（enum）</td>
+</tr>
+<tr>
+<td>nls</td>
+<td>抑制与 非nls 字符串字面值相关的警告</td>
+</tr>
+<tr>
+<td>null</td>
+<td>抑制相对于null分析的警告</td>
+</tr>
+<tr>
+<td>rawtypes</td>
+<td>在类参数上使用泛型时，抑制与非特定类型相关的警告</td>
+</tr>
+<tr>
+<td>restriction</td>
+<td>抑制与不推荐或禁止引用有关的警告</td>
+</tr>
+<tr>
+<td>serial</td>
+<td>抑制与可序列化类缺少serialVersionUID字段相关的警告</td>
+</tr>
+<tr>
+<td>static-access</td>
+<td>抑制与不正确的静态访问有关的警告</td>
+</tr>
+<tr>
+<td>synthetic-access</td>
+<td>抑制与未优化的内部类访问相关的警告</td>
+</tr>
+<tr>
+<td>unchecked</td>
+<td>抑制与未检查的操作相关的警告</td>
+</tr>
+<tr>
+<td>unqualified-field-access</td>
+<td>抑制与字段访问不合格相关的警告</td>
+</tr>
+<tr>
+<td>unused</td>
+<td>抑制与未使用代码相关的警告</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><code>@SuppressWarnings</code> 的范围与你放置的位置相关。</li>
+</ol>
+<h2 id="10-2-4-JDK-的元注解-仅作了解"><a href="#10-2-4-JDK-的元注解-仅作了解" class="headerlink" title="10.2.4 JDK 的元注解(仅作了解)"></a>10.2.4 JDK 的元注解(仅作了解)</h2><blockquote>
+<p>JDK的 元注解 是用于修饰其他注解的注解</p>
+</blockquote>
+<ol>
+<li><p><code>@Rentention</code>：指定注解的作用范围，有三种范围 <code>SOURCE</code> <code>CLASS</code> <code>RUNTIME</code></p>
+<pre><code> `@Rentention` 的三种值：
+</code></pre>
+<ul>
+<li><code>RententionPolicy.SOURCE</code>：编译器使用后，直接丢弃这种策略的注释</li>
+<li><code>RententionPolicy.CLASS</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时， JVM 不会保留注释。这是默认值</li>
+<li><code>RententionPolicy.RUNTIME</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时，JVM 会保留注解。程序可以通过反射获取该注解</li>
+</ul>
+</li>
+<li><p><code>@Target</code>：指定注解的使用范围<code>@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</code></p>
+</li>
+<li><p><code>@Documented</code>：指定该注解会不会在 Javadoc 体现</p>
+</li>
+<li><p><code>@Inherited</code>：子类会继承父类注解</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/" title="10. 枚举">http://example.com/2022/09/11/JavaSE/10. 枚举和注解/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class=""></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/9.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E9%AB%98%E7%BA%A7)/" rel="prev" title="9. 类变量和类方法">
+                  <i class="fa fa-chevron-left"></i> 9. 类变量和类方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/11/JavaSE/11.%20%E5%BC%82%E5%B8%B8/" rel="next" title="11. 异常">
+                  11. 异常 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">112k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:42</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+
+</html>
