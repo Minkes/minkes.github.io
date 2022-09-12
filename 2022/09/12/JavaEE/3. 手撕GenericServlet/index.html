@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. 为什么会出现 GenericServlet在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。">
+    <meta name="description" content="在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3. 手撕 GenericServlet">
 <meta property="og:url" content="http://example.com/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/index.html">
 <meta property="og:site_name" content="安之">
-<meta property="og:description" content="1. 为什么会出现 GenericServlet在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。">
+<meta property="og:description" content="在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-12T14:34:30.558Z">
-<meta property="article:modified_time" content="2022-09-12T14:38:52.965Z">
+<meta property="article:modified_time" content="2022-09-12T14:55:33.136Z">
 <meta property="article:author" content="MiK">
 <meta property="article:tag" content="Java 学习">
 <meta property="article:tag" content="JavaEE">
@@ -94,7 +94,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0-GenericServlet"><span class="nav-number">1.</span> <span class="nav-text">1. 为什么会出现 GenericServlet</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0-GenericServlet"><span class="nav-number">1.</span> <span class="nav-text">1. 为什么会出现 GenericServlet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99GenericServlet"><span class="nav-number">2.</span> <span class="nav-text">2. 如何编写GenericServlet</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -236,7 +236,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="3. 手撕 GenericServlet | 安之">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -252,7 +252,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-12 22:34:30 / 修改时间：22:38:52" itemprop="dateCreated datePublished" datetime="2022-09-12T22:34:30+08:00">2022-09-12</time>
+      <time title="创建时间：2022-09-12 22:34:30 / 修改时间：22:55:33" itemprop="dateCreated datePublished" datetime="2022-09-12T22:34:30+08:00">2022-09-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -261,6 +261,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
         </span>
     </span>
 
@@ -292,17 +296,18 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>151</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
+            <div class="post-description">在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。</div>
         </div>
       </header>
 
@@ -311,8 +316,42 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="1-为什么会出现-GenericServlet"><a href="#1-为什么会出现-GenericServlet" class="headerlink" title="1. 为什么会出现 GenericServlet"></a>1. 为什么会出现 GenericServlet</h1><p>在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。</p>
-<span id="more"></span>
+<p><strong>GenericServlet 是用来干什么的?</strong></p>
+<p>为了使得每个业务都可以只实现所需要的方法,就需要GenericServlet从中间适配,就比如手机直接插到220V的电压上，手机直接就报废了。怎么办？可以找一个充电器。这个充电器就是一个适配器。手机连接适配器。适配器连接220V的电压。这样问题就解决了。</p>
+<h1 id="2-如何编写GenericServlet"><a href="#2-如何编写GenericServlet" class="headerlink" title="2. 如何编写GenericServlet"></a>2. 如何编写GenericServlet</h1><p><strong>GenericServlet 的实现过程</strong></p>
+<p>编写一个GenericServlet类，这个类是一个抽象类，其中有一个抽象方法service。</p>
+<ul>
+<li>GenericServlet实现Servlet接口。</li>
+<li>GenericServlet是一个适配器。</li>
+<li>以后编写的所有Servlet类继承GenericServlet，重写service方法即可。</li>
+</ul>
+<p><strong>GenericServlet 改造</strong></p>
+<ul>
+<li><p>思考第一个问题：我提供了一个GenericServlet之后，init方法还会执行吗？</p>
+<ul>
+<li>还会执行。会执行GenericServlet类中的init方法。</li>
+</ul>
+</li>
+<li><p>思考第二个问题：init方法是谁调用的？</p>
+<ul>
+<li>Tomcat服务器调用的。</li>
+</ul>
+</li>
+<li><p>思考第三个问题：init方法中的ServletConfig对象是谁创建的？是谁传过来的？</p>
+<ul>
+<li>都是Tomcat干的。</li>
+<li>Tomcat服务器先创建了ServletConfig对象，然后调用init方法，将ServletConfig对象传给了init方法。</li>
+</ul>
+</li>
+<li><p>思考一下Tomcat服务器伪代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Tomcat</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">// .....</span></span><br><span class="line">        <span class="comment">// Tomcat服务器伪代码</span></span><br><span class="line">        <span class="comment">// 创建LoginServlet对象（通过反射机制，调用无参数构造方法来实例化LoginServlet对象）</span></span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;com.bjpowernode.javaweb.servlet.LoginServlet&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> clazz.newInstance();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 向下转型</span></span><br><span class="line">        <span class="type">Servlet</span> <span class="variable">servlet</span> <span class="operator">=</span> (Servlet)obj;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建ServletConfig对象</span></span><br><span class="line">        <span class="comment">// Tomcat服务器负责将ServletConfig对象实例化出来。</span></span><br><span class="line">        <span class="comment">// 多态（Tomcat服务器完全实现了Servlet规范）</span></span><br><span class="line">        <span class="type">ServletConfig</span> <span class="variable">servletConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">org</span>.apache.catalina.core.StandardWrapperFacade();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的init方法</span></span><br><span class="line">        servlet.init(servletConfig);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的service方法</span></span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>对此改造GenericServlet:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span>, ServletConfig, Serializable &#123;</span><br><span class="line">    <span class="comment">// 将 ServletConfig 设置为成员变量,方便其其他方法和子类调用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> ServletConfig config;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">GenericServlet</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getInitParameter(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletConfig <span class="title function_">getServletConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletContext <span class="title function_">getServletContext</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getServletContext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getServletInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 init 将 Tomcat 所实例化的 config 传递给 成员变量 config</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">        <span class="built_in">this</span>.config = config;</span><br><span class="line">        <span class="built_in">this</span>.init(); <span class="comment">// (重点!!!) 调用下面公开的init方法,给子类重写</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个公开的 init() 方法,可以允许子类重写这个方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意 :</strong>  GenericServlet 方法已经被 jakarta 实现,不需要我们自己手写,并且Oracle 已经为 GenericServlet 实现了更好的子类,我们可能在使用过程中直接调用那些子类。</p>
 
     </div>
 
@@ -389,13 +428,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">121k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:48</span>
+    <span title="站点阅读时长">1:50</span>
   </span>
 </div>
 <div class="busuanzi-count">
