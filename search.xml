@@ -208,10 +208,13 @@
 </code></pre>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -393,10 +396,13 @@
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -504,10 +510,13 @@
 <h3 id="11-3-2-编程小技巧"><a href="#11-3-2-编程小技巧" class="headerlink" title="11.3.2 编程小技巧"></a>11.3.2 编程小技巧</h3><p>老韩：编写异常时，先确定正确的情况，然后取反。这样写，你的思路就不乱。</p>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -946,10 +955,13 @@
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1340,10 +1352,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </blockquote>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1500,10 +1515,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ul>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -1856,10 +1874,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ul>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2077,10 +2098,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2266,10 +2290,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2401,10 +2428,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <h2 id="4-8-4-return"><a href="#4-8-4-return" class="headerlink" title="4.8.4 return"></a>4.8.4 return</h2><p>方法有返回值的场合，将返回值写在 <code>return</code> 后：<code>return 值;</code><br>如果写在 主方法 则跳出程序</p>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2626,10 +2656,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </blockquote>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -2881,10 +2914,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3209,10 +3245,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wlm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeSys</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 选择菜单并且给出相应的提示</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 零钱通明细</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">details</span> <span class="operator">=</span> <span class="string">&quot;------------零钱通明细------------&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 收益入账</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">money</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消费</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">note</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n=============零钱通菜单=============&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 1 零 钱 通 明 细&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 2 收 益 入 账&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 3 消      费&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 4 退      出&quot;</span>);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">&quot;请选择(1-4): &quot;</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                    System.out.println(details);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入入账金额： &quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span>(money &lt;=<span class="number">0</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;存不进去，请输入正确金额&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    balance += money;</span><br><span class="line">                    details += <span class="string">&quot;\n收益入账\t+&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费金额 :&quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span> (money &lt;= <span class="number">0</span> &amp;&amp; money &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;太贵了买不起，只能买1-100块钱的东西&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(balance &lt; money) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;买不起，存款不足啊！&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费说明：&quot;</span>);</span><br><span class="line">                    note = scanner.next();</span><br><span class="line">                    balance -= money;</span><br><span class="line">                    details += <span class="string">&quot;\n&quot;</span>+note+<span class="string">&quot;\t-&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;4&quot;</span>:</span><br><span class="line">                    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                        System.out.print(<span class="string">&quot;退出系统(y/n)? &quot;</span>);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">choice</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;y&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            loop = <span class="literal">false</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;n&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            System.out.println(<span class="string">&quot;输入有误,请重新输入！&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    System.out.println(<span class="string">&quot;您的选择有误，请重新选择&quot;</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">while</span> (loop);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;已成功退出零钱通系统~&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3229,10 +3268,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <h1 id="工具类Utils"><a href="#工具类Utils" class="headerlink" title="工具类Utils"></a>工具类Utils</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm.utils;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	工具类的作用:</span></span><br><span class="line"><span class="comment">	处理各种情况的用户输入，并且能够按照程序员的需求，得到用户的控制台输入。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Utility</span> &#123;</span><br><span class="line">	<span class="comment">//静态属性。。。</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的一个菜单选项，值：1——5的范围</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 1——5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="type">char</span> <span class="title function_">readMenuSelection</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">char</span> c;</span><br><span class="line">        <span class="keyword">for</span> (; ; ) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">1</span>, <span class="literal">false</span>);<span class="comment">//包含一个字符的字符串</span></span><br><span class="line">            c = str.charAt(<span class="number">0</span>);<span class="comment">//将字符串转换成字符char类型</span></span><br><span class="line">            <span class="keyword">if</span> (c != <span class="string">&#x27;1&#x27;</span> &amp;&amp; c != <span class="string">&#x27;2&#x27;</span> &amp;&amp; </span><br><span class="line">                c != <span class="string">&#x27;3&#x27;</span> &amp;&amp; c != <span class="string">&#x27;4&#x27;</span> &amp;&amp; c != <span class="string">&#x27;5&#x27;</span>) &#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;选择错误，请重新输入：&quot;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 功能：读取键盘输入的一个字符</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> 一个字符</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">char</span> <span class="title function_">readChar</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">1</span>, <span class="literal">false</span>);<span class="comment">//就是一个字符</span></span><br><span class="line">        <span class="keyword">return</span> str.charAt(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的一个字符，如果直接按回车，则返回指定的默认值；否则返回输入的那个字符</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> defaultValue 指定的默认值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 默认值或输入的字符</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">char</span> <span class="title function_">readChar</span><span class="params">(<span class="type">char</span> defaultValue)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">1</span>, <span class="literal">true</span>);<span class="comment">//要么是空字符串，要么是一个字符</span></span><br><span class="line">        <span class="keyword">return</span> (str.length() == <span class="number">0</span>) ? defaultValue : str.charAt(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的整型，长度小于2位</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 整数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">readInt</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        <span class="keyword">for</span> (; ; ) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">10</span>, <span class="literal">false</span>);<span class="comment">//一个整数，长度&lt;=10位</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                n = Integer.parseInt(str);<span class="comment">//将字符串转换成整数</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NumberFormatException e) &#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;数字输入错误，请重新输入：&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的 整数或默认值，如果直接回车，则返回默认值，否则返回输入的整数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> defaultValue 指定的默认值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 整数或默认值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">readInt</span><span class="params">(<span class="type">int</span> defaultValue)</span> &#123;</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        <span class="keyword">for</span> (; ; ) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">10</span>, <span class="literal">true</span>);</span><br><span class="line">            <span class="keyword">if</span> (str.equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">return</span> defaultValue;</span><br><span class="line">            &#125;</span><br><span class="line">			</span><br><span class="line">			<span class="comment">//异常处理...</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                n = Integer.parseInt(str);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NumberFormatException e) &#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;数字输入错误，请重新输入：&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的指定长度的字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> limit 限制的长度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 指定长度的字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">readString</span><span class="params">(<span class="type">int</span> limit)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> readKeyBoard(limit, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能：读取键盘输入的指定长度的字符串或默认值，如果直接回车，返回默认值，否则返回字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> limit 限制的长度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> defaultValue 指定的默认值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 指定长度的字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">readString</span><span class="params">(<span class="type">int</span> limit, String defaultValue)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(limit, <span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> str.equals(<span class="string">&quot;&quot;</span>)? defaultValue : str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 功能：读取键盘输入的确认选项，Y或N</span></span><br><span class="line"><span class="comment">	 * 将小的功能，封装到一个方法中.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> Y或N</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">char</span> <span class="title function_">readConfirmSelection</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;请输入你的选择(Y/N): 请小心选择&quot;</span>);</span><br><span class="line">        <span class="type">char</span> c;</span><br><span class="line">        <span class="keyword">for</span> (; ; ) &#123;<span class="comment">//无限循环</span></span><br><span class="line">        	<span class="comment">//在这里，将接受到字符，转成了大写字母</span></span><br><span class="line">        	<span class="comment">//y =&gt; Y n=&gt;N</span></span><br><span class="line">            <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> readKeyBoard(<span class="number">1</span>, <span class="literal">false</span>).toUpperCase();</span><br><span class="line">            c = str.charAt(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="string">&#x27;Y&#x27;</span> || c == <span class="string">&#x27;N&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;选择错误，请重新输入：&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 功能： 读取一个字符串</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> limit 读取的长度</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> blankReturn 如果为true ,表示 可以读空字符串。 </span></span><br><span class="line"><span class="comment">     * 					  如果为false表示 不能读空字符串。</span></span><br><span class="line"><span class="comment">     * 			</span></span><br><span class="line"><span class="comment">	 *	如果输入为空，或者输入大于limit的长度，就会提示重新输入。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">readKeyBoard</span><span class="params">(<span class="type">int</span> limit, <span class="type">boolean</span> blankReturn)</span> &#123;</span><br><span class="line">        </span><br><span class="line">		<span class="comment">//定义了字符串</span></span><br><span class="line">		<span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//scanner.hasNextLine() 判断有没有下一行</span></span><br><span class="line">        <span class="keyword">while</span> (scanner.hasNextLine()) &#123;</span><br><span class="line">            line = scanner.nextLine();<span class="comment">//读取这一行</span></span><br><span class="line">           </span><br><span class="line">			<span class="comment">//如果line.length=0, 即用户没有输入任何内容，直接回车</span></span><br><span class="line">			<span class="keyword">if</span> (line.length() == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (blankReturn) <span class="keyword">return</span> line;<span class="comment">//如果blankReturn=true,可以返回空串</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">continue</span>; <span class="comment">//如果blankReturn=false,不接受空串，必须输入内容</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">//如果用户输入的内容大于了 limit，就提示重写输入  </span></span><br><span class="line">			<span class="comment">//如果用户如的内容 &gt;0 &lt;= limit ,我就接受</span></span><br><span class="line">            <span class="keyword">if</span> (line.length() &lt; <span class="number">1</span> || line.length() &gt; limit) &#123;</span><br><span class="line">                System.out.print(<span class="string">&quot;输入长度（不能大于&quot;</span> + limit + <span class="string">&quot;）错误，请重新输入：&quot;</span>);</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> line;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
   <entry>
@@ -3519,10 +3561,13 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 </ol>
 ]]></content>
       <categories>
-        <category>JavaSE</category>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
       </categories>
       <tags>
+        <tag>Java 学习</tag>
         <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
       </tags>
   </entry>
 </search>
