@@ -1164,169 +1164,6 @@
       </tags>
   </entry>
   <entry>
-    <title>14. 多线程(基础)</title>
-    <url>/2022/09/11/JavaSE/14.%20%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="14-1-线程的概念"><a href="#14-1-线程的概念" class="headerlink" title="14.1 线程的概念"></a>14.1 线程的概念</h1><blockquote>
-<p>对于一般程序而言，其结构大都可以分为一个入口、一个出口、一个顺次执行的语句序列。这样的语句结构称为进程，它是程序的一次动态执行，对应了代码加载、执行至完毕的全过程。<br>进程即是程序在处理机中的一次运行。在这样一个结构中不仅包含程序代码，也包括了系统资源的概念。<br>在单 CPU 计算机内部，微观上讲，同一时间只能有一个线程运行。实现多线程即从宏观上使多个作业同时执行。</p>
-</blockquote>
-<p>程序：为完成特定任务，用某种语言编写的一组指令的集合。<br>进程：运行中的程序。当你运行一个程序，系统就会为该进程分配空间。进程是程序的一次执行过程。是一个动态过程：有其自身产生、存在、消亡的过程。<br>线程：由进程创建的，进程的一个实体。一个进程可以有多个线程。<br>单线程：同一时刻，只允许执行一个线程。<br>多线程：同一时刻，可以执行多个线程。<br>并发：同一时刻，多个任务交替执行，造成一种貌似并行的状态。单核 CPU 实现的多任务就是并发。<br>并行：同一时刻，多个任务同时进行。多核 CPU 可以实现并行。</p>
-<h2 id="14-1-1-线程的结构"><a href="#14-1-1-线程的结构" class="headerlink" title="14.1.1 线程的结构"></a>14.1.1 线程的结构</h2><p>在 Java 中，线程由以下 3 部分组成：</p>
-<ul>
-<li>虚拟 CPU：封装在 java.lang.Thread 类中，控制着整个线程的运行</li>
-<li>执行的代码：传递给 Thread 类，由其控制按序执行</li>
-<li>处理的数据：传递给 Thread 类，是在代码执行过程中需要处理的数据</li>
-</ul>
-<h2 id="14-1-2-线程的状态"><a href="#14-1-2-线程的状态" class="headerlink" title="14.1.2 线程的状态"></a>14.1.2 线程的状态</h2><blockquote>
-<p>Java 的线程是通过包 java.lang 中定义的类 Thread 来实现的。当生成了一个 Thread 类后就产生了一个线程。通过该对象实例，可以启动线程、终止线程，或暂时挂起线程</p>
-</blockquote>
-<p>线程共有 4 种状态：新建（New）、可运行（Runnable）、死亡（Dead）、阻塞（Blocked）</p>
-<ul>
-<li><strong>新建（New）</strong>：线程对象刚刚创建，还未启动（New）。此时还处于不可运行状态，但已有了相应内存空间及其他资源</li>
-<li><strong>可运行（Runnable）</strong>：此时线程已经启动，处于线程的 run() 方法中。这种情况下线程可能正在运行；也可能没有运行，但只要 CPU 空闲就会立刻运行。可以运行但没在运行的线程都排在一个队列中，这个队列称为就绪队列。可运行状态下，运行中的线程处于运行状态（Running），未运行线程处于就绪状态（Ready）。调用 start() 方法可以让线程进入可运行状态。</li>
-<li><strong>死亡（Dead）</strong>：线程死亡（Terminated）的原因有两个：一是 run() 方法最后一个语句执行完毕，二是线程遇到异常退出</li>
-<li><strong>阻塞（Blocked）</strong>：一个正常运行的线程因为特殊原因被暂停执行，就进入阻塞状态（Blocked）。阻塞时线程不能进入就绪对流排队，必须等到引起阻塞的原因消除，才能重新进入队列排队。引起阻塞的方法很多，sleep() 和 wait() 是两个常用的阻塞方法</li>
-<li><strong>中断线程</strong>：<ul>
-<li><code>void interrupt()</code>：向一个线程发送一个中断请求，并把该线程的 interruptd 状态变为 true。中断阻塞线程的场合，会抛出 InterruptException 异常</li>
-<li><code>static boolean interrupted()</code>：检测当前线程是否被中断，并重置状态 interrupted 的值。连续调用该方法的场合，第二次调用会返回 false</li>
-<li><code>boolean isInterrupted()</code>：检测当前线程是否中断。不改变 interrupted 的值</li>
-</ul>
-</li>
-</ul>
-<h1 id="14-2-线程的使用"><a href="#14-2-线程的使用" class="headerlink" title="14.2 线程的使用"></a>14.2 线程的使用</h1><p>在 Java 中线程使用有两种方法：</p>
-<ol>
-<li><p>继承 <code>Thread</code> 类，重写 <code>run</code> 方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>		<span class="comment">//可见 Thread 也是实现了 Runable 接口</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实现 <code>Runable</code> 接口，重写 <code>run</code> 方法</p>
-</li>
-</ol>
-<h2 id="14-2-1-继承Thread类"><a href="#14-2-1-继承Thread类" class="headerlink" title="14.2.1 继承Thread类"></a>14.2.1 继承Thread类</h2><blockquote>
-<p>Thread 类是 Java 用于表示线程的类。那么，一个类被定义为其子类，则该类也能用来表示线程</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();</span><br><span class="line"> type.start();								<span class="comment">//开始线程</span></span><br><span class="line"> 											<span class="comment">//如果用 run 方法，则还是停留在主线程</span></span><br><span class="line"> 											<span class="comment">//  那样，相当于 串行。执行完毕才继续</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;						<span class="comment">//先继承 Thread 类</span></span><br><span class="line"> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">         System.out.println(i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);				<span class="comment">//休眠 100 毫秒</span></span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (i++ == <span class="number">10</span>) &#123;					<span class="comment">//i = 10 时停止循环</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>关于<code>start()</code> 方法</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">	...</span><br><span class="line">    start0();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">start0</span><span class="params">()</span>;					<span class="comment">//start0 是 native。即，底层方法</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><code>start()</code> 方法调用了一个 <code>start0()</code> 底层方法</li>
-<li><code>start0()</code> 是本地方法，由 JVM 调用，底层是 c&#x2F;c++ 实现</li>
-<li>真正的多线程效果，是 <code>start0()</code>，而不是 <code>run()</code></li>
-<li><code>start()</code> 方法调用 <code>start0() </code>方法后，该线程不一定会立刻执行，只是将线程变成了可运行状态。具体何时运行，由 CPU 统一调度</li>
-</ol>
-<h2 id="14-2-2-实现Runable接口"><a href="#14-2-2-实现Runable接口" class="headerlink" title="14.2.2 实现Runable接口"></a>14.2.2 实现Runable接口</h2><blockquote>
-<p>Runnable 是 Java 用以实现线程的接口。从根本上将，任何实现线程的类都必须实现该接口。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Runnable</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();					<span class="comment">//Runable 没有 start()方法</span></span><br><span class="line"> <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(type);				<span class="comment">//所以，这里使用了 静态代理</span></span><br><span class="line"> thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;				<span class="comment">//这部分和 Thread 相似</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         System.out.println(i &lt;&lt; i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (++i &gt; <span class="number">15</span>)&#123;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>关于静态代理</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runable</span> &#123;&#125;</span><br><span class="line">	...	</span><br><span class="line">	<span class="keyword">private</span> Runnable target;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="title function_">Thread</span><span class="params">(Runnable target)</span> &#123;	<span class="comment">//构造器</span></span><br><span class="line">     init(<span class="literal">null</span>, target, <span class="string">&quot;Thread-&quot;</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">     								<span class="comment">//这句话可以先理解为 this.target = target;</span></span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">         target.run();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//相当于，先创建了一个新线程，然后在新线程中调用 run 方法</span></span><br></pre></td></tr></table></figure>
-<h2 id="14-2-3-继承Thread和实现Runable的区别"><a href="#14-2-3-继承Thread和实现Runable的区别" class="headerlink" title="14.2.3 继承Thread和实现Runable的区别"></a>14.2.3 继承Thread和实现Runable的区别</h2><ol>
-<li>从 Java 设计来看，两者本质上没有区别。Thread 类本身就实现了 Runable 接口</li>
-<li>实现 Runable 接口的方式更加适合多个线程共享一个资源的情况，且避免了单继承的限制。建议使用。</li>
-</ol>
-<h2 id="14-2-4-线程中止"><a href="#14-2-4-线程中止" class="headerlink" title="14.2.4 线程中止"></a>14.2.4 线程中止</h2><ol>
-<li>当线程结束后，会自动退出</li>
-<li>还可以通过使用变量来控制 <code>run</code> 方法退出的方式来停止线程，即 通知方式。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line"> <span class="keyword">while</span> (active) &#123;					<span class="comment">//这个场合，只要外部控制 active 即可</span></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         Thread.sleep(<span class="number">1</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     move();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="14-2-5-线程的常用方法"><a href="#14-2-5-线程的常用方法" class="headerlink" title="14.2.5 线程的常用方法"></a>14.2.5 线程的常用方法</h2><ul>
-<li>setName(name)：设置线程名称，使之与参数 name 相同</li>
-<li>getName()：返回线程名称</li>
-<li>start()：线程开始执行。JVM 调用 start0 方法该方法会创建新的线程，新线程调用 run。</li>
-<li>run()：到下面玩跑步就是简单的方法调用，不会产生新线程。</li>
-<li>setPriority(int priority)：更改线程优先级getPriority()：获取线程优先级priority 范围：每个线程都有一个优先级。Java 线程调度采用如下优先级策略：<ul>
-<li>MAX_PRIORITY：最高优先级（10）</li>
-<li>MIN_PRIORITY：最低优先级（1）</li>
-<li>NORM_PRIORITY：不高不低，真是好极了的优先级（5）</li>
-<li>优先级高的先执行，优先级低的后执行</li>
-<li>每个线程创建时会被自动分配一个优先级。默认的场合，继承父类优先级</li>
-<li>任务紧急的线程，优先级较高</li>
-<li>同优先级线程按 “先进先出” 原则调度</li>
-</ul>
-</li>
-<li>sleep(int millsecond)：让线程休眠指定的时间该方法是 Thread 类的静态方法，可以直接调用</li>
-<li>interrupt()：中断线程（不是 中止）</li>
-<li>yield()：线程的礼让。让出 CPU 让其他线程执行。因为礼让的时间不确定，所以不一定礼让成功。本质是 RUNNING 切换为 READY，即让当前线程放弃执行权</li>
-<li>wait()：导致当前线程等待直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法才能唤醒此线程notify()、notifyAll()：唤醒因 wait() 阻塞的线程。这些方法（wait()、notify()、notifyAll()）只能在 synchrnized 方法或代码块中调用</li>
-<li>join()：线程的插队。插队的线程一旦插入成功，则必定先执行完插队线程的所有任务将导致其他线程的等待，直到 join() 方法的线程结束join(long timeout)：join，但是时间到后也能结束其他线程的等待</li>
-<li>isAlive()：测试当前线程是否在活动</li>
-<li>Thread.currentThread()：引用当前运行中的线程</li>
-</ul>
-<h2 id="14-2-6-用户线程和守护线程"><a href="#14-2-6-用户线程和守护线程" class="headerlink" title="14.2.6 用户线程和守护线程"></a>14.2.6 用户线程和守护线程</h2><ul>
-<li>用户线程：也叫工作线程。当线程任务执行完毕或通知方式结束</li>
-<li>守护线程：一般是为工作线程服务的。当所有线程结束，守护线程自动结束常见的守护线程：垃圾回收机制<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thraed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(bullet);</span><br><span class="line">thread.setDeamon(<span class="literal">true</span>);							<span class="comment">//这样，子线程被设置为主线程的守护线程</span></span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="14-2-7-线程的生命周期"><a href="#14-2-7-线程的生命周期" class="headerlink" title="14.2.7 线程的生命周期"></a>14.2.7 线程的生命周期</h2><p>线程的状态有</p>
-<ul>
-<li>NEW：尚未启动</li>
-<li>RUNNABLE：在 JVM 中执行的线程可细分为 READY 和 RUNNING</li>
-<li>BLOCKED：被阻塞等待监视器锁定的线程</li>
-<li>WAITING：正等待另一个线程执行特定动作的线程</li>
-<li>TIMED_WAITING：正等待另一个线程执行特定动作达到等待时间的线程</li>
-<li>TERMINATED：已退出的线程</li>
-</ul>
-<h1 id="14-3-线程的互斥"><a href="#14-3-线程的互斥" class="headerlink" title="14.3 线程的互斥"></a>14.3 线程的互斥</h1><blockquote>
-<p>在多线程编程，一些敏感数据不允许被多个线程同时访问。此时就用同步访问技术，保证数据在任意时刻，最多有一个线程同时访问，以保证数据的完整性。<br>也可以这样理解：线程同步，即当有一个线程对内存进行操作时，其他线程都不能对这个内存地址进行操作（被阻塞），直到该线程完成操作，再让下一线程进行操作。</p>
-</blockquote>
-<h2 id="14-3-1-互斥锁"><a href="#14-3-1-互斥锁" class="headerlink" title="14.3.1 互斥锁"></a>14.3.1 互斥锁</h2><blockquote>
-<p>在 Java 语言中，引入了 “对象互斥锁” 的概念，也称为监视器，来保证共享数据操作的完整性<br>每个对象都对应一个可称为 “互斥锁” 的标记，这个标记用来保证在任一时刻都只能有一个线程访问对象。<br>Java 语言中，有 2 种方式实现互斥锁：</p>
-<ul>
-<li>用关键字 volatile 声明一个共享数据（变量）。一般很少使用该关键字</li>
-<li>用关键字 synchronized 声明共享数据的一个方法或一个代码</li>
-</ul>
-</blockquote>
-<p>同步的局限性：导致程序的执行效率要降低。</p>
-<blockquote>
-<p>非静态的对象，同步方法的锁可以是 this，也可以是其他对象（要求是同一对象）<br>静态对象，同步方法的锁为当前类本身</p>
-</blockquote>
-<ol>
-<li><p>同步代码块</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (对象) &#123;		<span class="comment">//得到对象的锁，才能操作同步代码</span></span><br><span class="line">	需要被同步代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在第一个线程持有锁定标记时，如果另一个线程企图执行该代码块语句，将从对象中索取锁定标记。<br>因为此时该标记不可得，古该线程不能继续执行，而是加入等待队列。<br>程序运行完 synchronized 代码块后，锁定标记会被自动返还。即使该同步代码块执行过程中抛出异常也是如此。一个线程多次调用该同步代码块的场合，也会在最外层执行完毕后正确返还。</p>
-</li>
-<li><p>放在方法声明中，表示整个方法为同步方法</p>
-</li>
-</ol>
-<p>因为 synchronized 语句的参数必须是 this，因此允许下面这种简洁的写法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">	代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="14-3-2-线程死锁"><a href="#14-3-2-线程死锁" class="headerlink" title="14.3.2 线程死锁"></a>14.3.2 线程死锁</h2><blockquote>
-<p>多个线程都占用了对方的资源，不肯相让，就导致了死锁。编程时要避免死锁的产生。</p>
-</blockquote>
-<ul>
-<li>以下操作会释放锁<ol>
-<li>当前线程的同步方法、同步代码块执行结束。</li>
-<li>当前线程在同步方法、同步代码块中遇到 break、return</li>
-<li>当前线程在同步方法、同步代码块中出现了未处理的 Error</li>
-<li>当前线程在同步方法、同步代码块中执行了 wait() 方法，当前线程暂停，并释放锁</li>
-</ol>
-</li>
-<li>以下操作不会释放锁<ol>
-<li>执行同步方法、同步代码块时，程序调用 Thread.sleep() 或 Thread.yield() 方法暂停当前线程的执行，不会释放锁</li>
-<li>线程执行同步代码块时，其他线程调用了该线程的 suspend() 方法将该线程挂起，该线程不会释放锁所以，应尽量避免使用 suspend() 和 resume() 来控制线程</li>
-</ol>
-</li>
-</ul>
-<h1 id="14-4-线程的同步"><a href="#14-4-线程的同步" class="headerlink" title="14.4 线程的同步"></a>14.4 线程的同步</h1><blockquote>
-<p>Java 中，可以使用 wait()、notify()、notifyAll() 来协调线程间的运行速度关系。这些方法都被定义在 java.lang.Object 中<br>Java 中的每个对象实例都有两个线程队列和它相连。一个用以实现等待锁定标志的线程，另一个用来实现 wait() 和 notify() 的交互机制</p>
-</blockquote>
-<ul>
-<li>wait()：让当前线程释放所有其持有的 “对象互斥锁”，进入等待队列</li>
-<li>notify()、notifyAll()：唤醒一个或所有在等待队列中等待的线程，并将他们移入同一个等待 “对象互斥锁” 的队列。执行这些方法时如果没有等待中的线程，则其不会生效，也不会被保留到以后再生效<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.value == <span class="number">0</span>) key.wait();</span><br><span class="line">    key.value--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    key.value++;</span><br><span class="line">    key.nitifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-因为调用这些方法时必须持有对象的 “对象互斥锁”，所以上述方法只能在 synhronized 方法或代码块中执行。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>13. Java数据结构(集合)</title>
     <url>/2022/09/11/JavaSE/13.%20Java%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(%E9%9B%86%E5%90%88)/</url>
     <content><![CDATA[<blockquote>
@@ -1724,6 +1561,393 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
+    <title>14. 多线程(基础)</title>
+    <url>/2022/09/11/JavaSE/14.%20%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="14-1-线程的概念"><a href="#14-1-线程的概念" class="headerlink" title="14.1 线程的概念"></a>14.1 线程的概念</h1><blockquote>
+<p>对于一般程序而言，其结构大都可以分为一个入口、一个出口、一个顺次执行的语句序列。这样的语句结构称为进程，它是程序的一次动态执行，对应了代码加载、执行至完毕的全过程。<br>进程即是程序在处理机中的一次运行。在这样一个结构中不仅包含程序代码，也包括了系统资源的概念。<br>在单 CPU 计算机内部，微观上讲，同一时间只能有一个线程运行。实现多线程即从宏观上使多个作业同时执行。</p>
+</blockquote>
+<p>程序：为完成特定任务，用某种语言编写的一组指令的集合。<br>进程：运行中的程序。当你运行一个程序，系统就会为该进程分配空间。进程是程序的一次执行过程。是一个动态过程：有其自身产生、存在、消亡的过程。<br>线程：由进程创建的，进程的一个实体。一个进程可以有多个线程。<br>单线程：同一时刻，只允许执行一个线程。<br>多线程：同一时刻，可以执行多个线程。<br>并发：同一时刻，多个任务交替执行，造成一种貌似并行的状态。单核 CPU 实现的多任务就是并发。<br>并行：同一时刻，多个任务同时进行。多核 CPU 可以实现并行。</p>
+<h2 id="14-1-1-线程的结构"><a href="#14-1-1-线程的结构" class="headerlink" title="14.1.1 线程的结构"></a>14.1.1 线程的结构</h2><p>在 Java 中，线程由以下 3 部分组成：</p>
+<ul>
+<li>虚拟 CPU：封装在 java.lang.Thread 类中，控制着整个线程的运行</li>
+<li>执行的代码：传递给 Thread 类，由其控制按序执行</li>
+<li>处理的数据：传递给 Thread 类，是在代码执行过程中需要处理的数据</li>
+</ul>
+<h2 id="14-1-2-线程的状态"><a href="#14-1-2-线程的状态" class="headerlink" title="14.1.2 线程的状态"></a>14.1.2 线程的状态</h2><blockquote>
+<p>Java 的线程是通过包 java.lang 中定义的类 Thread 来实现的。当生成了一个 Thread 类后就产生了一个线程。通过该对象实例，可以启动线程、终止线程，或暂时挂起线程</p>
+</blockquote>
+<p>线程共有 4 种状态：新建（New）、可运行（Runnable）、死亡（Dead）、阻塞（Blocked）</p>
+<ul>
+<li><strong>新建（New）</strong>：线程对象刚刚创建，还未启动（New）。此时还处于不可运行状态，但已有了相应内存空间及其他资源</li>
+<li><strong>可运行（Runnable）</strong>：此时线程已经启动，处于线程的 run() 方法中。这种情况下线程可能正在运行；也可能没有运行，但只要 CPU 空闲就会立刻运行。可以运行但没在运行的线程都排在一个队列中，这个队列称为就绪队列。可运行状态下，运行中的线程处于运行状态（Running），未运行线程处于就绪状态（Ready）。调用 start() 方法可以让线程进入可运行状态。</li>
+<li><strong>死亡（Dead）</strong>：线程死亡（Terminated）的原因有两个：一是 run() 方法最后一个语句执行完毕，二是线程遇到异常退出</li>
+<li><strong>阻塞（Blocked）</strong>：一个正常运行的线程因为特殊原因被暂停执行，就进入阻塞状态（Blocked）。阻塞时线程不能进入就绪对流排队，必须等到引起阻塞的原因消除，才能重新进入队列排队。引起阻塞的方法很多，sleep() 和 wait() 是两个常用的阻塞方法</li>
+<li><strong>中断线程</strong>：<ul>
+<li><code>void interrupt()</code>：向一个线程发送一个中断请求，并把该线程的 interruptd 状态变为 true。中断阻塞线程的场合，会抛出 InterruptException 异常</li>
+<li><code>static boolean interrupted()</code>：检测当前线程是否被中断，并重置状态 interrupted 的值。连续调用该方法的场合，第二次调用会返回 false</li>
+<li><code>boolean isInterrupted()</code>：检测当前线程是否中断。不改变 interrupted 的值</li>
+</ul>
+</li>
+</ul>
+<h1 id="14-2-线程的使用"><a href="#14-2-线程的使用" class="headerlink" title="14.2 线程的使用"></a>14.2 线程的使用</h1><p>在 Java 中线程使用有两种方法：</p>
+<ol>
+<li><p>继承 <code>Thread</code> 类，重写 <code>run</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>		<span class="comment">//可见 Thread 也是实现了 Runable 接口</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现 <code>Runable</code> 接口，重写 <code>run</code> 方法</p>
+</li>
+</ol>
+<h2 id="14-2-1-继承Thread类"><a href="#14-2-1-继承Thread类" class="headerlink" title="14.2.1 继承Thread类"></a>14.2.1 继承Thread类</h2><blockquote>
+<p>Thread 类是 Java 用于表示线程的类。那么，一个类被定义为其子类，则该类也能用来表示线程</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();</span><br><span class="line"> type.start();								<span class="comment">//开始线程</span></span><br><span class="line"> 											<span class="comment">//如果用 run 方法，则还是停留在主线程</span></span><br><span class="line"> 											<span class="comment">//  那样，相当于 串行。执行完毕才继续</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;						<span class="comment">//先继承 Thread 类</span></span><br><span class="line"> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">         System.out.println(i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);				<span class="comment">//休眠 100 毫秒</span></span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (i++ == <span class="number">10</span>) &#123;					<span class="comment">//i = 10 时停止循环</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>关于<code>start()</code> 方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">	...</span><br><span class="line">    start0();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">start0</span><span class="params">()</span>;					<span class="comment">//start0 是 native。即，底层方法</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>start()</code> 方法调用了一个 <code>start0()</code> 底层方法</li>
+<li><code>start0()</code> 是本地方法，由 JVM 调用，底层是 c&#x2F;c++ 实现</li>
+<li>真正的多线程效果，是 <code>start0()</code>，而不是 <code>run()</code></li>
+<li><code>start()</code> 方法调用 <code>start0() </code>方法后，该线程不一定会立刻执行，只是将线程变成了可运行状态。具体何时运行，由 CPU 统一调度</li>
+</ol>
+<h2 id="14-2-2-实现Runable接口"><a href="#14-2-2-实现Runable接口" class="headerlink" title="14.2.2 实现Runable接口"></a>14.2.2 实现Runable接口</h2><blockquote>
+<p>Runnable 是 Java 用以实现线程的接口。从根本上将，任何实现线程的类都必须实现该接口。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Runnable</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();					<span class="comment">//Runable 没有 start()方法</span></span><br><span class="line"> <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(type);				<span class="comment">//所以，这里使用了 静态代理</span></span><br><span class="line"> thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;				<span class="comment">//这部分和 Thread 相似</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         System.out.println(i &lt;&lt; i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (++i &gt; <span class="number">15</span>)&#123;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>关于静态代理</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runable</span> &#123;&#125;</span><br><span class="line">	...	</span><br><span class="line">	<span class="keyword">private</span> Runnable target;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="title function_">Thread</span><span class="params">(Runnable target)</span> &#123;	<span class="comment">//构造器</span></span><br><span class="line">     init(<span class="literal">null</span>, target, <span class="string">&quot;Thread-&quot;</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">     								<span class="comment">//这句话可以先理解为 this.target = target;</span></span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">         target.run();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//相当于，先创建了一个新线程，然后在新线程中调用 run 方法</span></span><br></pre></td></tr></table></figure>
+<h2 id="14-2-3-继承Thread和实现Runable的区别"><a href="#14-2-3-继承Thread和实现Runable的区别" class="headerlink" title="14.2.3 继承Thread和实现Runable的区别"></a>14.2.3 继承Thread和实现Runable的区别</h2><ol>
+<li>从 Java 设计来看，两者本质上没有区别。Thread 类本身就实现了 Runable 接口</li>
+<li>实现 Runable 接口的方式更加适合多个线程共享一个资源的情况，且避免了单继承的限制。建议使用。</li>
+</ol>
+<h2 id="14-2-4-线程中止"><a href="#14-2-4-线程中止" class="headerlink" title="14.2.4 线程中止"></a>14.2.4 线程中止</h2><ol>
+<li>当线程结束后，会自动退出</li>
+<li>还可以通过使用变量来控制 <code>run</code> 方法退出的方式来停止线程，即 通知方式。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line"> <span class="keyword">while</span> (active) &#123;					<span class="comment">//这个场合，只要外部控制 active 即可</span></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         Thread.sleep(<span class="number">1</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     move();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="14-2-5-线程的常用方法"><a href="#14-2-5-线程的常用方法" class="headerlink" title="14.2.5 线程的常用方法"></a>14.2.5 线程的常用方法</h2><ul>
+<li>setName(name)：设置线程名称，使之与参数 name 相同</li>
+<li>getName()：返回线程名称</li>
+<li>start()：线程开始执行。JVM 调用 start0 方法该方法会创建新的线程，新线程调用 run。</li>
+<li>run()：到下面玩跑步就是简单的方法调用，不会产生新线程。</li>
+<li>setPriority(int priority)：更改线程优先级getPriority()：获取线程优先级priority 范围：每个线程都有一个优先级。Java 线程调度采用如下优先级策略：<ul>
+<li>MAX_PRIORITY：最高优先级（10）</li>
+<li>MIN_PRIORITY：最低优先级（1）</li>
+<li>NORM_PRIORITY：不高不低，真是好极了的优先级（5）</li>
+<li>优先级高的先执行，优先级低的后执行</li>
+<li>每个线程创建时会被自动分配一个优先级。默认的场合，继承父类优先级</li>
+<li>任务紧急的线程，优先级较高</li>
+<li>同优先级线程按 “先进先出” 原则调度</li>
+</ul>
+</li>
+<li>sleep(int millsecond)：让线程休眠指定的时间该方法是 Thread 类的静态方法，可以直接调用</li>
+<li>interrupt()：中断线程（不是 中止）</li>
+<li>yield()：线程的礼让。让出 CPU 让其他线程执行。因为礼让的时间不确定，所以不一定礼让成功。本质是 RUNNING 切换为 READY，即让当前线程放弃执行权</li>
+<li>wait()：导致当前线程等待直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法才能唤醒此线程notify()、notifyAll()：唤醒因 wait() 阻塞的线程。这些方法（wait()、notify()、notifyAll()）只能在 synchrnized 方法或代码块中调用</li>
+<li>join()：线程的插队。插队的线程一旦插入成功，则必定先执行完插队线程的所有任务将导致其他线程的等待，直到 join() 方法的线程结束join(long timeout)：join，但是时间到后也能结束其他线程的等待</li>
+<li>isAlive()：测试当前线程是否在活动</li>
+<li>Thread.currentThread()：引用当前运行中的线程</li>
+</ul>
+<h2 id="14-2-6-用户线程和守护线程"><a href="#14-2-6-用户线程和守护线程" class="headerlink" title="14.2.6 用户线程和守护线程"></a>14.2.6 用户线程和守护线程</h2><ul>
+<li>用户线程：也叫工作线程。当线程任务执行完毕或通知方式结束</li>
+<li>守护线程：一般是为工作线程服务的。当所有线程结束，守护线程自动结束常见的守护线程：垃圾回收机制<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thraed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(bullet);</span><br><span class="line">thread.setDeamon(<span class="literal">true</span>);							<span class="comment">//这样，子线程被设置为主线程的守护线程</span></span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="14-2-7-线程的生命周期"><a href="#14-2-7-线程的生命周期" class="headerlink" title="14.2.7 线程的生命周期"></a>14.2.7 线程的生命周期</h2><p>线程的状态有</p>
+<ul>
+<li>NEW：尚未启动</li>
+<li>RUNNABLE：在 JVM 中执行的线程可细分为 READY 和 RUNNING</li>
+<li>BLOCKED：被阻塞等待监视器锁定的线程</li>
+<li>WAITING：正等待另一个线程执行特定动作的线程</li>
+<li>TIMED_WAITING：正等待另一个线程执行特定动作达到等待时间的线程</li>
+<li>TERMINATED：已退出的线程</li>
+</ul>
+<h1 id="14-3-线程的互斥"><a href="#14-3-线程的互斥" class="headerlink" title="14.3 线程的互斥"></a>14.3 线程的互斥</h1><blockquote>
+<p>在多线程编程，一些敏感数据不允许被多个线程同时访问。此时就用同步访问技术，保证数据在任意时刻，最多有一个线程同时访问，以保证数据的完整性。<br>也可以这样理解：线程同步，即当有一个线程对内存进行操作时，其他线程都不能对这个内存地址进行操作（被阻塞），直到该线程完成操作，再让下一线程进行操作。</p>
+</blockquote>
+<h2 id="14-3-1-互斥锁"><a href="#14-3-1-互斥锁" class="headerlink" title="14.3.1 互斥锁"></a>14.3.1 互斥锁</h2><blockquote>
+<p>在 Java 语言中，引入了 “对象互斥锁” 的概念，也称为监视器，来保证共享数据操作的完整性<br>每个对象都对应一个可称为 “互斥锁” 的标记，这个标记用来保证在任一时刻都只能有一个线程访问对象。<br>Java 语言中，有 2 种方式实现互斥锁：</p>
+<ul>
+<li>用关键字 volatile 声明一个共享数据（变量）。一般很少使用该关键字</li>
+<li>用关键字 synchronized 声明共享数据的一个方法或一个代码</li>
+</ul>
+</blockquote>
+<p>同步的局限性：导致程序的执行效率要降低。</p>
+<blockquote>
+<p>非静态的对象，同步方法的锁可以是 this，也可以是其他对象（要求是同一对象）<br>静态对象，同步方法的锁为当前类本身</p>
+</blockquote>
+<ol>
+<li><p>同步代码块</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (对象) &#123;		<span class="comment">//得到对象的锁，才能操作同步代码</span></span><br><span class="line">	需要被同步代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在第一个线程持有锁定标记时，如果另一个线程企图执行该代码块语句，将从对象中索取锁定标记。<br>因为此时该标记不可得，古该线程不能继续执行，而是加入等待队列。<br>程序运行完 synchronized 代码块后，锁定标记会被自动返还。即使该同步代码块执行过程中抛出异常也是如此。一个线程多次调用该同步代码块的场合，也会在最外层执行完毕后正确返还。</p>
+</li>
+<li><p>放在方法声明中，表示整个方法为同步方法</p>
+</li>
+</ol>
+<p>因为 synchronized 语句的参数必须是 this，因此允许下面这种简洁的写法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">	代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="14-3-2-线程死锁"><a href="#14-3-2-线程死锁" class="headerlink" title="14.3.2 线程死锁"></a>14.3.2 线程死锁</h2><blockquote>
+<p>多个线程都占用了对方的资源，不肯相让，就导致了死锁。编程时要避免死锁的产生。</p>
+</blockquote>
+<ul>
+<li>以下操作会释放锁<ol>
+<li>当前线程的同步方法、同步代码块执行结束。</li>
+<li>当前线程在同步方法、同步代码块中遇到 break、return</li>
+<li>当前线程在同步方法、同步代码块中出现了未处理的 Error</li>
+<li>当前线程在同步方法、同步代码块中执行了 wait() 方法，当前线程暂停，并释放锁</li>
+</ol>
+</li>
+<li>以下操作不会释放锁<ol>
+<li>执行同步方法、同步代码块时，程序调用 Thread.sleep() 或 Thread.yield() 方法暂停当前线程的执行，不会释放锁</li>
+<li>线程执行同步代码块时，其他线程调用了该线程的 suspend() 方法将该线程挂起，该线程不会释放锁所以，应尽量避免使用 suspend() 和 resume() 来控制线程</li>
+</ol>
+</li>
+</ul>
+<h1 id="14-4-线程的同步"><a href="#14-4-线程的同步" class="headerlink" title="14.4 线程的同步"></a>14.4 线程的同步</h1><blockquote>
+<p>Java 中，可以使用 wait()、notify()、notifyAll() 来协调线程间的运行速度关系。这些方法都被定义在 java.lang.Object 中<br>Java 中的每个对象实例都有两个线程队列和它相连。一个用以实现等待锁定标志的线程，另一个用来实现 wait() 和 notify() 的交互机制</p>
+</blockquote>
+<ul>
+<li>wait()：让当前线程释放所有其持有的 “对象互斥锁”，进入等待队列</li>
+<li>notify()、notifyAll()：唤醒一个或所有在等待队列中等待的线程，并将他们移入同一个等待 “对象互斥锁” 的队列。执行这些方法时如果没有等待中的线程，则其不会生效，也不会被保留到以后再生效<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.value == <span class="number">0</span>) key.wait();</span><br><span class="line">    key.value--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    key.value++;</span><br><span class="line">    key.nitifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+因为调用这些方法时必须持有对象的 “对象互斥锁”，所以上述方法只能在 synhronized 方法或代码块中执行。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2. 变量</title>
+    <url>/2022/09/11/JavaSE/2.%20%E5%8F%98%E9%87%8F/</url>
+    <content><![CDATA[<h1 id="2-1-变量介绍"><a href="#2-1-变量介绍" class="headerlink" title="2.1 变量介绍"></a>2.1 变量介绍</h1><blockquote>
+<p><strong>变量</strong>：<strong>变量</strong>是<strong>程序</strong>的<strong>基本组成单位</strong><br><strong>变量的三个基本要素</strong>：<strong>类型</strong> +** 名称** + <strong>值</strong><br>示例：int a &#x3D; 1 类型 int 名称 a 值 1</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">int</span> c=<span class="number">1</span>,d;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>变量的使用注意事项</strong></li>
+</ul>
+<ol>
+<li><strong>变量</strong>表示内存中的一个存储区域。不同变量，不同类型，占用的空间大小不同。如<code>int</code>有 <code>4 byte</code>，而 <code>double </code>有 <code>8 byte</code>。</li>
+<li>该区域有自己的<strong>名称</strong> <strong>变量名</strong> 和<strong>类型 数据类型</strong></li>
+<li>变量必须<strong>先声明，后使用。</strong></li>
+<li>变量<strong>在同一作用域内不能重名。</strong></li>
+<li>该区域的数据 、 值可以在同一类型范围内变化。</li>
+<li>变量的<strong>三个基本要素</strong>：类型 + 名称 + 值</li>
+</ol>
+<h1 id="2-2-号的使用"><a href="#2-2-号的使用" class="headerlink" title="2.2  +号的使用"></a>2.2  +号的使用</h1><ol>
+<li><strong>当左右两边都是数值型，做加法运算</strong></li>
+<li><strong>当左右两边任意一方为字符串，做拼接运算</strong></li>
+<li><strong>运算顺序是从左到右的</strong><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span> + <span class="string">&quot;Hello&quot;</span> + <span class="number">2</span>);			<span class="comment">// 输出 1Hello2</span></span><br><span class="line">System.out.println(<span class="number">1</span> + <span class="number">1</span>);						<span class="comment">// 输出 2</span></span><br><span class="line">System.out.println(<span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;World&quot;</span>);   		<span class="comment">// 输出 HelloWorld</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="2-3-数据类型"><a href="#2-3-数据类型" class="headerlink" title="2.3 数据类型"></a>2.3 数据类型</h1><blockquote>
+<p><strong>基本数据类型</strong></p>
+</blockquote>
+<ul>
+<li><p><strong>数值型</strong></p>
+<ul>
+<li>整数类型：<ul>
+<li><code>**byte **</code>**: **占用 1 个字节</li>
+<li><code>**short **</code>**: **占用 2 个字节</li>
+<li><code>**int **</code>**: **占用 4 个字节</li>
+<li><code>**long **</code>**: **占用 8 个字节</li>
+</ul>
+</li>
+<li>浮点数类型(小数类型):<ul>
+<li><code>**float**</code>**: **占用 4 个字节</li>
+<li><code>**double**</code>** : **占用 8 个字节</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>字符型</strong></p>
+<ul>
+<li><code>**char**</code> :  存放单个字符，占用 2 字节</li>
+</ul>
+</li>
+<li><p><strong>布尔型</strong></p>
+<ul>
+<li><code>**boolean**</code> : 存放<code>**true(真)**</code>、<code>**false(假)**</code> 。占用 1 个字节<blockquote>
+<p><strong>引用数据类型(复合数据类型)</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>**类 : **<code>**class**</code></p>
+</li>
+<li><p><strong>接口 ：</strong><code>**interface**</code></p>
+</li>
+<li><p><strong>数组 ：</strong><code>**[ ]**</code></p>
+</li>
+</ul>
+<h1 id="2-4-整数类型"><a href="#2-4-整数类型" class="headerlink" title="2.4 整数类型"></a>2.4 整数类型</h1><blockquote>
+<p>用于存放整数值</p>
+</blockquote>
+<ul>
+<li><code>**byte**</code> 占用 <code>**1**</code> 字节，范围<code> -128 ~ 127</code></li>
+<li><code>**short **</code>占用<code>**2**</code> 字节，范围<code> -215~215-1</code></li>
+<li><code>**int **</code>占用 <code>**4**</code> 字节，范围 <code>-231~231-1</code></li>
+<li><code>**long**</code> 占用 <code>**8**</code> 字节，范围 <code>-263~-263-1</code></li>
+</ul>
+<p><strong>使用细节：</strong></p>
+<ol>
+<li>Java 各整数类型有固定的范围和字符长度，不受具体 OS（操作系统）影响，以保证 Java 程序的可移植性。</li>
+<li>Java 默认整型常量为 int ，要声明 long 型常量必须后加 l 或 L。</li>
+<li>从 Java 7 开始，加上前缀 0b 或 0B 就可以写二进制数。</li>
+<li>从 Java 7 开始，可以为数字字面添加下划线。这不会影响数字的值，只是为了方便阅读。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0b0010</span>;</span><br><span class="line">n = <span class="number">0b001</span>;</span><br><span class="line">n = <span class="number">100_0_000000</span>;</span><br><span class="line">n = <span class="number">0B0000_0010_1100</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">1.0F</span>;</span><br></pre></td></tr></table></figure>
+如果基本的整数、浮点类型不能满足范围、精度的需求，可以使用 “大数”</li>
+</ol>
+<h1 id="2-5-浮点类型"><a href="#2-5-浮点类型" class="headerlink" title="2.5 浮点类型"></a>2.5 浮点类型</h1><blockquote>
+<p>可以表示一个小数</p>
+</blockquote>
+<ul>
+<li><code>float</code> 单精度（6 ~ 7 位有效数字），占用 <code>4</code> 字节，范围约 <code>-3.403E38 ~ 3.403E38</code></li>
+<li><code>double</code> 双精度（15 位有效数字），占用 <code>8</code> 字节，范围约 <code>-1.798E308 ~ 1.798E308</code></li>
+</ul>
+<p><em>浮点数在机器中存放形式为：浮点数 &#x3D; 符号位 + 指数位 + 尾数位</em><br><em><strong>因此，尾数部分可能丢失，造成精度损失。换言之，小数都是近似值</strong></em></p>
+<h2 id="2-5-1-使用细节"><a href="#2-5-1-使用细节" class="headerlink" title="2.5.1 使用细节"></a>2.5.1 使用细节</h2><ol>
+<li><p>与整数类型相似，有固定的范围和字符长度，不受具体 OS（操作系统）影响。</p>
+</li>
+<li><p>Java 默认浮点常量为<code> double</code> ，要声明 <code>float </code>型常量必须后加 ”f“ 或 ”F“</p>
+</li>
+<li><p>浮点型常量有两种表示形式</p>
+<blockquote>
+<p>十进制数形式：5.13、315.4F、.414<br>科学计数法：5.12e2 即[5.12 × 102]、5.12E-2 即[5.12 &#x2F; 102]</p>
+</blockquote>
+</li>
+<li><p>通常情况下，应该使用 <code>double</code> 类型，以其更为精确。</p>
+</li>
+<li><p>浮点数使用陷阱：当我们对运算结果是小数的进行相对判断时，要小心。（因为**<em>小数都是近似值</em>**）</p>
+</li>
+</ol>
+<p>正确方法是：<strong>以两个数差值的绝对值，在某个精度范围内判断</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (Math.abs(num1 - num2) &lt; <span class="number">0.00001</span>) &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;插值范围内认为相等&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><p>特殊的浮点类型常量</p>
+<ul>
+<li><strong>正无穷大</strong>：<code>Float.POSITIVE_INFINITY</code>、<code>Double.POSITIVE_INFINITY</code>（浮点数运算中）一个正数除以 0，会得到该值</li>
+<li><strong>负无穷大</strong>：<code>Float.NEGATIVE_INFINITY</code>、<code>Double.NEGATIVE_INFINITY</code>（浮点数运算中）一个负数除以 0，会得到该值</li>
+<li><strong>0 &#x2F; 0</strong>：<code>Float.NaN</code>、<code>Double.NaN</code>（浮点数运算中）0 除以 0，会得到该值</li>
+<li><strong>最大、最小值</strong>：<code>Float.MAX_VALUE</code>、<code>Double.MIN_VALUE</code></li>
+</ul>
+</li>
+<li><p>不能用运算符来比较特殊值，而要用特别的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0.0</span> / <span class="number">0</span>;</span><br><span class="line">System.out.println(num == Double.NaN);			<span class="comment">// &lt;——— 始终为 false。不能如此比较</span></span><br><span class="line">System.out.println(Double.isNaN(num));			<span class="comment">// &lt;——— 判断是否是 NaN</span></span><br><span class="line">num = <span class="number">1.0</span> / <span class="number">0</span>;</span><br><span class="line">System.out.println(Double.isInfinite(num));		<span class="comment">// &lt;——— 是否是无穷大</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于不同处理器寄存浮点数的策略可能不同，浮点数运算的结果也可能不同。</p>
+</li>
+</ol>
+<h1 id="2-6-字符类型"><a href="#2-6-字符类型" class="headerlink" title="2.6 字符类型"></a>2.6 字符类型</h1><blockquote>
+<p>可以表示单个字符。(可以存放一个数字，因为其字符是数字编号的。输出时会输出数字对应的字符。”编码的概念“)<br><code>char c1 = &#39;a&#39;; ``  char c2 = &#39;\t&#39;; ``char c3 = &#39;字&#39;; ``char c4 = 99;</code></p>
+</blockquote>
+<h2 id="2-6-1-使用细节"><a href="#2-6-1-使用细节" class="headerlink" title="2.6.1 使用细节"></a>2.6.1 使用细节</h2><ol>
+<li><p>字符常量用单引号括起 <code>&#39; &#39;</code></p>
+</li>
+<li><p><code>char </code>的本质是一个整数，输出时，输出的是<code>unicode</code>码对应的字符。<a href="https://zh.wikipedia.org/wiki/Unicode">unicode 码查询</a> 。要输出那个整数，用 <code>int</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">System.out.println((<span class="type">int</span>)c1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>char</code> 是可以进行运算的，其相当于一个整数。**<em>注意与</em><strong>[</strong><em>[2.2]</em><strong>](#dzjeA)</strong><em>的区别。</em>**</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注：(int)&#x27;a&#x27; = 97</span></span><br><span class="line"><span class="type">char</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>;				<span class="comment">// 相当于 char c1 = &#x27;b&#x27;</span></span><br><span class="line">System.out.println(<span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>);	<span class="comment">// 这个代码输出 98</span></span><br><span class="line">System.out.println(<span class="string">&quot;a&quot;</span> + <span class="number">1</span>);	<span class="comment">// 这个代码输出 a1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符允许使用转义符（*见 [1.8 Java 转义字符]*）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;\u0041&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>转义序列 \u 能出现在引号外。所有这些转义序列会在解析代码前得到处理</strong></p>
+</li>
+</ol>
+<ul>
+<li><p>以下字符串是空串</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;\u0022+\u0022&quot;</span>;</span><br><span class="line"><span class="comment">// 因为 \u0022 表示引号。该代码等同于以下代码</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span> + <span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下注释会报错</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// \u000A is a newline</span></span><br><span class="line"><span class="comment">// 因为 \u000A 是换行符。在解析前会得到处理。在程序看来，上述注释等于以下写法</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">is a newline</span><br><span class="line"></span><br><span class="line"><span class="comment">// look inside c:\users</span></span><br><span class="line"><span class="comment">// 因为程序认为，\users 不是一个合法的转义字符</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在某些场合下这种写法似乎也能实现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>\u005B\u005D a;			<span class="comment">// int[] a; 一个数组</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-6-2-字符本质与编码表"><a href="#2-6-2-字符本质与编码表" class="headerlink" title="2.6.2 字符本质与编码表"></a>2.6.2 字符本质与编码表</h2><ul>
+<li><p>字符类型的本质，是把字符对应的码值编程二进制，存储。显示时将二进制代码转化为码值，找到对应的字符。</p>
+</li>
+<li><p>字符与码值的对应关系是字符编码表规定的。</p>
+<blockquote>
+<p>ASCII 编码表，占用 1 byte，共有 128 个字符。<br>Unicode 编码表，占用 2 byte，字母汉字都占用 2 byte，这样可能浪费空间。0 - 127 的字符与 ASCII 相同，所以兼容 ASCII。<br>UTF-8 编码表，根据不同符号大小可变（1 - 6 byte），字母占用 1 byte，汉字占用 3 byte。是 Unicode 的改进，是互联网上使用最广的 Unicode 实现方式。<br>GBK 编码表，可以表示汉字，字母占用 1 byte，汉字占用 2 byte。<br>GB2312 编码表，可以表示汉字（GB2312 &lt; GBK）<br>BIG5 编码表，可以存放繁体中文（香港，台湾）</p>
+</blockquote>
+</li>
+<li><p>UTF-16 编码采用不同长度的编码表示所有 Unicode 码点。包含从 U+0000 到 U+FFFF 的经典 Unicode 代码（16位，1 个代码单元），以及 U+10000 到 U+10FFFF 的辅助字符（32位，2 个代码单元）</p>
+</li>
+<li><p>在 Java 中，char 类型描述的是 UTF-16 编码中的 1 个代码单元。字符串中的一个辅助字符（如 🎶）可能占用 2 个代码单元。这个场合，使用 char 可能会导致错误</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;🎶An🎶&quot;</span>;</span><br><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> str.charAt(<span class="number">1</span>);			<span class="comment">// &lt;———— 这个场合，c 是 🎶 符号的第二个代码单元而非 &#x27;A&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>因此，一般不建议在程序中使用 char 类型</em></strong></p>
+</li>
+</ul>
+<h1 id="2-7-布尔类型"><a href="#2-7-布尔类型" class="headerlink" title="2.7 布尔类型"></a>2.7 布尔类型</h1><blockquote>
+<p><code>boolean</code> 只允许取值<code>ture</code> 或 <code>false</code> ，没有 <code>null</code>。适用于逻辑运算，通常用于程序流程控制<br><code>if</code> <code>while</code> <code>do-while</code> <code>for</code></p>
+</blockquote>
+<p><strong>使用细节：</strong></p>
+<ol>
+<li>不可以用 <code>0</code> 或 <code>非0</code> 的整数替代<code>false</code> 或 <code>ture</code> 。这点和 C语言 不同。</li>
+<li>不能让布尔类型转换为其他类型。</li>
+</ol>
+<h1 id="2-8-基本数据类型转换"><a href="#2-8-基本数据类型转换" class="headerlink" title="2.8 基本数据类型转换"></a>2.8 基本数据类型转换</h1><h2 id="2-8-1-自动类型转换"><a href="#2-8-1-自动类型转换" class="headerlink" title="2.8.1 自动类型转换"></a>2.8.1 自动类型转换</h2><blockquote>
+<p>自动类型转换：Java 在进行赋值或运算时，精度（容量）小的类型自动转换为精度（容量）大的类型。<br><code>char</code> -&gt; <code>int</code> -&gt; <code>long</code> -&gt; <code>float</code> -&gt; <code>double</code><br><code>byte</code> -&gt; <code>short </code>-&gt; <code>int</code> -&gt; <code>float</code> -&gt; <code>double</code><br><strong>注意：</strong><code>**char**</code>** 、**<code>**byte**</code><strong>、</strong><code>**short**</code>** 之间不可转换**</p>
+</blockquote>
+<p><strong>细节：</strong></p>
+<ol>
+<li>有多种类型数据混合运算时，系统会将所有数据转换成容量最大的那种，再进行运算。</li>
+<li>如若把大精度（容量）数据赋值给小精度（容量）类型，就会报错（小数由于精度原因，大赋小会丢失精度，必不可用。但整数大赋小时：1.赋予具体数值时，判断范围。2.变量赋值时，判断类型。反之进行自动类型转换。</li>
+<li><code>byte</code> <code>short</code> <code>char</code> 三者不会相互自动转换，但可以计算。计算时首先转化为 <code>int</code>。</li>
+<li><code>boolean</code> 类型不参与自动转换</li>
+<li>自动提升原则：表达式结果的类型自动提升为操作数中最大的类型。</li>
+</ol>
+<h2 id="2-8-2-强制转换"><a href="#2-8-2-强制转换" class="headerlink" title="2.8.2 强制转换"></a>2.8.2 强制转换</h2><blockquote>
+<p>强制类型转换：自动类型转换的逆过程，将容量大的数据类型转换为容量小的数据类型。使用时加上强制转换符 ( ) ，但可能造成<strong>精度降低或溢出</strong>，要格外注意。</p>
+</blockquote>
+<p><strong>细节:</strong></p>
+<ol>
+<li><p>当进行数据从大到小转换时，用强制转换。</p>
+</li>
+<li><p>强制转换只能对最近的操作数有效，往往会使用 <code>( )</code> 提升优先级。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> (<span class="type">int</span>)(<span class="number">3</span> * <span class="number">2.5</span> + <span class="number">1.1</span> * <span class="number">6</span>);</span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">10</span> * <span class="number">0.1</span> * <span class="number">1</span>; <span class="comment">// int 只会转换 10</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>char</code> 可以保留 <code>int</code> 的常量值，但不能保存其变量值。此时需要强制类型转换。</p>
+</li>
+<li><p><code>byte</code> <code>short</code> <code>char</code> 在进行运算时，当作<code>int</code> 处理。</p>
+</li>
+</ol>
+<h2 id="2-8-3-基本数据类型和String的转换"><a href="#2-8-3-基本数据类型和String的转换" class="headerlink" title="2.8.3 基本数据类型和String的转换"></a>2.8.3 基本数据类型和<code>String</code>的转换</h2><ul>
+<li><p>**基本类型转 **<code>**String**</code>**：基本数据类型加上 **<code>**&quot; &quot;**</code><strong>。</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> n1 + <span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>**String**</code><strong>转基本数据类型：通过基本数据类型的包装类调用</strong><code>**parseXX**</code>** 方法。**</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;100&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> Interger.parseInt(s);</span><br></pre></td></tr></table></figure>
+<p>特别的，把 <code>String</code> 转换为 <code>char</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(<span class="number">0</span>);		<span class="comment">// 得到 s 字符串中的第一个字符。</span></span><br></pre></td></tr></table></figure>
+<p><strong>细节:</strong></p>
+</li>
+</ul>
+<ol>
+<li>将<code>String</code> 转成基本数据类型时，要保证其能转换为有效数据。即不能把 “Hello” 转换成 <code>int</code>。</li>
+<li>如果格式不正确，会抛出异常，程序会中止。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>15. IO流</title>
     <url>/2022/09/11/JavaSE/15.%20IO%E6%B5%81/</url>
     <content><![CDATA[<h1 id="15-1-文件"><a href="#15-1-文件" class="headerlink" title="15.1 文件"></a>15.1 文件</h1><blockquote>
@@ -2071,230 +2295,6 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <li><code>void seek(long pos)</code>：将文档指针置于指定的绝对位置 pos文档指针的位置从文档开始的字符处开始计算，pos &#x3D; 0L 表示文档的开始</li>
 <li><code>long length()</code>：返回文件长度</li>
 </ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2. 变量</title>
-    <url>/2022/09/11/JavaSE/2.%20%E5%8F%98%E9%87%8F/</url>
-    <content><![CDATA[<h1 id="2-1-变量介绍"><a href="#2-1-变量介绍" class="headerlink" title="2.1 变量介绍"></a>2.1 变量介绍</h1><blockquote>
-<p><strong>变量</strong>：<strong>变量</strong>是<strong>程序</strong>的<strong>基本组成单位</strong><br><strong>变量的三个基本要素</strong>：<strong>类型</strong> +** 名称** + <strong>值</strong><br>示例：int a &#x3D; 1 类型 int 名称 a 值 1</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">int</span> c=<span class="number">1</span>,d;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>变量的使用注意事项</strong></li>
-</ul>
-<ol>
-<li><strong>变量</strong>表示内存中的一个存储区域。不同变量，不同类型，占用的空间大小不同。如<code>int</code>有 <code>4 byte</code>，而 <code>double </code>有 <code>8 byte</code>。</li>
-<li>该区域有自己的<strong>名称</strong> <strong>变量名</strong> 和<strong>类型 数据类型</strong></li>
-<li>变量必须<strong>先声明，后使用。</strong></li>
-<li>变量<strong>在同一作用域内不能重名。</strong></li>
-<li>该区域的数据 、 值可以在同一类型范围内变化。</li>
-<li>变量的<strong>三个基本要素</strong>：类型 + 名称 + 值</li>
-</ol>
-<h1 id="2-2-号的使用"><a href="#2-2-号的使用" class="headerlink" title="2.2  +号的使用"></a>2.2  +号的使用</h1><ol>
-<li><strong>当左右两边都是数值型，做加法运算</strong></li>
-<li><strong>当左右两边任意一方为字符串，做拼接运算</strong></li>
-<li><strong>运算顺序是从左到右的</strong><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">1</span> + <span class="string">&quot;Hello&quot;</span> + <span class="number">2</span>);			<span class="comment">// 输出 1Hello2</span></span><br><span class="line">System.out.println(<span class="number">1</span> + <span class="number">1</span>);						<span class="comment">// 输出 2</span></span><br><span class="line">System.out.println(<span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;World&quot;</span>);   		<span class="comment">// 输出 HelloWorld</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<h1 id="2-3-数据类型"><a href="#2-3-数据类型" class="headerlink" title="2.3 数据类型"></a>2.3 数据类型</h1><blockquote>
-<p><strong>基本数据类型</strong></p>
-</blockquote>
-<ul>
-<li><p><strong>数值型</strong></p>
-<ul>
-<li>整数类型：<ul>
-<li><code>**byte **</code>**: **占用 1 个字节</li>
-<li><code>**short **</code>**: **占用 2 个字节</li>
-<li><code>**int **</code>**: **占用 4 个字节</li>
-<li><code>**long **</code>**: **占用 8 个字节</li>
-</ul>
-</li>
-<li>浮点数类型(小数类型):<ul>
-<li><code>**float**</code>**: **占用 4 个字节</li>
-<li><code>**double**</code>** : **占用 8 个字节</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>字符型</strong></p>
-<ul>
-<li><code>**char**</code> :  存放单个字符，占用 2 字节</li>
-</ul>
-</li>
-<li><p><strong>布尔型</strong></p>
-<ul>
-<li><code>**boolean**</code> : 存放<code>**true(真)**</code>、<code>**false(假)**</code> 。占用 1 个字节<blockquote>
-<p><strong>引用数据类型(复合数据类型)</strong></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>**类 : **<code>**class**</code></p>
-</li>
-<li><p><strong>接口 ：</strong><code>**interface**</code></p>
-</li>
-<li><p><strong>数组 ：</strong><code>**[ ]**</code></p>
-</li>
-</ul>
-<h1 id="2-4-整数类型"><a href="#2-4-整数类型" class="headerlink" title="2.4 整数类型"></a>2.4 整数类型</h1><blockquote>
-<p>用于存放整数值</p>
-</blockquote>
-<ul>
-<li><code>**byte**</code> 占用 <code>**1**</code> 字节，范围<code> -128 ~ 127</code></li>
-<li><code>**short **</code>占用<code>**2**</code> 字节，范围<code> -215~215-1</code></li>
-<li><code>**int **</code>占用 <code>**4**</code> 字节，范围 <code>-231~231-1</code></li>
-<li><code>**long**</code> 占用 <code>**8**</code> 字节，范围 <code>-263~-263-1</code></li>
-</ul>
-<p><strong>使用细节：</strong></p>
-<ol>
-<li>Java 各整数类型有固定的范围和字符长度，不受具体 OS（操作系统）影响，以保证 Java 程序的可移植性。</li>
-<li>Java 默认整型常量为 int ，要声明 long 型常量必须后加 l 或 L。</li>
-<li>从 Java 7 开始，加上前缀 0b 或 0B 就可以写二进制数。</li>
-<li>从 Java 7 开始，可以为数字字面添加下划线。这不会影响数字的值，只是为了方便阅读。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0b0010</span>;</span><br><span class="line">n = <span class="number">0b001</span>;</span><br><span class="line">n = <span class="number">100_0_000000</span>;</span><br><span class="line">n = <span class="number">0B0000_0010_1100</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">1.0F</span>;</span><br></pre></td></tr></table></figure>
-如果基本的整数、浮点类型不能满足范围、精度的需求，可以使用 “大数”</li>
-</ol>
-<h1 id="2-5-浮点类型"><a href="#2-5-浮点类型" class="headerlink" title="2.5 浮点类型"></a>2.5 浮点类型</h1><blockquote>
-<p>可以表示一个小数</p>
-</blockquote>
-<ul>
-<li><code>float</code> 单精度（6 ~ 7 位有效数字），占用 <code>4</code> 字节，范围约 <code>-3.403E38 ~ 3.403E38</code></li>
-<li><code>double</code> 双精度（15 位有效数字），占用 <code>8</code> 字节，范围约 <code>-1.798E308 ~ 1.798E308</code></li>
-</ul>
-<p><em>浮点数在机器中存放形式为：浮点数 &#x3D; 符号位 + 指数位 + 尾数位</em><br><em><strong>因此，尾数部分可能丢失，造成精度损失。换言之，小数都是近似值</strong></em></p>
-<h2 id="2-5-1-使用细节"><a href="#2-5-1-使用细节" class="headerlink" title="2.5.1 使用细节"></a>2.5.1 使用细节</h2><ol>
-<li><p>与整数类型相似，有固定的范围和字符长度，不受具体 OS（操作系统）影响。</p>
-</li>
-<li><p>Java 默认浮点常量为<code> double</code> ，要声明 <code>float </code>型常量必须后加 ”f“ 或 ”F“</p>
-</li>
-<li><p>浮点型常量有两种表示形式</p>
-<blockquote>
-<p>十进制数形式：5.13、315.4F、.414<br>科学计数法：5.12e2 即[5.12 × 102]、5.12E-2 即[5.12 &#x2F; 102]</p>
-</blockquote>
-</li>
-<li><p>通常情况下，应该使用 <code>double</code> 类型，以其更为精确。</p>
-</li>
-<li><p>浮点数使用陷阱：当我们对运算结果是小数的进行相对判断时，要小心。（因为**<em>小数都是近似值</em>**）</p>
-</li>
-</ol>
-<p>正确方法是：<strong>以两个数差值的绝对值，在某个精度范围内判断</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (Math.abs(num1 - num2) &lt; <span class="number">0.00001</span>) &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;插值范围内认为相等&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="6">
-<li><p>特殊的浮点类型常量</p>
-<ul>
-<li><strong>正无穷大</strong>：<code>Float.POSITIVE_INFINITY</code>、<code>Double.POSITIVE_INFINITY</code>（浮点数运算中）一个正数除以 0，会得到该值</li>
-<li><strong>负无穷大</strong>：<code>Float.NEGATIVE_INFINITY</code>、<code>Double.NEGATIVE_INFINITY</code>（浮点数运算中）一个负数除以 0，会得到该值</li>
-<li><strong>0 &#x2F; 0</strong>：<code>Float.NaN</code>、<code>Double.NaN</code>（浮点数运算中）0 除以 0，会得到该值</li>
-<li><strong>最大、最小值</strong>：<code>Float.MAX_VALUE</code>、<code>Double.MIN_VALUE</code></li>
-</ul>
-</li>
-<li><p>不能用运算符来比较特殊值，而要用特别的方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0.0</span> / <span class="number">0</span>;</span><br><span class="line">System.out.println(num == Double.NaN);			<span class="comment">// &lt;——— 始终为 false。不能如此比较</span></span><br><span class="line">System.out.println(Double.isNaN(num));			<span class="comment">// &lt;——— 判断是否是 NaN</span></span><br><span class="line">num = <span class="number">1.0</span> / <span class="number">0</span>;</span><br><span class="line">System.out.println(Double.isInfinite(num));		<span class="comment">// &lt;——— 是否是无穷大</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于不同处理器寄存浮点数的策略可能不同，浮点数运算的结果也可能不同。</p>
-</li>
-</ol>
-<h1 id="2-6-字符类型"><a href="#2-6-字符类型" class="headerlink" title="2.6 字符类型"></a>2.6 字符类型</h1><blockquote>
-<p>可以表示单个字符。(可以存放一个数字，因为其字符是数字编号的。输出时会输出数字对应的字符。”编码的概念“)<br><code>char c1 = &#39;a&#39;; ``  char c2 = &#39;\t&#39;; ``char c3 = &#39;字&#39;; ``char c4 = 99;</code></p>
-</blockquote>
-<h2 id="2-6-1-使用细节"><a href="#2-6-1-使用细节" class="headerlink" title="2.6.1 使用细节"></a>2.6.1 使用细节</h2><ol>
-<li><p>字符常量用单引号括起 <code>&#39; &#39;</code></p>
-</li>
-<li><p><code>char </code>的本质是一个整数，输出时，输出的是<code>unicode</code>码对应的字符。<a href="https://zh.wikipedia.org/wiki/Unicode">unicode 码查询</a> 。要输出那个整数，用 <code>int</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">System.out.println((<span class="type">int</span>)c1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>char</code> 是可以进行运算的，其相当于一个整数。**<em>注意与</em><strong>[</strong><em>[2.2]</em><strong>](#dzjeA)</strong><em>的区别。</em>**</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注：(int)&#x27;a&#x27; = 97</span></span><br><span class="line"><span class="type">char</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>;				<span class="comment">// 相当于 char c1 = &#x27;b&#x27;</span></span><br><span class="line">System.out.println(<span class="string">&#x27;a&#x27;</span> + <span class="number">1</span>);	<span class="comment">// 这个代码输出 98</span></span><br><span class="line">System.out.println(<span class="string">&quot;a&quot;</span> + <span class="number">1</span>);	<span class="comment">// 这个代码输出 a1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>字符允许使用转义符（*见 [1.8 Java 转义字符]*）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;\u0041&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p><strong>转义序列 \u 能出现在引号外。所有这些转义序列会在解析代码前得到处理</strong></p>
-</li>
-</ol>
-<ul>
-<li><p>以下字符串是空串</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;\u0022+\u0022&quot;</span>;</span><br><span class="line"><span class="comment">// 因为 \u0022 表示引号。该代码等同于以下代码</span></span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span> + <span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>以下注释会报错</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// \u000A is a newline</span></span><br><span class="line"><span class="comment">// 因为 \u000A 是换行符。在解析前会得到处理。在程序看来，上述注释等于以下写法</span></span><br><span class="line"><span class="comment">// </span></span><br><span class="line">is a newline</span><br><span class="line"></span><br><span class="line"><span class="comment">// look inside c:\users</span></span><br><span class="line"><span class="comment">// 因为程序认为，\users 不是一个合法的转义字符</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在某些场合下这种写法似乎也能实现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span>\u005B\u005D a;			<span class="comment">// int[] a; 一个数组</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="2-6-2-字符本质与编码表"><a href="#2-6-2-字符本质与编码表" class="headerlink" title="2.6.2 字符本质与编码表"></a>2.6.2 字符本质与编码表</h2><ul>
-<li><p>字符类型的本质，是把字符对应的码值编程二进制，存储。显示时将二进制代码转化为码值，找到对应的字符。</p>
-</li>
-<li><p>字符与码值的对应关系是字符编码表规定的。</p>
-<blockquote>
-<p>ASCII 编码表，占用 1 byte，共有 128 个字符。<br>Unicode 编码表，占用 2 byte，字母汉字都占用 2 byte，这样可能浪费空间。0 - 127 的字符与 ASCII 相同，所以兼容 ASCII。<br>UTF-8 编码表，根据不同符号大小可变（1 - 6 byte），字母占用 1 byte，汉字占用 3 byte。是 Unicode 的改进，是互联网上使用最广的 Unicode 实现方式。<br>GBK 编码表，可以表示汉字，字母占用 1 byte，汉字占用 2 byte。<br>GB2312 编码表，可以表示汉字（GB2312 &lt; GBK）<br>BIG5 编码表，可以存放繁体中文（香港，台湾）</p>
-</blockquote>
-</li>
-<li><p>UTF-16 编码采用不同长度的编码表示所有 Unicode 码点。包含从 U+0000 到 U+FFFF 的经典 Unicode 代码（16位，1 个代码单元），以及 U+10000 到 U+10FFFF 的辅助字符（32位，2 个代码单元）</p>
-</li>
-<li><p>在 Java 中，char 类型描述的是 UTF-16 编码中的 1 个代码单元。字符串中的一个辅助字符（如 🎶）可能占用 2 个代码单元。这个场合，使用 char 可能会导致错误</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;🎶An🎶&quot;</span>;</span><br><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> str.charAt(<span class="number">1</span>);			<span class="comment">// &lt;———— 这个场合，c 是 🎶 符号的第二个代码单元而非 &#x27;A&#x27;</span></span><br></pre></td></tr></table></figure>
-<p><strong><em>因此，一般不建议在程序中使用 char 类型</em></strong></p>
-</li>
-</ul>
-<h1 id="2-7-布尔类型"><a href="#2-7-布尔类型" class="headerlink" title="2.7 布尔类型"></a>2.7 布尔类型</h1><blockquote>
-<p><code>boolean</code> 只允许取值<code>ture</code> 或 <code>false</code> ，没有 <code>null</code>。适用于逻辑运算，通常用于程序流程控制<br><code>if</code> <code>while</code> <code>do-while</code> <code>for</code></p>
-</blockquote>
-<p><strong>使用细节：</strong></p>
-<ol>
-<li>不可以用 <code>0</code> 或 <code>非0</code> 的整数替代<code>false</code> 或 <code>ture</code> 。这点和 C语言 不同。</li>
-<li>不能让布尔类型转换为其他类型。</li>
-</ol>
-<h1 id="2-8-基本数据类型转换"><a href="#2-8-基本数据类型转换" class="headerlink" title="2.8 基本数据类型转换"></a>2.8 基本数据类型转换</h1><h2 id="2-8-1-自动类型转换"><a href="#2-8-1-自动类型转换" class="headerlink" title="2.8.1 自动类型转换"></a>2.8.1 自动类型转换</h2><blockquote>
-<p>自动类型转换：Java 在进行赋值或运算时，精度（容量）小的类型自动转换为精度（容量）大的类型。<br><code>char</code> -&gt; <code>int</code> -&gt; <code>long</code> -&gt; <code>float</code> -&gt; <code>double</code><br><code>byte</code> -&gt; <code>short </code>-&gt; <code>int</code> -&gt; <code>float</code> -&gt; <code>double</code><br><strong>注意：</strong><code>**char**</code>** 、**<code>**byte**</code><strong>、</strong><code>**short**</code>** 之间不可转换**</p>
-</blockquote>
-<p><strong>细节：</strong></p>
-<ol>
-<li>有多种类型数据混合运算时，系统会将所有数据转换成容量最大的那种，再进行运算。</li>
-<li>如若把大精度（容量）数据赋值给小精度（容量）类型，就会报错（小数由于精度原因，大赋小会丢失精度，必不可用。但整数大赋小时：1.赋予具体数值时，判断范围。2.变量赋值时，判断类型。反之进行自动类型转换。</li>
-<li><code>byte</code> <code>short</code> <code>char</code> 三者不会相互自动转换，但可以计算。计算时首先转化为 <code>int</code>。</li>
-<li><code>boolean</code> 类型不参与自动转换</li>
-<li>自动提升原则：表达式结果的类型自动提升为操作数中最大的类型。</li>
-</ol>
-<h2 id="2-8-2-强制转换"><a href="#2-8-2-强制转换" class="headerlink" title="2.8.2 强制转换"></a>2.8.2 强制转换</h2><blockquote>
-<p>强制类型转换：自动类型转换的逆过程，将容量大的数据类型转换为容量小的数据类型。使用时加上强制转换符 ( ) ，但可能造成<strong>精度降低或溢出</strong>，要格外注意。</p>
-</blockquote>
-<p><strong>细节:</strong></p>
-<ol>
-<li><p>当进行数据从大到小转换时，用强制转换。</p>
-</li>
-<li><p>强制转换只能对最近的操作数有效，往往会使用 <code>( )</code> 提升优先级。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> (<span class="type">int</span>)(<span class="number">3</span> * <span class="number">2.5</span> + <span class="number">1.1</span> * <span class="number">6</span>);</span><br><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">10</span> * <span class="number">0.1</span> * <span class="number">1</span>; <span class="comment">// int 只会转换 10</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>char</code> 可以保留 <code>int</code> 的常量值，但不能保存其变量值。此时需要强制类型转换。</p>
-</li>
-<li><p><code>byte</code> <code>short</code> <code>char</code> 在进行运算时，当作<code>int</code> 处理。</p>
-</li>
-</ol>
-<h2 id="2-8-3-基本数据类型和String的转换"><a href="#2-8-3-基本数据类型和String的转换" class="headerlink" title="2.8.3 基本数据类型和String的转换"></a>2.8.3 基本数据类型和<code>String</code>的转换</h2><ul>
-<li><p>**基本类型转 **<code>**String**</code>**：基本数据类型加上 **<code>**&quot; &quot;**</code><strong>。</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> n1 + <span class="string">&quot;&quot;</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>**String**</code><strong>转基本数据类型：通过基本数据类型的包装类调用</strong><code>**parseXX**</code>** 方法。**</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;100&quot;</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">n1</span> <span class="operator">=</span> Interger.parseInt(s);</span><br></pre></td></tr></table></figure>
-<p>特别的，把 <code>String</code> 转换为 <code>char</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s.charAt(<span class="number">0</span>);		<span class="comment">// 得到 s 字符串中的第一个字符。</span></span><br></pre></td></tr></table></figure>
-<p><strong>细节:</strong></p>
-</li>
-</ul>
-<ol>
-<li>将<code>String</code> 转成基本数据类型时，要保证其能转换为有效数据。即不能把 “Hello” 转换成 <code>int</code>。</li>
-<li>如果格式不正确，会抛出异常，程序会中止。</li>
-</ol>
 ]]></content>
       <categories>
         <category>Java 学习</category>
