@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不">
+    <meta name="description" content="1. 什么是JavaEEJava 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1. JavaEE 介绍">
 <meta property="og:url" content="http://example.com/2022/09/12/JavaEE/1.%20JavaEE%20%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="安之">
-<meta property="og:description" content="Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不">
+<meta property="og:description" content="1. 什么是JavaEEJava 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-12T08:38:24.620Z">
-<meta property="article:modified_time" content="2022-09-12T09:06:23.241Z">
+<meta property="article:modified_time" content="2022-09-12T14:38:50.771Z">
 <meta property="article:author" content="MiK">
 <meta property="article:tag" content="Java 学习">
 <meta property="article:tag" content="JavaEE">
@@ -94,7 +94,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -166,7 +166,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -236,7 +236,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="1. JavaEE 介绍 | 安之">
-      <meta itemprop="description" content="Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -252,7 +252,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-12 16:38:24 / 修改时间：17:06:23" itemprop="dateCreated datePublished" datetime="2022-09-12T16:38:24+08:00">2022-09-12</time>
+      <time title="创建时间：2022-09-12 16:38:24 / 修改时间：22:38:50" itemprop="dateCreated datePublished" datetime="2022-09-12T16:38:24+08:00">2022-09-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -303,7 +303,6 @@
     </span>
 </div>
 
-            <div class="post-description">Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。</div>
         </div>
       </header>
 
@@ -312,6 +311,10 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="1-什么是JavaEE"><a href="#1-什么是JavaEE" class="headerlink" title="1. 什么是JavaEE"></a>1. 什么是JavaEE</h1><p>Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。<strong>Java比较火爆的就是这个JavaEE方向。</strong></p>
+<span id="more"></span>
+
+
+
 <h1 id="2-关于JavaEE的版本"><a href="#2-关于JavaEE的版本" class="headerlink" title="2. 关于JavaEE的版本"></a>2. 关于JavaEE的版本</h1><ul>
 <li>JavaEE目前最高版本是 JavaEE8</li>
 <li>JavaEE被Oracle捐献了，Oracle将JavaEE规范捐献给Apache了。</li>

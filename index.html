@@ -90,7 +90,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">18</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -216,6 +216,121 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 安之">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/" class="post-title-link" itemprop="url">3. 手撕 GenericServlet</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-12 22:34:30 / 修改时间：22:38:52" itemprop="dateCreated datePublished" datetime="2022-09-12T22:34:30+08:00">2022-09-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>151</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1-为什么会出现-GenericServlet"><a href="#1-为什么会出现-GenericServlet" class="headerlink" title="1. 为什么会出现 GenericServlet"></a>1. 为什么会出现 GenericServlet</h1><p>在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/12/JavaEE/3.%20%E6%89%8B%E6%92%95GenericServlet/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/12/JavaEE/2.%20Servlet%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,7 +361,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-12 17:06:10 / 修改时间：17:58:39" itemprop="dateCreated datePublished" datetime="2022-09-12T17:06:10+08:00">2022-09-12</time>
+      <time title="创建时间：2022-09-12 17:06:10 / 修改时间：19:00:37" itemprop="dateCreated datePublished" datetime="2022-09-12T17:06:10+08:00">2022-09-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -361,7 +476,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-09-12 16:38:24 / 修改时间：17:06:23" itemprop="dateCreated datePublished" datetime="2022-09-12T16:38:24+08:00">2022-09-12</time>
+      <time title="创建时间：2022-09-12 16:38:24 / 修改时间：22:38:50" itemprop="dateCreated datePublished" datetime="2022-09-12T16:38:24+08:00">2022-09-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -412,10 +527,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。</p>
+          <h1 id="1-什么是JavaEE"><a href="#1-什么是JavaEE" class="headerlink" title="1. 什么是JavaEE"></a>1. 什么是JavaEE</h1><p>Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。<strong>Java比较火爆的就是这个JavaEE方向。</strong></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2022/09/12/JavaEE/1.%20JavaEE%20%E4%BB%8B%E7%BB%8D/">
+              <a class="btn" href="/2022/09/12/JavaEE/1.%20JavaEE%20%E4%BB%8B%E7%BB%8D/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1291,131 +1406,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/09/11/JavaSE/9.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E9%AB%98%E7%BA%A7)/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="MiK">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="安之">
-      <meta itemprop="description" content="安之的学习小窝">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 安之">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">8. 房屋出租系统</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-09-11 18:54:49" itemprop="dateCreated datePublished" datetime="2022-09-11T18:54:49+08:00">2022-09-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-12 10:57:14" itemprop="dateModified" datetime="2022-09-12T10:57:14+08:00">2022-09-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaSE-%E9%9F%A9%E9%A1%BA%E5%B9%B3/" itemprop="url" rel="index"><span itemprop="name">JavaSE (韩顺平)</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Java 房屋出租系统</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/">
                 阅读全文 &raquo;
               </a>
             </div>
