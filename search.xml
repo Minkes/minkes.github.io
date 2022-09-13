@@ -1216,403 +1216,6 @@
       </tags>
   </entry>
   <entry>
-    <title>13. Java数据结构(集合)</title>
-    <url>/2022/09/11/JavaSE/13.%20Java%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(%E9%9B%86%E5%90%88)/</url>
-    <content><![CDATA[<blockquote>
-<p>数据结构分为两种：线性结构、非线性结构</p>
-</blockquote>
-<p><strong>线性结构：</strong></p>
-<ul>
-<li>最常用的数据结构。数据元素间存在一对一线性关系。</li>
-<li>线性结构有 2 种不同的存储结构：顺序储存结构，链式储存结构顺序存储结构中元素存储在连续的内存空间中。链式储存结构中元素储存在非连续的空间中，元素节点中存放数据元素及相邻元素的地址信息</li>
-<li>常见的线性结构有：数组、队列、链表、栈等</li>
-</ul>
-<p><strong>非线性结构：</strong></p>
-<ul>
-<li>非线性结构包括：二维数组、多维数组、广义表、树结构、图结构</li>
-</ul>
-<h1 id="13-1-集合的框架体系"><a href="#13-1-集合的框架体系" class="headerlink" title="13.1 集合的框架体系"></a>13.1 集合的框架体系</h1><blockquote>
-<p>Java 提供了一系列集合容器，以方便程序员动态保存元素。并提供了一系列方便的操作对象的方法。<br>Java 集合主要分为两组：单列集合（Collection）、双列集合（Map）</p>
-</blockquote>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/28255706/1660366812532-db8915d2-eda5-462b-a8dd-46baa909c19d.png#clientId=u900872a1-d44d-4&crop=0&crop=0&crop=1&crop=1&from=drop&id=uc0f92870&margin=%5Bobject%20Object%5D&name=%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB%E5%9B%BE_13.1.png&originHeight=641&originWidth=950&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41859&status=done&style=none&taskId=u3c1c40fc-0853-446d-b334-d8c7813b1af&title=" alt="集合体系图_13.1.png"></p>
-<ul>
-<li><strong>Collection 接口（单列集合）</strong>：可以存放多个元素。每个元素可以是 ObjectCollection 接口有两个重要子接口：List（有序集合）和 Set（无序集合）</li>
-<li><strong>Map 接口（双列集合）</strong>：用于保存具有映射关系的数据：key - value（双列元素）key 和 value 可以是任何类型的引用数据类型。其中 key 不能重复，value 可以重复key 和 value 存在单一对应关系。通过特定的 key 一定能找到指定的 value</li>
-</ul>
-<h1 id="13-2-单列集合接口-Collection"><a href="#13-2-单列集合接口-Collection" class="headerlink" title="13.2 单列集合接口 Collection"></a>13.2 单列集合接口 Collection</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Collection</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Lterable</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Collection 实现子类可以存放多个元素。每个元素可以是 Object<br>有些 Collection 实现子类能存放重复的元素，有些不能<br>有些 Collection 实现子类是有序的（List） ，有些不是（Set）<br>Collection 接口没有直接的实现子类，都是通过其子接口实现的</p>
-</blockquote>
-<p><strong>常用方法：</strong></p>
-<ul>
-<li><p><code>add</code>:添加单个元素**</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ArrayList</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list.add(<span class="string">&quot;哈哈啊&quot;</span>);</span><br><span class="line">list.add(<span class="number">10</span>);				<span class="comment">// 相当于List.add(new Integer(10));</span></span><br><span class="line">list.add(<span class="literal">true</span>);				<span class="comment">// 同上</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>remove</code>: 删除单个元素**</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.remove(<span class="number">0</span>)				<span class="comment">// 删除编号 0 的元素。上例中会删除 &quot;哈哈啊&quot;</span></span><br><span class="line">list.remove((Integer)<span class="number">10</span>);	<span class="comment">// 删除上例的 10 要这样写</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>contains</code>：检查元素是否存在</p>
-</li>
-<li><p><code>size</code>：获取元素个数</p>
-</li>
-<li><p><code>isEmpty</code>：判断是否为空</p>
-</li>
-<li><p><code>clear</code>：清空</p>
-</li>
-<li><p><code>addAll</code>：添加多个元素</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ArrayList</span> <span class="variable">list2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list2.add(<span class="number">111</span>);</span><br><span class="line">list2.add(<span class="string">&quot;idea&quot;</span>);</span><br><span class="line">list.addAll(list2);			<span class="comment">// 这里可以输入所有实现了 Collection 接口的集合</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>containsAll</code>: 检查多个元素是否存在</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.contaionsAll(list2);	<span class="comment">// 同上，放一个实现了 Collection 接口的集合</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>removeAll</code>: 删除多个元素</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.removeAll(list2);		<span class="comment">// 同上</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Iterator iterator()</code>：返回指向集合开始位置的迭代器</p>
-</li>
-</ul>
-<h2 id="13-2-1-迭代器-Iterator"><a href="#13-2-1-迭代器-Iterator" class="headerlink" title="13.2.1 迭代器 Iterator"></a>13.2.1 迭代器 Iterator</h2><blockquote>
-<p>Iterator 对象称为迭代器，主要用于遍历 Collection 集合中的元素。<br>Collection 继承的 Iterable 接口中，提供了 iterator() 方法，会返回一个新的迭代器。<br>Iterator 对象仅用于遍历集合，本身不存放元素<br>IDEA 中，迭代器 while 循环的模板快捷键：itit</p>
-</blockquote>
-<p><strong>常用方法：</strong></p>
-<ul>
-<li><code>boolean hasNext()</code>：该方法判断是否有下一个元素。</li>
-<li><code>T next()</code>：该方法会将指针下移，然后返回下移后的位置上的元素</li>
-</ul>
-<p><strong>用迭代器遍历元素：</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collection&lt;Object&gt; c = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">Iterator&lt;Object&gt; iterator = c.iterator();		<span class="comment">// [1]</span></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext())&#123;						<span class="comment">// [2]</span></span><br><span class="line">	<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> iterator.next();				<span class="comment">// [3]</span></span><br><span class="line">	System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>获取迭代器</li>
-<li>判断有无下一元素</li>
-<li>将迭代器后移，并返回那个后移位置上的元素while 循环结束后，指针指向最后元素的位置。再次 next() 会报错。如果需要再使用，需要重置迭代器。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">iterator = list.iterator();				<span class="comment">// 重置了迭代器</span></span><br></pre></td></tr></table></figure>
-<strong>for each（增强 for 循环）：</strong><br>for each 的语法与 for 循环相似，但是可以遍历 Collection 和 数组 中的元素<br>IDEA 中，增强 for 循环的模板快捷键：I<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (Object o : list)&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<ul>
-<li>for each 可在 Collection 集合中使用。</li>
-<li>for each 的底层在本质上也是 Iterator。可以理解为简化版本的迭代器遍历。</li>
-</ul>
-<h1 id="13-3-有序集合接口-List"><a href="#13-3-有序集合接口-List" class="headerlink" title="13.3 有序集合接口 List"></a>13.3 有序集合接口 List</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">List</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Collection</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
-<p>List 是 Collection 接口的子类接口<br>List 是有序（添加顺序和取出顺序一致）的，可重复的<br>List 中的每个元素都有其对应的顺序索引（从 0 开始编号）<br><strong>常用方法：</strong></p>
-<ul>
-<li><p>add(int, obj)：在 int 位置插入 obj 元素。返回 true</p>
-</li>
-<li><p>add(obj)：在末尾插入 obj。返回 true</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.add(<span class="number">111</span>);</span><br><span class="line">list.add(<span class="number">0</span>, <span class="number">110</span>);						<span class="comment">// 在第 1 个位置插入数字 110</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>addElement(obj)：在末尾插入 obj。无返回值。你说要这方法有啥用？名字还长一截</p>
-</li>
-<li><p>addAll(int, collection)：在 int 位置插入 collection 中的所有元素</p>
-</li>
-<li><p>get(int)：返回 int 位置的元素</p>
-</li>
-<li><p>indexOf(obj)：返回 obj 首次出现时的位置</p>
-</li>
-<li><p>lastIndexOf(obj)：返回 obj 最后一次出现时的位置</p>
-</li>
-<li><p>remove(int)：移除 int 位置的元素，并返回那个被移除的元素</p>
-</li>
-<li><p>set(int, obj)：设置 int 位置的元素为 obj。相当于替换。返回那个被替换元素的下标setElement(obj, int)：设置 int 位置的元素为 obj。无返回值</p>
-</li>
-<li><p>subList(int1, int2)：返回 [int1, int2) 范围的元素构成的子集合</p>
-</li>
-</ul>
-<h2 id="13-3-1-可变数组-ArrayList"><a href="#13-3-1-可变数组-ArrayList" class="headerlink" title="13.3.1 可变数组 ArrayList"></a>13.3.1 可变数组 ArrayList</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayList</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">AbstractList</span>&lt;E&gt;</span><br><span class="line">     <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<p>ArrayList 是 List 的实现子类。其底层由数组来实现存储。<br>ArrayList 可以存放 null<br><strong>ArrayList 的源码：</strong></p>
-<ol>
-<li><p>ArrayList 中维护了一个 Object 类型的数组 elementData。该数组就是用来存放元素的数组</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建 ArrayList 对象时，如果使用无参构造器，则 elementData[] 初始容量为 0</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果使用指定大小构造器，则初始容量为指定大小。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayList</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">this</span>.elementData = <span class="keyword">new</span> <span class="title class_">Object</span>[initialCapacity];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (initialCapacity == <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">/* 这个场合，与默认构造器的不同之处在于</span></span><br><span class="line"><span class="comment">		扩容时，该 0 容量变为 1，而默认构造器会变为 10 */</span></span><br><span class="line">        <span class="built_in">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>扩容的场合：</p>
-</li>
-</ol>
-<p>如果是** 无参构造器生成的初始 0 长度的 elementData**，则将其容量置为 10。<br>否则容量扩容为 1.5 倍。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 扩容方法，传入的参数 minCapacity 是容器现有元素数量 + 1 的值</span></span><br><span class="line"><span class="comment">	如果是无参构造器生成的默认数组，此时传入固定值 10 */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">grow</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;</span><br><span class="line">    <span class="comment">/* 计算新的容量（旧容量的 1.5 倍）</span></span><br><span class="line"><span class="comment">    	此处 &gt;&gt; 为位运算符，等同于 newC = oldC + oldC / 2; */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="comment">/* 这里如果原容量是特殊值（1 或 0），容量会变为那个 minCapacity 的值 */</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="13-3-2-可变数组-Vector"><a href="#13-3-2-可变数组-Vector" class="headerlink" title="13.3.2 可变数组 Vector"></a>13.3.2 可变数组 Vector</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Vector</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Vector 是 List 的实现子类。其底层由数组来实现存储<br>Vector 与 ArrayList 基本等同。ArrayList 效率更高，Vector 线程安全。<br>在开发中，需要考虑线程安全时，建议使用 Vector ，而非 ArrayList。</p>
-</blockquote>
-<p><strong>Vector 的底层源码：</strong></p>
-<ol>
-<li><p>底层维护了一个 Object 类型的数组 elementData。用以存放元素</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用无参构造器创建对象时，默认大小是 10</p>
-</li>
-</ol>
-<p>使用有参构造器的场合，默认是那个指定大小（initialCapaticy）<br>也能在构造器中指定那个扩容的增长速度（capacityIncrement）</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(initialCapacity, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">int</span> capacityIncrement)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="built_in">this</span>.elementData = <span class="keyword">new</span> <span class="title class_">Object</span>[initialCapacity];</span><br><span class="line">    <span class="built_in">this</span>.capacityIncrement = capacityIncrement;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>扩容的场合，容量变成 2 倍</li>
-</ol>
-<p>使用有参构造器改变了 capacityIncrement 的场合，增量是那个指定数值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">grow</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;</span><br><span class="line">    <span class="comment">/* 计算新的容量（按照指定的增速扩容）</span></span><br><span class="line"><span class="comment">    	那个指定无效或未指定时，容量变为 2 倍 */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + ((capacityIncrement &gt; <span class="number">0</span>) ?</span><br><span class="line">                                     capacityIncrement : oldCapacity);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="13-3-3-链表-LinkedList"><a href="#13-3-3-链表-LinkedList" class="headerlink" title="13.3.3 链表 LinkedList"></a>13.3.3 链表 LinkedList</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractSequentialList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>LinkedList 是 List 的实现子类，底层以链表形式存储元素。<br>链表是一种非线性结构：其以节点方式存储，节点间在内存上的位置不连续。<br>链表是有序的列表。单向链表每个节点包含 data 域和 next 域。那些 next 域指向下一节点的位置。<br>双向链表在单向链表的基础上，每个节点加入 prev 区域以指示其前方节点。这样，就能实现双向查找。双向链表可以不依靠辅助节点而实现自我删除。<br>LinkedList 底层实现了 双向链表 和 双端队列 特点。<br>LinkedList 可以添加 null，可添加重复元素。但没有实现同步，因此线程不安全。</p>
-</blockquote>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/28255706/1660375592427-e6ff720f-b420-4f62-850f-83615e33048f.png#clientId=u900872a1-d44d-4&crop=0&crop=0&crop=1&crop=1&from=drop&id=ub042fae1&margin=%5Bobject%20Object%5D&name=%E9%93%BE%E8%A1%A8%E5%9B%BE_13.3.3.png&originHeight=421&originWidth=778&originalType=binary&ratio=1&rotation=0&showTitle=false&size=170756&status=done&style=none&taskId=u64a6d58a-e275-40ba-a8b9-d411766f0d0&title=" alt="链表图_13.3.3.png"><br><strong>常用方法：</strong></p>
-<ul>
-<li>void addLast(E e)：尾插一个新的元素LinkedList 的 add 方法即调用该方法</li>
-<li>void addFirst(E e)：头插一个新的元素</li>
-<li>E removeLast()：移除并返回尾部元素。为空时报错</li>
-<li>E poll()：移除并返回尾部元素。为空时返回 null</li>
-<li>E removeFirst()：移除并返回头部元素。为空时报错</li>
-<li>E getLast()：仅返回尾部元素。为空时报错</li>
-<li>E peek()：返回尾部元素。为空时返回 null</li>
-<li>E element()：返回头部元素。为空时返回 null</li>
-<li>E getFirst()</li>
-</ul>
-<p><strong>LinkedList 的源码：</strong></p>
-<ol>
-<li><p>LinkedList 只有默认构造器和一个拷贝构造器</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedList</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>();</span><br><span class="line">    addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>LinkedList 底层维护了一个 双向链表</p>
-</li>
-</ol>
-<p>两个属性 first、last 分别指向 首节点 和 尾节点<br>每个节点（Node 对象），里面又维护了 prev、next、item 属性。<br>其中通过 prev 指向前一个节点，通过 next 指向后一个节点。最终实现双向链表。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span>&lt;E&gt; &#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">        <span class="built_in">this</span>.item = element;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">        <span class="built_in">this</span>.prev = prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>LinkedList 不需要扩容。其增删元素时只要改变节点的指向即可。也因此，其添加、删除元素效率比数组更高</li>
-</ol>
-<p><strong>ArrayList 和 LinkedList 的比较：</strong></p>
-<p>| **</p>
-<p> | <strong>底层结构</strong> | <strong>增删效率</strong> | <strong>改查效率</strong> |<br>| — | — | — | — |<br>| ArrayList | 可变数组 | 低（数组扩容） | 高 |<br>| LinkedList | 双向链表 | 高（链表追加） | 低 |</p>
-<p>应该根据实际情况来选择使用的集合：</p>
-<ul>
-<li>如果改查操作多，选择 ArrayList。一般来说，在程序中，80% - 90% 都是查询。大部分情况下，选择 ArrayList。</li>
-<li>如果增删操作多，选择 LinkedList</li>
-</ul>
-<h1 id="13-4-双列集合接口-Map"><a href="#13-4-双列集合接口-Map" class="headerlink" title="13.4 双列集合接口 Map"></a>13.4 双列集合接口 Map</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Map</span>&lt;K,V&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>以下关于 Map 接口的描述，适用于 JDK 8 的环境</strong></p>
-<blockquote>
-<p>Map 与 Collection 并列存在，用于保存具有映射关系的数据：key - value（双列元素）<br>Map 的 key 和 value 可以是任何类型的引用数据类型，也能存入 null。<br>Map 的 key 不允许重复，value 可以重复。key 和 value 存在单一对应关系。通过特定的 key 一定能找到指定的 value。<br>一组 k - v 会被封装到一个 Entry 对象中。Entry 是一个内部接口。Map 的实现子类中都包含一个实现这个接口的内部类。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Entry</span>&lt;K,V&gt; &#123;</span><br><span class="line">	K <span class="title function_">getKey</span><span class="params">()</span>;</span><br><span class="line">	V <span class="title function_">getValue</span><span class="params">()</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果添加相同的 key，会覆盖原先的 key -value。等同于修改（key 不会替换，value 会被替换）<br><strong>常用方法：</strong></p>
-<ul>
-<li>put()：添加。已存在的场合，实行替换。（key 不替换，value 替换）</li>
-<li>remove()：根据键删除映射关系</li>
-<li>get()：根据键获取值</li>
-<li>size()：元素个数</li>
-<li>isEmpty()：判断个数是否为 0</li>
-<li>clear()：清空</li>
-<li>containsKey()：查找键是否存在</li>
-<li>Set<K> keySet()：获取所有 键 构成的集合Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()：获取所有 Entry 构成的集合Collection<V> values()：获取所有 值 构成的集合</li>
-</ul>
-<p><strong>Map接口遍历元素：</strong></p>
-<ul>
-<li><strong>方法一： 利用<code>Set&lt;K&gt; keySet()</code> 方法</strong></li>
-</ul>
-<p>先得到所有 keys，再遍历 keys，根据每个 key 获得 value：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Set</span> <span class="variable">keyset</span> <span class="operator">=</span> map.keySet();</span><br><span class="line"><span class="keyword">for</span> (Object o : keyset) &#123;</span><br><span class="line">	System.out.println(o + <span class="string">&quot; = &quot;</span> + map.get(o));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>方法二：利用 Set<V> values() 方法</strong></li>
-</ul>
-<p>直接把所有 values 取出，之后遍历 values</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Collection</span> <span class="variable">values</span> <span class="operator">=</span> map.values();</span><br><span class="line"><span class="keyword">for</span> (Object value : values) &#123;</span><br><span class="line">	System.out.println(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>方法三：利用 Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet() 方法</strong></li>
-</ul>
-<p>通过获取 entrySet 来获取 k - v</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Set&lt;Map.Entry&gt; entrySet = map.entrySet();</span><br><span class="line"><span class="keyword">for</span> (Map.Entry e : entrySet) &#123;</span><br><span class="line">	System.out.println(e.getKey() + <span class="string">&quot; - &quot;</span> + e.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="13-4-1-散列表-HashMap"><a href="#13-4-1-散列表-HashMap" class="headerlink" title="13.4.1 散列表 HashMap"></a>13.4.1 散列表 HashMap</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashMap</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;, Cloneable, Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>HashMap 是 Map 接口使用频率最高的实现类。是根据关键码值（key value）而进行直接访问的数据结构。通过将关键码值映射到表中一个位置来访问记录，以加快查找速度。<br>那个映射函数叫做散列函数，存放记录的数组叫做散列表（哈希表）<br>HashMap 是以 k - v 对得到方式来存储数据。一组数据会被封装到一个 Node 对象中。HashMap 是 Map 接口使用频率最高的实现类。是根据关键码值（key value）而进行直接访问的数据结构。通过将关键码值映射到表中一个位置来访问记录，以加快查找速度。<br>那个映射函数叫做散列函数，存放记录的数组叫做散列表（哈希表）<br>HashMap 是以 k - v 对得到方式来存储数据。一组数据会被封装到一个 Node 对象中。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line"> <span class="keyword">final</span> <span class="type">int</span> hash;</span><br><span class="line"> <span class="keyword">final</span> K key;</span><br><span class="line"> V value;</span><br><span class="line"> Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>JDK 7 前，HashMap 底层是 数组 + 链表。JDK 8 后，底层是 数组 + 链表 + 红黑树。HashMap 不保证映射的顺序。<br>HashMap 没有实现同步（没有 synchronized），是线程不安全的</p>
-</blockquote>
-<p><strong>HashMap 的源码：</strong></p>
-<ol>
-<li><p>HashMap 底层维护了 Node 类型的数组 table。默认为 null</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br></pre></td></tr></table></figure>
-<p>另外，还有集合 values、keySet、enrtySet。这些集合能帮助程序员进行遍历</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Set&lt;K&gt;				keySet;</span><br><span class="line"><span class="keyword">transient</span> Collection&lt;V&gt;			values;</span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt;	entrySet;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建对象时，默认构造器将加载因子（loadfactor）初始化为 0.75。</p>
-</li>
-</ol>
-<p>也能指定那些初始容量和加载因子。<br>默认构造器第一次添加元素的场合，table 扩容为 16，临界值为 16 * 0.75 &#x3D; 12。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = DEFAULT_LOAD_FACTOR;					<span class="comment">// 这个默认构造的场合，其他参数都是默认值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="built_in">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>添加时容量不够的场合，需要扩容。</li>
-</ol>
-<p>默认构造器第一次添加元素的场合，table 扩容为 16，临界值为 16 * 0.75 &#x3D; 12。<br>扩容的场合，容量变为 2 倍。临界值相应变化。<br>临界值不会超过那个指定的 MAXIMUM_CAPACITY（1 &lt;&lt; 30），否则变成 Integer.MAX_VALUE。<br>JDK 8 中，如果一条链表的元素个数超过 TREEIFY_THRESHOLD（默认是 8），并且 table 的大小 &gt;&#x3D; MIN_TREEIFY_CAPACITY（默认 64），会进行树化。<br>剪枝：红黑树的元素减少到一定程度，会被重新转化为 链表</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;								<span class="comment">// &lt;- 旧的数据数组 table</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCap</span> <span class="operator">=</span> (oldTab == <span class="literal">null</span>) ? <span class="number">0</span> : oldTab.length;		<span class="comment">// &lt;- 旧的 table 的容量</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">oldThr</span> <span class="operator">=</span> threshold;									<span class="comment">// &lt;- 旧的临界值</span></span><br><span class="line">    <span class="type">int</span> newCap, newThr = <span class="number">0</span>;									<span class="comment">// &lt;- 新的容量、临界值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 旧的数组不为空时，</span></span><br><span class="line"><span class="comment">    	如果容量已达指定的 MAXIMUM_CAPACITY，则不扩容</span></span><br><span class="line"><span class="comment">    	否则扩容为 2 倍容量，临界值也变为 2 倍 */</span></span><br><span class="line">    <span class="keyword">if</span> (oldCap &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        newCap = oldCap &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">return</span> oldTab;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 旧的数组为空，但临界值已被指定（原因是：指定构造器传入初始容量为 0） */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>)</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    <span class="comment">/* 旧的数组为空，临界值为 0（原因是：使用默认构造器）</span></span><br><span class="line"><span class="comment">    	默认构造器初始化容量为 16，默认临界因子为 0.75f */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (<span class="type">int</span>)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 到这里，newThr（新临界值）为 0 的原因可能是：</span></span><br><span class="line"><span class="comment">    	1. 旧容量小于那个最小容量（16）</span></span><br><span class="line"><span class="comment">    	2. 扩容后容量大于那个最大容量</span></span><br><span class="line"><span class="comment">    	3. 旧的临界值为 0 或 Integer.MIN_VALUE</span></span><br><span class="line"><span class="comment">    	4. 构造器传入初始容量为 0 */</span></span><br><span class="line">    <span class="keyword">if</span> (newThr == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">/* 按照 新容量 * 临界因子 的方法计算临界值。临界值不会超过一个指定的最大值 */</span></span><br><span class="line">        <span class="type">float</span> <span class="variable">ft</span> <span class="operator">=</span> (<span class="type">float</span>)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="type">float</span>)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (<span class="type">int</span>)ft : Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 确定了容量和临界值，下面把旧数组元素移至新数组。</span></span><br><span class="line"><span class="comment">    	那个移动的场合，会以新容量重新计算所有元素的下标位置 */</span></span><br><span class="line">    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Node</span>[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    <span class="keyword">if</span> (oldTab != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; oldCap; ++j) &#123;</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            <span class="keyword">if</span> ((e = oldTab[j]) != <span class="literal">null</span>) &#123;</span><br><span class="line">                oldTab[j] = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (e.next == <span class="literal">null</span>)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - <span class="number">1</span>)] = e;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(<span class="built_in">this</span>, newTab, j, oldCap);</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    Node&lt;K,V&gt; loHead = <span class="literal">null</span>, loTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = <span class="literal">null</span>, hiTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    <span class="keyword">do</span> &#123;</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        <span class="keyword">if</span> ((e.hash &amp; oldCap) == <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (loTail == <span class="literal">null</span>)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">if</span> (hiTail == <span class="literal">null</span>)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">while</span> ((e = next) != <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (loTail != <span class="literal">null</span>) &#123;</span><br><span class="line">                        loTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (hiTail != <span class="literal">null</span>) &#123;</span><br><span class="line">                        hiTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>添加 k - v 时，通过 key 的哈希值得到其在 table 的索引，判断索引位置是否被占用。</li>
-</ol>
-<p>未占用的场合，直接添加。<br>占用的场合，判断其 key 是否相等。相等的场合，替换 value。否则，按照 树 或 链表 的方式处理。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 会先对放入元素的哈希值进行一次计算，得到一个数字：hash */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> key.hashCode();</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h ^ (h &gt;&gt;&gt; <span class="number">16</span>));	<span class="comment">// 位运算符：&gt;&gt;&gt; 无符号右移</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* put 方法会调用该 putVal 方法。</span></span><br><span class="line"><span class="comment">	那些传入值是：	hash、	key、	value、			false、				true */</span></span><br><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent, <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab = table; 		<span class="comment">// &lt;- 是那个存放数据的 table 数组</span></span><br><span class="line">    <span class="type">int</span> n;							<span class="comment">// &lt;- 是 table.length</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 如果原先的 table 为空，则对其重新分配空间 */</span></span><br><span class="line">    <span class="keyword">if</span> (tab == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>) &#123;</span><br><span class="line">        tab = resize();</span><br><span class="line">        n = tab.length;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 用方才计算的 hash 数，得到要放入元素的下标值 i</span></span><br><span class="line"><span class="comment">    	n - 1 是数据数组的最大下标，(n - 1) &amp; hash 必定不大于 n - 1 */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (n - <span class="number">1</span>) &amp; hash;			<span class="comment">// 位运算符：&amp; 按位与</span></span><br><span class="line">    Node&lt;K,V&gt; p = tab[i];			<span class="comment">// 得到 table 中，位于那个插入位置的元素</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 倘若该位置为空，则直接放入 */</span></span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">null</span>) &#123;</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 该位置不为空，意味着可能添加了重复元素 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; 			<span class="comment">// &lt;- 被发现重复的那个 Node。无重复时结果为 null。这个 Node 的 value 会被替换。</span></span><br><span class="line">        <span class="type">K</span> <span class="variable">k</span> <span class="operator">=</span> p.key;			<span class="comment">// &lt;- 当前取出进行比较的 key 值</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 为了验证其是否重复，这里要进行如下比较：</span></span><br><span class="line"><span class="comment">        	1. 比较两者的 hash 数。不同的场合是不同元素</span></span><br><span class="line"><span class="comment">        	2. 使用 == 和 equals 两种方法比较 key。不同的场合是不同元素 </span></span><br><span class="line"><span class="comment">        	如果是相同元素，则该节点的值会被替换 */</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp; (k  == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k)))) &#123;</span><br><span class="line">            e = p;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 此处节点结构是 树 的场合，还需遍历比较树的每个节点 */</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="built_in">this</span>, tab, hash, key, value);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 此处节点结构是 链表 的场合，还需遍历比较每个链表节点 */</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">binCount</span> <span class="operator">=</span> <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                e = p.next;</span><br><span class="line">                <span class="comment">/* e == null 意味着遍历结束，全部不同。这样，在此处添加那个新的 Node */</span></span><br><span class="line">                <span class="keyword">if</span> (e == <span class="literal">null</span>) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">/* 故技重施，如果发现相同，则替换那个新元素 */</span></span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k)))) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 经历上述比较后，e != null 意味着有元素要被替换了 */</span></span><br><span class="line">        <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">V</span> <span class="variable">oldValue</span> <span class="operator">=</span> e.value;</span><br><span class="line">            <span class="comment">/* 传入的参数 onluIfAbsent == false，所以此处一定是 true */</span></span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="literal">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);		<span class="comment">// &lt;- HashMap 中，该方法为空实现。</span></span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 如果到达这里，说明添加了元素（而非替换），要查看大小是否超过临界值 */</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);		<span class="comment">// &lt;- HashMap 中，该方法为空实现。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 上面提到的一些空实现的方法 */</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeAccess</span><span class="params">(Node&lt;K,V&gt; p)</span> &#123; &#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeInsertion</span><span class="params">(<span class="type">boolean</span> evict)</span> &#123; &#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeRemoval</span><span class="params">(Node&lt;K,V&gt; p)</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="13-4-2-散列表-HashTable"><a href="#13-4-2-散列表-HashTable" class="headerlink" title="13.4.2 散列表 HashTable"></a>13.4.2 散列表 HashTable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hashtable</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">Dictionary</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Hashtable 和 HashMap 基本一致，但Hashtable 是线程安全的 。但也因为如此，Hashtable 的效率低下。</p>
-</blockquote>
-<p><strong>Hashtable 与 HashMap 的比较：</strong></p>
-<p>| **</p>
-<p> | <strong>版本</strong> | <strong>线程安全（同步）</strong> | <strong>效率</strong> | <strong>是否允许 null值</strong> |<br>| — | — | — | — | — |<br>| Hashtable | 1.0 | 安全 | 较低 | 不允许 |<br>| HashMap | 1.2 | 不安全 | 高 | 允许 |</p>
-<ul>
-<li><p>Hashtable 底层也是有数组，默认构造器的初始容量为 11。临界值是 11 * 0.75 &#x3D; 8。</p>
-</li>
-<li><p>扩容大致如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> (oldCapacity &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;			<span class="comment">//即，原容量 * 2 + 1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Hashtable 不会树化</p>
-</li>
-</ul>
-<h3 id="13-5-3-红黑树-TreeMap"><a href="#13-5-3-红黑树-TreeMap" class="headerlink" title="13.5.3 红黑树 TreeMap"></a>13.5.3 红黑树 TreeMap</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableMap</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>TreeMap 实现了 Map 接口。底层使用 红黑树 存储数据。<br>相较数组（访问快，检索、插入慢）和链表（插入快，检索、访问慢），树形数据结构（如二叉排序树）在保证数据检索速度的同时，也能保证数据插入、删除、修改的速度</p>
-</blockquote>
-<p><strong>TreeMap的源码：</strong></p>
-<ol>
-<li><p>TreeMap 底层维护了一个二叉树，以及一个比较器</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="built_in">super</span> K&gt; comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;K,V&gt; root;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建对象时，能采用无参构造，也能指定比较器完成构造，那个无参构造的场合，比较器为空。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">()</span> &#123;</span><br><span class="line">    comparator = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> K&gt; comparator)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.comparator = comparator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>比较器如果为空，则要求传入的 key 必须是 Comparable 接口的实现子类，否则无法进行比较。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Object k1, Object k2)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> comparator==<span class="literal">null</span> ? ((Comparable&lt;? <span class="built_in">super</span> K&gt;)k1).compareTo((K)k2)</span><br><span class="line">        : comparator.compare((K)k1, (K)k2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加时，通过比较器确定那个添加位置。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    Entry&lt;K,V&gt; t = root;	<span class="comment">// &lt;- 树的根节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 二叉树为空的场合，创建根节点，将数据放入 */</span></span><br><span class="line">    <span class="keyword">if</span> (t == <span class="literal">null</span>) &#123;</span><br><span class="line">        compare(key, key);</span><br><span class="line">        root = <span class="keyword">new</span> <span class="title class_">Entry</span>&lt;&gt;(key, value, <span class="literal">null</span>);</span><br><span class="line">        size = <span class="number">1</span>;</span><br><span class="line">        modCount++;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> cmp;				<span class="comment">// &lt;- 临时值，存放比较结果</span></span><br><span class="line">    Entry&lt;K,V&gt; parent;		<span class="comment">// &lt;- 临时值，存放父节点</span></span><br><span class="line">    Comparator&lt;? <span class="built_in">super</span> K&gt; cpr = comparator;		<span class="comment">// &lt;- 比较器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 有比较器的场合，按照这个方法进行比较 */</span></span><br><span class="line">    <span class="keyword">if</span> (cpr != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = cpr.compare(key, t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 比较器为空的场合，按照这个方法进行比较 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        Comparable&lt;? <span class="built_in">super</span> K&gt; k = (Comparable&lt;? <span class="built_in">super</span> K&gt;) key;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = k.compareTo(t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 将数据节点放到正确的路径下 */</span></span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> <span class="title class_">Entry</span>&lt;&gt;(key, value, parent);</span><br><span class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">        parent.left = e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        parent.right = e;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 此处会试着将该树转换成完全二叉树 */</span></span><br><span class="line">    fixAfterInsertion(e);</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加的最后，会试着将该树转换成完全二叉树</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">fixAfterInsertion</span><span class="params">(Entry&lt;K,V&gt; x)</span> &#123;</span><br><span class="line">    x.color = RED;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (x != <span class="literal">null</span> &amp;&amp; x != root &amp;&amp; x.parent.color == RED) &#123;</span><br><span class="line">        <span class="keyword">if</span> (parentOf(x) == leftOf(parentOf(parentOf(x)))) &#123;</span><br><span class="line">            Entry&lt;K,V&gt; y = rightOf(parentOf(parentOf(x)));</span><br><span class="line">            <span class="keyword">if</span> (colorOf(y) == RED) &#123;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(y, BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                x = parentOf(parentOf(x));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (x == rightOf(parentOf(x))) &#123;</span><br><span class="line">                    x = parentOf(x);</span><br><span class="line">                    rotateLeft(x);</span><br><span class="line">                &#125;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                rotateRight(parentOf(parentOf(x)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Entry&lt;K,V&gt; y = leftOf(parentOf(parentOf(x)));</span><br><span class="line">            <span class="keyword">if</span> (colorOf(y) == RED) &#123;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(y, BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                x = parentOf(parentOf(x));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (x == leftOf(parentOf(x))) &#123;</span><br><span class="line">                    x = parentOf(x);</span><br><span class="line">                    rotateRight(x);</span><br><span class="line">                &#125;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                rotateLeft(parentOf(parentOf(x)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    root.color = BLACK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="13-4-4-Properties"><a href="#13-4-4-Properties" class="headerlink" title="13.4.4 Properties"></a>13.4.4 Properties</h2><blockquote>
-<p>Properties 继承自 Hashtable 并实现了 Map 接口。也使用键值对的方式保存数据<br>Properties 使用特点与 Hashtable 相似<br>Properties 还可以用于 xxx.properties 文件中，加载数据到 Properties 对象，进行读取和修改<br>xxx.properties 文件常作为配置文件</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Properties</span> <span class="keyword">extends</span> <span class="title class_">Hashtable</span>&lt;Object,Object&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>String getProperty(String key)</code>：输入一个 String 类型的 key，返回一个 String 的 value<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getProperty</span><span class="params">(String key)</span> &#123;</span><br><span class="line"><span class="type">Object</span> <span class="variable">oval</span> <span class="operator">=</span> <span class="built_in">super</span>.get(key);</span><br><span class="line"><span class="type">String</span> <span class="variable">sval</span> <span class="operator">=</span> (oval <span class="keyword">instanceof</span> String) ? (String)oval : <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">return</span> ((sval == <span class="literal">null</span>) &amp;&amp; (defaults != <span class="literal">null</span>)) ? defaults.getProperty(key) : sval;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="13-5-无序集合接口Set"><a href="#13-5-无序集合接口Set" class="headerlink" title="13.5 无序集合接口Set"></a>13.5 无序集合接口Set</h1><blockquote>
-<p>Set 是 Collection 接口的子类接口。<br>Set 接口的特点是无序（添加和取出顺序不一致，其取出顺序由某个算法决定），没有索引<br>不允许重复元素。故而，最多包含一个 null</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Set</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Collection</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="13-5-1-HashSet"><a href="#13-5-1-HashSet" class="headerlink" title="13.5.1 HashSet"></a>13.5.1 HashSet</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Set</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>HashSet 实现了 Set 接口。底层实际上使用 HashMap 来存储数据。身在 Collection 心在 Map<br>HashSet 是无序的。其实际顺序取决于计算得到的 hash 值</p>
-</blockquote>
-<p><strong>HashSet的源码：</strong></p>
-<ol>
-<li><p>HashSet 底层是 HashMap</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例化也和 HashMap 相同</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">()</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(initialCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加一个元素时调用 HashMap 的方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="13-5-2-LinkedHashSet"><a href="#13-5-2-LinkedHashSet" class="headerlink" title="13.5.2 LinkedHashSet"></a>13.5.2 LinkedHashSet</h2><blockquote>
-<p>LinkedHashSet 是 HashSet 的子类<br>LinkedHashSet 底层是一个 LinkedHashMap，维护了一个数组 + 双向链表。有其父必有其子<br>LinkedHashSet 根据元素的 hashCode 值来决定元素的存储位置。同时，使用链表维护元素的次序。这使得元素看起来是以插入顺序保存的，并得以按照放入顺序取出</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedHashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Set</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<p><strong>LinkedHashSet的源码：</strong></p>
-<ol>
-<li>在类 HashSet 中，存在一个默认访问范围的构造器。该构造器不同于其他构造器，会让实例维护一个 LinkedHashMap<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HashSet(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor, <span class="type">boolean</span> dummy) &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(initialCapacity, loadFactor, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(initialCapacity, <span class="number">.75f</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(<span class="number">16</span>, <span class="number">.75f</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="13-5-3-TreeSet"><a href="#13-5-3-TreeSet" class="headerlink" title="13.5.3 TreeSet"></a>13.5.3 TreeSet</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeSet</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">AbstractSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableSet</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>TreeSet 实现了 Set 接口，其底层是一个 TreeMap。好家伙，原来 Set 全家都是卧底<br>调用无参构造器创建 TreeSet 时，默认是无序排列。也能在构造时传入一个比较器。有比较器的场合，比较器返回 0 时，不发生替换<br>不传入比较器的场合，使用的是传入对象自带的比较器。所以，这个场合，传入的 key 对象必须是 Comparable 接口的实现子类</p>
-</blockquote>
-<h1 id="13-6-集合的选择"><a href="#13-6-集合的选择" class="headerlink" title="13.6 集合的选择"></a>13.6 集合的选择</h1><p>在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行分析选择。<br>判断存储的类型（一组对象 [单列]，或一组键值对 [双列]）</p>
-<ul>
-<li>一组对象：Collection 接口<ul>
-<li>允许重复：List<ul>
-<li>增删多：LinkedList （双向链表）</li>
-<li>改查多：ArrayList （Object[] 数组）</li>
-</ul>
-</li>
-<li>不允许重复：Set<ul>
-<li>无序：HashSet （数组 + 链表 + 红黑树，底层是 HashMap）</li>
-<li>排序：TreeSet</li>
-<li>顺序一致：LinkedHashSet （数组 + 双向链表，底层是 LinkedHashMap）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>一组键值对：Map<ul>
-<li>键无序：HashMap （数组 + 链表 + 红黑树 [ JDK 8 以后 ] ）</li>
-<li>键排序：TreeMap</li>
-<li>键顺序一致：LinkedHashMap （底层是 HashMap）</li>
-<li>读取文件：Properties</li>
-</ul>
-</li>
-</ul>
-<h1 id="13-7-工具类-Collections"><a href="#13-7-工具类-Collections" class="headerlink" title="13.7 工具类 Collections"></a>13.7 工具类 Collections</h1><blockquote>
-<p>Collections 工具类是一个操作 Set、List、Map 等集合的工具类<br>其中提供了一系列静态方法，对集合元素进行 排序、查询和修改等操作</p>
-</blockquote>
-<p><strong>常用方法：</strong><br>排序：</p>
-<ul>
-<li>reverse(List)：反转 List 中元素的排序</li>
-<li>shuffle(List)：对 List 中元素进行随机排序</li>
-<li>sort(List)：根据元素的自然顺序对指定 List 集合元素升序排列</li>
-<li>reverse(List, Comparator)：根据指定 Comparator 对 List 排序</li>
-<li>swap(List, int, int)：将两处元素位置互换</li>
-</ul>
-<p>查找、替换：</p>
-<ul>
-<li>Object max(Collection)：根据元素的自然排序，返回集合中最大的元素</li>
-<li>Object max(Collection, Comparator)：根据比较器，返回最大元素</li>
-<li>Object min(Collection)：根据元素的自然排序，返回最小元素</li>
-<li>Object min(Collection, Comparator)：根据比较器，返回最小元素</li>
-<li>int frequency(Collection, Object)：返回集合中指定元素的出现次数</li>
-<li>void copy(List dest, List src)：将 src 的内容复制到 dest 中这个场合，要保证 dest 的大小不小于 src。所以，可能需要先给 dest 赋值</li>
-<li>boolean replaceAll(List list, Object oldVal, Object newVal)：用 newVal 替换所有 oldVal 值</li>
-</ul>
-<p><strong>常用方法：</strong><br>排序：</p>
-<ul>
-<li>reverse(List)：反转 List 中元素的排序</li>
-<li>shuffle(List)：对 List 中元素进行随机排序</li>
-<li>sort(List)：根据元素的自然顺序对指定 List 集合元素升序排列</li>
-<li>reverse(List, Comparator)：根据指定 Comparator 对 List 排序</li>
-<li>swap(List, int, int)：将两处元素位置互换</li>
-</ul>
-<p>查找、替换：</p>
-<ul>
-<li>Object max(Collection)：根据元素的自然排序，返回集合中最大的元素</li>
-<li>Object max(Collection, Comparator)：根据比较器，返回最大元素</li>
-<li>Object min(Collection)：根据元素的自然排序，返回最小元素</li>
-<li>Object min(Collection, Comparator)：根据比较器，返回最小元素</li>
-<li>int frequency(Collection, Object)：返回集合中指定元素的出现次数</li>
-<li>void copy(List dest, List src)：将 src 的内容复制到 dest 中这个场合，要保证 dest 的大小不小于 src。所以，可能需要先给 dest 赋值</li>
-<li>boolean replaceAll(List list, Object oldVal, Object newVal)：用 newVal 替换所有 oldVal 值</li>
-</ul>
-<h1 id="13-8-JUnit"><a href="#13-8-JUnit" class="headerlink" title="13.8 JUnit"></a>13.8 JUnit</h1><blockquote>
-<p>一个类有多个功能代码需要测试，为了测试，就要写入 main 方法中<br>如果有多个功能代码测试，需要反复撤销，过程繁琐<br>JUnit 是一个 Java 语言单元测试框架<br>多数 Java 开发环境都已集成了 JUnit 作为单元测试工具<br><a href="https://www.bilibili.com/video/BV1fh411y7R8?p=566&t=259.3">使用方法</a><br>……总的来讲，方法就是加入 @Test，然后 alt + enter 引入 JUnit 5，最后运行</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>14. 多线程(基础)</title>
     <url>/2022/09/11/JavaSE/14.%20%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
     <content><![CDATA[<h1 id="14-1-线程的概念"><a href="#14-1-线程的概念" class="headerlink" title="14.1 线程的概念"></a>14.1 线程的概念</h1><blockquote>
@@ -2123,6 +1726,403 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <li><code>void seek(long pos)</code>：将文档指针置于指定的绝对位置 pos文档指针的位置从文档开始的字符处开始计算，pos &#x3D; 0L 表示文档的开始</li>
 <li><code>long length()</code>：返回文件长度</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>13. Java数据结构(集合)</title>
+    <url>/2022/09/11/JavaSE/13.%20Java%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(%E9%9B%86%E5%90%88)/</url>
+    <content><![CDATA[<blockquote>
+<p>数据结构分为两种：线性结构、非线性结构</p>
+</blockquote>
+<p><strong>线性结构：</strong></p>
+<ul>
+<li>最常用的数据结构。数据元素间存在一对一线性关系。</li>
+<li>线性结构有 2 种不同的存储结构：顺序储存结构，链式储存结构顺序存储结构中元素存储在连续的内存空间中。链式储存结构中元素储存在非连续的空间中，元素节点中存放数据元素及相邻元素的地址信息</li>
+<li>常见的线性结构有：数组、队列、链表、栈等</li>
+</ul>
+<p><strong>非线性结构：</strong></p>
+<ul>
+<li>非线性结构包括：二维数组、多维数组、广义表、树结构、图结构</li>
+</ul>
+<h1 id="13-1-集合的框架体系"><a href="#13-1-集合的框架体系" class="headerlink" title="13.1 集合的框架体系"></a>13.1 集合的框架体系</h1><blockquote>
+<p>Java 提供了一系列集合容器，以方便程序员动态保存元素。并提供了一系列方便的操作对象的方法。<br>Java 集合主要分为两组：单列集合（Collection）、双列集合（Map）</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/28255706/1660366812532-db8915d2-eda5-462b-a8dd-46baa909c19d.png#clientId=u900872a1-d44d-4&crop=0&crop=0&crop=1&crop=1&from=drop&id=uc0f92870&margin=%5Bobject%20Object%5D&name=%E9%9B%86%E5%90%88%E4%BD%93%E7%B3%BB%E5%9B%BE_13.1.png&originHeight=641&originWidth=950&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41859&status=done&style=none&taskId=u3c1c40fc-0853-446d-b334-d8c7813b1af&title=" alt="集合体系图_13.1.png"></p>
+<ul>
+<li><strong>Collection 接口（单列集合）</strong>：可以存放多个元素。每个元素可以是 ObjectCollection 接口有两个重要子接口：List（有序集合）和 Set（无序集合）</li>
+<li><strong>Map 接口（双列集合）</strong>：用于保存具有映射关系的数据：key - value（双列元素）key 和 value 可以是任何类型的引用数据类型。其中 key 不能重复，value 可以重复key 和 value 存在单一对应关系。通过特定的 key 一定能找到指定的 value</li>
+</ul>
+<h1 id="13-2-单列集合接口-Collection"><a href="#13-2-单列集合接口-Collection" class="headerlink" title="13.2 单列集合接口 Collection"></a>13.2 单列集合接口 Collection</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Collection</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Lterable</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Collection 实现子类可以存放多个元素。每个元素可以是 Object<br>有些 Collection 实现子类能存放重复的元素，有些不能<br>有些 Collection 实现子类是有序的（List） ，有些不是（Set）<br>Collection 接口没有直接的实现子类，都是通过其子接口实现的</p>
+</blockquote>
+<p><strong>常用方法：</strong></p>
+<ul>
+<li><p><code>add</code>:添加单个元素**</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ArrayList</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list.add(<span class="string">&quot;哈哈啊&quot;</span>);</span><br><span class="line">list.add(<span class="number">10</span>);				<span class="comment">// 相当于List.add(new Integer(10));</span></span><br><span class="line">list.add(<span class="literal">true</span>);				<span class="comment">// 同上</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>remove</code>: 删除单个元素**</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.remove(<span class="number">0</span>)				<span class="comment">// 删除编号 0 的元素。上例中会删除 &quot;哈哈啊&quot;</span></span><br><span class="line">list.remove((Integer)<span class="number">10</span>);	<span class="comment">// 删除上例的 10 要这样写</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>contains</code>：检查元素是否存在</p>
+</li>
+<li><p><code>size</code>：获取元素个数</p>
+</li>
+<li><p><code>isEmpty</code>：判断是否为空</p>
+</li>
+<li><p><code>clear</code>：清空</p>
+</li>
+<li><p><code>addAll</code>：添加多个元素</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ArrayList</span> <span class="variable">list2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list2.add(<span class="number">111</span>);</span><br><span class="line">list2.add(<span class="string">&quot;idea&quot;</span>);</span><br><span class="line">list.addAll(list2);			<span class="comment">// 这里可以输入所有实现了 Collection 接口的集合</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>containsAll</code>: 检查多个元素是否存在</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.contaionsAll(list2);	<span class="comment">// 同上，放一个实现了 Collection 接口的集合</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>removeAll</code>: 删除多个元素</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.removeAll(list2);		<span class="comment">// 同上</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Iterator iterator()</code>：返回指向集合开始位置的迭代器</p>
+</li>
+</ul>
+<h2 id="13-2-1-迭代器-Iterator"><a href="#13-2-1-迭代器-Iterator" class="headerlink" title="13.2.1 迭代器 Iterator"></a>13.2.1 迭代器 Iterator</h2><blockquote>
+<p>Iterator 对象称为迭代器，主要用于遍历 Collection 集合中的元素。<br>Collection 继承的 Iterable 接口中，提供了 iterator() 方法，会返回一个新的迭代器。<br>Iterator 对象仅用于遍历集合，本身不存放元素<br>IDEA 中，迭代器 while 循环的模板快捷键：itit</p>
+</blockquote>
+<p><strong>常用方法：</strong></p>
+<ul>
+<li><code>boolean hasNext()</code>：该方法判断是否有下一个元素。</li>
+<li><code>T next()</code>：该方法会将指针下移，然后返回下移后的位置上的元素</li>
+</ul>
+<p><strong>用迭代器遍历元素：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collection&lt;Object&gt; c = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">Iterator&lt;Object&gt; iterator = c.iterator();		<span class="comment">// [1]</span></span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext())&#123;						<span class="comment">// [2]</span></span><br><span class="line">	<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> iterator.next();				<span class="comment">// [3]</span></span><br><span class="line">	System.out.println(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>获取迭代器</li>
+<li>判断有无下一元素</li>
+<li>将迭代器后移，并返回那个后移位置上的元素while 循环结束后，指针指向最后元素的位置。再次 next() 会报错。如果需要再使用，需要重置迭代器。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">iterator = list.iterator();				<span class="comment">// 重置了迭代器</span></span><br></pre></td></tr></table></figure>
+<strong>for each（增强 for 循环）：</strong><br>for each 的语法与 for 循环相似，但是可以遍历 Collection 和 数组 中的元素<br>IDEA 中，增强 for 循环的模板快捷键：I<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (Object o : list)&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>for each 可在 Collection 集合中使用。</li>
+<li>for each 的底层在本质上也是 Iterator。可以理解为简化版本的迭代器遍历。</li>
+</ul>
+<h1 id="13-3-有序集合接口-List"><a href="#13-3-有序集合接口-List" class="headerlink" title="13.3 有序集合接口 List"></a>13.3 有序集合接口 List</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">List</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Collection</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
+<p>List 是 Collection 接口的子类接口<br>List 是有序（添加顺序和取出顺序一致）的，可重复的<br>List 中的每个元素都有其对应的顺序索引（从 0 开始编号）<br><strong>常用方法：</strong></p>
+<ul>
+<li><p>add(int, obj)：在 int 位置插入 obj 元素。返回 true</p>
+</li>
+<li><p>add(obj)：在末尾插入 obj。返回 true</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">list.add(<span class="number">111</span>);</span><br><span class="line">list.add(<span class="number">0</span>, <span class="number">110</span>);						<span class="comment">// 在第 1 个位置插入数字 110</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>addElement(obj)：在末尾插入 obj。无返回值。你说要这方法有啥用？名字还长一截</p>
+</li>
+<li><p>addAll(int, collection)：在 int 位置插入 collection 中的所有元素</p>
+</li>
+<li><p>get(int)：返回 int 位置的元素</p>
+</li>
+<li><p>indexOf(obj)：返回 obj 首次出现时的位置</p>
+</li>
+<li><p>lastIndexOf(obj)：返回 obj 最后一次出现时的位置</p>
+</li>
+<li><p>remove(int)：移除 int 位置的元素，并返回那个被移除的元素</p>
+</li>
+<li><p>set(int, obj)：设置 int 位置的元素为 obj。相当于替换。返回那个被替换元素的下标setElement(obj, int)：设置 int 位置的元素为 obj。无返回值</p>
+</li>
+<li><p>subList(int1, int2)：返回 [int1, int2) 范围的元素构成的子集合</p>
+</li>
+</ul>
+<h2 id="13-3-1-可变数组-ArrayList"><a href="#13-3-1-可变数组-ArrayList" class="headerlink" title="13.3.1 可变数组 ArrayList"></a>13.3.1 可变数组 ArrayList</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ArrayList</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">AbstractList</span>&lt;E&gt;</span><br><span class="line">     <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p>ArrayList 是 List 的实现子类。其底层由数组来实现存储。<br>ArrayList 可以存放 null<br><strong>ArrayList 的源码：</strong></p>
+<ol>
+<li><p>ArrayList 中维护了一个 Object 类型的数组 elementData。该数组就是用来存放元素的数组</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 ArrayList 对象时，如果使用无参构造器，则 elementData[] 初始容量为 0</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayList</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果使用指定大小构造器，则初始容量为指定大小。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">ArrayList</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">this</span>.elementData = <span class="keyword">new</span> <span class="title class_">Object</span>[initialCapacity];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (initialCapacity == <span class="number">0</span>) &#123;</span><br><span class="line">	<span class="comment">/* 这个场合，与默认构造器的不同之处在于</span></span><br><span class="line"><span class="comment">		扩容时，该 0 容量变为 1，而默认构造器会变为 10 */</span></span><br><span class="line">        <span class="built_in">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>扩容的场合：</p>
+</li>
+</ol>
+<p>如果是** 无参构造器生成的初始 0 长度的 elementData**，则将其容量置为 10。<br>否则容量扩容为 1.5 倍。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 扩容方法，传入的参数 minCapacity 是容器现有元素数量 + 1 的值</span></span><br><span class="line"><span class="comment">	如果是无参构造器生成的默认数组，此时传入固定值 10 */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">grow</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;</span><br><span class="line">    <span class="comment">/* 计算新的容量（旧容量的 1.5 倍）</span></span><br><span class="line"><span class="comment">    	此处 &gt;&gt; 为位运算符，等同于 newC = oldC + oldC / 2; */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="comment">/* 这里如果原容量是特殊值（1 或 0），容量会变为那个 minCapacity 的值 */</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13-3-2-可变数组-Vector"><a href="#13-3-2-可变数组-Vector" class="headerlink" title="13.3.2 可变数组 Vector"></a>13.3.2 可变数组 Vector</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Vector</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Vector 是 List 的实现子类。其底层由数组来实现存储<br>Vector 与 ArrayList 基本等同。ArrayList 效率更高，Vector 线程安全。<br>在开发中，需要考虑线程安全时，建议使用 Vector ，而非 ArrayList。</p>
+</blockquote>
+<p><strong>Vector 的底层源码：</strong></p>
+<ol>
+<li><p>底层维护了一个 Object 类型的数组 elementData。用以存放元素</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用无参构造器创建对象时，默认大小是 10</p>
+</li>
+</ol>
+<p>使用有参构造器的场合，默认是那个指定大小（initialCapaticy）<br>也能在构造器中指定那个扩容的增长速度（capacityIncrement）</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(initialCapacity, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">Vector</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">int</span> capacityIncrement)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>();</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="built_in">this</span>.elementData = <span class="keyword">new</span> <span class="title class_">Object</span>[initialCapacity];</span><br><span class="line">    <span class="built_in">this</span>.capacityIncrement = capacityIncrement;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>扩容的场合，容量变成 2 倍</li>
+</ol>
+<p>使用有参构造器改变了 capacityIncrement 的场合，增量是那个指定数值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">grow</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;</span><br><span class="line">    <span class="comment">/* 计算新的容量（按照指定的增速扩容）</span></span><br><span class="line"><span class="comment">    	那个指定无效或未指定时，容量变为 2 倍 */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + ((capacityIncrement &gt; <span class="number">0</span>) ?</span><br><span class="line">                                     capacityIncrement : oldCapacity);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13-3-3-链表-LinkedList"><a href="#13-3-3-链表-LinkedList" class="headerlink" title="13.3.3 链表 LinkedList"></a>13.3.3 链表 LinkedList</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractSequentialList</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">List</span>&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>LinkedList 是 List 的实现子类，底层以链表形式存储元素。<br>链表是一种非线性结构：其以节点方式存储，节点间在内存上的位置不连续。<br>链表是有序的列表。单向链表每个节点包含 data 域和 next 域。那些 next 域指向下一节点的位置。<br>双向链表在单向链表的基础上，每个节点加入 prev 区域以指示其前方节点。这样，就能实现双向查找。双向链表可以不依靠辅助节点而实现自我删除。<br>LinkedList 底层实现了 双向链表 和 双端队列 特点。<br>LinkedList 可以添加 null，可添加重复元素。但没有实现同步，因此线程不安全。</p>
+</blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/28255706/1660375592427-e6ff720f-b420-4f62-850f-83615e33048f.png#clientId=u900872a1-d44d-4&crop=0&crop=0&crop=1&crop=1&from=drop&id=ub042fae1&margin=%5Bobject%20Object%5D&name=%E9%93%BE%E8%A1%A8%E5%9B%BE_13.3.3.png&originHeight=421&originWidth=778&originalType=binary&ratio=1&rotation=0&showTitle=false&size=170756&status=done&style=none&taskId=u64a6d58a-e275-40ba-a8b9-d411766f0d0&title=" alt="链表图_13.3.3.png"><br><strong>常用方法：</strong></p>
+<ul>
+<li>void addLast(E e)：尾插一个新的元素LinkedList 的 add 方法即调用该方法</li>
+<li>void addFirst(E e)：头插一个新的元素</li>
+<li>E removeLast()：移除并返回尾部元素。为空时报错</li>
+<li>E poll()：移除并返回尾部元素。为空时返回 null</li>
+<li>E removeFirst()：移除并返回头部元素。为空时报错</li>
+<li>E getLast()：仅返回尾部元素。为空时报错</li>
+<li>E peek()：返回尾部元素。为空时返回 null</li>
+<li>E element()：返回头部元素。为空时返回 null</li>
+<li>E getFirst()</li>
+</ul>
+<p><strong>LinkedList 的源码：</strong></p>
+<ol>
+<li><p>LinkedList 只有默认构造器和一个拷贝构造器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedList</span><span class="params">()</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>();</span><br><span class="line">    addAll(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>LinkedList 底层维护了一个 双向链表</p>
+</li>
+</ol>
+<p>两个属性 first、last 分别指向 首节点 和 尾节点<br>每个节点（Node 对象），里面又维护了 prev、next、item 属性。<br>其中通过 prev 指向前一个节点，通过 next 指向后一个节点。最终实现双向链表。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span>&lt;E&gt; &#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">        <span class="built_in">this</span>.item = element;</span><br><span class="line">        <span class="built_in">this</span>.next = next;</span><br><span class="line">        <span class="built_in">this</span>.prev = prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>LinkedList 不需要扩容。其增删元素时只要改变节点的指向即可。也因此，其添加、删除元素效率比数组更高</li>
+</ol>
+<p><strong>ArrayList 和 LinkedList 的比较：</strong></p>
+<p>| **</p>
+<p> | <strong>底层结构</strong> | <strong>增删效率</strong> | <strong>改查效率</strong> |<br>| — | — | — | — |<br>| ArrayList | 可变数组 | 低（数组扩容） | 高 |<br>| LinkedList | 双向链表 | 高（链表追加） | 低 |</p>
+<p>应该根据实际情况来选择使用的集合：</p>
+<ul>
+<li>如果改查操作多，选择 ArrayList。一般来说，在程序中，80% - 90% 都是查询。大部分情况下，选择 ArrayList。</li>
+<li>如果增删操作多，选择 LinkedList</li>
+</ul>
+<h1 id="13-4-双列集合接口-Map"><a href="#13-4-双列集合接口-Map" class="headerlink" title="13.4 双列集合接口 Map"></a>13.4 双列集合接口 Map</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Map</span>&lt;K,V&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>以下关于 Map 接口的描述，适用于 JDK 8 的环境</strong></p>
+<blockquote>
+<p>Map 与 Collection 并列存在，用于保存具有映射关系的数据：key - value（双列元素）<br>Map 的 key 和 value 可以是任何类型的引用数据类型，也能存入 null。<br>Map 的 key 不允许重复，value 可以重复。key 和 value 存在单一对应关系。通过特定的 key 一定能找到指定的 value。<br>一组 k - v 会被封装到一个 Entry 对象中。Entry 是一个内部接口。Map 的实现子类中都包含一个实现这个接口的内部类。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">Entry</span>&lt;K,V&gt; &#123;</span><br><span class="line">	K <span class="title function_">getKey</span><span class="params">()</span>;</span><br><span class="line">	V <span class="title function_">getValue</span><span class="params">()</span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果添加相同的 key，会覆盖原先的 key -value。等同于修改（key 不会替换，value 会被替换）<br><strong>常用方法：</strong></p>
+<ul>
+<li>put()：添加。已存在的场合，实行替换。（key 不替换，value 替换）</li>
+<li>remove()：根据键删除映射关系</li>
+<li>get()：根据键获取值</li>
+<li>size()：元素个数</li>
+<li>isEmpty()：判断个数是否为 0</li>
+<li>clear()：清空</li>
+<li>containsKey()：查找键是否存在</li>
+<li>Set<K> keySet()：获取所有 键 构成的集合Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()：获取所有 Entry 构成的集合Collection<V> values()：获取所有 值 构成的集合</li>
+</ul>
+<p><strong>Map接口遍历元素：</strong></p>
+<ul>
+<li><strong>方法一： 利用<code>Set&lt;K&gt; keySet()</code> 方法</strong></li>
+</ul>
+<p>先得到所有 keys，再遍历 keys，根据每个 key 获得 value：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Set</span> <span class="variable">keyset</span> <span class="operator">=</span> map.keySet();</span><br><span class="line"><span class="keyword">for</span> (Object o : keyset) &#123;</span><br><span class="line">	System.out.println(o + <span class="string">&quot; = &quot;</span> + map.get(o));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>方法二：利用 Set<V> values() 方法</strong></li>
+</ul>
+<p>直接把所有 values 取出，之后遍历 values</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Collection</span> <span class="variable">values</span> <span class="operator">=</span> map.values();</span><br><span class="line"><span class="keyword">for</span> (Object value : values) &#123;</span><br><span class="line">	System.out.println(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>方法三：利用 Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet() 方法</strong></li>
+</ul>
+<p>通过获取 entrySet 来获取 k - v</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Set&lt;Map.Entry&gt; entrySet = map.entrySet();</span><br><span class="line"><span class="keyword">for</span> (Map.Entry e : entrySet) &#123;</span><br><span class="line">	System.out.println(e.getKey() + <span class="string">&quot; - &quot;</span> + e.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13-4-1-散列表-HashMap"><a href="#13-4-1-散列表-HashMap" class="headerlink" title="13.4.1 散列表 HashMap"></a>13.4.1 散列表 HashMap</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashMap</span>&lt;K,V&gt; <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;, Cloneable, Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>HashMap 是 Map 接口使用频率最高的实现类。是根据关键码值（key value）而进行直接访问的数据结构。通过将关键码值映射到表中一个位置来访问记录，以加快查找速度。<br>那个映射函数叫做散列函数，存放记录的数组叫做散列表（哈希表）<br>HashMap 是以 k - v 对得到方式来存储数据。一组数据会被封装到一个 Node 对象中。HashMap 是 Map 接口使用频率最高的实现类。是根据关键码值（key value）而进行直接访问的数据结构。通过将关键码值映射到表中一个位置来访问记录，以加快查找速度。<br>那个映射函数叫做散列函数，存放记录的数组叫做散列表（哈希表）<br>HashMap 是以 k - v 对得到方式来存储数据。一组数据会被封装到一个 Node 对象中。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Node</span>&lt;K,V&gt; <span class="keyword">implements</span> <span class="title class_">Map</span>.Entry&lt;K,V&gt; &#123;</span><br><span class="line"> <span class="keyword">final</span> <span class="type">int</span> hash;</span><br><span class="line"> <span class="keyword">final</span> K key;</span><br><span class="line"> V value;</span><br><span class="line"> Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>JDK 7 前，HashMap 底层是 数组 + 链表。JDK 8 后，底层是 数组 + 链表 + 红黑树。HashMap 不保证映射的顺序。<br>HashMap 没有实现同步（没有 synchronized），是线程不安全的</p>
+</blockquote>
+<p><strong>HashMap 的源码：</strong></p>
+<ol>
+<li><p>HashMap 底层维护了 Node 类型的数组 table。默认为 null</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br></pre></td></tr></table></figure>
+<p>另外，还有集合 values、keySet、enrtySet。这些集合能帮助程序员进行遍历</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">transient</span> Set&lt;K&gt;				keySet;</span><br><span class="line"><span class="keyword">transient</span> Collection&lt;V&gt;			values;</span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt;	entrySet;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建对象时，默认构造器将加载因子（loadfactor）初始化为 0.75。</p>
+</li>
+</ol>
+<p>也能指定那些初始容量和加载因子。<br>默认构造器第一次添加元素的场合，table 扩容为 16，临界值为 16 * 0.75 &#x3D; 12。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">float</span> <span class="variable">DEFAULT_LOAD_FACTOR</span> <span class="operator">=</span> <span class="number">0.75f</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = DEFAULT_LOAD_FACTOR;					<span class="comment">// 这个默认构造的场合，其他参数都是默认值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>(initialCapacity, DEFAULT_LOAD_FACTOR);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashMap</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">        initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">    <span class="keyword">if</span> (loadFactor &lt;= <span class="number">0</span> || Float.isNaN(loadFactor))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(...);</span><br><span class="line">    <span class="built_in">this</span>.loadFactor = loadFactor;</span><br><span class="line">    <span class="built_in">this</span>.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>添加时容量不够的场合，需要扩容。</li>
+</ol>
+<p>默认构造器第一次添加元素的场合，table 扩容为 16，临界值为 16 * 0.75 &#x3D; 12。<br>扩容的场合，容量变为 2 倍。临界值相应变化。<br>临界值不会超过那个指定的 MAXIMUM_CAPACITY（1 &lt;&lt; 30），否则变成 Integer.MAX_VALUE。<br>JDK 8 中，如果一条链表的元素个数超过 TREEIFY_THRESHOLD（默认是 8），并且 table 的大小 &gt;&#x3D; MIN_TREEIFY_CAPACITY（默认 64），会进行树化。<br>剪枝：红黑树的元素减少到一定程度，会被重新转化为 链表</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAXIMUM_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">30</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_INITIAL_CAPACITY</span> <span class="operator">=</span> <span class="number">1</span> &lt;&lt; <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> Node&lt;K,V&gt;[] resize() &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;								<span class="comment">// &lt;- 旧的数据数组 table</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCap</span> <span class="operator">=</span> (oldTab == <span class="literal">null</span>) ? <span class="number">0</span> : oldTab.length;		<span class="comment">// &lt;- 旧的 table 的容量</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">oldThr</span> <span class="operator">=</span> threshold;									<span class="comment">// &lt;- 旧的临界值</span></span><br><span class="line">    <span class="type">int</span> newCap, newThr = <span class="number">0</span>;									<span class="comment">// &lt;- 新的容量、临界值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 旧的数组不为空时，</span></span><br><span class="line"><span class="comment">    	如果容量已达指定的 MAXIMUM_CAPACITY，则不扩容</span></span><br><span class="line"><span class="comment">    	否则扩容为 2 倍容量，临界值也变为 2 倍 */</span></span><br><span class="line">    <span class="keyword">if</span> (oldCap &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        newCap = oldCap &lt;&lt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (oldCap &gt;= MAXIMUM_CAPACITY) &#123;</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">return</span> oldTab;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 旧的数组为空，但临界值已被指定（原因是：指定构造器传入初始容量为 0） */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>)</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    <span class="comment">/* 旧的数组为空，临界值为 0（原因是：使用默认构造器）</span></span><br><span class="line"><span class="comment">    	默认构造器初始化容量为 16，默认临界因子为 0.75f */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (<span class="type">int</span>)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 到这里，newThr（新临界值）为 0 的原因可能是：</span></span><br><span class="line"><span class="comment">    	1. 旧容量小于那个最小容量（16）</span></span><br><span class="line"><span class="comment">    	2. 扩容后容量大于那个最大容量</span></span><br><span class="line"><span class="comment">    	3. 旧的临界值为 0 或 Integer.MIN_VALUE</span></span><br><span class="line"><span class="comment">    	4. 构造器传入初始容量为 0 */</span></span><br><span class="line">    <span class="keyword">if</span> (newThr == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">/* 按照 新容量 * 临界因子 的方法计算临界值。临界值不会超过一个指定的最大值 */</span></span><br><span class="line">        <span class="type">float</span> <span class="variable">ft</span> <span class="operator">=</span> (<span class="type">float</span>)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="type">float</span>)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (<span class="type">int</span>)ft : Integer.MAX_VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 确定了容量和临界值，下面把旧数组元素移至新数组。</span></span><br><span class="line"><span class="comment">    	那个移动的场合，会以新容量重新计算所有元素的下标位置 */</span></span><br><span class="line">    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> <span class="title class_">Node</span>[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    <span class="keyword">if</span> (oldTab != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; oldCap; ++j) &#123;</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            <span class="keyword">if</span> ((e = oldTab[j]) != <span class="literal">null</span>) &#123;</span><br><span class="line">                oldTab[j] = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">if</span> (e.next == <span class="literal">null</span>)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - <span class="number">1</span>)] = e;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(<span class="built_in">this</span>, newTab, j, oldCap);</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    Node&lt;K,V&gt; loHead = <span class="literal">null</span>, loTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = <span class="literal">null</span>, hiTail = <span class="literal">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    <span class="keyword">do</span> &#123;</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        <span class="keyword">if</span> ((e.hash &amp; oldCap) == <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (loTail == <span class="literal">null</span>)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">if</span> (hiTail == <span class="literal">null</span>)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">while</span> ((e = next) != <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (loTail != <span class="literal">null</span>) &#123;</span><br><span class="line">                        loTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (hiTail != <span class="literal">null</span>) &#123;</span><br><span class="line">                        hiTail.next = <span class="literal">null</span>;</span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>添加 k - v 时，通过 key 的哈希值得到其在 table 的索引，判断索引位置是否被占用。</li>
+</ol>
+<p>未占用的场合，直接添加。<br>占用的场合，判断其 key 是否相等。相等的场合，替换 value。否则，按照 树 或 链表 的方式处理。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 会先对放入元素的哈希值进行一次计算，得到一个数字：hash */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">h</span> <span class="operator">=</span> key.hashCode();</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h ^ (h &gt;&gt;&gt; <span class="number">16</span>));	<span class="comment">// 位运算符：&gt;&gt;&gt; 无符号右移</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* put 方法会调用该 putVal 方法。</span></span><br><span class="line"><span class="comment">	那些传入值是：	hash、	key、	value、			false、				true */</span></span><br><span class="line"><span class="keyword">final</span> V <span class="title function_">putVal</span><span class="params">(<span class="type">int</span> hash, K key, V value, <span class="type">boolean</span> onlyIfAbsent, <span class="type">boolean</span> evict)</span> &#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab = table; 		<span class="comment">// &lt;- 是那个存放数据的 table 数组</span></span><br><span class="line">    <span class="type">int</span> n;							<span class="comment">// &lt;- 是 table.length</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 如果原先的 table 为空，则对其重新分配空间 */</span></span><br><span class="line">    <span class="keyword">if</span> (tab == <span class="literal">null</span> || (n = tab.length) == <span class="number">0</span>) &#123;</span><br><span class="line">        tab = resize();</span><br><span class="line">        n = tab.length;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 用方才计算的 hash 数，得到要放入元素的下标值 i</span></span><br><span class="line"><span class="comment">    	n - 1 是数据数组的最大下标，(n - 1) &amp; hash 必定不大于 n - 1 */</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (n - <span class="number">1</span>) &amp; hash;			<span class="comment">// 位运算符：&amp; 按位与</span></span><br><span class="line">    Node&lt;K,V&gt; p = tab[i];			<span class="comment">// 得到 table 中，位于那个插入位置的元素</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 倘若该位置为空，则直接放入 */</span></span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">null</span>) &#123;</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 该位置不为空，意味着可能添加了重复元素 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; 			<span class="comment">// &lt;- 被发现重复的那个 Node。无重复时结果为 null。这个 Node 的 value 会被替换。</span></span><br><span class="line">        <span class="type">K</span> <span class="variable">k</span> <span class="operator">=</span> p.key;			<span class="comment">// &lt;- 当前取出进行比较的 key 值</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 为了验证其是否重复，这里要进行如下比较：</span></span><br><span class="line"><span class="comment">        	1. 比较两者的 hash 数。不同的场合是不同元素</span></span><br><span class="line"><span class="comment">        	2. 使用 == 和 equals 两种方法比较 key。不同的场合是不同元素 </span></span><br><span class="line"><span class="comment">        	如果是相同元素，则该节点的值会被替换 */</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp; (k  == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k)))) &#123;</span><br><span class="line">            e = p;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 此处节点结构是 树 的场合，还需遍历比较树的每个节点 */</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="built_in">this</span>, tab, hash, key, value);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 此处节点结构是 链表 的场合，还需遍历比较每个链表节点 */</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">binCount</span> <span class="operator">=</span> <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                e = p.next;</span><br><span class="line">                <span class="comment">/* e == null 意味着遍历结束，全部不同。这样，在此处添加那个新的 Node */</span></span><br><span class="line">                <span class="keyword">if</span> (e == <span class="literal">null</span>) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="literal">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">/* 故技重施，如果发现相同，则替换那个新元素 */</span></span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="literal">null</span> &amp;&amp; key.equals(k)))) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 经历上述比较后，e != null 意味着有元素要被替换了 */</span></span><br><span class="line">        <span class="keyword">if</span> (e != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">V</span> <span class="variable">oldValue</span> <span class="operator">=</span> e.value;</span><br><span class="line">            <span class="comment">/* 传入的参数 onluIfAbsent == false，所以此处一定是 true */</span></span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="literal">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);		<span class="comment">// &lt;- HashMap 中，该方法为空实现。</span></span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 如果到达这里，说明添加了元素（而非替换），要查看大小是否超过临界值 */</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);		<span class="comment">// &lt;- HashMap 中，该方法为空实现。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 上面提到的一些空实现的方法 */</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeAccess</span><span class="params">(Node&lt;K,V&gt; p)</span> &#123; &#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeInsertion</span><span class="params">(<span class="type">boolean</span> evict)</span> &#123; &#125;</span><br><span class="line"><span class="keyword">void</span> <span class="title function_">afterNodeRemoval</span><span class="params">(Node&lt;K,V&gt; p)</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13-4-2-散列表-HashTable"><a href="#13-4-2-散列表-HashTable" class="headerlink" title="13.4.2 散列表 HashTable"></a>13.4.2 散列表 HashTable</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hashtable</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">Dictionary</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Map</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Hashtable 和 HashMap 基本一致，但Hashtable 是线程安全的 。但也因为如此，Hashtable 的效率低下。</p>
+</blockquote>
+<p><strong>Hashtable 与 HashMap 的比较：</strong></p>
+<p>| **</p>
+<p> | <strong>版本</strong> | <strong>线程安全（同步）</strong> | <strong>效率</strong> | <strong>是否允许 null值</strong> |<br>| — | — | — | — | — |<br>| Hashtable | 1.0 | 安全 | 较低 | 不允许 |<br>| HashMap | 1.2 | 不安全 | 高 | 允许 |</p>
+<ul>
+<li><p>Hashtable 底层也是有数组，默认构造器的初始容量为 11。临界值是 11 * 0.75 &#x3D; 8。</p>
+</li>
+<li><p>扩容大致如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> (oldCapacity &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;			<span class="comment">//即，原容量 * 2 + 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Hashtable 不会树化</p>
+</li>
+</ul>
+<h3 id="13-5-3-红黑树-TreeMap"><a href="#13-5-3-红黑树-TreeMap" class="headerlink" title="13.5.3 红黑树 TreeMap"></a>13.5.3 红黑树 TreeMap</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractMap</span>&lt;K,V&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableMap</span>&lt;K,V&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>TreeMap 实现了 Map 接口。底层使用 红黑树 存储数据。<br>相较数组（访问快，检索、插入慢）和链表（插入快，检索、访问慢），树形数据结构（如二叉排序树）在保证数据检索速度的同时，也能保证数据插入、删除、修改的速度</p>
+</blockquote>
+<p><strong>TreeMap的源码：</strong></p>
+<ol>
+<li><p>TreeMap 底层维护了一个二叉树，以及一个比较器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Comparator&lt;? <span class="built_in">super</span> K&gt; comparator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;K,V&gt; root;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建对象时，能采用无参构造，也能指定比较器完成构造，那个无参构造的场合，比较器为空。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">()</span> &#123;</span><br><span class="line">    comparator = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeMap</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> K&gt; comparator)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.comparator = comparator;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比较器如果为空，则要求传入的 key 必须是 Comparable 接口的实现子类，否则无法进行比较。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(Object k1, Object k2)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> comparator==<span class="literal">null</span> ? ((Comparable&lt;? <span class="built_in">super</span> K&gt;)k1).compareTo((K)k2)</span><br><span class="line">        : comparator.compare((K)k1, (K)k2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加时，通过比较器确定那个添加位置。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> V <span class="title function_">put</span><span class="params">(K key, V value)</span> &#123;</span><br><span class="line">    Entry&lt;K,V&gt; t = root;	<span class="comment">// &lt;- 树的根节点</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 二叉树为空的场合，创建根节点，将数据放入 */</span></span><br><span class="line">    <span class="keyword">if</span> (t == <span class="literal">null</span>) &#123;</span><br><span class="line">        compare(key, key);</span><br><span class="line">        root = <span class="keyword">new</span> <span class="title class_">Entry</span>&lt;&gt;(key, value, <span class="literal">null</span>);</span><br><span class="line">        size = <span class="number">1</span>;</span><br><span class="line">        modCount++;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> cmp;				<span class="comment">// &lt;- 临时值，存放比较结果</span></span><br><span class="line">    Entry&lt;K,V&gt; parent;		<span class="comment">// &lt;- 临时值，存放父节点</span></span><br><span class="line">    Comparator&lt;? <span class="built_in">super</span> K&gt; cpr = comparator;		<span class="comment">// &lt;- 比较器</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 有比较器的场合，按照这个方法进行比较 */</span></span><br><span class="line">    <span class="keyword">if</span> (cpr != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = cpr.compare(key, t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 比较器为空的场合，按照这个方法进行比较 */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (key == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        Comparable&lt;? <span class="built_in">super</span> K&gt; k = (Comparable&lt;? <span class="built_in">super</span> K&gt;) key;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            parent = t;</span><br><span class="line">            cmp = k.compareTo(t.key);</span><br><span class="line">            <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">                t = t.left;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (cmp &gt; <span class="number">0</span>)</span><br><span class="line">                t = t.right;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> t.setValue(value);</span><br><span class="line">        &#125; <span class="keyword">while</span> (t != <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 将数据节点放到正确的路径下 */</span></span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> <span class="title class_">Entry</span>&lt;&gt;(key, value, parent);</span><br><span class="line">    <span class="keyword">if</span> (cmp &lt; <span class="number">0</span>)</span><br><span class="line">        parent.left = e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        parent.right = e;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 此处会试着将该树转换成完全二叉树 */</span></span><br><span class="line">    fixAfterInsertion(e);</span><br><span class="line">    size++;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加的最后，会试着将该树转换成完全二叉树</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">fixAfterInsertion</span><span class="params">(Entry&lt;K,V&gt; x)</span> &#123;</span><br><span class="line">    x.color = RED;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (x != <span class="literal">null</span> &amp;&amp; x != root &amp;&amp; x.parent.color == RED) &#123;</span><br><span class="line">        <span class="keyword">if</span> (parentOf(x) == leftOf(parentOf(parentOf(x)))) &#123;</span><br><span class="line">            Entry&lt;K,V&gt; y = rightOf(parentOf(parentOf(x)));</span><br><span class="line">            <span class="keyword">if</span> (colorOf(y) == RED) &#123;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(y, BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                x = parentOf(parentOf(x));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (x == rightOf(parentOf(x))) &#123;</span><br><span class="line">                    x = parentOf(x);</span><br><span class="line">                    rotateLeft(x);</span><br><span class="line">                &#125;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                rotateRight(parentOf(parentOf(x)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Entry&lt;K,V&gt; y = leftOf(parentOf(parentOf(x)));</span><br><span class="line">            <span class="keyword">if</span> (colorOf(y) == RED) &#123;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(y, BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                x = parentOf(parentOf(x));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (x == leftOf(parentOf(x))) &#123;</span><br><span class="line">                    x = parentOf(x);</span><br><span class="line">                    rotateRight(x);</span><br><span class="line">                &#125;</span><br><span class="line">                setColor(parentOf(x), BLACK);</span><br><span class="line">                setColor(parentOf(parentOf(x)), RED);</span><br><span class="line">                rotateLeft(parentOf(parentOf(x)));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    root.color = BLACK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="13-4-4-Properties"><a href="#13-4-4-Properties" class="headerlink" title="13.4.4 Properties"></a>13.4.4 Properties</h2><blockquote>
+<p>Properties 继承自 Hashtable 并实现了 Map 接口。也使用键值对的方式保存数据<br>Properties 使用特点与 Hashtable 相似<br>Properties 还可以用于 xxx.properties 文件中，加载数据到 Properties 对象，进行读取和修改<br>xxx.properties 文件常作为配置文件</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Properties</span> <span class="keyword">extends</span> <span class="title class_">Hashtable</span>&lt;Object,Object&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>String getProperty(String key)</code>：输入一个 String 类型的 key，返回一个 String 的 value<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getProperty</span><span class="params">(String key)</span> &#123;</span><br><span class="line"><span class="type">Object</span> <span class="variable">oval</span> <span class="operator">=</span> <span class="built_in">super</span>.get(key);</span><br><span class="line"><span class="type">String</span> <span class="variable">sval</span> <span class="operator">=</span> (oval <span class="keyword">instanceof</span> String) ? (String)oval : <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">return</span> ((sval == <span class="literal">null</span>) &amp;&amp; (defaults != <span class="literal">null</span>)) ? defaults.getProperty(key) : sval;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="13-5-无序集合接口Set"><a href="#13-5-无序集合接口Set" class="headerlink" title="13.5 无序集合接口Set"></a>13.5 无序集合接口Set</h1><blockquote>
+<p>Set 是 Collection 接口的子类接口。<br>Set 接口的特点是无序（添加和取出顺序不一致，其取出顺序由某个算法决定），没有索引<br>不允许重复元素。故而，最多包含一个 null</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Set</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">Collection</span>&lt;E&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="13-5-1-HashSet"><a href="#13-5-1-HashSet" class="headerlink" title="13.5.1 HashSet"></a>13.5.1 HashSet</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">AbstractSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Set</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>HashSet 实现了 Set 接口。底层实际上使用 HashMap 来存储数据。身在 Collection 心在 Map<br>HashSet 是无序的。其实际顺序取决于计算得到的 hash 值</p>
+</blockquote>
+<p><strong>HashSet的源码：</strong></p>
+<ol>
+<li><p>HashSet 底层是 HashMap</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实例化也和 HashMap 相同</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">()</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(initialCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">HashSet</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加一个元素时调用 HashMap 的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="13-5-2-LinkedHashSet"><a href="#13-5-2-LinkedHashSet" class="headerlink" title="13.5.2 LinkedHashSet"></a>13.5.2 LinkedHashSet</h2><blockquote>
+<p>LinkedHashSet 是 HashSet 的子类<br>LinkedHashSet 底层是一个 LinkedHashMap，维护了一个数组 + 双向链表。有其父必有其子<br>LinkedHashSet 根据元素的 hashCode 值来决定元素的存储位置。同时，使用链表维护元素的次序。这使得元素看起来是以插入顺序保存的，并得以按照放入顺序取出</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LinkedHashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">extends</span> <span class="title class_">HashSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">Set</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<p><strong>LinkedHashSet的源码：</strong></p>
+<ol>
+<li>在类 HashSet 中，存在一个默认访问范围的构造器。该构造器不同于其他构造器，会让实例维护一个 LinkedHashMap<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HashSet(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor, <span class="type">boolean</span> dummy) &#123;</span><br><span class="line">    map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;(initialCapacity, loadFactor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">(<span class="type">int</span> initialCapacity, <span class="type">float</span> loadFactor)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(initialCapacity, loadFactor, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">(<span class="type">int</span> initialCapacity)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(initialCapacity, <span class="number">.75f</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">LinkedHashSet</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(<span class="number">16</span>, <span class="number">.75f</span>, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="13-5-3-TreeSet"><a href="#13-5-3-TreeSet" class="headerlink" title="13.5.3 TreeSet"></a>13.5.3 TreeSet</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TreeSet</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">AbstractSet</span>&lt;E&gt;</span><br><span class="line">    <span class="keyword">implements</span> <span class="title class_">NavigableSet</span>&lt;E&gt;, Cloneable, java.io.Serializable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>TreeSet 实现了 Set 接口，其底层是一个 TreeMap。好家伙，原来 Set 全家都是卧底<br>调用无参构造器创建 TreeSet 时，默认是无序排列。也能在构造时传入一个比较器。有比较器的场合，比较器返回 0 时，不发生替换<br>不传入比较器的场合，使用的是传入对象自带的比较器。所以，这个场合，传入的 key 对象必须是 Comparable 接口的实现子类</p>
+</blockquote>
+<h1 id="13-6-集合的选择"><a href="#13-6-集合的选择" class="headerlink" title="13.6 集合的选择"></a>13.6 集合的选择</h1><p>在开发中，选择什么集合实现类，主要取决于业务操作特点，然后根据集合实现类特性进行分析选择。<br>判断存储的类型（一组对象 [单列]，或一组键值对 [双列]）</p>
+<ul>
+<li>一组对象：Collection 接口<ul>
+<li>允许重复：List<ul>
+<li>增删多：LinkedList （双向链表）</li>
+<li>改查多：ArrayList （Object[] 数组）</li>
+</ul>
+</li>
+<li>不允许重复：Set<ul>
+<li>无序：HashSet （数组 + 链表 + 红黑树，底层是 HashMap）</li>
+<li>排序：TreeSet</li>
+<li>顺序一致：LinkedHashSet （数组 + 双向链表，底层是 LinkedHashMap）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一组键值对：Map<ul>
+<li>键无序：HashMap （数组 + 链表 + 红黑树 [ JDK 8 以后 ] ）</li>
+<li>键排序：TreeMap</li>
+<li>键顺序一致：LinkedHashMap （底层是 HashMap）</li>
+<li>读取文件：Properties</li>
+</ul>
+</li>
+</ul>
+<h1 id="13-7-工具类-Collections"><a href="#13-7-工具类-Collections" class="headerlink" title="13.7 工具类 Collections"></a>13.7 工具类 Collections</h1><blockquote>
+<p>Collections 工具类是一个操作 Set、List、Map 等集合的工具类<br>其中提供了一系列静态方法，对集合元素进行 排序、查询和修改等操作</p>
+</blockquote>
+<p><strong>常用方法：</strong><br>排序：</p>
+<ul>
+<li>reverse(List)：反转 List 中元素的排序</li>
+<li>shuffle(List)：对 List 中元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定 List 集合元素升序排列</li>
+<li>reverse(List, Comparator)：根据指定 Comparator 对 List 排序</li>
+<li>swap(List, int, int)：将两处元素位置互换</li>
+</ul>
+<p>查找、替换：</p>
+<ul>
+<li>Object max(Collection)：根据元素的自然排序，返回集合中最大的元素</li>
+<li>Object max(Collection, Comparator)：根据比较器，返回最大元素</li>
+<li>Object min(Collection)：根据元素的自然排序，返回最小元素</li>
+<li>Object min(Collection, Comparator)：根据比较器，返回最小元素</li>
+<li>int frequency(Collection, Object)：返回集合中指定元素的出现次数</li>
+<li>void copy(List dest, List src)：将 src 的内容复制到 dest 中这个场合，要保证 dest 的大小不小于 src。所以，可能需要先给 dest 赋值</li>
+<li>boolean replaceAll(List list, Object oldVal, Object newVal)：用 newVal 替换所有 oldVal 值</li>
+</ul>
+<p><strong>常用方法：</strong><br>排序：</p>
+<ul>
+<li>reverse(List)：反转 List 中元素的排序</li>
+<li>shuffle(List)：对 List 中元素进行随机排序</li>
+<li>sort(List)：根据元素的自然顺序对指定 List 集合元素升序排列</li>
+<li>reverse(List, Comparator)：根据指定 Comparator 对 List 排序</li>
+<li>swap(List, int, int)：将两处元素位置互换</li>
+</ul>
+<p>查找、替换：</p>
+<ul>
+<li>Object max(Collection)：根据元素的自然排序，返回集合中最大的元素</li>
+<li>Object max(Collection, Comparator)：根据比较器，返回最大元素</li>
+<li>Object min(Collection)：根据元素的自然排序，返回最小元素</li>
+<li>Object min(Collection, Comparator)：根据比较器，返回最小元素</li>
+<li>int frequency(Collection, Object)：返回集合中指定元素的出现次数</li>
+<li>void copy(List dest, List src)：将 src 的内容复制到 dest 中这个场合，要保证 dest 的大小不小于 src。所以，可能需要先给 dest 赋值</li>
+<li>boolean replaceAll(List list, Object oldVal, Object newVal)：用 newVal 替换所有 oldVal 值</li>
+</ul>
+<h1 id="13-8-JUnit"><a href="#13-8-JUnit" class="headerlink" title="13.8 JUnit"></a>13.8 JUnit</h1><blockquote>
+<p>一个类有多个功能代码需要测试，为了测试，就要写入 main 方法中<br>如果有多个功能代码测试，需要反复撤销，过程繁琐<br>JUnit 是一个 Java 语言单元测试框架<br>多数 Java 开发环境都已集成了 JUnit 作为单元测试工具<br><a href="https://www.bilibili.com/video/BV1fh411y7R8?p=566&t=259.3">使用方法</a><br>……总的来讲，方法就是加入 @Test，然后 alt + enter 引入 JUnit 5，最后运行</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Java 学习</category>
