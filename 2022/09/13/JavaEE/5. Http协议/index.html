@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是协议？协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5. Http协议">
+<meta property="og:url" content="http://example.com/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="什么是协议？协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-13T14:45:58.834Z">
+<meta property="article:modified_time" content="2022-09-13T14:53:11.137Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="JavaEE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/","path":"2022/09/13/JavaEE/5. Http协议/","title":"5. Http协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>5. Http协议 | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">21</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是协议?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AFHttp%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">2. 什么是Http协议?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Http%E7%9A%84%E8%AF%B7%E6%B1%82%E5%8D%8F%E8%AE%AE-B-gt-S"><span class="nav-number">3.</span> <span class="nav-text">3. Http的请求协议 (B -&gt; S)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-HTTP%E7%9A%84%E5%93%8D%E5%BA%94%E5%8D%8F%E8%AE%AE%EF%BC%88S-%E2%80%93-gt-B%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">4. HTTP的响应协议（S –&gt; B）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-GET%E5%92%8CPOST"><span class="nav-number">5.</span> <span class="nav-text">5. GET和POST</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="5. Http协议 | 安之">
+      <meta itemprop="description" content="什么是协议？协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          5. Http协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-13 22:45:58 / 修改时间：22:53:11" itemprop="dateCreated datePublished" datetime="2022-09-13T22:45:58+08:00">2022-09-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">什么是协议？协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-什么是协议"><a href="#1-什么是协议" class="headerlink" title="1. 什么是协议?"></a>1. 什么是协议?</h1><ul>
+<li><p>协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。</p>
+</li>
+<li><p>协议就是一套规范，就是一套标准。由其他人或其他组织来负责制定的。</p>
+</li>
+<li><p>我说的话你能听懂，你说的话，我也能听懂，这说明我们之间是有一套规范的，一套协议的，这套协议就是：中国普通话协议。我们都遵守这套协议，我们之间就可以沟通无障碍。</p>
+<h1 id="2-什么是Http协议"><a href="#2-什么是Http协议" class="headerlink" title="2. 什么是Http协议?"></a>2. 什么是Http协议?</h1></li>
+<li><p>HTTP协议：是W3C制定的一种超文本传输协议。（通信协议：发送消息的模板提前被制定好。）</p>
+</li>
+<li><p>W3C：</p>
+<ul>
+<li>万维网联盟组织</li>
+<li>负责制定标准的：HTTP HTML4.0 HTML5 XML DOM等规范都是W3C制定的。</li>
+<li>万维网之父：蒂姆·伯纳斯·李</li>
+</ul>
+</li>
+<li><p>什么是超文本？</p>
+<ul>
+<li>超文本说的就是：不是普通文本，比如流媒体：声音、视频、图片等。</li>
+<li>HTTP协议支持：不但可以传送普通字符串，同样支持传递声音、视频、图片等流媒体信息。</li>
+</ul>
+</li>
+<li><p>这种协议游走在B和S之间。B向S发数据要遵循HTTP协议。S向B发数据同样需要遵循HTTP协议。这样B和S才能解耦合。</p>
+</li>
+<li><p>什么是解耦合？</p>
+<ul>
+<li>B不依赖S。</li>
+<li>S也不依赖B。</li>
+</ul>
+</li>
+<li><p>B&#x2F;S表示：B&#x2F;S结构的系统（浏览器访问WEB服务器的系统）</p>
+</li>
+<li><p>浏览器   向   WEB服务器发送数据，叫做：请求（request)</p>
+</li>
+<li><p>WEB服务器   向   浏览器发送数据，叫做：响应（response）</p>
+</li>
+<li><p>HTTP协议包括：</p>
+<ul>
+<li>请求协议<ul>
+<li>浏览器  向   WEB服务器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
+</ul>
+</li>
+<li>响应协议<ul>
+<li>WEB服务器  向  浏览器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>HTTP协议就是提前制定好的一种消息模板。</p>
+<ul>
+<li><p>不管你是哪个品牌的浏览器，都是这么发。</p>
+</li>
+<li><p>不管你是哪个品牌的WEB服务器，都是这么发。</p>
+</li>
+<li><p>FF浏览器  可以向 Tomcat发送请求，也可以向Jetty服务器发送请求。浏览器不依赖具体的服务器品牌。</p>
+</li>
+<li><p>WEB服务器也不依赖具体的浏览器品牌。可以是FF浏览器，也可以是Chrome浏览器，可以是IE，都行。</p>
+<h1 id="3-Http的请求协议-B-gt-S"><a href="#3-Http的请求协议-B-gt-S" class="headerlink" title="3. Http的请求协议 (B -&gt; S)"></a>3. Http的请求协议 (B -&gt; S)</h1></li>
+</ul>
+</li>
+<li><p>HTTP的请求协议包括：4部分</p>
+<ul>
+<li>请求行</li>
+<li>请求头</li>
+<li>空白行</li>
+<li>请求体</li>
+</ul>
+</li>
+<li><p>HTTP请求协议的具体报文：GET请求</p>
+  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">GET <span class="regexp">/servlet05/g</span>etServlet?username=lucy&amp;userpwd=<span class="number">1111</span> HTTP/<span class="number">1.1</span>                           请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                    请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                        空白行</span><br><span class="line">                                                                                        请求体</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>HTTP请求协议的具体报文：POST请求</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">POST <span class="regexp">/servlet05/</span>postServlet HTTP/<span class="number">1.1</span>                                                  请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                  请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: <span class="number">25</span></span><br><span class="line">Cache-Control: max-age=<span class="number">0</span></span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">Origin: http:<span class="regexp">//</span>localhost:<span class="number">8080</span></span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                      空白行</span><br><span class="line">username=lisi&amp;userpwd=<span class="number">123</span>                                                             请求体</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请求行</p>
+<ul>
+<li>包括三部分：<ul>
+<li>第一部分：请求方式（7种）<ul>
+<li>get（常用的）</li>
+<li>post（常用的）</li>
+<li>delete</li>
+<li>put</li>
+<li>head</li>
+<li>options</li>
+<li>trace</li>
+</ul>
+</li>
+<li>第二部分：URI<ul>
+<li>什么是URI？ 统一资源标识符。代表网络中某个资源的名字。但是通过URI是无法定位资源的。</li>
+<li>什么是URL？统一资源定位符。代表网络中某个资源，同时，通过URL是可以定位到该资源的。</li>
+<li>URI和URL什么关系，有什么区别？<ul>
+<li>URL包括URI</li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/servlet05/index.html">http://localhost:8080/servlet05/index.html</a> 这是URL。</li>
+<li>&#x2F;servlet05&#x2F;index.html 这是URI。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三部分：HTTP协议版本号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求头</p>
+<ul>
+<li>请求的主机</li>
+<li>主机的端口</li>
+<li>浏览器信息</li>
+<li>平台信息</li>
+<li>cookie等信息</li>
+<li>….</li>
+</ul>
+</li>
+<li><p>空白行</p>
+<ul>
+<li>空白行是用来区分“请求头”和“请求体”</li>
+</ul>
+</li>
+<li><p>请求体</p>
+<ul>
+<li>向服务器发送的具体数据。</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-HTTP的响应协议（S-–-gt-B）"><a href="#4-HTTP的响应协议（S-–-gt-B）" class="headerlink" title="4. HTTP的响应协议（S –&gt; B）"></a>4. HTTP的响应协议（S –&gt; B）</h1><ul>
+<li><p>HTTP的响应协议包括：4部分</p>
+<ul>
+<li>状态行</li>
+<li>响应头</li>
+<li>空白行</li>
+<li>响应体</li>
+</ul>
+</li>
+<li><p>HTTP响应协议的具体报文：</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 ok                                     状态行</span><br><span class="line">Content-Type: text/html;charset=UTF-8               响应头</span><br><span class="line">Content-Length: 160</span><br><span class="line">Date: Mon, 08 Nov 2021 13:19:32 GMT</span><br><span class="line">Keep-Alive: timeout=20</span><br><span class="line">Connection: keep-alive</span><br><span class="line">                                                    空白行</span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span>                                     响应体</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>状态行</p>
+<ul>
+<li>三部分组成<ul>
+<li>第一部分：协议版本号（HTTP&#x2F;1.1）</li>
+<li>第二部分：状态码（HTTP协议中规定的响应状态号。不同的响应结果对应不同的号码。）<ul>
+<li>200 表示请求响应成功，正常结束。</li>
+<li>404表示访问的资源不存在，通常是因为要么是你路径写错了，要么是路径写对了，但是服务器中对应的资源并没有启动成功。总之404错误是前端错误。</li>
+<li>405表示前端发送的请求方式与后端请求的处理方式不一致时发生：<ul>
+<li>比如：前端是POST请求，后端的处理方式按照get方式进行处理时，发生405</li>
+<li>比如：前端是GET请求，后端的处理方式按照post方式进行处理时，发生405</li>
+</ul>
+</li>
+<li>500表示服务器端的程序出现了异常。一般会认为是服务器端的错误导致的。</li>
+<li>以4开始的，一般是浏览器端的错误导致的。</li>
+<li>以5开始的，一般是服务器端的错误导致的。</li>
+</ul>
+</li>
+<li>第三部分：状态的描述信息<ul>
+<li>ok 表示正常成功结束。</li>
+<li>not found 表示资源找不到。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>响应头：</p>
+<ul>
+<li>响应的内容类型</li>
+<li>响应的内容长度</li>
+<li>响应的时间</li>
+<li>….</li>
+</ul>
+</li>
+<li><p>空白行：</p>
+<ul>
+<li>用来分隔“响应头”和“响应体”的。</li>
+</ul>
+</li>
+<li><p>响应体：</p>
+<ul>
+<li>响应体就是响应的正文，这些内容是一个长的字符串，这个字符串被浏览器渲染，解释并执行，最终展示出效果。</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li><p>怎么查看的协议内容？</p>
+<ul>
+<li>使用chrome浏览器：F12。然后找到network，通过这个面板可以查看协议的具体内容。</li>
+</ul>
+<h1 id="5-GET和POST"><a href="#5-GET和POST" class="headerlink" title="5. GET和POST"></a>5. GET和POST</h1></li>
+</ul>
+<p><strong>怎么向服务器发送GET请求，怎么向服务器发送POST请求？</strong></p>
+<ul>
+<li>到目前为止，只有一种情况可以发送POST请求：使用form表单，并且form标签中的method属性值为：method&#x3D;”post”。</li>
+<li>其他所有情况一律都是get请求：<ul>
+<li>在浏览器地址栏上直接输入URL，敲回车，属于get请求。</li>
+<li>在浏览器上直接点击超链接，属于get请求。</li>
+<li>使用form表单提交数据时，form标签中没有写method属性，默认就是get</li>
+<li>或者使用form的时候，form标签中method属性值为：method&#x3D;”get”</li>
+<li>….</li>
+</ul>
+</li>
+</ul>
+<p><strong>GET请求和POST请求有什么区别？</strong></p>
+<ul>
+<li>get请求发送数据的时候，数据会挂在URI的后面，并且在URI后面添加一个“?”，”?”后面是数据。这样会导致发送的数据回显在浏览器的地址栏上。（get请求在“请求行”上发送数据）<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111">http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111</a></li>
+</ul>
+</li>
+<li>post请求发送数据的时候，在请求体当中发送。不会回显到浏览器的地址栏上。也就是说post发送的数据，在浏览器地址栏上看不到。（post在“请求体”当中发送数据）</li>
+<li>get请求只能发送普通的字符串。并且发送的字符串长度有限制，不同的浏览器限制不同。这个没有明确的规范。</li>
+<li>get请求无法发送大数据量。</li>
+<li>post请求可以发送任何类型的数据，包括普通字符串，流媒体等信息：视频、声音、图片。</li>
+<li>post请求可以发送大数据量，理论上没有长度限制。</li>
+<li>get请求在W3C中是这样说的：get请求比较适合从服务器端获取数据。</li>
+<li>post请求在W3C中是这样说的：post请求比较适合向服务器端传送数据。</li>
+<li>get请求是安全的。get请求是绝对安全的。为什么？因为get请求只是为了从服务器上获取数据。不会对服务器造成威胁。（get本身是安全的，你不要用错了。用错了之后又冤枉人家get不安全，你这样不好（太坏了），那是你自己的问题，不是get请求的问题。）</li>
+<li>post请求是危险的。为什么？因为post请求是向服务器提交数据，如果这些数据通过后门的方式进入到服务器当中，服务器是很危险的。另外post是为了提交数据，所以一般情况下拦截请求的时候，大部分会选择拦截（监听）post请求。</li>
+<li>get请求支持缓存。<ul>
+<li><a target="_blank" rel="noopener" href="https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg">https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg</a></li>
+<li>任何一个get请求最终的“响应结果”都会被浏览器缓存起来。在浏览器缓存当中：<ul>
+<li>一个get请求的路径a  对应  一个资源。</li>
+<li>一个get请求的路径b  对应  一个资源。</li>
+<li>一个get请求的路径c  对应  一个资源。</li>
+<li>……</li>
+</ul>
+</li>
+<li>实际上，你只要发送get请求，浏览器做的第一件事都是先从本地浏览器缓存中找，找不到的时候才会去服务器上获取。这种缓存机制目的是为了提高用户的体验。</li>
+<li>有没有这样一个需求：我们不希望get请求走缓存，怎么办？怎么避免走缓存？我希望每一次这个get请求都去服务器上找资源，我不想从本地浏览器的缓存中取。<ul>
+<li>只要每一次get请求的请求路径不同即可。</li>
+<li><a target="_blank" rel="noopener" href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898</a></li>
+<li><a target="_blank" rel="noopener" href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899</a></li>
+<li><a target="_blank" rel="noopener" href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=%E7%B3%BB%E7%BB%9F%E6%AF%AB%E7%A7%92%E6%95%B0">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=系统毫秒数</a></li>
+<li>怎么解决？可以在路径的后面添加一个每时每刻都在变化的“时间戳”，这样，每一次的请求路径都不一样，浏览器就不走缓存了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>post请求不支持缓存。（POST是用来修改服务器端的资源的。）<ul>
+<li>post请求之后，服务器“响应的结果”不会被浏览器缓存起来。因为这个缓存没有意义。</li>
+</ul>
+</li>
+</ul>
+<p><strong>GET请求和POST请求如何选择，什么时候使用GET请求，什么时候使用POST请求？</strong></p>
+<ul>
+<li><p>怎么选择GET请求和POST请求呢？衡量标准是什么呢？你这个请求是想获取服务器端的数据，还是想向服务器发送数据。如果你是想从服务器上获取资源，建议使用GET请求，如果你这个请求是为了向服务器提交数据，建议使用POST请求。</p>
+</li>
+<li><p>大部分的form表单提交，都是post方式，因为form表单中要填写大量的数据，这些数据是收集用户的信息，一般是需要传给服务器，服务器将这些数据保存&#x2F;修改等。</p>
+</li>
+<li><p>如果表单中有敏感信息，还是建议适用post请求，因为get请求会回显敏感信息到浏览器地址栏上。（例如：密码信息）</p>
+</li>
+<li><p>做文件上传，一定是post请求。要传的数据不是普通文本。</p>
+</li>
+<li><p>其他情况都可以使用get请求。</p>
+</li>
+<li><p>不管你是get请求还是post请求，发送的请求数据格式是完全相同的，只不过位置不同，格式都是统一的：</p>
+<ul>
+<li>name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value</li>
+<li>name是什么？<ul>
+<li>以form表单为例：form表单中input标签的name。</li>
+</ul>
+</li>
+<li>value是什么？<ul>
+<li>以form表单为例：form表单中input标签的value。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/" title="5. Http协议">http://example.com/2022/09/13/JavaEE/5. Http协议/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/13/JavaEE/4.%20ServletConfig%E4%B8%8EServletContext%E8%AF%A6%E8%A7%A3/" rel="prev" title="4. ServletConfig与ServletContext详解">
+                  <i class="fa fa-chevron-left"></i> 4. ServletConfig与ServletContext详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/13/JavaEE/6.%20%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="6. 模板方法设计模式">
+                  6. 模板方法设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">133k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:01</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
