@@ -1,6 +1,672 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1. JavaEE 介绍</title>
+    <url>/2022/09/12/JavaEE/1.%20JavaEE%20%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<h1 id="1-什么是JavaEE"><a href="#1-什么是JavaEE" class="headerlink" title="1. 什么是JavaEE"></a>1. 什么是JavaEE</h1><p>Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。<strong>Java比较火爆的就是这个JavaEE方向。</strong></p>
+<h1 id="2-关于JavaEE的版本"><a href="#2-关于JavaEE的版本" class="headerlink" title="2. 关于JavaEE的版本"></a>2. 关于JavaEE的版本</h1><ul>
+<li>JavaEE目前最高版本是 JavaEE8</li>
+<li>JavaEE被Oracle捐献了，Oracle将JavaEE规范捐献给Apache了。</li>
+<li>Apache把JavaEE换名了，以后不叫JavaEE了，以后叫做 jakarta EE。</li>
+<li>以后没有JavaEE了。以后都叫做Jakarta EE。</li>
+<li>JavaEE8版本升级之后的”JavaEE 9”，不再是”JavaEE9”这个名字了，叫做JakartaEE9</li>
+<li>JavaEE8的时候对应的Servlet类名是：javax.servlet.Servlet</li>
+<li>JakartaEE9的时候对应的Servlet类名是：jakarta.servlet.Servlet （包名都换了）</li>
+<li>如果你之前的项目还是在使用javax.servlet.Servlet，那么你的项目无法直接部署到Tomcat10+版本上。你只能部署到Tomcat9-版本上。在Tomcat9以及Tomcat9之前的版本中还是能够识别javax.servlet这个包。</li>
+</ul>
+<h1 id="3-关于系统架构"><a href="#3-关于系统架构" class="headerlink" title="3. 关于系统架构"></a>3. 关于系统架构</h1><p>系统架构包括什么形式？</p>
+<ul>
+<li>C&#x2F;S架构</li>
+<li>B&#x2F;S架构</li>
+</ul>
+<p>C&#x2F;S架构</p>
+<ul>
+<li>Client &#x2F; Server（客户端 &#x2F; 服务器）</li>
+</ul>
+<p>B&#x2F;S架构</p>
+<ul>
+<li>B&#x2F;S（Browser &#x2F; Server，浏览器 &#x2F; 服务器）</li>
+</ul>
+<h1 id="4-IDEA创建开发JavaWeb程序"><a href="#4-IDEA创建开发JavaWeb程序" class="headerlink" title="4. IDEA创建开发JavaWeb程序"></a>4. IDEA创建开发JavaWeb程序</h1><ul>
+<li><p>集成开发工具很多，其中目前使用比较多的是：</p>
+<ul>
+<li>IntelliJ IDEA（这个居多，IDEA在提示功能方面要强于Eclipse，也就是说IDEA使用起来比Eclipse更加智能，更好用。JetBrain公司开发的。收费的。）</li>
+<li>Eclipse（这个少一些），Eclipse目前还是有团队使用，只不过处于减少的趋势，自己从事工作之后，可能会遇到。Eclipse是IBM团队开发的。Eclipse寓意是“日食”。“日食”表示将太阳吃掉。太阳是SUN。IBM团队开发Eclipse的寓意是吞并SUN公司，但是2009年的时候SUN公司被Oracle公司并购了。IBM并没有成功并购SUN公司。</li>
+</ul>
+</li>
+<li><p>使用IDEA集成开发工具开发Servlet</p>
+<ul>
+<li>第一步：New Project（我比较习惯先创建一个Empty Project【空工程】，然后在空工程下新建Module【模块】，这不是必须的，只是一种习惯，你可以直接新建非空的Project），这个Empty Project起名为：javaweb（不是必须的，只是一个名字而已。一般情况下新建的Project的名字最好和目录的名字一致。）</li>
+<li>第二步：新建模块（File –&gt; new –&gt; Module…）<ul>
+<li>这里新建的是一个普通的JavaSE模块（这里先不要新建Java Enterprise模块）</li>
+<li>这个Module自动会被放在javaweb的project下面。</li>
+<li>这个Module起名：servlet01</li>
+</ul>
+</li>
+<li>第三步：让Module变成JavaEE的模块。（让Module变成webapp的模块。符合webapp规范。符合Servlet规范的Module）<ul>
+<li>在Module上点击右键：Add Framework Support…（添加框架支持）</li>
+<li>在弹出的窗口中，选择Web Application（选择的是webapp的支持）</li>
+<li>选择了这个webapp的支持之后，IDEA会自动给你生成一个符合Servlet规范的webpp目录结构。</li>
+<li><strong>重点，需要注意的：在IDEA工具中根据Web Application模板生成的目录中有一个web目录，这个目录就代表webapp的根</strong></li>
+</ul>
+</li>
+<li>第四步（非必须）：根据Web Application生成的资源中有index.jsp文件，这里我选择删除这个index.jsp文件。</li>
+<li>第五步：编写Servlet（StudentServlet）<ul>
+<li>class StudentServlet implements Servlet</li>
+<li>这个时候发现Servlet.class文件没有。怎么办？将CATALINA_HOME&#x2F;lib&#x2F;servlet-api.jar和jsp-api.jar添加到classpath当中（这里的classpath说的是IDEA的classpath）<ul>
+<li>File –&gt; Project Structrue –&gt; Modules –&gt; + 加号 –&gt; Add JARS….</li>
+</ul>
+</li>
+<li>实现jakarta.servlet.Servlet接口中的5个方法。</li>
+</ul>
+</li>
+<li>第六步：在Servlet当中的service方法中编写业务代码（我们这里连接数据库了。）</li>
+<li>第七步：在WEB-INF目录下新建了一个子目录：lib（这个目录名可不能随意，必须是全部小写的lib），并且将连接数据库的驱动jar包放到lib目录下。</li>
+<li>第八步：在web.xml文件中完成StudentServlet类的注册。（请求路径和Servlet之间对应起来）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;web-app xmlns=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span><br><span class="line">         xmlns:xsi=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span><br><span class="line">         version=<span class="string">&quot;4.0&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;studentServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;com.bjpowernode.javaweb.servlet.StudentServlet&lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;studentServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/servlet/student&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第九步：给一个html页面，在HTML页面中编写一个超链接，用户点击这个超链接，发送请求，Tomcat执行后台的StudentServlet。</p>
+<ul>
+<li><p>student.html</p>
+</li>
+<li><p>这个文件不能放到WEB-INF目录里面，只能放到WEB-INF目录外面。</p>
+</li>
+<li><p>student.html文件的内容</p>
+</li>
+<li><pre><code class="html">  &lt;!DOCTYPE html&gt;
+  &lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+      &lt;meta charset=&quot;UTF-8&quot;&gt;
+      &lt;title&gt;student page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;!--这里的项目名是 /xmm ，无法动态获取，先写死--&gt;
+      &lt;a href=&quot;/xmm/servlet/student&quot;&gt;student list&lt;/a&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+</code></pre>
+</li>
+<li><p>第十步：让IDEA工具去关联Tomcat服务器。关联的过程当中将webapp部署到Tomcat服务器当中。</p>
+<ul>
+<li>IDEA工具右上角，绿色小锤子右边有一个：Add Configuration</li>
+<li>左上角加号，点击Tomcat Server –&gt; local</li>
+<li>在弹出的界面中设置服务器Server的参数（基本上不用动）</li>
+<li>在当前窗口中有一个Deployment（点击这个用来部署webapp），继续点击加号，部署即可。</li>
+<li>修改 Application context为：&#x2F;xmm</li>
+</ul>
+</li>
+<li><p>第十一步：启动Tomcat服务器</p>
+<ul>
+<li>在右上角有绿色的箭头，或者绿色的小虫子，点击这个绿色的小虫子，可以采用debug的模式启动Tomcat服务器。</li>
+<li>我们开发中建议适用debug模式启动Tomcat</li>
+</ul>
+</li>
+<li><p>第十二步：打开浏览器，在浏览器地址栏上输入：<a href="http://localhost:8080/xmm/student.html">http://localhost:8080/xmm/student.html</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2. Servlet的生命周期</title>
+    <url>/2022/09/12/JavaEE/2.%20Servlet%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/</url>
+    <content><![CDATA[<h1 id="1-什么是Servlet的生命周期"><a href="#1-什么是Servlet的生命周期" class="headerlink" title="1. 什么是Servlet的生命周期"></a>1. 什么是Servlet的生命周期</h1><ul>
+<li>Servlet对象什么时候被创建。</li>
+<li>Servlet对象什么时候被销毁。</li>
+<li>Servlet对象创建了几个？</li>
+<li>Servlet对象的生命周期表示：一个Servlet对象从出生在最后的死亡，整个过程是怎样的。</li>
+</ul>
+<h1 id="2-Servlet对象是由谁来维护的"><a href="#2-Servlet对象是由谁来维护的" class="headerlink" title="2. Servlet对象是由谁来维护的"></a>2. Servlet对象是由谁来维护的</h1><ul>
+<li>Servlet对象的创建，对象上方法的调用，对象最终的销毁，Javaweb程序员是无权干预的。</li>
+<li>Servlet对象的生命周期是由Tomcat服务器（WEB Server）全权负责的。</li>
+<li>Tomcat服务器通常我们又称为：WEB容器。（这个叫法你要知道【WEB Container】）</li>
+<li>WEB容器来管理Servlet对象的死活。</li>
+</ul>
+<h1 id="3-Servlet-接口的方法详解"><a href="#3-Servlet-接口的方法详解" class="headerlink" title="3. Servlet 接口的方法详解"></a>3. Servlet 接口的方法详解</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 无参构造方法,只会执行一次</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DemoServlet</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// init方法 只会执行一次</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ServletConfig servletConfig)</span> <span class="keyword">throws</span> ServletException &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// destroy方法 只会执行一次</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getServletInfo</span><span class="params">()</span> &#123;<span class="keyword">return</span> <span class="literal">null</span>;&#125;</span><br><span class="line"> 	<span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ServletConfig <span class="title function_">getServletConfig</span><span class="params">()</span> &#123;<span class="keyword">return</span> <span class="literal">null</span>;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在用户第一次发送请求的时候, 便会实例化Servlet,执行无参数的构造方法</p>
+</li>
+<li><p>在实例化对象被创建出来之后便会执行对象中的init方法,且只会调用这一次(init 方法在执行的时候,对象已经存在了)</p>
+</li>
+<li><p>用户在发送请求的时候,init方法执行之后,Tomcat服务器会马上执行service方法(之后的第二次第三次第四次…请求会只执行servlet方法) <strong>这说明:</strong></p>
+<ul>
+<li>第一：Servlet对象是单例的（单实例的。但是要注意：Servlet对象是单实例的，但是Servlet类并不符合单例模式。我们称之为假单例。之所以单例是因为Servlet对象的创建我们javaweb程序员管不着，这个对象的创建只能是Tomcat来说了算，Tomcat只创建了一个，所以导致了单例，但是属于假单例。真单例模式，构造方法是私有化的。）</li>
+<li>第二：无参数构造方法、init方法只在第一次用户发送请求的时候执行。也就是说无参数构造方法只执行一次。init方法也只被Tomcat服务器调用一次。</li>
+<li>第三：只要用户发送一次请求：service方法必然会被Tomcat服务器调用一次。发送100次请求，service方法会被调用100次。</li>
+</ul>
+</li>
+<li><p>用户在关闭服务器的时候,会执行destroy方法,且在执行destory方法时,对象还在,执行过后再销毁对象</p>
+</li>
+<li><p>Servlet对象更像一个人的一生：</p>
+<ul>
+<li>Servlet的无参数构造方法执行：标志着你出生了。</li>
+<li>Servlet对象的init方法的执行：标志着你正在接受教育。</li>
+<li>Servlet对象的service方法的执行：标志着你已经开始工作了，已经开始为人类提供服务了。</li>
+<li>Servlet对象的destroy方法的执行：标志着临终。有什么遗言，抓紧的。要不然，来不及了。</li>
+</ul>
+</li>
+</ul>
+<p><strong>关于Servlet类中方法的调用次数？</strong></p>
+<ul>
+<li>构造方法只执行一次。</li>
+<li>init方法只执行一次。</li>
+<li>service方法：用户发送一次请求则执行一次，发送N次请求则执行N次。</li>
+<li>destroy方法只执行一次。</li>
+</ul>
+<p><strong>当我们Servlet类中编写一个有参数的构造方法，如果没有手动编写无参数构造方法会出现什么问题？</strong></p>
+<ul>
+<li>报错了：500错误。</li>
+<li>注意：500是一个HTTP协议的错误状态码。</li>
+<li>500一般情况下是因为服务器端的Java程序出现了异常。（服务器端的错误都是500错误：服务器内部错误。）</li>
+<li>如果没有无参数的构造方法，会导致出现500错误，无法实例化Servlet对象。</li>
+<li>所以，一定要注意：在Servlet开发当中，不建议程序员来定义构造方法，因为定义不当，一不小心就会导致无法实例化Servlet对象。</li>
+</ul>
+<p><strong>思考：Servlet的无参数构造方法是在对象第一次创建的时候执行，并且只执行一次。init方法也是在对象第一次创建的时候执行，并且只执行一次。那么这个无参数构造方法可以代替掉init方法吗？</strong></p>
+<ul>
+<li>不能。</li>
+<li>Servlet规范中有要求，作为javaweb程序员，编写Servlet类的时候，不建议手动编写构造方法，因为编写构造方法，很容易让无参数构造方法消失，这个操作可能会导致Servlet对象无法实例化。所以init方法是有存在的必要的。</li>
+</ul>
+<p><strong>init、service、destroy方法中使用最多的是哪个方法？</strong></p>
+<ul>
+<li>使用最多就是service方法，service方法是一定要实现的，因为service方法是处理用户请求的核心方法。</li>
+<li>什么时候使用init方法呢？<ul>
+<li>init方法很少用。</li>
+<li>通常在init方法当中做初始化操作，并且这个初始化操作只需要执行一次。例如：初始化数据库连接池，初始化线程池….</li>
+</ul>
+</li>
+<li>什么时候使用destroy方法呢？<ul>
+<li>destroy方法也很少用。</li>
+<li>通常在destroy方法当中，进行资源的关闭。马上对象要被销毁了，还有什么没有关闭的，抓紧时间关闭资源。还有什么资源没保存的，抓紧时间保存一下。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3. GenericServlet 源码解析</title>
+    <url>/2022/09/12/JavaEE/3.%20GenericServlet%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="1-为什么会出现-GenericServlet"><a href="#1-为什么会出现-GenericServlet" class="headerlink" title="1. 为什么会出现 GenericServlet"></a>1. 为什么会出现 GenericServlet</h1><p>在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。</p>
+<p><strong>GenericServlet 是用来干什么的?</strong></p>
+<p>为了使得每个业务都可以只实现所需要的方法,就需要GenericServlet从中间适配,就比如手机直接插到220V的电压上，手机直接就报废了。怎么办？可以找一个充电器。这个充电器就是一个适配器。手机连接适配器。适配器连接220V的电压。这样问题就解决了。</p>
+<h1 id="2-如何编写GenericServlet"><a href="#2-如何编写GenericServlet" class="headerlink" title="2. 如何编写GenericServlet"></a>2. 如何编写GenericServlet</h1><p><strong>GenericServlet 的实现过程</strong></p>
+<p>编写一个GenericServlet类，这个类是一个抽象类，其中有一个抽象方法service。</p>
+<ul>
+<li>GenericServlet实现Servlet接口。</li>
+<li>GenericServlet是一个适配器。</li>
+<li>以后编写的所有Servlet类继承GenericServlet，重写service方法即可。</li>
+</ul>
+<p><strong>GenericServlet 改造</strong></p>
+<ul>
+<li><p>思考第一个问题：我提供了一个GenericServlet之后，init方法还会执行吗？</p>
+<ul>
+<li>还会执行。会执行GenericServlet类中的init方法。</li>
+</ul>
+</li>
+<li><p>思考第二个问题：init方法是谁调用的？</p>
+<ul>
+<li>Tomcat服务器调用的。</li>
+</ul>
+</li>
+<li><p>思考第三个问题：init方法中的ServletConfig对象是谁创建的？是谁传过来的？</p>
+<ul>
+<li>都是Tomcat干的。</li>
+<li>Tomcat服务器先创建了ServletConfig对象，然后调用init方法，将ServletConfig对象传给了init方法。</li>
+</ul>
+</li>
+<li><p>思考一下Tomcat服务器伪代码：</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Tomcat</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">// .....</span></span><br><span class="line">        <span class="comment">// Tomcat服务器伪代码</span></span><br><span class="line">        <span class="comment">// 创建LoginServlet对象（通过反射机制，调用无参数构造方法来实例化LoginServlet对象）</span></span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;com.bjpowernode.javaweb.servlet.LoginServlet&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> clazz.newInstance();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 向下转型</span></span><br><span class="line">        <span class="type">Servlet</span> <span class="variable">servlet</span> <span class="operator">=</span> (Servlet)obj;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建ServletConfig对象</span></span><br><span class="line">        <span class="comment">// Tomcat服务器负责将ServletConfig对象实例化出来。</span></span><br><span class="line">        <span class="comment">// 多态（Tomcat服务器完全实现了Servlet规范）</span></span><br><span class="line">        <span class="type">ServletConfig</span> <span class="variable">servletConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">org</span>.apache.catalina.core.StandardWrapperFacade();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的init方法</span></span><br><span class="line">        servlet.init(servletConfig);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的service方法</span></span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对此改造GenericServlet:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span>, ServletConfig, Serializable &#123;</span><br><span class="line">    <span class="comment">// 将 ServletConfig 设置为成员变量,方便其其他方法和子类调用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> ServletConfig config;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">GenericServlet</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getInitParameter(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletConfig <span class="title function_">getServletConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletContext <span class="title function_">getServletContext</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getServletContext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getServletInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 init 将 Tomcat 所实例化的 config 传递给 成员变量 config</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">        <span class="built_in">this</span>.config = config;</span><br><span class="line">        <span class="built_in">this</span>.init(); <span class="comment">// (重点!!!) 调用下面公开的init方法,给子类重写</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个公开的 init() 方法,可以允许子类重写这个方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意 :</strong>  GenericServlet 方法已经被 jakarta 实现,不需要我们自己手写,并且Oracle 已经为 GenericServlet 实现了更好的子类,我们可能在使用过程中直接调用那些子类。</p>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>4. ServletConfig与ServletContext详解</title>
+    <url>/2022/09/13/JavaEE/4.%20ServletConfig%E4%B8%8EServletContext%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="1-ServletConfig"><a href="#1-ServletConfig" class="headerlink" title="1. ServletConfig"></a>1. ServletConfig</h1><p><strong>什么是ServletConfig?</strong></p>
+<p>ServletConfig是指当前servlet在web.xml文件中的配置信息。ServletConfig对象中封装了<servlet></servlet>标签中的配置信息。（web.xml文件中servlet的配置信息）</p>
+<ul>
+<li><p>一个Servlet对应一个ServletConfig对象。100个Servlet对象则对应100个ServletConfig对象。</p>
+</li>
+<li><p>Servlet对象是Tomcat服务器创建，并且ServletConfig对象也是Tomcat服务器创建。并且默认情况下，他们都是在用户发送第一次请求的时候创建。</p>
+</li>
+<li><p>Tomcat服务器调用Servlet对象的init方法的时候需要传一个ServletConfig对象的参数给init方法。</p>
+</li>
+<li><p>ServletConfig接口的实现类是Tomcat服务器给实现的。（Tomcat服务器说的就是WEB服务器。）</p>
+</li>
+</ul>
+<p><strong>ServletConfig接口有哪些常用的方法？</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span>; <span class="comment">// 通过初始化参数的name获取value</span></span><br><span class="line"><span class="keyword">public</span> Enumeration&lt;String&gt; <span class="title function_">getInitParameterNames</span><span class="params">()</span>; <span class="comment">// 获取所有的初始化参数的name</span></span><br><span class="line"><span class="keyword">public</span> ServletContext <span class="title function_">getServletContext</span><span class="params">()</span>; <span class="comment">// 获取ServletContext对象</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getServletName</span><span class="params">()</span>; <span class="comment">// 获取Servlet的name</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>以上方法在Servlet类当中，都可以使用this去调用。因为GenericServlet实现了ServletConfig接口。</p>
+<h1 id="2-ServletContext"><a href="#2-ServletContext" class="headerlink" title="2. ServletContext"></a>2. ServletContext</h1><p><strong>什么是ServletContext?</strong></p>
+<p>Tomcat服务器中有一个webapps，这个webapps下可以存放webapp，可以存放多个webapp，假设有100个webapp，那么就有100个ServletContext对象。但是，总之，一个应用，一个webapp肯定是只有一个ServletContext对象。ServletContext被称为Servlet上下文对象。（Servlet对象的四周环境对象。）一个ServletContext对象通常对应的是一个web.xml文件。</p>
+<ul>
+<li><p>只要在同一个webapp当中，只要在同一个应用当中，所有的Servlet对象都是共享同一个ServletContext对象的。</p>
+</li>
+<li><p>ServletContext对象在服务器启动阶段创建，在服务器关闭的时候销毁。这就是ServletContext对象的生命周期。ServletContext对象是应用级对象。</p>
+</li>
+<li><p>ServletContext对应显示生活中的什么例子呢？</p>
+<ul>
+<li>一个教室里有多个学生，那么每一个学生就是一个Servlet，这些学生都在同一个教室当中，那么我们可以把这个教室叫做ServletContext对象。那么也就是说放在这个ServletContext对象（环境）当中的数据，在同一个教室当中，物品都是共享的。比如：教室中有一个空调，所有的学生都可以操作。可见，空调是共享的。因为空调放在教室当中。教室就是ServletContext对象。</li>
+</ul>
+</li>
+<li><p>ServletContext是一个接口，Tomcat服务器对ServletContext接口进行了实现。</p>
+<ul>
+<li>ServletContext对象的创建也是Tomcat服务器来完成的。启动webapp的时候创建的。</li>
+</ul>
+</li>
+</ul>
+<p><strong>ServletContext接口中的常用方法</strong></p>
+<ul>
+<li><strong>getInitParameter() 和 getInitParameterNames()</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span>; <span class="comment">// 通过初始化参数的name获取value</span></span><br><span class="line"><span class="keyword">public</span> Enumeration&lt;String&gt; <span class="title function_">getInitParameterNames</span><span class="params">()</span>; <span class="comment">// 获取所有的初始化参数的name</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--以上两个方法是ServletContext对象的方法，这个方法获取的是什么信息？是以下的配置信息--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>pageSize<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>10<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>startIndex<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--注意：以上的配置信息属于应用级的配置信息，一般一个项目中共享的配置信息会放到以上的标签当中。--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--如果你的配置信息只是想给某一个servlet作为参考，那么你配置到servlet标签当中即可，使用ServletConfig对象来获取。--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>getContextPath() 获取应用的根路径</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取应用的根路径（非常重要），因为在java源代码当中有一些地方可能会需要应用的根路径，这个方法可以动态获取应用的根路径</span></span><br><span class="line"><span class="comment">// 在java源码当中，不要将应用的根路径写死，因为你永远都不知道这个应用在最终部署的时候，起一个什么名字。</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getContextPath</span><span class="params">()</span>;</span><br><span class="line"><span class="comment">//String contextPath = application.getContextPath();</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>log() 记录日志</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过ServletContext对象也是可以记录日志的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String message)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String message, Throwable t)</span>;</span><br><span class="line"><span class="comment">// 这些日志信息记录到哪里了？</span></span><br><span class="line"><span class="comment">// localhost.2021-11-05.log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Tomcat服务器的logs目录下都有哪些日志文件？</span></span><br><span class="line"><span class="comment">//catalina.2021-11-05.log 服务器端的java程序运行的控制台信息。</span></span><br><span class="line"><span class="comment">//localhost.2021-11-05.log ServletContext对象的log方法记录的日志信息存储到这个文件中。</span></span><br><span class="line"><span class="comment">//localhost_access_log.2021-11-05.txt 访问日志</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>应用域 (Servlet中最大的作用域)</strong></p>
+<p>ServletContext对象还有另一个名字：应用域（后面还有其他域，例如：请求域、会话域）</p>
+<p>如果所有的用户共享一份数据，并且这个数据很少的被修改，并且这个数据量很少，可以将这些数据放到ServletContext这个应用域中</p>
+<p><strong>注意</strong></p>
+<p>所有用户共享的数据，如果涉及到修改操作，必然会存在线程并发所带来的安全问题。所以放在ServletContext对象中的数据一般都是只读的。</p>
+<p><strong>相关方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 存（怎么向ServletContext应用域中存数据）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name, Object value)</span>; <span class="comment">// map.put(k, v)</span></span><br><span class="line"><span class="comment">// 取（怎么从ServletContext应用域中取数据）</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>; <span class="comment">// Object v = map.get(k)</span></span><br><span class="line"><span class="comment">// 删（怎么删除ServletContext应用域中的数据）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span>; <span class="comment">// map.remove(k)</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：以后我们编写Servlet类的时候，实际上是不会去直接继承GenericServlet类的，因为我们是B&#x2F;S结构的系统，这种系统是基于HTTP超文本传输协议的，在Servlet规范当中，提供了一个类叫做HttpServlet，它是专门为HTTP协议准备的一个Servlet类。我们编写的Servlet类要继承HttpServlet。（HttpServlet是HTTP协议专用的。）使用HttpServlet处理HTTP协议更便捷。但是你需要直到它的继承结构：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jakarta.servlet.Servlet<span class="comment">//（接口）【爷爷】</span></span><br><span class="line">jakarta.servlet.GenericServlet <span class="keyword">implements</span> <span class="title class_">Servlet</span><span class="comment">//（抽象类）【儿子】</span></span><br><span class="line">jakarta.servlet.http.HttpServlet <span class="keyword">extends</span> <span class="title class_">GenericServlet</span><span class="comment">//（抽象类）【孙子】</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们以后编写的Servlet要继承HttpServlet类。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>最后</strong></p>
+<p>向ServletContext应用域中存储数据，实际上等于是将数据存放到缓存cache当中了。</p>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>5. Http协议</title>
+    <url>/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<h1 id="1-什么是协议"><a href="#1-什么是协议" class="headerlink" title="1. 什么是协议?"></a>1. 什么是协议?</h1><ul>
+<li>协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。</li>
+<li>协议就是一套规范，就是一套标准。由其他人或其他组织来负责制定的。</li>
+<li>我说的话你能听懂，你说的话，我也能听懂，这说明我们之间是有一套规范的，一套协议的，这套协议就是：中国普通话协议。我们都遵守这套协议，我们之间就可以沟通无障碍。</li>
+</ul>
+<h1 id="2-什么是Http协议"><a href="#2-什么是Http协议" class="headerlink" title="2. 什么是Http协议?"></a>2. 什么是Http协议?</h1><ul>
+<li>HTTP协议：是W3C制定的一种超文本传输协议。（通信协议：发送消息的模板提前被制定好。）</li>
+<li>W3C：<ul>
+<li>万维网联盟组织</li>
+<li>负责制定标准的：HTTP HTML4.0 HTML5 XML DOM等规范都是W3C制定的。</li>
+<li>万维网之父：蒂姆·伯纳斯·李</li>
+</ul>
+</li>
+<li>什么是超文本？<ul>
+<li>超文本说的就是：不是普通文本，比如流媒体：声音、视频、图片等。</li>
+<li>HTTP协议支持：不但可以传送普通字符串，同样支持传递声音、视频、图片等流媒体信息。</li>
+</ul>
+</li>
+<li>这种协议游走在B和S之间。B向S发数据要遵循HTTP协议。S向B发数据同样需要遵循HTTP协议。这样B和S才能解耦合。</li>
+<li>什么是解耦合？<ul>
+<li>B不依赖S。</li>
+<li>S也不依赖B。</li>
+</ul>
+</li>
+<li>B&#x2F;S表示：B&#x2F;S结构的系统（浏览器访问WEB服务器的系统）</li>
+<li>浏览器   向   WEB服务器发送数据，叫做：请求（request)</li>
+<li>WEB服务器   向   浏览器发送数据，叫做：响应（response）</li>
+<li>HTTP协议包括：<ul>
+<li>请求协议<ul>
+<li>浏览器  向   WEB服务器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
+</ul>
+</li>
+<li>响应协议<ul>
+<li>WEB服务器  向  浏览器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HTTP协议就是提前制定好的一种消息模板。<ul>
+<li>不管你是哪个品牌的浏览器，都是这么发。</li>
+<li>不管你是哪个品牌的WEB服务器，都是这么发。</li>
+<li>FF浏览器  可以向 Tomcat发送请求，也可以向Jetty服务器发送请求。浏览器不依赖具体的服务器品牌。</li>
+<li>WEB服务器也不依赖具体的浏览器品牌。可以是FF浏览器，也可以是Chrome浏览器，可以是IE，都行。</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-Http的请求协议-B-gt-S"><a href="#3-Http的请求协议-B-gt-S" class="headerlink" title="3. Http的请求协议 (B -&gt; S)"></a>3. Http的请求协议 (B -&gt; S)</h1><ul>
+<li><p>HTTP的请求协议包括：4部分</p>
+<ul>
+<li>请求行</li>
+<li>请求头</li>
+<li>空白行</li>
+<li>请求体</li>
+</ul>
+</li>
+<li><p>HTTP请求协议的具体报文：GET请求</p>
+  <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">GET <span class="regexp">/servlet05/g</span>etServlet?username=lucy&amp;userpwd=<span class="number">1111</span> HTTP/<span class="number">1.1</span>                           请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                    请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                        空白行</span><br><span class="line">                                                                                        请求体</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>HTTP请求协议的具体报文：POST请求</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">POST <span class="regexp">/servlet05/</span>postServlet HTTP/<span class="number">1.1</span>                                                  请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                  请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: <span class="number">25</span></span><br><span class="line">Cache-Control: max-age=<span class="number">0</span></span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">Origin: http:<span class="regexp">//</span>localhost:<span class="number">8080</span></span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                      空白行</span><br><span class="line">username=lisi&amp;userpwd=<span class="number">123</span>                                                             请求体</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>请求行</p>
+<ul>
+<li>包括三部分：<ul>
+<li>第一部分：请求方式（7种）<ul>
+<li>get（常用的）</li>
+<li>post（常用的）</li>
+<li>delete</li>
+<li>put</li>
+<li>head</li>
+<li>options</li>
+<li>trace</li>
+</ul>
+</li>
+<li>第二部分：URI<ul>
+<li>什么是URI？ 统一资源标识符。代表网络中某个资源的名字。但是通过URI是无法定位资源的。</li>
+<li>什么是URL？统一资源定位符。代表网络中某个资源，同时，通过URL是可以定位到该资源的。</li>
+<li>URI和URL什么关系，有什么区别？<ul>
+<li>URL包括URI</li>
+<li><a href="http://localhost:8080/servlet05/index.html">http://localhost:8080/servlet05/index.html</a> 这是URL。</li>
+<li>&#x2F;servlet05&#x2F;index.html 这是URI。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三部分：HTTP协议版本号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求头</p>
+<ul>
+<li>请求的主机</li>
+<li>主机的端口</li>
+<li>浏览器信息</li>
+<li>平台信息</li>
+<li>cookie等信息</li>
+<li>….</li>
+</ul>
+</li>
+<li><p>空白行</p>
+<ul>
+<li>空白行是用来区分“请求头”和“请求体”</li>
+</ul>
+</li>
+<li><p>请求体</p>
+<ul>
+<li>向服务器发送的具体数据。</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-HTTP的响应协议（S-–-gt-B）"><a href="#4-HTTP的响应协议（S-–-gt-B）" class="headerlink" title="4. HTTP的响应协议（S –&gt; B）"></a>4. HTTP的响应协议（S –&gt; B）</h1><ul>
+<li><p>HTTP的响应协议包括：4部分</p>
+<ul>
+<li>状态行</li>
+<li>响应头</li>
+<li>空白行</li>
+<li>响应体</li>
+</ul>
+</li>
+<li><p>HTTP响应协议的具体报文：</p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 ok                                     状态行</span><br><span class="line">Content-Type: text/html;charset=UTF-8               响应头</span><br><span class="line">Content-Length: 160</span><br><span class="line">Date: Mon, 08 Nov 2021 13:19:32 GMT</span><br><span class="line">Keep-Alive: timeout=20</span><br><span class="line">Connection: keep-alive</span><br><span class="line">                                                    空白行</span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span>                                     响应体</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>状态行</p>
+<ul>
+<li>三部分组成<ul>
+<li>第一部分：协议版本号（HTTP&#x2F;1.1）</li>
+<li>第二部分：状态码（HTTP协议中规定的响应状态号。不同的响应结果对应不同的号码。）<ul>
+<li>200 表示请求响应成功，正常结束。</li>
+<li>404表示访问的资源不存在，通常是因为要么是你路径写错了，要么是路径写对了，但是服务器中对应的资源并没有启动成功。总之404错误是前端错误。</li>
+<li>405表示前端发送的请求方式与后端请求的处理方式不一致时发生：<ul>
+<li>比如：前端是POST请求，后端的处理方式按照get方式进行处理时，发生405</li>
+<li>比如：前端是GET请求，后端的处理方式按照post方式进行处理时，发生405</li>
+</ul>
+</li>
+<li>500表示服务器端的程序出现了异常。一般会认为是服务器端的错误导致的。</li>
+<li>以4开始的，一般是浏览器端的错误导致的。</li>
+<li>以5开始的，一般是服务器端的错误导致的。</li>
+</ul>
+</li>
+<li>第三部分：状态的描述信息<ul>
+<li>ok 表示正常成功结束。</li>
+<li>not found 表示资源找不到。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>响应头：</p>
+<ul>
+<li>响应的内容类型</li>
+<li>响应的内容长度</li>
+<li>响应的时间</li>
+<li>….</li>
+</ul>
+</li>
+<li><p>空白行：</p>
+<ul>
+<li>用来分隔“响应头”和“响应体”的。</li>
+</ul>
+</li>
+<li><p>响应体：</p>
+<ul>
+<li>响应体就是响应的正文，这些内容是一个长的字符串，这个字符串被浏览器渲染，解释并执行，最终展示出效果。</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li><p>怎么查看的协议内容？</p>
+<ul>
+<li>使用chrome浏览器：F12。然后找到network，通过这个面板可以查看协议的具体内容。</li>
+</ul>
+</li>
+</ul>
+<h1 id="5-GET和POST"><a href="#5-GET和POST" class="headerlink" title="5. GET和POST"></a>5. GET和POST</h1><p><strong>怎么向服务器发送GET请求，怎么向服务器发送POST请求？</strong></p>
+<ul>
+<li>到目前为止，只有一种情况可以发送POST请求：使用form表单，并且form标签中的method属性值为：method&#x3D;”post”。</li>
+<li>其他所有情况一律都是get请求：<ul>
+<li>在浏览器地址栏上直接输入URL，敲回车，属于get请求。</li>
+<li>在浏览器上直接点击超链接，属于get请求。</li>
+<li>使用form表单提交数据时，form标签中没有写method属性，默认就是get</li>
+<li>或者使用form的时候，form标签中method属性值为：method&#x3D;”get”</li>
+<li>….</li>
+</ul>
+</li>
+</ul>
+<p><strong>GET请求和POST请求有什么区别？</strong></p>
+<ul>
+<li>get请求发送数据的时候，数据会挂在URI的后面，并且在URI后面添加一个“?”，”?”后面是数据。这样会导致发送的数据回显在浏览器的地址栏上。（get请求在“请求行”上发送数据）<ul>
+<li><a href="http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111">http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111</a></li>
+</ul>
+</li>
+<li>post请求发送数据的时候，在请求体当中发送。不会回显到浏览器的地址栏上。也就是说post发送的数据，在浏览器地址栏上看不到。（post在“请求体”当中发送数据）</li>
+<li>get请求只能发送普通的字符串。并且发送的字符串长度有限制，不同的浏览器限制不同。这个没有明确的规范。</li>
+<li>get请求无法发送大数据量。</li>
+<li>post请求可以发送任何类型的数据，包括普通字符串，流媒体等信息：视频、声音、图片。</li>
+<li>post请求可以发送大数据量，理论上没有长度限制。</li>
+<li>get请求在W3C中是这样说的：get请求比较适合从服务器端获取数据。</li>
+<li>post请求在W3C中是这样说的：post请求比较适合向服务器端传送数据。</li>
+<li>get请求是安全的。get请求是绝对安全的。为什么？因为get请求只是为了从服务器上获取数据。不会对服务器造成威胁。（get本身是安全的，你不要用错了。用错了之后又冤枉人家get不安全，你这样不好（太坏了），那是你自己的问题，不是get请求的问题。）</li>
+<li>post请求是危险的。为什么？因为post请求是向服务器提交数据，如果这些数据通过后门的方式进入到服务器当中，服务器是很危险的。另外post是为了提交数据，所以一般情况下拦截请求的时候，大部分会选择拦截（监听）post请求。</li>
+<li>get请求支持缓存。<ul>
+<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg">https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg</a></li>
+<li>任何一个get请求最终的“响应结果”都会被浏览器缓存起来。在浏览器缓存当中：<ul>
+<li>一个get请求的路径a  对应  一个资源。</li>
+<li>一个get请求的路径b  对应  一个资源。</li>
+<li>一个get请求的路径c  对应  一个资源。</li>
+<li>……</li>
+</ul>
+</li>
+<li>实际上，你只要发送get请求，浏览器做的第一件事都是先从本地浏览器缓存中找，找不到的时候才会去服务器上获取。这种缓存机制目的是为了提高用户的体验。</li>
+<li>有没有这样一个需求：我们不希望get请求走缓存，怎么办？怎么避免走缓存？我希望每一次这个get请求都去服务器上找资源，我不想从本地浏览器的缓存中取。<ul>
+<li>只要每一次get请求的请求路径不同即可。</li>
+<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898</a></li>
+<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899</a></li>
+<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=%E7%B3%BB%E7%BB%9F%E6%AF%AB%E7%A7%92%E6%95%B0">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=系统毫秒数</a></li>
+<li>怎么解决？可以在路径的后面添加一个每时每刻都在变化的“时间戳”，这样，每一次的请求路径都不一样，浏览器就不走缓存了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>post请求不支持缓存。（POST是用来修改服务器端的资源的。）<ul>
+<li>post请求之后，服务器“响应的结果”不会被浏览器缓存起来。因为这个缓存没有意义。</li>
+</ul>
+</li>
+</ul>
+<p><strong>GET请求和POST请求如何选择，什么时候使用GET请求，什么时候使用POST请求？</strong></p>
+<ul>
+<li><p>怎么选择GET请求和POST请求呢？衡量标准是什么呢？你这个请求是想获取服务器端的数据，还是想向服务器发送数据。如果你是想从服务器上获取资源，建议使用GET请求，如果你这个请求是为了向服务器提交数据，建议使用POST请求。</p>
+</li>
+<li><p>大部分的form表单提交，都是post方式，因为form表单中要填写大量的数据，这些数据是收集用户的信息，一般是需要传给服务器，服务器将这些数据保存&#x2F;修改等。</p>
+</li>
+<li><p>如果表单中有敏感信息，还是建议适用post请求，因为get请求会回显敏感信息到浏览器地址栏上。（例如：密码信息）</p>
+</li>
+<li><p>做文件上传，一定是post请求。要传的数据不是普通文本。</p>
+</li>
+<li><p>其他情况都可以使用get请求。</p>
+</li>
+<li><p>不管你是get请求还是post请求，发送的请求数据格式是完全相同的，只不过位置不同，格式都是统一的：</p>
+<ul>
+<li>name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value</li>
+<li>name是什么？<ul>
+<li>以form表单为例：form表单中input标签的name。</li>
+</ul>
+</li>
+<li>value是什么？<ul>
+<li>以form表单为例：form表单中input标签的value。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>6. 模板方法设计模式</title>
+    <url>/2022/09/13/JavaEE/6.%20%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="1-什么是设计模式"><a href="#1-什么是设计模式" class="headerlink" title="1. 什么是设计模式?"></a>1. 什么是设计模式?</h1><blockquote>
+<p>  某个问题的固定的解决方案。(可以被重复使用。) 也就是解决某个问题的固定套路….</p>
+</blockquote>
+<p><strong>你知道哪些设计模式？</strong></p>
+<ul>
+<li>GoF设计模式：<ul>
+<li>通常我们所说的23种设计模式。（Gang of Four：4人组提出的设计模式）</li>
+<li>单例模式</li>
+<li>工厂模式</li>
+<li>代理模式</li>
+<li>门面模式</li>
+<li>责任链设计模式</li>
+<li>观察者模式</li>
+<li>模板方法设计模式</li>
+<li>…..</li>
+</ul>
+</li>
+<li>JavaEE设计模式：<ul>
+<li>DAO</li>
+<li>DTO</li>
+<li>VO</li>
+<li>PO</li>
+<li>pojo</li>
+<li>….</li>
+</ul>
+</li>
+<li>….</li>
+</ul>
+<h1 id="2-什么是模板方法设计模式"><a href="#2-什么是模板方法设计模式" class="headerlink" title="2. 什么是模板方法设计模式"></a>2. 什么是模板方法设计模式</h1><p>模板方法模式（Template Method Pattern）：定义一个操作中的算法的框架， 而将一些步骤延迟到子类中。 使得子类可以不改 变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<p>说人话：父类模板方法定义不变的流程，子类重写流程中的方法。</p>
+<h1 id="3-模板方法的实现"><a href="#3-模板方法的实现" class="headerlink" title="3. 模板方法的实现"></a>3. 模板方法的实现</h1><p><strong>Person.java (模板类)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 开始一天(定义为final类,让子类必须运行此方法,属于模板方法定义的框架)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">day</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 调用基本方法，完成固定逻辑</span></span><br><span class="line">        getUp();</span><br><span class="line">        eat();</span><br><span class="line">        doMake();</span><br><span class="line">        sleep();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 起床</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getUp</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Get up&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 吃饭</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Eat&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 做事情 (学生和老师做事情不一样,所以将此方法抽象为模板方法,让子类自己来实现)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 睡觉</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Sleep&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>Teacher.java (实现类)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 实现 Person 的模板类, 老师的任务是Teach</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Teach&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Student.java (实现类)</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 实现 Person 的模板类, 学生的任务是Study</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Study&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-优缺点"><a href="#4-优缺点" class="headerlink" title="4. 优缺点"></a>4. 优缺点</h1><p><strong>优点</strong></p>
+<ol>
+<li><p>封装不变部分， 扩展可变部分， 把认为是不变部分的算法封装到父类实现， 而可变部分的则可以通过继承来继续扩展。</p>
+</li>
+<li><p>提取公共部分代码， 便于维护</p>
+</li>
+<li><p>行为由父类控制， 子类实现， 基本方法是由子类实现的， 因此子类可以通过扩展的方式增加相应的功能， 符合开闭原则。</p>
+</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li><p>子类执行的结果影响了父类的结果，这和我们平时设计习惯颠倒了，在复杂项目中，会带来阅读上的难度。</p>
+</li>
+<li><p>可能引起子类泛滥和为了继承而继承的问题</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>1. Java 概述</title>
     <url>/2022/09/11/JavaSE/1.%20Java%20%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<blockquote>
@@ -206,6 +872,194 @@
   - @return 返回值描述：该标记能给当前方法的 返回值 部分添加一个条目。该描述可以占据多行。
   - @throws 异常描述：该标记能给当前方法的可能抛出的 异常 添加一个条目。
 </code></pre>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>10. 枚举</title>
+    <url>/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="10-1-枚举"><a href="#10-1-枚举" class="headerlink" title="10.1 枚举"></a>10.1 枚举</h1><p>把具体的对象一一列举出来的类，就称为 枚举类（enumeration）<br>实现方法：</p>
+<ol>
+<li>自定义枚举</li>
+<li>enum 关键字枚举</li>
+</ol>
+<h2 id="10-1-1-自定义枚举"><a href="#10-1-1-自定义枚举" class="headerlink" title="10.1.1 自定义枚举"></a>10.1.1 自定义枚举</h2><ol>
+<li>构造器私有化</li>
+<li>去掉 <code>set</code> 方法（可保留 <code>get</code>），防止属性被修改。因为枚举对象值通常为只读</li>
+<li>在类内部直接创建固定对象。使用 <code>final + static</code> 共同修饰，对象名通常全部大写。</li>
+<li>枚举对象按照需要可以有多个属性</li>
+</ol>
+<h2 id="10-1-2-enum关键字"><a href="#10-1-2-enum关键字" class="headerlink" title="10.1.2 enum关键字"></a>10.1.2 <code>enum</code>关键字</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Example</span> &#123;</span><br><span class="line"> RED(<span class="string">&quot;小红&quot;</span>, <span class="number">10</span>), BLUE(<span class="string">&quot;小蓝&quot;</span>, <span class="number">11</span>), YELLOW; <span class="comment">//这句话要放在前面，第三个是无参</span></span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> <span class="title function_">Example</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">     <span class="built_in">this</span>.name = name;</span><br><span class="line">     <span class="built_in">this</span>.age = age;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>用关键字 <code>enum</code> 替代 <code>class</code></li>
+<li>用 <code>常量名.(形参列表);</code> 代替创建对象（放在前面）。多个对象的场合，用 <code>,</code> 间隔。</li>
+<li>如果使用 <code>enum</code> 枚举，要求将常量对象写在前面</li>
+</ol>
+<h3 id="10-1-2-1-使用细节"><a href="#10-1-2-1-使用细节" class="headerlink" title="10.1.2.1 使用细节"></a>10.1.2.1 使用细节</h3><ol>
+<li><p>当我们用 <code>enum</code> 关键字开发一个枚举类时，默认会继承 <code>java.lang.Enum</code> 类，而且是一个 <code>final</code> 类。这样，我们就能使用 <code>Enum</code> 中的相关方法。</p>
+<pre><code> **也正因为如此，`enum` 类不能继承其他类，亦不能被其它类继承不过，**
+
+` enum` 类和其他类一样，可以实现接口。
+</code></pre>
+</li>
+<li><p>传统的 <code>public ststic final RED(&quot;小红&quot;, 10);</code> 简化为 <code>RED(&quot;小红&quot;, 10);</code></p>
+</li>
+<li><p>如果使用无参构造器创建枚举对象，则 <code>实参列表</code> 和 <code>( )</code> 都能省略</p>
+</li>
+</ol>
+<h3 id="10-1-2-2-Enum类中的常用方法"><a href="#10-1-2-2-Enum类中的常用方法" class="headerlink" title="10.1.2.2 Enum类中的常用方法"></a>10.1.2.2 <code>Enum</code>类中的常用方法</h3><ul>
+<li><code>valueOf</code>：将字符串转换成枚举对象。要求字符串必须是已有的常量名，否则报异常。</li>
+<li><code>values</code>：返回一个数组 <code>Example[]</code>，其中包含定义的所有枚举对象</li>
+<li><code>getDeclaringClass</code>：得到枚举常量所属的 <code>class</code></li>
+<li><code>name</code>：得到当前枚举常量的名称。建议优先用 <code>toString</code></li>
+<li><code>ordinal</code>：输出该枚举对象的次序&#x2F;编号（从 0 开始编号。如上例 <code>BLUE.ordinal = 1</code>）</li>
+<li><code>compareTo</code>：比较两个枚举常量的编号（调用常量编号 减去 传入常量编号）</li>
+<li><code>clone</code>：枚举类不能 <code>clone</code>，所以，这是一个只会抛出异常的方法</li>
+</ul>
+<h1 id="10-2-注解"><a href="#10-2-注解" class="headerlink" title="10.2 注解"></a>10.2 注解</h1><p>注解（<code>Annotation</code>）也被称为元数据（<code>Metadata</code>）。用于修饰 包、类、方法、属性、构造器、局部变量 等数据信息<br>和注释一样，注解不影响程序逻辑，但注解可以被编译或运行，相当于嵌入在代码中的补充信息<br>在 JavaSE 中，注解的使用目的比较简单，例如 标记过时的功能，忽略警告 等。在 JavaEE 中注解占据了更重要的角色，例如用于配置应用程序的任何切面，代替 JavaEE 旧版中所遗留的繁冗代码和 XML 配置等。</p>
+<ol>
+<li>使用 <code>@Annotation</code> 时要在前面增加 <code>@</code> 符号，并把该注解当成一个修饰符使用。用于修饰它支持的程序元素。</li>
+<li>三个基本的 <code>@Annotation</code>：<ul>
+<li><code>@Override</code>：限定某个方法，是 重写 父类方法。该注解只能用于方法。如果你写了该注解，编译器会替你校验，看看是不是真的 重写 了父类方法。</li>
+<li><code>@Deprecated</code>：用于表示某个程序元素（类、方法等）已经过时</li>
+<li><code>@SuppressWarnings()</code>：抑制编辑器警告</li>
+</ul>
+</li>
+<li>如果发现 <code>public @interface XXX&#123;&#125;</code> 这种东西，说明是定义了一个注解类 <code>XXX</code>。这里的 <code>@interface</code> 不代表接口（<code>interface</code>）。</li>
+</ol>
+<h2 id="10-2-1-Override"><a href="#10-2-1-Override" class="headerlink" title="10.2.1 @Override"></a>10.2.1 <code>@Override</code></h2><ol>
+<li><code>@Override</code> 表示指定重写父类的方法（从编译器层面验证），如果父类没有该方法，就报错</li>
+<li>不写该注解，重写依然构成重写</li>
+<li><code>@Override</code> 只能修饰方法，不能修饰其他 类、包、属性等</li>
+<li>查看 <code>@Override</code> 注解源码为 <code>@Target(ElementType.METHOD)</code> 说明只能修饰方法</li>
+<li><code>@Target</code> 是修饰注解的注解，称为 元注解</li>
+</ol>
+<h2 id="10-2-2-Deprecated"><a href="#10-2-2-Deprecated" class="headerlink" title="10.2.2 @Deprecated"></a>10.2.2 <code>@Deprecated</code></h2><ol>
+<li><code>@Deprecated</code> 表示指定的某个程序元素（类、方法等）已过时</li>
+<li>不推荐使用，但仍能使用</li>
+<li>可以修饰方法、类、字段、包、参数<code>@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</code></li>
+<li><code>@Deprecated</code> 可以做到新旧版本的兼容和过度</li>
+</ol>
+<h2 id="10-2-3-SuppressWarnings"><a href="#10-2-3-SuppressWarnings" class="headerlink" title="10.2.3 @SuppressWarnings()"></a>10.2.3 <code>@SuppressWarnings()</code></h2><ol>
+<li>当我们不想看到警告信息时，用 <code>@SuppressWarnings()</code></li>
+</ol>
+<p>语法：<code>@SuppressWarnings(&#123;&quot;...&quot;&#125;)</code><br>在后面 <code>(&#123;&quot;unused&quot;, &quot;unchecked&quot;&#125;)</code> 这样写入你希望抑制的信息，以下是所有可以输入的关键字</p>
+<table>
+<thead>
+<tr>
+<th><strong>关键字</strong></th>
+<th><strong>用途</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>all</td>
+<td>抑制所有警告</td>
+</tr>
+<tr>
+<td>boxing</td>
+<td>抑制与装箱&#x2F;解装箱操作相关的警告</td>
+</tr>
+<tr>
+<td>cast</td>
+<td>抑制与强制转换操作相关的警告</td>
+</tr>
+<tr>
+<td>dep-ann</td>
+<td>抑制与已弃用注释相关的警告</td>
+</tr>
+<tr>
+<td>deprecation</td>
+<td>抑制与弃用有关的警告</td>
+</tr>
+<tr>
+<td>fallthrough</td>
+<td>抑制与 switch 语句中丢失断点相关的警告</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>抑制不返回的 finally 块的相关警告</td>
+</tr>
+<tr>
+<td>hiding</td>
+<td>抑制与隐藏变量的局部变量相关的警告</td>
+</tr>
+<tr>
+<td>incomplete-switch</td>
+<td>抑制与 switch 语句中缺少条目相关的警告（enum）</td>
+</tr>
+<tr>
+<td>nls</td>
+<td>抑制与 非nls 字符串字面值相关的警告</td>
+</tr>
+<tr>
+<td>null</td>
+<td>抑制相对于null分析的警告</td>
+</tr>
+<tr>
+<td>rawtypes</td>
+<td>在类参数上使用泛型时，抑制与非特定类型相关的警告</td>
+</tr>
+<tr>
+<td>restriction</td>
+<td>抑制与不推荐或禁止引用有关的警告</td>
+</tr>
+<tr>
+<td>serial</td>
+<td>抑制与可序列化类缺少serialVersionUID字段相关的警告</td>
+</tr>
+<tr>
+<td>static-access</td>
+<td>抑制与不正确的静态访问有关的警告</td>
+</tr>
+<tr>
+<td>synthetic-access</td>
+<td>抑制与未优化的内部类访问相关的警告</td>
+</tr>
+<tr>
+<td>unchecked</td>
+<td>抑制与未检查的操作相关的警告</td>
+</tr>
+<tr>
+<td>unqualified-field-access</td>
+<td>抑制与字段访问不合格相关的警告</td>
+</tr>
+<tr>
+<td>unused</td>
+<td>抑制与未使用代码相关的警告</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li><code>@SuppressWarnings</code> 的范围与你放置的位置相关。</li>
+</ol>
+<h2 id="10-2-4-JDK-的元注解-仅作了解"><a href="#10-2-4-JDK-的元注解-仅作了解" class="headerlink" title="10.2.4 JDK 的元注解(仅作了解)"></a>10.2.4 JDK 的元注解(仅作了解)</h2><blockquote>
+<p>JDK的 元注解 是用于修饰其他注解的注解</p>
+</blockquote>
+<ol>
+<li><p><code>@Rentention</code>：指定注解的作用范围，有三种范围 <code>SOURCE</code> <code>CLASS</code> <code>RUNTIME</code></p>
+<pre><code> `@Rentention` 的三种值：
+</code></pre>
+<ul>
+<li><code>RententionPolicy.SOURCE</code>：编译器使用后，直接丢弃这种策略的注释</li>
+<li><code>RententionPolicy.CLASS</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时， JVM 不会保留注释。这是默认值</li>
+<li><code>RententionPolicy.RUNTIME</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时，JVM 会保留注解。程序可以通过反射获取该注解</li>
+</ul>
+</li>
+<li><p><code>@Target</code>：指定注解的使用范围<code>@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</code></p>
+</li>
+<li><p><code>@Documented</code>：指定该注解会不会在 Javadoc 体现</p>
+</li>
+<li><p><code>@Inherited</code>：子类会继承父类注解</p>
+</li>
+</ol>
 ]]></content>
       <categories>
         <category>Java 学习</category>
@@ -764,194 +1618,6 @@
 <li><code>&lt;?&gt;</code>：支持任意泛型类型</li>
 <li><code>&lt;? extends A&gt;</code>：支持 A 及 A的子类，规定了泛型的上限</li>
 <li><code>&lt;? super B&gt;</code>：支持 B 及 B 的父类，规定了泛型的下限</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>10. 枚举</title>
-    <url>/2022/09/11/JavaSE/10.%20%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="10-1-枚举"><a href="#10-1-枚举" class="headerlink" title="10.1 枚举"></a>10.1 枚举</h1><p>把具体的对象一一列举出来的类，就称为 枚举类（enumeration）<br>实现方法：</p>
-<ol>
-<li>自定义枚举</li>
-<li>enum 关键字枚举</li>
-</ol>
-<h2 id="10-1-1-自定义枚举"><a href="#10-1-1-自定义枚举" class="headerlink" title="10.1.1 自定义枚举"></a>10.1.1 自定义枚举</h2><ol>
-<li>构造器私有化</li>
-<li>去掉 <code>set</code> 方法（可保留 <code>get</code>），防止属性被修改。因为枚举对象值通常为只读</li>
-<li>在类内部直接创建固定对象。使用 <code>final + static</code> 共同修饰，对象名通常全部大写。</li>
-<li>枚举对象按照需要可以有多个属性</li>
-</ol>
-<h2 id="10-1-2-enum关键字"><a href="#10-1-2-enum关键字" class="headerlink" title="10.1.2 enum关键字"></a>10.1.2 <code>enum</code>关键字</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Example</span> &#123;</span><br><span class="line"> RED(<span class="string">&quot;小红&quot;</span>, <span class="number">10</span>), BLUE(<span class="string">&quot;小蓝&quot;</span>, <span class="number">11</span>), YELLOW; <span class="comment">//这句话要放在前面，第三个是无参</span></span><br><span class="line"> <span class="keyword">private</span> String name;</span><br><span class="line"> <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> <span class="title function_">Example</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">     <span class="built_in">this</span>.name = name;</span><br><span class="line">     <span class="built_in">this</span>.age = age;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>用关键字 <code>enum</code> 替代 <code>class</code></li>
-<li>用 <code>常量名.(形参列表);</code> 代替创建对象（放在前面）。多个对象的场合，用 <code>,</code> 间隔。</li>
-<li>如果使用 <code>enum</code> 枚举，要求将常量对象写在前面</li>
-</ol>
-<h3 id="10-1-2-1-使用细节"><a href="#10-1-2-1-使用细节" class="headerlink" title="10.1.2.1 使用细节"></a>10.1.2.1 使用细节</h3><ol>
-<li><p>当我们用 <code>enum</code> 关键字开发一个枚举类时，默认会继承 <code>java.lang.Enum</code> 类，而且是一个 <code>final</code> 类。这样，我们就能使用 <code>Enum</code> 中的相关方法。</p>
-<pre><code> **也正因为如此，`enum` 类不能继承其他类，亦不能被其它类继承不过，**
-
-` enum` 类和其他类一样，可以实现接口。
-</code></pre>
-</li>
-<li><p>传统的 <code>public ststic final RED(&quot;小红&quot;, 10);</code> 简化为 <code>RED(&quot;小红&quot;, 10);</code></p>
-</li>
-<li><p>如果使用无参构造器创建枚举对象，则 <code>实参列表</code> 和 <code>( )</code> 都能省略</p>
-</li>
-</ol>
-<h3 id="10-1-2-2-Enum类中的常用方法"><a href="#10-1-2-2-Enum类中的常用方法" class="headerlink" title="10.1.2.2 Enum类中的常用方法"></a>10.1.2.2 <code>Enum</code>类中的常用方法</h3><ul>
-<li><code>valueOf</code>：将字符串转换成枚举对象。要求字符串必须是已有的常量名，否则报异常。</li>
-<li><code>values</code>：返回一个数组 <code>Example[]</code>，其中包含定义的所有枚举对象</li>
-<li><code>getDeclaringClass</code>：得到枚举常量所属的 <code>class</code></li>
-<li><code>name</code>：得到当前枚举常量的名称。建议优先用 <code>toString</code></li>
-<li><code>ordinal</code>：输出该枚举对象的次序&#x2F;编号（从 0 开始编号。如上例 <code>BLUE.ordinal = 1</code>）</li>
-<li><code>compareTo</code>：比较两个枚举常量的编号（调用常量编号 减去 传入常量编号）</li>
-<li><code>clone</code>：枚举类不能 <code>clone</code>，所以，这是一个只会抛出异常的方法</li>
-</ul>
-<h1 id="10-2-注解"><a href="#10-2-注解" class="headerlink" title="10.2 注解"></a>10.2 注解</h1><p>注解（<code>Annotation</code>）也被称为元数据（<code>Metadata</code>）。用于修饰 包、类、方法、属性、构造器、局部变量 等数据信息<br>和注释一样，注解不影响程序逻辑，但注解可以被编译或运行，相当于嵌入在代码中的补充信息<br>在 JavaSE 中，注解的使用目的比较简单，例如 标记过时的功能，忽略警告 等。在 JavaEE 中注解占据了更重要的角色，例如用于配置应用程序的任何切面，代替 JavaEE 旧版中所遗留的繁冗代码和 XML 配置等。</p>
-<ol>
-<li>使用 <code>@Annotation</code> 时要在前面增加 <code>@</code> 符号，并把该注解当成一个修饰符使用。用于修饰它支持的程序元素。</li>
-<li>三个基本的 <code>@Annotation</code>：<ul>
-<li><code>@Override</code>：限定某个方法，是 重写 父类方法。该注解只能用于方法。如果你写了该注解，编译器会替你校验，看看是不是真的 重写 了父类方法。</li>
-<li><code>@Deprecated</code>：用于表示某个程序元素（类、方法等）已经过时</li>
-<li><code>@SuppressWarnings()</code>：抑制编辑器警告</li>
-</ul>
-</li>
-<li>如果发现 <code>public @interface XXX&#123;&#125;</code> 这种东西，说明是定义了一个注解类 <code>XXX</code>。这里的 <code>@interface</code> 不代表接口（<code>interface</code>）。</li>
-</ol>
-<h2 id="10-2-1-Override"><a href="#10-2-1-Override" class="headerlink" title="10.2.1 @Override"></a>10.2.1 <code>@Override</code></h2><ol>
-<li><code>@Override</code> 表示指定重写父类的方法（从编译器层面验证），如果父类没有该方法，就报错</li>
-<li>不写该注解，重写依然构成重写</li>
-<li><code>@Override</code> 只能修饰方法，不能修饰其他 类、包、属性等</li>
-<li>查看 <code>@Override</code> 注解源码为 <code>@Target(ElementType.METHOD)</code> 说明只能修饰方法</li>
-<li><code>@Target</code> 是修饰注解的注解，称为 元注解</li>
-</ol>
-<h2 id="10-2-2-Deprecated"><a href="#10-2-2-Deprecated" class="headerlink" title="10.2.2 @Deprecated"></a>10.2.2 <code>@Deprecated</code></h2><ol>
-<li><code>@Deprecated</code> 表示指定的某个程序元素（类、方法等）已过时</li>
-<li>不推荐使用，但仍能使用</li>
-<li>可以修饰方法、类、字段、包、参数<code>@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</code></li>
-<li><code>@Deprecated</code> 可以做到新旧版本的兼容和过度</li>
-</ol>
-<h2 id="10-2-3-SuppressWarnings"><a href="#10-2-3-SuppressWarnings" class="headerlink" title="10.2.3 @SuppressWarnings()"></a>10.2.3 <code>@SuppressWarnings()</code></h2><ol>
-<li>当我们不想看到警告信息时，用 <code>@SuppressWarnings()</code></li>
-</ol>
-<p>语法：<code>@SuppressWarnings(&#123;&quot;...&quot;&#125;)</code><br>在后面 <code>(&#123;&quot;unused&quot;, &quot;unchecked&quot;&#125;)</code> 这样写入你希望抑制的信息，以下是所有可以输入的关键字</p>
-<table>
-<thead>
-<tr>
-<th><strong>关键字</strong></th>
-<th><strong>用途</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>all</td>
-<td>抑制所有警告</td>
-</tr>
-<tr>
-<td>boxing</td>
-<td>抑制与装箱&#x2F;解装箱操作相关的警告</td>
-</tr>
-<tr>
-<td>cast</td>
-<td>抑制与强制转换操作相关的警告</td>
-</tr>
-<tr>
-<td>dep-ann</td>
-<td>抑制与已弃用注释相关的警告</td>
-</tr>
-<tr>
-<td>deprecation</td>
-<td>抑制与弃用有关的警告</td>
-</tr>
-<tr>
-<td>fallthrough</td>
-<td>抑制与 switch 语句中丢失断点相关的警告</td>
-</tr>
-<tr>
-<td>finally</td>
-<td>抑制不返回的 finally 块的相关警告</td>
-</tr>
-<tr>
-<td>hiding</td>
-<td>抑制与隐藏变量的局部变量相关的警告</td>
-</tr>
-<tr>
-<td>incomplete-switch</td>
-<td>抑制与 switch 语句中缺少条目相关的警告（enum）</td>
-</tr>
-<tr>
-<td>nls</td>
-<td>抑制与 非nls 字符串字面值相关的警告</td>
-</tr>
-<tr>
-<td>null</td>
-<td>抑制相对于null分析的警告</td>
-</tr>
-<tr>
-<td>rawtypes</td>
-<td>在类参数上使用泛型时，抑制与非特定类型相关的警告</td>
-</tr>
-<tr>
-<td>restriction</td>
-<td>抑制与不推荐或禁止引用有关的警告</td>
-</tr>
-<tr>
-<td>serial</td>
-<td>抑制与可序列化类缺少serialVersionUID字段相关的警告</td>
-</tr>
-<tr>
-<td>static-access</td>
-<td>抑制与不正确的静态访问有关的警告</td>
-</tr>
-<tr>
-<td>synthetic-access</td>
-<td>抑制与未优化的内部类访问相关的警告</td>
-</tr>
-<tr>
-<td>unchecked</td>
-<td>抑制与未检查的操作相关的警告</td>
-</tr>
-<tr>
-<td>unqualified-field-access</td>
-<td>抑制与字段访问不合格相关的警告</td>
-</tr>
-<tr>
-<td>unused</td>
-<td>抑制与未使用代码相关的警告</td>
-</tr>
-</tbody></table>
-<ol start="2">
-<li><code>@SuppressWarnings</code> 的范围与你放置的位置相关。</li>
-</ol>
-<h2 id="10-2-4-JDK-的元注解-仅作了解"><a href="#10-2-4-JDK-的元注解-仅作了解" class="headerlink" title="10.2.4 JDK 的元注解(仅作了解)"></a>10.2.4 JDK 的元注解(仅作了解)</h2><blockquote>
-<p>JDK的 元注解 是用于修饰其他注解的注解</p>
-</blockquote>
-<ol>
-<li><p><code>@Rentention</code>：指定注解的作用范围，有三种范围 <code>SOURCE</code> <code>CLASS</code> <code>RUNTIME</code></p>
-<pre><code> `@Rentention` 的三种值：
-</code></pre>
-<ul>
-<li><code>RententionPolicy.SOURCE</code>：编译器使用后，直接丢弃这种策略的注释</li>
-<li><code>RententionPolicy.CLASS</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时， JVM 不会保留注释。这是默认值</li>
-<li><code>RententionPolicy.RUNTIME</code>：编译器把注解记录在 class 文件中。当运行 Java 程序时，JVM 会保留注解。程序可以通过反射获取该注解</li>
-</ul>
-</li>
-<li><p><code>@Target</code>：指定注解的使用范围<code>@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</code></p>
-</li>
-<li><p><code>@Documented</code>：指定该注解会不会在 Javadoc 体现</p>
-</li>
-<li><p><code>@Inherited</code>：子类会继承父类注解</p>
-</li>
 </ol>
 ]]></content>
       <categories>
@@ -2666,6 +3332,264 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
+    <title>6. 面向对象编程(基础)</title>
+    <url>/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/</url>
+    <content><![CDATA[<blockquote>
+<p>面向对象是一种开发软件的方法，使分析、设计和实现一个系统的方法尽可能接近人们认识一个系统的方法。包括三个方面：面向对象分析、面向对象设计、面向对象程序设计。<br>Java 语言是纯面向对象的语言。其所有数据类型都有相应的类，程序可以完全基于对象编写。</p>
+</blockquote>
+<h1 id="6-1-类与对象-OOP"><a href="#6-1-类与对象-OOP" class="headerlink" title="6.1 类与对象(OOP)"></a>6.1 类与对象(OOP)</h1><blockquote>
+<p><code>类</code> 就是数据类型。可以是 <code>int</code> 也可以是 <code>人类</code><br><code>对象</code> 就是其中具体的实例。可以是 <code>100</code> 也可以是 <code>韩顺平</code><br>从 <code>类</code> 到 <code>对象</code>，可以称为 创建一个对象，也可以说 实例化一个对象，或者 把对象实例化</p>
+<ol>
+<li>类 是抽象的、概念的，代表一类事物</li>
+<li>对象 是具体的、实际的，代表一个个具体事物</li>
+<li>类 是 对象 的模板，对象 是 类 的一个个体，对应一个实例</li>
+</ol>
+</blockquote>
+<p>下面，我们定义了一个类 Cat 并创建了一些 对象 cat1 cat2：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_1</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat1.name = <span class="string">&quot;福福&quot;</span>;</span><br><span class="line">		cat1.age = <span class="number">2</span>;</span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat2.name = <span class="string">&quot;妞子&quot;</span>;</span><br><span class="line">		cat2.age = <span class="number">1</span>;</span><br><span class="line">		System.out.println(cat1.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-1-属性-x2F-成员变量"><a href="#6-1-1-属性-x2F-成员变量" class="headerlink" title="6.1.1 属性&#x2F;成员变量"></a>6.1.1 属性&#x2F;成员变量</h2><blockquote>
+<p>从概念或叫法上看：成员变量 &#x3D; 属性 &#x3D; field（字段）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>String name; </code>就是一个成员变量（属性）。<br>属性可以是基本数据类型，也可以是引用数据类型。</p>
+<ol>
+<li>属性的定义语法同变量。访问修饰符 属性类型 属性名<ul>
+<li>访问修饰符：控制属性的访问范围。有四种：<code>publie</code> <code>protected</code> <code>默认(空) private</code></li>
+</ul>
+</li>
+<li>属性的定义类型可以为任意类型，包含 基本类型 或 引用类型</li>
+<li>属性如果不赋值，有默认值。</li>
+</ol>
+<h2 id="6-1-2-创建对象"><a href="#6-1-2-创建对象" class="headerlink" title="6.1.2 创建对象"></a>6.1.2 创建对象</h2><ul>
+<li><p><strong>先声明再创建</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Cat cat1;  				    <span class="comment">//声明对象cat1</span></span><br><span class="line">cat1 = <span class="keyword">new</span> <span class="title class_">Cat</span>();			<span class="comment">//创建对象</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>直接创建</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+</li>
+</ul>
+<ol>
+<li>声明对象的场合，只是在内存中建立了一个引用。此时，该地址引用不指向任何内存空间。对象的引用，也被称为对象的句柄。</li>
+<li>使用 new 运算符创建对象实例时，会为对象分配空间，就会调用类的构造方法。那之后，会将该段内存的首地址赋给刚才建立的引用。</li>
+</ol>
+<h2 id="6-1-3-访问对象"><a href="#6-1-3-访问对象" class="headerlink" title="6.1.3 访问对象"></a>6.1.3 访问对象</h2><blockquote>
+<p><strong>基本语法</strong>：<code>对象名.属性名</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(cat1.name);</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-4-类与对象的内存访问机制"><a href="#6-1-4-类与对象的内存访问机制" class="headerlink" title="6.1.4 类与对象的内存访问机制"></a>6.1.4 类与对象的内存访问机制</h2><blockquote>
+<p>栈：一般存放基本数据类型（局部变量）<br>堆：存放对象（如Cat cat1 &#x3D; new Cat()，是在这里开辟的空间）<br>方法区：常量池（常量，比如字符串），类加载信息</p>
+</blockquote>
+<ol>
+<li>创建对象时，先加载 类 信息，然后在 堆 中分配空间，栈 中的对象名被赋予指向那个空间的地址。</li>
+<li>之后进行指定初始化。该对象的 属性 中，是 基本数据类型 的直接记录在 堆 中；是 字符串 的记录一个地址，该地址指向 方法区，那里的常量池有该字符串。</li>
+</ol>
+<h1 id="6-2-成员方法"><a href="#6-2-成员方法" class="headerlink" title="6.2 成员方法"></a>6.2 成员方法</h1><p>在某些情况下，我们需要定义成员方法。比如 <code>Cat</code> 除了有属性（<code>name</code> <code>age</code>）外，还可以有一些行为比如玩耍。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">修饰符 返回数据类型 方法名(形参列表)&#123;</span><br><span class="line">	方法体语句;</span><br><span class="line">	returen 返回值;			<span class="comment">//返回数据类型是 void 的场合，return语句不是必须的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>方法名必须是一个合法的标识符</p>
+</li>
+<li><p>返回类型即返回值的类型。如果方法没有返回值，应声明为 void</p>
+</li>
+<li><p>修饰符段可以有几个不同的修饰符。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;哎咿呀~ 哎咿呀~&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>其中 public（访问修饰符）、static（static 关键字）、final（final 关键字）</p>
+</li>
+<li><p>参数列表是传递给方法的参数表。各个元素间以 , 分隔。每个元素由一个类型和一个标识符表示的参数组成。</p>
+</li>
+</ol>
+<p>特别地，<code>参数类型... 标识符</code> 这样的参数被称为可变参数</p>
+<ol start="5">
+<li>方法体是实际要执行的代码块。方法体一般用 return 作为方法的结束。</li>
+</ol>
+<p>使用 <code>成员方法</code>，能提高代码的复用性。而且能把实现的细节封装起来，供其他用户调用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;				<span class="comment">//属性 name</span></span><br><span class="line">	<span class="type">int</span> age;					<span class="comment">//属性 age</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">()</span>&#123;		<span class="comment">//方法 speak()</span></span><br><span class="line">  		System.out.println(<span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>方法写好后，不去调用就不会输出</li>
+<li>先创建对象，然后调用方法即可</li>
+</ol>
+</blockquote>
+<p>下面，展示一个含有成员方法的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">       cat1.speak(<span class="number">10</span>, <span class="number">15</span>);				<span class="comment">//调用 speak 方法，并且给 n1 = 10, n2 = 15</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);	<span class="comment">//调用 speak2 方法,返回值赋给 r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//(int n1, int n2)形参列表，当前有两个形参 n1,n2</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       System.out.println(<span class="string">&quot;喵~&quot;</span> + n1 + <span class="string">&quot; + &quot;</span> + n2 +<span class="string">&quot; 的值是：&quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//int 表示方法执行后，返回一个 int 值</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       <span class="keyword">return</span> res;						<span class="comment">//返回 res 的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-2-1-方法的调用机制"><a href="#6-2-1-方法的调用机制" class="headerlink" title="6.2.1 方法的调用机制"></a>6.2.1 方法的调用机制</h2><p>以前文代码为例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);		</span><br><span class="line">...</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	</span><br><span class="line">   <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">   <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>当程序执行到方法时，在 栈 中开辟一个新的 栈空间。该空间里储存 <code>n1 = 15</code> <code>n2 = 135</code>，之后计算并储存结果 <code>res = 150</code></li>
+<li>当方法执行完毕，或执行到 <code>return</code> 语句时，就会返回</li>
+<li>把 新栈空间 中的 <code>res = 150</code> 返回 main栈 中调用方法的地方</li>
+<li>返回后，继续执行该方法的后续代码</li>
+</ol>
+<h2 id="6-2-2-使用细节"><a href="#6-2-2-使用细节" class="headerlink" title="6.2.2 使用细节"></a>6.2.2 使用细节</h2><ol>
+<li>访问修饰符：作用是控制方法的使用范围。<ul>
+<li>不写（默认访问控制范围）</li>
+<li>public：公共</li>
+<li>protected：受保护</li>
+<li>private：私有</li>
+</ul>
+</li>
+<li>返回数据类型：<ul>
+<li>一个方法最多有一个返回值。要返回多个结果可以使用 数组。</li>
+<li>返回类型为任意类型。包括 基本数据类型 和 引用数据类型。</li>
+<li>如果方法要求有返回数据类型，则方法体中最后的执行语句必为 <code>return</code> 值，且返回类型必须和 <code>return</code> 的值一致。</li>
+<li>如果 返回数据类型 为 <code>void</code>，则可以不写 <code>return </code>语句</li>
+</ul>
+</li>
+<li>方法名：<ul>
+<li>遵循驼峰命名法，最好见名知意，表达出该功能的意思。</li>
+</ul>
+</li>
+<li>参数列表（形参列表）：<ul>
+<li>一个方法可以有 0 个参数，也可以有多个参数。参数间用 , 间隔。</li>
+<li>参数类型可以为任意类型，包含 基本类型 和 引用类型。</li>
+<li>调用带参数的方法时，一定对应着 参数列表 传入 相同类型 或 兼容类型 的参数。</li>
+<li>方法定义时的参数称为 形式参数 ，简称 形参；方法调用时的参数（传入的参数）称为 实际参数，简称 实参。实参 与 形参 的类型、个数、顺序必须一致。</li>
+</ul>
+</li>
+<li>方法体：<ul>
+<li>写完成功能的具体语句。方法中不能再定义方法。即：方法不能嵌套定义。</li>
+</ul>
+</li>
+<li>调用细节：<ul>
+<li>同一个类中的方法调用，可以直接调用。</li>
+<li>跨类的方法调用，需要创建新对象，然后再调用方法。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C1</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">   m1();					<span class="comment">//同一个类中的方法调用，可以直接调用。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C2</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">C1</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">C1</span>();</span><br><span class="line">   c.m2();					<span class="comment">//跨类的方法调用，需要创建新对象，然后再调用方法。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="6-2-3-成员方法传参机制"><a href="#6-2-3-成员方法传参机制" class="headerlink" title="6.2.3 成员方法传参机制"></a>6.2.3 成员方法传参机制</h2><p>Java 语言对对象采用的是 <strong>值传递</strong>，方法得到的总是那个传入对象的副本。</p>
+<ul>
+<li>方法不能修改基本数据类型的参数。基本数据类型传递的是一个值，形参不影响实参。</li>
+<li>方法可以改变对象参数的状态。引用类型传递的是一个地址，形参和实参指向一处，两者总会相关。但改变那个形参地址指向的场合，实参的指向不会改变。</li>
+</ul>
+<h1 id="6-3-方法递归调用"><a href="#6-3-方法递归调用" class="headerlink" title="6.3 方法递归调用"></a>6.3 方法递归调用</h1><blockquote>
+<p>递归：即方法自己调用自己，每次调用时传入不同变量。递归有助于编程者解决复杂问题，同时可以让代码变得简洁。</p>
+</blockquote>
+<blockquote>
+<p>下面，示范一个斐波那契数列方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">return</span> (fib(n - <span class="number">1</span>)) + (feb(n - <span class="number">2</span>));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-3-1-使用细节"><a href="#6-3-1-使用细节" class="headerlink" title="6.3.1 使用细节"></a>6.3.1 使用细节</h2><ol>
+<li>执行一个方法时，就创建一个新的受保护的独立 栈空间。</li>
+<li>方法的局部变量是独立的，不会相互影响。</li>
+<li>如果方法中使用的是引用变量，就会共享数据。</li>
+<li>递归必须向退出递归的条件逼近，否则就是无限递归，会提示 StackOverflowError “死龟”</li>
+<li>当一个方法执行完毕，或遇到 return 就会返回。遵守谁调用就返回给谁。同时当方法执行完毕或返回时，该方法也执行完毕。</li>
+</ol>
+<h1 id="6-4-方法重载"><a href="#6-4-方法重载" class="headerlink" title="6.4 方法重载"></a>6.4 方法重载</h1><blockquote>
+<p>方法重载（Overload）：Java 中允许同一类中，多个同名方法的存在，但要求 形参列表 不一致。这样，减轻了起名和记名的麻烦。</p>
+</blockquote>
+<p><strong>使用细节:</strong></p>
+<ol>
+<li>方法名：必须相同</li>
+<li>形参列表：必须不同（参数的类型、个数、顺序，这其中至少一个不同）</li>
+<li>返回值：无要求</li>
+</ol>
+<p><strong>签名：</strong><br>由于重载的存在，要完整的描述一个方法，要指定方法名及参数类型。这叫做方法的签名。<br>如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个方法的签名分别是：<code>act()</code> 和 <code>act(int n)</code></p>
+<h1 id="6-5-可变参数"><a href="#6-5-可变参数" class="headerlink" title="6.5 可变参数"></a>6.5 可变参数</h1><blockquote>
+<p>Java 允许将同一个类中多个同名同功能但参数个数不同的方法，封装成一个方法。</p>
+</blockquote>
+<p>语法：<code>访问修饰符 返回类型 方法名（数据类型... 形参名）&#123;代码块;&#125;</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">int</span>... n)</span>&#123;</span><br><span class="line">	<span class="comment">//此时，n 相当于一个 数组。</span></span><br><span class="line">	<span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> n.length;</span><br><span class="line">	<span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> n[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-5-1-使用细节"><a href="#6-5-1-使用细节" class="headerlink" title="6.5.1 使用细节"></a>6.5.1 使用细节</h2><ol>
+<li>可变参数 的实参可以是 0 个，也可以是 任意多 个。</li>
+<li>可变参数 的实参可以是数组</li>
+<li>可变参数 本质就是数组</li>
+</ol>
+<p>因此，出现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>... n)</span>&#123;				<span class="comment">//这个方法与下面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的场合，不能有方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>[] n)</span>&#123;				<span class="comment">//这个方法与上面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>可变参数 和 普通参数 可以一起放在形参列表，但必须保证 可变参数 在最后</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">double</span> dou, <span class="type">int</span>... n)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个形参列表最多出现 一个 可变参数。</p>
+</li>
+</ol>
+<h1 id="6-6-作用域"><a href="#6-6-作用域" class="headerlink" title="6.6 作用域"></a>6.6 作用域</h1><ol>
+<li>在 Java 编程中，主要的变量就是 属性（成员变量）和 局部变量。</li>
+<li>我们说的 局部变量 一般是指在成员方法中定义的变量。</li>
+<li>作用域的分类<ul>
+<li>全局变量：也就是 属性，作用域为整个类体</li>
+<li>局部变量：除了属性外的其他变量。作用域为定义它的代码块中</li>
+</ul>
+</li>
+<li>全局变量（属性）可以不赋值直接使用，那个场合有默认值。局部变量必须赋值使用</li>
+</ol>
+<h2 id="6-6-1-使用细节"><a href="#6-6-1-使用细节" class="headerlink" title="6.6.1 使用细节"></a>6.6.1 使用细节</h2><ol>
+<li>属性 和 局部变量 可以重名，访问时遵循就近原则</li>
+<li>在同一作用域中，两个局部变量不能重名</li>
+<li>属性 的生命周期较长。其伴随对象的创建而创建，伴随对象的销毁而销毁。局部变量 生命周期较短。其伴随代码块的执行而创建，伴随代码块的结束而销毁。</li>
+<li>全局变量&#x2F;属性 可以被本类使用，也可以被其他类（通过对象）使用。局部变量 只能被本类的对应方法中调用</li>
+<li>全局变量&#x2F;属性 <strong>可以加</strong> 修饰符局部变量 <strong>不能加</strong> 修饰符</li>
+</ol>
+<h1 id="6-7-构造方法、构造器"><a href="#6-7-构造方法、构造器" class="headerlink" title="6.7 构造方法、构造器"></a>6.7 构造方法、构造器</h1><blockquote>
+<p>构造方法又叫构造器（constructor），是类的一种特殊的方法。它的主要作用是完成对新对象的初始化。</p>
+</blockquote>
+<p>语法：<code>[修饰符] 方法名(形参列表)&#123;方法体&#125;</code></p>
+<ol>
+<li>构造器的修饰符可以是默认。也可以是别的</li>
+<li>参数列表 规则同 成员方法</li>
+</ol>
+<p>以下示范一个构造器：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> mun;</span><br><span class="line">    <span class="comment">//下面这块就是构造器</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">T</span><span class="params">(String str, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">		name = str;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-7-1-使用细节"><a href="#6-7-1-使用细节" class="headerlink" title="6.7.1 使用细节"></a>6.7.1 使用细节</h2><ol>
+<li>构造器本质也是方法。所以，可以 构造器重载。</li>
+<li>构造器名 和 类名 相同</li>
+<li>构造器无返回值</li>
+<li>构造器是完成对象的初始化，而不是创建</li>
+<li>创建对象时，系统自动调用构造器</li>
+<li>如果程序员没有定义构造器，系统会自动给类生成一个无参构造器（默认构造器）</li>
+<li>一旦定义了自己的构造器，就不能用无参构造器了。除非显式的定义一个无参构造器</li>
+</ol>
+<h2 id="6-7-2-流程分析"><a href="#6-7-2-流程分析" class="headerlink" title="6.7.2 流程分析"></a>6.7.2 流程分析</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Amy&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pName, <span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">		name = pName;</span><br><span class="line">		age = pAge;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>加载 类信息（方法区）</li>
+<li>在 <strong>堆</strong> 中开辟空间（地址）</li>
+<li>完成对象初始化<ul>
+<li>首先默认初始化。<code>age = 0;</code> <code>name = null</code></li>
+<li>之后显式初始化。<code>age = 20;</code> <code>name = null</code>其中，显式初始化和代码块初始化按编写的先后顺序依次进行。</li>
+<li>之后构造器的初始化。<code>age = 10; name = &quot;Amy&quot;</code></li>
+</ul>
+</li>
+<li>把对象在 <strong>堆</strong> 中的 <strong>地址</strong>，返回给 <code>p1</code></li>
+</ol>
+<h1 id="6-8-this关键字"><a href="#6-8-this关键字" class="headerlink" title="6.8 this关键字"></a>6.8 <code>this</code>关键字</h1><blockquote>
+<p>JVM 会给每个对象分配 this 代表当前对象。<br>相当于在 堆 中，this 指向自己（对象）<br>在类定义的方法中，Java 会自动用 this 关键字把所有变量和方法引用结合在一起。<br>遇到有同名的局部变量的场合，需要程序员加入 this 关键字进行区分。不加入 this 关键字的场合，Java 遵循就近原则。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个类的 <code>act()</code> 方法实际有 2 个参数。对其调用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Example</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exmaple</span>();</span><br><span class="line">e.act(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>可见，出现在方法名前的参数 e，以及出现在方法名后的括号中的参数 100<br>出现在方法名前的参数被称为 <strong>隐式参数</strong>（也称为 方法调用的 目标 或 接收者）<br>出现在方法名后的参数被称为 <strong>显式参数</strong>，就是所谓的实参<br>在每一个方法中，用 this 指代隐式参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，再以相同方式调用方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">e.act(<span class="number">100</span>);					<span class="comment">// &lt;———— 相当于 e.n = 100;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-8-1-使用方法"><a href="#6-8-1-使用方法" class="headerlink" title="6.8.1 使用方法"></a>6.8.1 使用方法</h2><ol>
+<li><code>this</code> 关键字可以用来访问本类的属性、方法、构造器</li>
+<li><code>this</code> 用于区分当前类的 属性 和 局部变量</li>
+<li>访问本类中成员方法的语法：<code>this.方法名</code></li>
+<li>访问构造器的语法：<code>this(参数列表);</code></li>
+<li>注意：只能在构造器中访问另一个构造器。而且，如果有这个语法，必须放置在第一条语句。</li>
+<li><code>this</code> 不能在类定义的 外部 使用，只能在类定义的 方法中 使用</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>7. 面向对象编程(中级)</title>
     <url>/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/</url>
     <content><![CDATA[<blockquote>
@@ -2997,264 +3921,6 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
-    <title>6. 面向对象编程(基础)</title>
-    <url>/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/</url>
-    <content><![CDATA[<blockquote>
-<p>面向对象是一种开发软件的方法，使分析、设计和实现一个系统的方法尽可能接近人们认识一个系统的方法。包括三个方面：面向对象分析、面向对象设计、面向对象程序设计。<br>Java 语言是纯面向对象的语言。其所有数据类型都有相应的类，程序可以完全基于对象编写。</p>
-</blockquote>
-<h1 id="6-1-类与对象-OOP"><a href="#6-1-类与对象-OOP" class="headerlink" title="6.1 类与对象(OOP)"></a>6.1 类与对象(OOP)</h1><blockquote>
-<p><code>类</code> 就是数据类型。可以是 <code>int</code> 也可以是 <code>人类</code><br><code>对象</code> 就是其中具体的实例。可以是 <code>100</code> 也可以是 <code>韩顺平</code><br>从 <code>类</code> 到 <code>对象</code>，可以称为 创建一个对象，也可以说 实例化一个对象，或者 把对象实例化</p>
-<ol>
-<li>类 是抽象的、概念的，代表一类事物</li>
-<li>对象 是具体的、实际的，代表一个个具体事物</li>
-<li>类 是 对象 的模板，对象 是 类 的一个个体，对应一个实例</li>
-</ol>
-</blockquote>
-<p>下面，我们定义了一个类 Cat 并创建了一些 对象 cat1 cat2：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_1</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat1.name = <span class="string">&quot;福福&quot;</span>;</span><br><span class="line">		cat1.age = <span class="number">2</span>;</span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat2.name = <span class="string">&quot;妞子&quot;</span>;</span><br><span class="line">		cat2.age = <span class="number">1</span>;</span><br><span class="line">		System.out.println(cat1.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-1-1-属性-x2F-成员变量"><a href="#6-1-1-属性-x2F-成员变量" class="headerlink" title="6.1.1 属性&#x2F;成员变量"></a>6.1.1 属性&#x2F;成员变量</h2><blockquote>
-<p>从概念或叫法上看：成员变量 &#x3D; 属性 &#x3D; field（字段）</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>String name; </code>就是一个成员变量（属性）。<br>属性可以是基本数据类型，也可以是引用数据类型。</p>
-<ol>
-<li>属性的定义语法同变量。访问修饰符 属性类型 属性名<ul>
-<li>访问修饰符：控制属性的访问范围。有四种：<code>publie</code> <code>protected</code> <code>默认(空) private</code></li>
-</ul>
-</li>
-<li>属性的定义类型可以为任意类型，包含 基本类型 或 引用类型</li>
-<li>属性如果不赋值，有默认值。</li>
-</ol>
-<h2 id="6-1-2-创建对象"><a href="#6-1-2-创建对象" class="headerlink" title="6.1.2 创建对象"></a>6.1.2 创建对象</h2><ul>
-<li><p><strong>先声明再创建</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Cat cat1;  				    <span class="comment">//声明对象cat1</span></span><br><span class="line">cat1 = <span class="keyword">new</span> <span class="title class_">Cat</span>();			<span class="comment">//创建对象</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>直接创建</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br></pre></td></tr></table></figure>
-<p>注意事项：</p>
-</li>
-</ul>
-<ol>
-<li>声明对象的场合，只是在内存中建立了一个引用。此时，该地址引用不指向任何内存空间。对象的引用，也被称为对象的句柄。</li>
-<li>使用 new 运算符创建对象实例时，会为对象分配空间，就会调用类的构造方法。那之后，会将该段内存的首地址赋给刚才建立的引用。</li>
-</ol>
-<h2 id="6-1-3-访问对象"><a href="#6-1-3-访问对象" class="headerlink" title="6.1.3 访问对象"></a>6.1.3 访问对象</h2><blockquote>
-<p><strong>基本语法</strong>：<code>对象名.属性名</code></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(cat1.name);</span><br></pre></td></tr></table></figure>
-<h2 id="6-1-4-类与对象的内存访问机制"><a href="#6-1-4-类与对象的内存访问机制" class="headerlink" title="6.1.4 类与对象的内存访问机制"></a>6.1.4 类与对象的内存访问机制</h2><blockquote>
-<p>栈：一般存放基本数据类型（局部变量）<br>堆：存放对象（如Cat cat1 &#x3D; new Cat()，是在这里开辟的空间）<br>方法区：常量池（常量，比如字符串），类加载信息</p>
-</blockquote>
-<ol>
-<li>创建对象时，先加载 类 信息，然后在 堆 中分配空间，栈 中的对象名被赋予指向那个空间的地址。</li>
-<li>之后进行指定初始化。该对象的 属性 中，是 基本数据类型 的直接记录在 堆 中；是 字符串 的记录一个地址，该地址指向 方法区，那里的常量池有该字符串。</li>
-</ol>
-<h1 id="6-2-成员方法"><a href="#6-2-成员方法" class="headerlink" title="6.2 成员方法"></a>6.2 成员方法</h1><p>在某些情况下，我们需要定义成员方法。比如 <code>Cat</code> 除了有属性（<code>name</code> <code>age</code>）外，还可以有一些行为比如玩耍。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">修饰符 返回数据类型 方法名(形参列表)&#123;</span><br><span class="line">	方法体语句;</span><br><span class="line">	returen 返回值;			<span class="comment">//返回数据类型是 void 的场合，return语句不是必须的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>方法名必须是一个合法的标识符</p>
-</li>
-<li><p>返回类型即返回值的类型。如果方法没有返回值，应声明为 void</p>
-</li>
-<li><p>修饰符段可以有几个不同的修饰符。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;哎咿呀~ 哎咿呀~&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>其中 public（访问修饰符）、static（static 关键字）、final（final 关键字）</p>
-</li>
-<li><p>参数列表是传递给方法的参数表。各个元素间以 , 分隔。每个元素由一个类型和一个标识符表示的参数组成。</p>
-</li>
-</ol>
-<p>特别地，<code>参数类型... 标识符</code> 这样的参数被称为可变参数</p>
-<ol start="5">
-<li>方法体是实际要执行的代码块。方法体一般用 return 作为方法的结束。</li>
-</ol>
-<p>使用 <code>成员方法</code>，能提高代码的复用性。而且能把实现的细节封装起来，供其他用户调用。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;				<span class="comment">//属性 name</span></span><br><span class="line">	<span class="type">int</span> age;					<span class="comment">//属性 age</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">()</span>&#123;		<span class="comment">//方法 speak()</span></span><br><span class="line">  		System.out.println(<span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ol>
-<li>方法写好后，不去调用就不会输出</li>
-<li>先创建对象，然后调用方法即可</li>
-</ol>
-</blockquote>
-<p>下面，展示一个含有成员方法的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">       cat1.speak(<span class="number">10</span>, <span class="number">15</span>);				<span class="comment">//调用 speak 方法，并且给 n1 = 10, n2 = 15</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);	<span class="comment">//调用 speak2 方法,返回值赋给 r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//(int n1, int n2)形参列表，当前有两个形参 n1,n2</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       System.out.println(<span class="string">&quot;喵~&quot;</span> + n1 + <span class="string">&quot; + &quot;</span> + n2 +<span class="string">&quot; 的值是：&quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//int 表示方法执行后，返回一个 int 值</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       <span class="keyword">return</span> res;						<span class="comment">//返回 res 的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-2-1-方法的调用机制"><a href="#6-2-1-方法的调用机制" class="headerlink" title="6.2.1 方法的调用机制"></a>6.2.1 方法的调用机制</h2><p>以前文代码为例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);		</span><br><span class="line">...</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	</span><br><span class="line">   <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">   <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>当程序执行到方法时，在 栈 中开辟一个新的 栈空间。该空间里储存 <code>n1 = 15</code> <code>n2 = 135</code>，之后计算并储存结果 <code>res = 150</code></li>
-<li>当方法执行完毕，或执行到 <code>return</code> 语句时，就会返回</li>
-<li>把 新栈空间 中的 <code>res = 150</code> 返回 main栈 中调用方法的地方</li>
-<li>返回后，继续执行该方法的后续代码</li>
-</ol>
-<h2 id="6-2-2-使用细节"><a href="#6-2-2-使用细节" class="headerlink" title="6.2.2 使用细节"></a>6.2.2 使用细节</h2><ol>
-<li>访问修饰符：作用是控制方法的使用范围。<ul>
-<li>不写（默认访问控制范围）</li>
-<li>public：公共</li>
-<li>protected：受保护</li>
-<li>private：私有</li>
-</ul>
-</li>
-<li>返回数据类型：<ul>
-<li>一个方法最多有一个返回值。要返回多个结果可以使用 数组。</li>
-<li>返回类型为任意类型。包括 基本数据类型 和 引用数据类型。</li>
-<li>如果方法要求有返回数据类型，则方法体中最后的执行语句必为 <code>return</code> 值，且返回类型必须和 <code>return</code> 的值一致。</li>
-<li>如果 返回数据类型 为 <code>void</code>，则可以不写 <code>return </code>语句</li>
-</ul>
-</li>
-<li>方法名：<ul>
-<li>遵循驼峰命名法，最好见名知意，表达出该功能的意思。</li>
-</ul>
-</li>
-<li>参数列表（形参列表）：<ul>
-<li>一个方法可以有 0 个参数，也可以有多个参数。参数间用 , 间隔。</li>
-<li>参数类型可以为任意类型，包含 基本类型 和 引用类型。</li>
-<li>调用带参数的方法时，一定对应着 参数列表 传入 相同类型 或 兼容类型 的参数。</li>
-<li>方法定义时的参数称为 形式参数 ，简称 形参；方法调用时的参数（传入的参数）称为 实际参数，简称 实参。实参 与 形参 的类型、个数、顺序必须一致。</li>
-</ul>
-</li>
-<li>方法体：<ul>
-<li>写完成功能的具体语句。方法中不能再定义方法。即：方法不能嵌套定义。</li>
-</ul>
-</li>
-<li>调用细节：<ul>
-<li>同一个类中的方法调用，可以直接调用。</li>
-<li>跨类的方法调用，需要创建新对象，然后再调用方法。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C1</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">   m1();					<span class="comment">//同一个类中的方法调用，可以直接调用。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C2</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">C1</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">C1</span>();</span><br><span class="line">   c.m2();					<span class="comment">//跨类的方法调用，需要创建新对象，然后再调用方法。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h2 id="6-2-3-成员方法传参机制"><a href="#6-2-3-成员方法传参机制" class="headerlink" title="6.2.3 成员方法传参机制"></a>6.2.3 成员方法传参机制</h2><p>Java 语言对对象采用的是 <strong>值传递</strong>，方法得到的总是那个传入对象的副本。</p>
-<ul>
-<li>方法不能修改基本数据类型的参数。基本数据类型传递的是一个值，形参不影响实参。</li>
-<li>方法可以改变对象参数的状态。引用类型传递的是一个地址，形参和实参指向一处，两者总会相关。但改变那个形参地址指向的场合，实参的指向不会改变。</li>
-</ul>
-<h1 id="6-3-方法递归调用"><a href="#6-3-方法递归调用" class="headerlink" title="6.3 方法递归调用"></a>6.3 方法递归调用</h1><blockquote>
-<p>递归：即方法自己调用自己，每次调用时传入不同变量。递归有助于编程者解决复杂问题，同时可以让代码变得简洁。</p>
-</blockquote>
-<blockquote>
-<p>下面，示范一个斐波那契数列方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">return</span> (fib(n - <span class="number">1</span>)) + (feb(n - <span class="number">2</span>));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-3-1-使用细节"><a href="#6-3-1-使用细节" class="headerlink" title="6.3.1 使用细节"></a>6.3.1 使用细节</h2><ol>
-<li>执行一个方法时，就创建一个新的受保护的独立 栈空间。</li>
-<li>方法的局部变量是独立的，不会相互影响。</li>
-<li>如果方法中使用的是引用变量，就会共享数据。</li>
-<li>递归必须向退出递归的条件逼近，否则就是无限递归，会提示 StackOverflowError “死龟”</li>
-<li>当一个方法执行完毕，或遇到 return 就会返回。遵守谁调用就返回给谁。同时当方法执行完毕或返回时，该方法也执行完毕。</li>
-</ol>
-<h1 id="6-4-方法重载"><a href="#6-4-方法重载" class="headerlink" title="6.4 方法重载"></a>6.4 方法重载</h1><blockquote>
-<p>方法重载（Overload）：Java 中允许同一类中，多个同名方法的存在，但要求 形参列表 不一致。这样，减轻了起名和记名的麻烦。</p>
-</blockquote>
-<p><strong>使用细节:</strong></p>
-<ol>
-<li>方法名：必须相同</li>
-<li>形参列表：必须不同（参数的类型、个数、顺序，这其中至少一个不同）</li>
-<li>返回值：无要求</li>
-</ol>
-<p><strong>签名：</strong><br>由于重载的存在，要完整的描述一个方法，要指定方法名及参数类型。这叫做方法的签名。<br>如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两个方法的签名分别是：<code>act()</code> 和 <code>act(int n)</code></p>
-<h1 id="6-5-可变参数"><a href="#6-5-可变参数" class="headerlink" title="6.5 可变参数"></a>6.5 可变参数</h1><blockquote>
-<p>Java 允许将同一个类中多个同名同功能但参数个数不同的方法，封装成一个方法。</p>
-</blockquote>
-<p>语法：<code>访问修饰符 返回类型 方法名（数据类型... 形参名）&#123;代码块;&#125;</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">int</span>... n)</span>&#123;</span><br><span class="line">	<span class="comment">//此时，n 相当于一个 数组。</span></span><br><span class="line">	<span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> n.length;</span><br><span class="line">	<span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> n[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-5-1-使用细节"><a href="#6-5-1-使用细节" class="headerlink" title="6.5.1 使用细节"></a>6.5.1 使用细节</h2><ol>
-<li>可变参数 的实参可以是 0 个，也可以是 任意多 个。</li>
-<li>可变参数 的实参可以是数组</li>
-<li>可变参数 本质就是数组</li>
-</ol>
-<p>因此，出现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>... n)</span>&#123;				<span class="comment">//这个方法与下面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>的场合，不能有方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>[] n)</span>&#123;				<span class="comment">//这个方法与上面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>可变参数 和 普通参数 可以一起放在形参列表，但必须保证 可变参数 在最后</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">double</span> dou, <span class="type">int</span>... n)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个形参列表最多出现 一个 可变参数。</p>
-</li>
-</ol>
-<h1 id="6-6-作用域"><a href="#6-6-作用域" class="headerlink" title="6.6 作用域"></a>6.6 作用域</h1><ol>
-<li>在 Java 编程中，主要的变量就是 属性（成员变量）和 局部变量。</li>
-<li>我们说的 局部变量 一般是指在成员方法中定义的变量。</li>
-<li>作用域的分类<ul>
-<li>全局变量：也就是 属性，作用域为整个类体</li>
-<li>局部变量：除了属性外的其他变量。作用域为定义它的代码块中</li>
-</ul>
-</li>
-<li>全局变量（属性）可以不赋值直接使用，那个场合有默认值。局部变量必须赋值使用</li>
-</ol>
-<h2 id="6-6-1-使用细节"><a href="#6-6-1-使用细节" class="headerlink" title="6.6.1 使用细节"></a>6.6.1 使用细节</h2><ol>
-<li>属性 和 局部变量 可以重名，访问时遵循就近原则</li>
-<li>在同一作用域中，两个局部变量不能重名</li>
-<li>属性 的生命周期较长。其伴随对象的创建而创建，伴随对象的销毁而销毁。局部变量 生命周期较短。其伴随代码块的执行而创建，伴随代码块的结束而销毁。</li>
-<li>全局变量&#x2F;属性 可以被本类使用，也可以被其他类（通过对象）使用。局部变量 只能被本类的对应方法中调用</li>
-<li>全局变量&#x2F;属性 <strong>可以加</strong> 修饰符局部变量 <strong>不能加</strong> 修饰符</li>
-</ol>
-<h1 id="6-7-构造方法、构造器"><a href="#6-7-构造方法、构造器" class="headerlink" title="6.7 构造方法、构造器"></a>6.7 构造方法、构造器</h1><blockquote>
-<p>构造方法又叫构造器（constructor），是类的一种特殊的方法。它的主要作用是完成对新对象的初始化。</p>
-</blockquote>
-<p>语法：<code>[修饰符] 方法名(形参列表)&#123;方法体&#125;</code></p>
-<ol>
-<li>构造器的修饰符可以是默认。也可以是别的</li>
-<li>参数列表 规则同 成员方法</li>
-</ol>
-<p>以下示范一个构造器：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> mun;</span><br><span class="line">    <span class="comment">//下面这块就是构造器</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">T</span><span class="params">(String str, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">		name = str;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-7-1-使用细节"><a href="#6-7-1-使用细节" class="headerlink" title="6.7.1 使用细节"></a>6.7.1 使用细节</h2><ol>
-<li>构造器本质也是方法。所以，可以 构造器重载。</li>
-<li>构造器名 和 类名 相同</li>
-<li>构造器无返回值</li>
-<li>构造器是完成对象的初始化，而不是创建</li>
-<li>创建对象时，系统自动调用构造器</li>
-<li>如果程序员没有定义构造器，系统会自动给类生成一个无参构造器（默认构造器）</li>
-<li>一旦定义了自己的构造器，就不能用无参构造器了。除非显式的定义一个无参构造器</li>
-</ol>
-<h2 id="6-7-2-流程分析"><a href="#6-7-2-流程分析" class="headerlink" title="6.7.2 流程分析"></a>6.7.2 流程分析</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Amy&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pName, <span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">		name = pName;</span><br><span class="line">		age = pAge;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>加载 类信息（方法区）</li>
-<li>在 <strong>堆</strong> 中开辟空间（地址）</li>
-<li>完成对象初始化<ul>
-<li>首先默认初始化。<code>age = 0;</code> <code>name = null</code></li>
-<li>之后显式初始化。<code>age = 20;</code> <code>name = null</code>其中，显式初始化和代码块初始化按编写的先后顺序依次进行。</li>
-<li>之后构造器的初始化。<code>age = 10; name = &quot;Amy&quot;</code></li>
-</ul>
-</li>
-<li>把对象在 <strong>堆</strong> 中的 <strong>地址</strong>，返回给 <code>p1</code></li>
-</ol>
-<h1 id="6-8-this关键字"><a href="#6-8-this关键字" class="headerlink" title="6.8 this关键字"></a>6.8 <code>this</code>关键字</h1><blockquote>
-<p>JVM 会给每个对象分配 this 代表当前对象。<br>相当于在 堆 中，this 指向自己（对象）<br>在类定义的方法中，Java 会自动用 this 关键字把所有变量和方法引用结合在一起。<br>遇到有同名的局部变量的场合，需要程序员加入 this 关键字进行区分。不加入 this 关键字的场合，Java 遵循就近原则。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面这个类的 <code>act()</code> 方法实际有 2 个参数。对其调用：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Example</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exmaple</span>();</span><br><span class="line">e.act(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-<p>可见，出现在方法名前的参数 e，以及出现在方法名后的括号中的参数 100<br>出现在方法名前的参数被称为 <strong>隐式参数</strong>（也称为 方法调用的 目标 或 接收者）<br>出现在方法名后的参数被称为 <strong>显式参数</strong>，就是所谓的实参<br>在每一个方法中，用 this 指代隐式参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时，再以相同方式调用方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">e.act(<span class="number">100</span>);					<span class="comment">// &lt;———— 相当于 e.n = 100;</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-8-1-使用方法"><a href="#6-8-1-使用方法" class="headerlink" title="6.8.1 使用方法"></a>6.8.1 使用方法</h2><ol>
-<li><code>this</code> 关键字可以用来访问本类的属性、方法、构造器</li>
-<li><code>this</code> 用于区分当前类的 属性 和 局部变量</li>
-<li>访问本类中成员方法的语法：<code>this.方法名</code></li>
-<li>访问构造器的语法：<code>this(参数列表);</code></li>
-<li>注意：只能在构造器中访问另一个构造器。而且，如果有这个语法，必须放置在第一条语句。</li>
-<li><code>this</code> 不能在类定义的 外部 使用，只能在类定义的 方法中 使用</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>8. 房屋出租系统</title>
     <url>/2022/09/11/JavaSE/8.%20%E9%A1%B9%E7%9B%AE%EF%BC%9A%E6%88%BF%E5%B1%8B%E5%87%BA%E7%A7%9F%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<blockquote>
@@ -3568,685 +4234,6 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
         <tag>Java 学习</tag>
         <tag>JavaSE</tag>
         <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1. JavaEE 介绍</title>
-    <url>/2022/09/12/JavaEE/1.%20JavaEE%20%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<h1 id="1-什么是JavaEE"><a href="#1-什么是JavaEE" class="headerlink" title="1. 什么是JavaEE"></a>1. 什么是JavaEE</h1><p>Java 包括三大板块,分别为JavaSE JavaEE JavaME 其中JavaSE为Java标准版,是别人写好的一套类库,只不过这个类库是标准类库,不管是今后学习JavaME还是JavaEE,JavaSE一定是基础,必须要先行学习,而JavaME是Java微型版,主要用于机顶盒内核程序，吸尘器内核程序，电冰箱内核程序，电饭煲内核程序,JavaEE是Java企业版,也是别人写好的一套类库，只不过这套类库可以帮助我们完成企业级项目的开发，专门为企业内部提供解决方案的一套（多套）类库。<strong>Java比较火爆的就是这个JavaEE方向。</strong></p>
-<h1 id="2-关于JavaEE的版本"><a href="#2-关于JavaEE的版本" class="headerlink" title="2. 关于JavaEE的版本"></a>2. 关于JavaEE的版本</h1><ul>
-<li>JavaEE目前最高版本是 JavaEE8</li>
-<li>JavaEE被Oracle捐献了，Oracle将JavaEE规范捐献给Apache了。</li>
-<li>Apache把JavaEE换名了，以后不叫JavaEE了，以后叫做 jakarta EE。</li>
-<li>以后没有JavaEE了。以后都叫做Jakarta EE。</li>
-<li>JavaEE8版本升级之后的”JavaEE 9”，不再是”JavaEE9”这个名字了，叫做JakartaEE9</li>
-<li>JavaEE8的时候对应的Servlet类名是：javax.servlet.Servlet</li>
-<li>JakartaEE9的时候对应的Servlet类名是：jakarta.servlet.Servlet （包名都换了）</li>
-<li>如果你之前的项目还是在使用javax.servlet.Servlet，那么你的项目无法直接部署到Tomcat10+版本上。你只能部署到Tomcat9-版本上。在Tomcat9以及Tomcat9之前的版本中还是能够识别javax.servlet这个包。</li>
-</ul>
-<h1 id="3-关于系统架构"><a href="#3-关于系统架构" class="headerlink" title="3. 关于系统架构"></a>3. 关于系统架构</h1><p>系统架构包括什么形式？</p>
-<ul>
-<li>C&#x2F;S架构</li>
-<li>B&#x2F;S架构</li>
-</ul>
-<p>C&#x2F;S架构</p>
-<ul>
-<li>Client &#x2F; Server（客户端 &#x2F; 服务器）</li>
-</ul>
-<p>B&#x2F;S架构</p>
-<ul>
-<li>B&#x2F;S（Browser &#x2F; Server，浏览器 &#x2F; 服务器）</li>
-</ul>
-<h1 id="4-IDEA创建开发JavaWeb程序"><a href="#4-IDEA创建开发JavaWeb程序" class="headerlink" title="4. IDEA创建开发JavaWeb程序"></a>4. IDEA创建开发JavaWeb程序</h1><ul>
-<li><p>集成开发工具很多，其中目前使用比较多的是：</p>
-<ul>
-<li>IntelliJ IDEA（这个居多，IDEA在提示功能方面要强于Eclipse，也就是说IDEA使用起来比Eclipse更加智能，更好用。JetBrain公司开发的。收费的。）</li>
-<li>Eclipse（这个少一些），Eclipse目前还是有团队使用，只不过处于减少的趋势，自己从事工作之后，可能会遇到。Eclipse是IBM团队开发的。Eclipse寓意是“日食”。“日食”表示将太阳吃掉。太阳是SUN。IBM团队开发Eclipse的寓意是吞并SUN公司，但是2009年的时候SUN公司被Oracle公司并购了。IBM并没有成功并购SUN公司。</li>
-</ul>
-</li>
-<li><p>使用IDEA集成开发工具开发Servlet</p>
-<ul>
-<li>第一步：New Project（我比较习惯先创建一个Empty Project【空工程】，然后在空工程下新建Module【模块】，这不是必须的，只是一种习惯，你可以直接新建非空的Project），这个Empty Project起名为：javaweb（不是必须的，只是一个名字而已。一般情况下新建的Project的名字最好和目录的名字一致。）</li>
-<li>第二步：新建模块（File –&gt; new –&gt; Module…）<ul>
-<li>这里新建的是一个普通的JavaSE模块（这里先不要新建Java Enterprise模块）</li>
-<li>这个Module自动会被放在javaweb的project下面。</li>
-<li>这个Module起名：servlet01</li>
-</ul>
-</li>
-<li>第三步：让Module变成JavaEE的模块。（让Module变成webapp的模块。符合webapp规范。符合Servlet规范的Module）<ul>
-<li>在Module上点击右键：Add Framework Support…（添加框架支持）</li>
-<li>在弹出的窗口中，选择Web Application（选择的是webapp的支持）</li>
-<li>选择了这个webapp的支持之后，IDEA会自动给你生成一个符合Servlet规范的webpp目录结构。</li>
-<li><strong>重点，需要注意的：在IDEA工具中根据Web Application模板生成的目录中有一个web目录，这个目录就代表webapp的根</strong></li>
-</ul>
-</li>
-<li>第四步（非必须）：根据Web Application生成的资源中有index.jsp文件，这里我选择删除这个index.jsp文件。</li>
-<li>第五步：编写Servlet（StudentServlet）<ul>
-<li>class StudentServlet implements Servlet</li>
-<li>这个时候发现Servlet.class文件没有。怎么办？将CATALINA_HOME&#x2F;lib&#x2F;servlet-api.jar和jsp-api.jar添加到classpath当中（这里的classpath说的是IDEA的classpath）<ul>
-<li>File –&gt; Project Structrue –&gt; Modules –&gt; + 加号 –&gt; Add JARS….</li>
-</ul>
-</li>
-<li>实现jakarta.servlet.Servlet接口中的5个方法。</li>
-</ul>
-</li>
-<li>第六步：在Servlet当中的service方法中编写业务代码（我们这里连接数据库了。）</li>
-<li>第七步：在WEB-INF目录下新建了一个子目录：lib（这个目录名可不能随意，必须是全部小写的lib），并且将连接数据库的驱动jar包放到lib目录下。</li>
-<li>第八步：在web.xml文件中完成StudentServlet类的注册。（请求路径和Servlet之间对应起来）</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;web-app xmlns=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span><br><span class="line">         xmlns:xsi=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span><br><span class="line">         version=<span class="string">&quot;4.0&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;studentServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;com.bjpowernode.javaweb.servlet.StudentServlet&lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;studentServlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/servlet/student&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">    </span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
-
-<p>第九步：给一个html页面，在HTML页面中编写一个超链接，用户点击这个超链接，发送请求，Tomcat执行后台的StudentServlet。</p>
-<ul>
-<li><p>student.html</p>
-</li>
-<li><p>这个文件不能放到WEB-INF目录里面，只能放到WEB-INF目录外面。</p>
-</li>
-<li><p>student.html文件的内容</p>
-</li>
-<li><pre><code class="html">  &lt;!DOCTYPE html&gt;
-  &lt;html lang=&quot;en&quot;&gt;
-  &lt;head&gt;
-      &lt;meta charset=&quot;UTF-8&quot;&gt;
-      &lt;title&gt;student page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-      &lt;!--这里的项目名是 /xmm ，无法动态获取，先写死--&gt;
-      &lt;a href=&quot;/xmm/servlet/student&quot;&gt;student list&lt;/a&gt;
-  &lt;/body&gt;
-  &lt;/html&gt;
-</code></pre>
-</li>
-<li><p>第十步：让IDEA工具去关联Tomcat服务器。关联的过程当中将webapp部署到Tomcat服务器当中。</p>
-<ul>
-<li>IDEA工具右上角，绿色小锤子右边有一个：Add Configuration</li>
-<li>左上角加号，点击Tomcat Server –&gt; local</li>
-<li>在弹出的界面中设置服务器Server的参数（基本上不用动）</li>
-<li>在当前窗口中有一个Deployment（点击这个用来部署webapp），继续点击加号，部署即可。</li>
-<li>修改 Application context为：&#x2F;xmm</li>
-</ul>
-</li>
-<li><p>第十一步：启动Tomcat服务器</p>
-<ul>
-<li>在右上角有绿色的箭头，或者绿色的小虫子，点击这个绿色的小虫子，可以采用debug的模式启动Tomcat服务器。</li>
-<li>我们开发中建议适用debug模式启动Tomcat</li>
-</ul>
-</li>
-<li><p>第十二步：打开浏览器，在浏览器地址栏上输入：<a href="http://localhost:8080/xmm/student.html">http://localhost:8080/xmm/student.html</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2. Servlet的生命周期</title>
-    <url>/2022/09/12/JavaEE/2.%20Servlet%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/</url>
-    <content><![CDATA[<h1 id="1-什么是Servlet的生命周期"><a href="#1-什么是Servlet的生命周期" class="headerlink" title="1. 什么是Servlet的生命周期"></a>1. 什么是Servlet的生命周期</h1><ul>
-<li>Servlet对象什么时候被创建。</li>
-<li>Servlet对象什么时候被销毁。</li>
-<li>Servlet对象创建了几个？</li>
-<li>Servlet对象的生命周期表示：一个Servlet对象从出生在最后的死亡，整个过程是怎样的。</li>
-</ul>
-<h1 id="2-Servlet对象是由谁来维护的"><a href="#2-Servlet对象是由谁来维护的" class="headerlink" title="2. Servlet对象是由谁来维护的"></a>2. Servlet对象是由谁来维护的</h1><ul>
-<li>Servlet对象的创建，对象上方法的调用，对象最终的销毁，Javaweb程序员是无权干预的。</li>
-<li>Servlet对象的生命周期是由Tomcat服务器（WEB Server）全权负责的。</li>
-<li>Tomcat服务器通常我们又称为：WEB容器。（这个叫法你要知道【WEB Container】）</li>
-<li>WEB容器来管理Servlet对象的死活。</li>
-</ul>
-<h1 id="3-Servlet-接口的方法详解"><a href="#3-Servlet-接口的方法详解" class="headerlink" title="3. Servlet 接口的方法详解"></a>3. Servlet 接口的方法详解</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jakarta.servlet.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 无参构造方法,只会执行一次</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DemoServlet</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// init方法 只会执行一次</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ServletConfig servletConfig)</span> <span class="keyword">throws</span> ServletException &#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// destroy方法 只会执行一次</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getServletInfo</span><span class="params">()</span> &#123;<span class="keyword">return</span> <span class="literal">null</span>;&#125;</span><br><span class="line"> 	<span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> ServletConfig <span class="title function_">getServletConfig</span><span class="params">()</span> &#123;<span class="keyword">return</span> <span class="literal">null</span>;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>在用户第一次发送请求的时候, 便会实例化Servlet,执行无参数的构造方法</p>
-</li>
-<li><p>在实例化对象被创建出来之后便会执行对象中的init方法,且只会调用这一次(init 方法在执行的时候,对象已经存在了)</p>
-</li>
-<li><p>用户在发送请求的时候,init方法执行之后,Tomcat服务器会马上执行service方法(之后的第二次第三次第四次…请求会只执行servlet方法) <strong>这说明:</strong></p>
-<ul>
-<li>第一：Servlet对象是单例的（单实例的。但是要注意：Servlet对象是单实例的，但是Servlet类并不符合单例模式。我们称之为假单例。之所以单例是因为Servlet对象的创建我们javaweb程序员管不着，这个对象的创建只能是Tomcat来说了算，Tomcat只创建了一个，所以导致了单例，但是属于假单例。真单例模式，构造方法是私有化的。）</li>
-<li>第二：无参数构造方法、init方法只在第一次用户发送请求的时候执行。也就是说无参数构造方法只执行一次。init方法也只被Tomcat服务器调用一次。</li>
-<li>第三：只要用户发送一次请求：service方法必然会被Tomcat服务器调用一次。发送100次请求，service方法会被调用100次。</li>
-</ul>
-</li>
-<li><p>用户在关闭服务器的时候,会执行destroy方法,且在执行destory方法时,对象还在,执行过后再销毁对象</p>
-</li>
-<li><p>Servlet对象更像一个人的一生：</p>
-<ul>
-<li>Servlet的无参数构造方法执行：标志着你出生了。</li>
-<li>Servlet对象的init方法的执行：标志着你正在接受教育。</li>
-<li>Servlet对象的service方法的执行：标志着你已经开始工作了，已经开始为人类提供服务了。</li>
-<li>Servlet对象的destroy方法的执行：标志着临终。有什么遗言，抓紧的。要不然，来不及了。</li>
-</ul>
-</li>
-</ul>
-<p><strong>关于Servlet类中方法的调用次数？</strong></p>
-<ul>
-<li>构造方法只执行一次。</li>
-<li>init方法只执行一次。</li>
-<li>service方法：用户发送一次请求则执行一次，发送N次请求则执行N次。</li>
-<li>destroy方法只执行一次。</li>
-</ul>
-<p><strong>当我们Servlet类中编写一个有参数的构造方法，如果没有手动编写无参数构造方法会出现什么问题？</strong></p>
-<ul>
-<li>报错了：500错误。</li>
-<li>注意：500是一个HTTP协议的错误状态码。</li>
-<li>500一般情况下是因为服务器端的Java程序出现了异常。（服务器端的错误都是500错误：服务器内部错误。）</li>
-<li>如果没有无参数的构造方法，会导致出现500错误，无法实例化Servlet对象。</li>
-<li>所以，一定要注意：在Servlet开发当中，不建议程序员来定义构造方法，因为定义不当，一不小心就会导致无法实例化Servlet对象。</li>
-</ul>
-<p><strong>思考：Servlet的无参数构造方法是在对象第一次创建的时候执行，并且只执行一次。init方法也是在对象第一次创建的时候执行，并且只执行一次。那么这个无参数构造方法可以代替掉init方法吗？</strong></p>
-<ul>
-<li>不能。</li>
-<li>Servlet规范中有要求，作为javaweb程序员，编写Servlet类的时候，不建议手动编写构造方法，因为编写构造方法，很容易让无参数构造方法消失，这个操作可能会导致Servlet对象无法实例化。所以init方法是有存在的必要的。</li>
-</ul>
-<p><strong>init、service、destroy方法中使用最多的是哪个方法？</strong></p>
-<ul>
-<li>使用最多就是service方法，service方法是一定要实现的，因为service方法是处理用户请求的核心方法。</li>
-<li>什么时候使用init方法呢？<ul>
-<li>init方法很少用。</li>
-<li>通常在init方法当中做初始化操作，并且这个初始化操作只需要执行一次。例如：初始化数据库连接池，初始化线程池….</li>
-</ul>
-</li>
-<li>什么时候使用destroy方法呢？<ul>
-<li>destroy方法也很少用。</li>
-<li>通常在destroy方法当中，进行资源的关闭。马上对象要被销毁了，还有什么没有关闭的，抓紧时间关闭资源。还有什么资源没保存的，抓紧时间保存一下。</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3. GenericServlet 源码解析</title>
-    <url>/2022/09/12/JavaEE/3.%20GenericServlet%20%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="1-为什么会出现-GenericServlet"><a href="#1-为什么会出现-GenericServlet" class="headerlink" title="1. 为什么会出现 GenericServlet"></a>1. 为什么会出现 GenericServlet</h1><p>在我们编写JavaEE程序中,每一个Servlet类都需要直接实现Servlet接口,这样我们就不许实现所有的接口方法,但是其大部分情况下我们只需要使用service方法,对于其他方法是不需要的,就会显得代码过于丑陋,所以就有了 GenericServlet。</p>
-<p><strong>GenericServlet 是用来干什么的?</strong></p>
-<p>为了使得每个业务都可以只实现所需要的方法,就需要GenericServlet从中间适配,就比如手机直接插到220V的电压上，手机直接就报废了。怎么办？可以找一个充电器。这个充电器就是一个适配器。手机连接适配器。适配器连接220V的电压。这样问题就解决了。</p>
-<h1 id="2-如何编写GenericServlet"><a href="#2-如何编写GenericServlet" class="headerlink" title="2. 如何编写GenericServlet"></a>2. 如何编写GenericServlet</h1><p><strong>GenericServlet 的实现过程</strong></p>
-<p>编写一个GenericServlet类，这个类是一个抽象类，其中有一个抽象方法service。</p>
-<ul>
-<li>GenericServlet实现Servlet接口。</li>
-<li>GenericServlet是一个适配器。</li>
-<li>以后编写的所有Servlet类继承GenericServlet，重写service方法即可。</li>
-</ul>
-<p><strong>GenericServlet 改造</strong></p>
-<ul>
-<li><p>思考第一个问题：我提供了一个GenericServlet之后，init方法还会执行吗？</p>
-<ul>
-<li>还会执行。会执行GenericServlet类中的init方法。</li>
-</ul>
-</li>
-<li><p>思考第二个问题：init方法是谁调用的？</p>
-<ul>
-<li>Tomcat服务器调用的。</li>
-</ul>
-</li>
-<li><p>思考第三个问题：init方法中的ServletConfig对象是谁创建的？是谁传过来的？</p>
-<ul>
-<li>都是Tomcat干的。</li>
-<li>Tomcat服务器先创建了ServletConfig对象，然后调用init方法，将ServletConfig对象传给了init方法。</li>
-</ul>
-</li>
-<li><p>思考一下Tomcat服务器伪代码：</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Tomcat</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">// .....</span></span><br><span class="line">        <span class="comment">// Tomcat服务器伪代码</span></span><br><span class="line">        <span class="comment">// 创建LoginServlet对象（通过反射机制，调用无参数构造方法来实例化LoginServlet对象）</span></span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;com.bjpowernode.javaweb.servlet.LoginServlet&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> clazz.newInstance();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 向下转型</span></span><br><span class="line">        <span class="type">Servlet</span> <span class="variable">servlet</span> <span class="operator">=</span> (Servlet)obj;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建ServletConfig对象</span></span><br><span class="line">        <span class="comment">// Tomcat服务器负责将ServletConfig对象实例化出来。</span></span><br><span class="line">        <span class="comment">// 多态（Tomcat服务器完全实现了Servlet规范）</span></span><br><span class="line">        <span class="type">ServletConfig</span> <span class="variable">servletConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">org</span>.apache.catalina.core.StandardWrapperFacade();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的init方法</span></span><br><span class="line">        servlet.init(servletConfig);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 调用Servlet的service方法</span></span><br><span class="line">        <span class="comment">// ....</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对此改造GenericServlet:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"><span class="keyword">import</span> java.util.Enumeration;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span>, ServletConfig, Serializable &#123;</span><br><span class="line">    <span class="comment">// 将 ServletConfig 设置为成员变量,方便其其他方法和子类调用</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> ServletConfig config;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">GenericServlet</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">destroy</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getInitParameter(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletConfig <span class="title function_">getServletConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.config;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ServletContext <span class="title function_">getServletContext</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.getServletConfig().getServletContext();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getServletInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化 init 将 Tomcat 所实例化的 config 传递给 成员变量 config</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">        <span class="built_in">this</span>.config = config;</span><br><span class="line">        <span class="built_in">this</span>.init(); <span class="comment">// (重点!!!) 调用下面公开的init方法,给子类重写</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个公开的 init() 方法,可以允许子类重写这个方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest var1, ServletResponse var2)</span> <span class="keyword">throws</span> ServletException, IOException;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意 :</strong>  GenericServlet 方法已经被 jakarta 实现,不需要我们自己手写,并且Oracle 已经为 GenericServlet 实现了更好的子类,我们可能在使用过程中直接调用那些子类。</p>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>4. ServletConfig与ServletContext详解</title>
-    <url>/2022/09/13/JavaEE/4.%20ServletConfig%E4%B8%8EServletContext%E8%AF%A6%E8%A7%A3/</url>
-    <content><![CDATA[<h1 id="1-ServletConfig"><a href="#1-ServletConfig" class="headerlink" title="1. ServletConfig"></a>1. ServletConfig</h1><p><strong>什么是ServletConfig?</strong></p>
-<p>ServletConfig是指当前servlet在web.xml文件中的配置信息。ServletConfig对象中封装了<servlet></servlet>标签中的配置信息。（web.xml文件中servlet的配置信息）</p>
-<ul>
-<li><p>一个Servlet对应一个ServletConfig对象。100个Servlet对象则对应100个ServletConfig对象。</p>
-</li>
-<li><p>Servlet对象是Tomcat服务器创建，并且ServletConfig对象也是Tomcat服务器创建。并且默认情况下，他们都是在用户发送第一次请求的时候创建。</p>
-</li>
-<li><p>Tomcat服务器调用Servlet对象的init方法的时候需要传一个ServletConfig对象的参数给init方法。</p>
-</li>
-<li><p>ServletConfig接口的实现类是Tomcat服务器给实现的。（Tomcat服务器说的就是WEB服务器。）</p>
-</li>
-</ul>
-<p><strong>ServletConfig接口有哪些常用的方法？</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span>; <span class="comment">// 通过初始化参数的name获取value</span></span><br><span class="line"><span class="keyword">public</span> Enumeration&lt;String&gt; <span class="title function_">getInitParameterNames</span><span class="params">()</span>; <span class="comment">// 获取所有的初始化参数的name</span></span><br><span class="line"><span class="keyword">public</span> ServletContext <span class="title function_">getServletContext</span><span class="params">()</span>; <span class="comment">// 获取ServletContext对象</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getServletName</span><span class="params">()</span>; <span class="comment">// 获取Servlet的name</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong></p>
-<p>以上方法在Servlet类当中，都可以使用this去调用。因为GenericServlet实现了ServletConfig接口。</p>
-<h1 id="2-ServletContext"><a href="#2-ServletContext" class="headerlink" title="2. ServletContext"></a>2. ServletContext</h1><p><strong>什么是ServletContext?</strong></p>
-<p>Tomcat服务器中有一个webapps，这个webapps下可以存放webapp，可以存放多个webapp，假设有100个webapp，那么就有100个ServletContext对象。但是，总之，一个应用，一个webapp肯定是只有一个ServletContext对象。ServletContext被称为Servlet上下文对象。（Servlet对象的四周环境对象。）一个ServletContext对象通常对应的是一个web.xml文件。</p>
-<ul>
-<li><p>只要在同一个webapp当中，只要在同一个应用当中，所有的Servlet对象都是共享同一个ServletContext对象的。</p>
-</li>
-<li><p>ServletContext对象在服务器启动阶段创建，在服务器关闭的时候销毁。这就是ServletContext对象的生命周期。ServletContext对象是应用级对象。</p>
-</li>
-<li><p>ServletContext对应显示生活中的什么例子呢？</p>
-<ul>
-<li>一个教室里有多个学生，那么每一个学生就是一个Servlet，这些学生都在同一个教室当中，那么我们可以把这个教室叫做ServletContext对象。那么也就是说放在这个ServletContext对象（环境）当中的数据，在同一个教室当中，物品都是共享的。比如：教室中有一个空调，所有的学生都可以操作。可见，空调是共享的。因为空调放在教室当中。教室就是ServletContext对象。</li>
-</ul>
-</li>
-<li><p>ServletContext是一个接口，Tomcat服务器对ServletContext接口进行了实现。</p>
-<ul>
-<li>ServletContext对象的创建也是Tomcat服务器来完成的。启动webapp的时候创建的。</li>
-</ul>
-</li>
-</ul>
-<p><strong>ServletContext接口中的常用方法</strong></p>
-<ul>
-<li><strong>getInitParameter() 和 getInitParameterNames()</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getInitParameter</span><span class="params">(String name)</span>; <span class="comment">// 通过初始化参数的name获取value</span></span><br><span class="line"><span class="keyword">public</span> Enumeration&lt;String&gt; <span class="title function_">getInitParameterNames</span><span class="params">()</span>; <span class="comment">// 获取所有的初始化参数的name</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--以上两个方法是ServletContext对象的方法，这个方法获取的是什么信息？是以下的配置信息--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>pageSize<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>10<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>startIndex<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>0<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--注意：以上的配置信息属于应用级的配置信息，一般一个项目中共享的配置信息会放到以上的标签当中。--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--如果你的配置信息只是想给某一个servlet作为参考，那么你配置到servlet标签当中即可，使用ServletConfig对象来获取。--&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>getContextPath() 获取应用的根路径</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取应用的根路径（非常重要），因为在java源代码当中有一些地方可能会需要应用的根路径，这个方法可以动态获取应用的根路径</span></span><br><span class="line"><span class="comment">// 在java源码当中，不要将应用的根路径写死，因为你永远都不知道这个应用在最终部署的时候，起一个什么名字。</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getContextPath</span><span class="params">()</span>;</span><br><span class="line"><span class="comment">//String contextPath = application.getContextPath();</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>log() 记录日志</strong></li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 通过ServletContext对象也是可以记录日志的</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String message)</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String message, Throwable t)</span>;</span><br><span class="line"><span class="comment">// 这些日志信息记录到哪里了？</span></span><br><span class="line"><span class="comment">// localhost.2021-11-05.log</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Tomcat服务器的logs目录下都有哪些日志文件？</span></span><br><span class="line"><span class="comment">//catalina.2021-11-05.log 服务器端的java程序运行的控制台信息。</span></span><br><span class="line"><span class="comment">//localhost.2021-11-05.log ServletContext对象的log方法记录的日志信息存储到这个文件中。</span></span><br><span class="line"><span class="comment">//localhost_access_log.2021-11-05.txt 访问日志</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>应用域 (Servlet中最大的作用域)</strong></p>
-<p>ServletContext对象还有另一个名字：应用域（后面还有其他域，例如：请求域、会话域）</p>
-<p>如果所有的用户共享一份数据，并且这个数据很少的被修改，并且这个数据量很少，可以将这些数据放到ServletContext这个应用域中</p>
-<p><strong>注意</strong></p>
-<p>所有用户共享的数据，如果涉及到修改操作，必然会存在线程并发所带来的安全问题。所以放在ServletContext对象中的数据一般都是只读的。</p>
-<p><strong>相关方法</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 存（怎么向ServletContext应用域中存数据）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name, Object value)</span>; <span class="comment">// map.put(k, v)</span></span><br><span class="line"><span class="comment">// 取（怎么从ServletContext应用域中取数据）</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>; <span class="comment">// Object v = map.get(k)</span></span><br><span class="line"><span class="comment">// 删（怎么删除ServletContext应用域中的数据）</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span>; <span class="comment">// map.remove(k)</span></span><br></pre></td></tr></table></figure>
-
-<p>注意：以后我们编写Servlet类的时候，实际上是不会去直接继承GenericServlet类的，因为我们是B&#x2F;S结构的系统，这种系统是基于HTTP超文本传输协议的，在Servlet规范当中，提供了一个类叫做HttpServlet，它是专门为HTTP协议准备的一个Servlet类。我们编写的Servlet类要继承HttpServlet。（HttpServlet是HTTP协议专用的。）使用HttpServlet处理HTTP协议更便捷。但是你需要直到它的继承结构：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">jakarta.servlet.Servlet<span class="comment">//（接口）【爷爷】</span></span><br><span class="line">jakarta.servlet.GenericServlet <span class="keyword">implements</span> <span class="title class_">Servlet</span><span class="comment">//（抽象类）【儿子】</span></span><br><span class="line">jakarta.servlet.http.HttpServlet <span class="keyword">extends</span> <span class="title class_">GenericServlet</span><span class="comment">//（抽象类）【孙子】</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们以后编写的Servlet要继承HttpServlet类。</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>最后</strong></p>
-<p>向ServletContext应用域中存储数据，实际上等于是将数据存放到缓存cache当中了。</p>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>5. Http协议</title>
-    <url>/2022/09/13/JavaEE/5.%20Http%E5%8D%8F%E8%AE%AE/</url>
-    <content><![CDATA[<h1 id="1-什么是协议"><a href="#1-什么是协议" class="headerlink" title="1. 什么是协议?"></a>1. 什么是协议?</h1><ul>
-<li><p>协议实际上是某些人，或者某些组织提前制定好的一套规范，大家都按照这个规范来，这样可以做到沟通无障碍。</p>
-</li>
-<li><p>协议就是一套规范，就是一套标准。由其他人或其他组织来负责制定的。</p>
-</li>
-<li><p>我说的话你能听懂，你说的话，我也能听懂，这说明我们之间是有一套规范的，一套协议的，这套协议就是：中国普通话协议。我们都遵守这套协议，我们之间就可以沟通无障碍。</p>
-<h1 id="2-什么是Http协议"><a href="#2-什么是Http协议" class="headerlink" title="2. 什么是Http协议?"></a>2. 什么是Http协议?</h1></li>
-<li><p>HTTP协议：是W3C制定的一种超文本传输协议。（通信协议：发送消息的模板提前被制定好。）</p>
-</li>
-<li><p>W3C：</p>
-<ul>
-<li>万维网联盟组织</li>
-<li>负责制定标准的：HTTP HTML4.0 HTML5 XML DOM等规范都是W3C制定的。</li>
-<li>万维网之父：蒂姆·伯纳斯·李</li>
-</ul>
-</li>
-<li><p>什么是超文本？</p>
-<ul>
-<li>超文本说的就是：不是普通文本，比如流媒体：声音、视频、图片等。</li>
-<li>HTTP协议支持：不但可以传送普通字符串，同样支持传递声音、视频、图片等流媒体信息。</li>
-</ul>
-</li>
-<li><p>这种协议游走在B和S之间。B向S发数据要遵循HTTP协议。S向B发数据同样需要遵循HTTP协议。这样B和S才能解耦合。</p>
-</li>
-<li><p>什么是解耦合？</p>
-<ul>
-<li>B不依赖S。</li>
-<li>S也不依赖B。</li>
-</ul>
-</li>
-<li><p>B&#x2F;S表示：B&#x2F;S结构的系统（浏览器访问WEB服务器的系统）</p>
-</li>
-<li><p>浏览器   向   WEB服务器发送数据，叫做：请求（request)</p>
-</li>
-<li><p>WEB服务器   向   浏览器发送数据，叫做：响应（response）</p>
-</li>
-<li><p>HTTP协议包括：</p>
-<ul>
-<li>请求协议<ul>
-<li>浏览器  向   WEB服务器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
-</ul>
-</li>
-<li>响应协议<ul>
-<li>WEB服务器  向  浏览器发送数据的时候，这个发送的数据需要遵循一套标准，这套标准中规定了发送的数据具体格式。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>HTTP协议就是提前制定好的一种消息模板。</p>
-<ul>
-<li><p>不管你是哪个品牌的浏览器，都是这么发。</p>
-</li>
-<li><p>不管你是哪个品牌的WEB服务器，都是这么发。</p>
-</li>
-<li><p>FF浏览器  可以向 Tomcat发送请求，也可以向Jetty服务器发送请求。浏览器不依赖具体的服务器品牌。</p>
-</li>
-<li><p>WEB服务器也不依赖具体的浏览器品牌。可以是FF浏览器，也可以是Chrome浏览器，可以是IE，都行。</p>
-<h1 id="3-Http的请求协议-B-gt-S"><a href="#3-Http的请求协议-B-gt-S" class="headerlink" title="3. Http的请求协议 (B -&gt; S)"></a>3. Http的请求协议 (B -&gt; S)</h1></li>
-</ul>
-</li>
-<li><p>HTTP的请求协议包括：4部分</p>
-<ul>
-<li>请求行</li>
-<li>请求头</li>
-<li>空白行</li>
-<li>请求体</li>
-</ul>
-</li>
-<li><p>HTTP请求协议的具体报文：GET请求</p>
-  <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">GET <span class="regexp">/servlet05/g</span>etServlet?username=lucy&amp;userpwd=<span class="number">1111</span> HTTP/<span class="number">1.1</span>                           请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                    请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                        空白行</span><br><span class="line">                                                                                        请求体</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>HTTP请求协议的具体报文：POST请求</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">POST <span class="regexp">/servlet05/</span>postServlet HTTP/<span class="number">1.1</span>                                                  请求行</span><br><span class="line">Host: localhost:<span class="number">8080</span>                                                                  请求头</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: <span class="number">25</span></span><br><span class="line">Cache-Control: max-age=<span class="number">0</span></span><br><span class="line">sec-ch-ua: <span class="string">&quot;Google Chrome&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;Chromium&quot;</span>;v=<span class="string">&quot;95&quot;</span>, <span class="string">&quot;;Not A Brand&quot;</span>;v=<span class="string">&quot;99&quot;</span></span><br><span class="line">sec-ch-ua-mobile: ?<span class="number">0</span></span><br><span class="line">sec-ch-ua-platform: <span class="string">&quot;Windows&quot;</span></span><br><span class="line">Upgrade-Insecure-Requests: <span class="number">1</span></span><br><span class="line">Origin: http:<span class="regexp">//</span>localhost:<span class="number">8080</span></span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">User-Agent: Mozilla<span class="regexp">/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/95.0.4638.54 Safari/</span><span class="number">537.36</span></span><br><span class="line">Accept: text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>avif,image<span class="regexp">/webp,image/</span>apng,*<span class="regexp">/*;q=0.8,application/</span>signed-exchange;v=b3;q=<span class="number">0.9</span></span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?<span class="number">1</span></span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Referer: http:<span class="regexp">//</span>localhost:<span class="number">8080</span><span class="regexp">/servlet05/i</span>ndex.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span></span><br><span class="line">                                                                                      空白行</span><br><span class="line">username=lisi&amp;userpwd=<span class="number">123</span>                                                             请求体</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>请求行</p>
-<ul>
-<li>包括三部分：<ul>
-<li>第一部分：请求方式（7种）<ul>
-<li>get（常用的）</li>
-<li>post（常用的）</li>
-<li>delete</li>
-<li>put</li>
-<li>head</li>
-<li>options</li>
-<li>trace</li>
-</ul>
-</li>
-<li>第二部分：URI<ul>
-<li>什么是URI？ 统一资源标识符。代表网络中某个资源的名字。但是通过URI是无法定位资源的。</li>
-<li>什么是URL？统一资源定位符。代表网络中某个资源，同时，通过URL是可以定位到该资源的。</li>
-<li>URI和URL什么关系，有什么区别？<ul>
-<li>URL包括URI</li>
-<li><a href="http://localhost:8080/servlet05/index.html">http://localhost:8080/servlet05/index.html</a> 这是URL。</li>
-<li>&#x2F;servlet05&#x2F;index.html 这是URI。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>第三部分：HTTP协议版本号</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>请求头</p>
-<ul>
-<li>请求的主机</li>
-<li>主机的端口</li>
-<li>浏览器信息</li>
-<li>平台信息</li>
-<li>cookie等信息</li>
-<li>….</li>
-</ul>
-</li>
-<li><p>空白行</p>
-<ul>
-<li>空白行是用来区分“请求头”和“请求体”</li>
-</ul>
-</li>
-<li><p>请求体</p>
-<ul>
-<li>向服务器发送的具体数据。</li>
-</ul>
-</li>
-</ul>
-<h1 id="4-HTTP的响应协议（S-–-gt-B）"><a href="#4-HTTP的响应协议（S-–-gt-B）" class="headerlink" title="4. HTTP的响应协议（S –&gt; B）"></a>4. HTTP的响应协议（S –&gt; B）</h1><ul>
-<li><p>HTTP的响应协议包括：4部分</p>
-<ul>
-<li>状态行</li>
-<li>响应头</li>
-<li>空白行</li>
-<li>响应体</li>
-</ul>
-</li>
-<li><p>HTTP响应协议的具体报文：</p>
-  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 200 ok                                     状态行</span><br><span class="line">Content-Type: text/html;charset=UTF-8               响应头</span><br><span class="line">Content-Length: 160</span><br><span class="line">Date: Mon, 08 Nov 2021 13:19:32 GMT</span><br><span class="line">Keep-Alive: timeout=20</span><br><span class="line">Connection: keep-alive</span><br><span class="line">                                                    空白行</span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span>                                     响应体</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>from get servlet<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>状态行</p>
-<ul>
-<li>三部分组成<ul>
-<li>第一部分：协议版本号（HTTP&#x2F;1.1）</li>
-<li>第二部分：状态码（HTTP协议中规定的响应状态号。不同的响应结果对应不同的号码。）<ul>
-<li>200 表示请求响应成功，正常结束。</li>
-<li>404表示访问的资源不存在，通常是因为要么是你路径写错了，要么是路径写对了，但是服务器中对应的资源并没有启动成功。总之404错误是前端错误。</li>
-<li>405表示前端发送的请求方式与后端请求的处理方式不一致时发生：<ul>
-<li>比如：前端是POST请求，后端的处理方式按照get方式进行处理时，发生405</li>
-<li>比如：前端是GET请求，后端的处理方式按照post方式进行处理时，发生405</li>
-</ul>
-</li>
-<li>500表示服务器端的程序出现了异常。一般会认为是服务器端的错误导致的。</li>
-<li>以4开始的，一般是浏览器端的错误导致的。</li>
-<li>以5开始的，一般是服务器端的错误导致的。</li>
-</ul>
-</li>
-<li>第三部分：状态的描述信息<ul>
-<li>ok 表示正常成功结束。</li>
-<li>not found 表示资源找不到。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>响应头：</p>
-<ul>
-<li>响应的内容类型</li>
-<li>响应的内容长度</li>
-<li>响应的时间</li>
-<li>….</li>
-</ul>
-</li>
-<li><p>空白行：</p>
-<ul>
-<li>用来分隔“响应头”和“响应体”的。</li>
-</ul>
-</li>
-<li><p>响应体：</p>
-<ul>
-<li>响应体就是响应的正文，这些内容是一个长的字符串，这个字符串被浏览器渲染，解释并执行，最终展示出效果。</li>
-</ul>
-</li>
-</ul>
-<p><strong>注意</strong></p>
-<ul>
-<li><p>怎么查看的协议内容？</p>
-<ul>
-<li>使用chrome浏览器：F12。然后找到network，通过这个面板可以查看协议的具体内容。</li>
-</ul>
-<h1 id="5-GET和POST"><a href="#5-GET和POST" class="headerlink" title="5. GET和POST"></a>5. GET和POST</h1></li>
-</ul>
-<p><strong>怎么向服务器发送GET请求，怎么向服务器发送POST请求？</strong></p>
-<ul>
-<li>到目前为止，只有一种情况可以发送POST请求：使用form表单，并且form标签中的method属性值为：method&#x3D;”post”。</li>
-<li>其他所有情况一律都是get请求：<ul>
-<li>在浏览器地址栏上直接输入URL，敲回车，属于get请求。</li>
-<li>在浏览器上直接点击超链接，属于get请求。</li>
-<li>使用form表单提交数据时，form标签中没有写method属性，默认就是get</li>
-<li>或者使用form的时候，form标签中method属性值为：method&#x3D;”get”</li>
-<li>….</li>
-</ul>
-</li>
-</ul>
-<p><strong>GET请求和POST请求有什么区别？</strong></p>
-<ul>
-<li>get请求发送数据的时候，数据会挂在URI的后面，并且在URI后面添加一个“?”，”?”后面是数据。这样会导致发送的数据回显在浏览器的地址栏上。（get请求在“请求行”上发送数据）<ul>
-<li><a href="http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111">http://localhost:8080/servlet05/getServlet?username=zhangsan&amp;userpwd=1111</a></li>
-</ul>
-</li>
-<li>post请求发送数据的时候，在请求体当中发送。不会回显到浏览器的地址栏上。也就是说post发送的数据，在浏览器地址栏上看不到。（post在“请求体”当中发送数据）</li>
-<li>get请求只能发送普通的字符串。并且发送的字符串长度有限制，不同的浏览器限制不同。这个没有明确的规范。</li>
-<li>get请求无法发送大数据量。</li>
-<li>post请求可以发送任何类型的数据，包括普通字符串，流媒体等信息：视频、声音、图片。</li>
-<li>post请求可以发送大数据量，理论上没有长度限制。</li>
-<li>get请求在W3C中是这样说的：get请求比较适合从服务器端获取数据。</li>
-<li>post请求在W3C中是这样说的：post请求比较适合向服务器端传送数据。</li>
-<li>get请求是安全的。get请求是绝对安全的。为什么？因为get请求只是为了从服务器上获取数据。不会对服务器造成威胁。（get本身是安全的，你不要用错了。用错了之后又冤枉人家get不安全，你这样不好（太坏了），那是你自己的问题，不是get请求的问题。）</li>
-<li>post请求是危险的。为什么？因为post请求是向服务器提交数据，如果这些数据通过后门的方式进入到服务器当中，服务器是很危险的。另外post是为了提交数据，所以一般情况下拦截请求的时候，大部分会选择拦截（监听）post请求。</li>
-<li>get请求支持缓存。<ul>
-<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg">https://n.sinaimg.cn/finance/590/w240h350/20211101/b40c-b425eb67cabc342ff5b9dc018b4b00cc.jpg</a></li>
-<li>任何一个get请求最终的“响应结果”都会被浏览器缓存起来。在浏览器缓存当中：<ul>
-<li>一个get请求的路径a  对应  一个资源。</li>
-<li>一个get请求的路径b  对应  一个资源。</li>
-<li>一个get请求的路径c  对应  一个资源。</li>
-<li>……</li>
-</ul>
-</li>
-<li>实际上，你只要发送get请求，浏览器做的第一件事都是先从本地浏览器缓存中找，找不到的时候才会去服务器上获取。这种缓存机制目的是为了提高用户的体验。</li>
-<li>有没有这样一个需求：我们不希望get请求走缓存，怎么办？怎么避免走缓存？我希望每一次这个get请求都去服务器上找资源，我不想从本地浏览器的缓存中取。<ul>
-<li>只要每一次get请求的请求路径不同即可。</li>
-<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897898</a></li>
-<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=789789787897899</a></li>
-<li><a href="https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=%E7%B3%BB%E7%BB%9F%E6%AF%AB%E7%A7%92%E6%95%B0">https://n.sinaimg.cn/finance/590/w240h350/20211101/7cabc342ff5b9dc018b4b00cc.jpg?t=系统毫秒数</a></li>
-<li>怎么解决？可以在路径的后面添加一个每时每刻都在变化的“时间戳”，这样，每一次的请求路径都不一样，浏览器就不走缓存了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>post请求不支持缓存。（POST是用来修改服务器端的资源的。）<ul>
-<li>post请求之后，服务器“响应的结果”不会被浏览器缓存起来。因为这个缓存没有意义。</li>
-</ul>
-</li>
-</ul>
-<p><strong>GET请求和POST请求如何选择，什么时候使用GET请求，什么时候使用POST请求？</strong></p>
-<ul>
-<li><p>怎么选择GET请求和POST请求呢？衡量标准是什么呢？你这个请求是想获取服务器端的数据，还是想向服务器发送数据。如果你是想从服务器上获取资源，建议使用GET请求，如果你这个请求是为了向服务器提交数据，建议使用POST请求。</p>
-</li>
-<li><p>大部分的form表单提交，都是post方式，因为form表单中要填写大量的数据，这些数据是收集用户的信息，一般是需要传给服务器，服务器将这些数据保存&#x2F;修改等。</p>
-</li>
-<li><p>如果表单中有敏感信息，还是建议适用post请求，因为get请求会回显敏感信息到浏览器地址栏上。（例如：密码信息）</p>
-</li>
-<li><p>做文件上传，一定是post请求。要传的数据不是普通文本。</p>
-</li>
-<li><p>其他情况都可以使用get请求。</p>
-</li>
-<li><p>不管你是get请求还是post请求，发送的请求数据格式是完全相同的，只不过位置不同，格式都是统一的：</p>
-<ul>
-<li>name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value&amp;name&#x3D;value</li>
-<li>name是什么？<ul>
-<li>以form表单为例：form表单中input标签的name。</li>
-</ul>
-</li>
-<li>value是什么？<ul>
-<li>以form表单为例：form表单中input标签的value。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>6. 模板方法设计模式</title>
-    <url>/2022/09/13/JavaEE/6.%20%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="1-什么是设计模式"><a href="#1-什么是设计模式" class="headerlink" title="1. 什么是设计模式?"></a>1. 什么是设计模式?</h1><blockquote>
-<p>  某个问题的固定的解决方案。(可以被重复使用。) 也就是解决某个问题的固定套路….</p>
-</blockquote>
-<p><strong>你知道哪些设计模式？</strong></p>
-<ul>
-<li>GoF设计模式：<ul>
-<li>通常我们所说的23种设计模式。（Gang of Four：4人组提出的设计模式）</li>
-<li>单例模式</li>
-<li>工厂模式</li>
-<li>代理模式</li>
-<li>门面模式</li>
-<li>责任链设计模式</li>
-<li>观察者模式</li>
-<li>模板方法设计模式</li>
-<li>…..</li>
-</ul>
-</li>
-<li>JavaEE设计模式：<ul>
-<li>DAO</li>
-<li>DTO</li>
-<li>VO</li>
-<li>PO</li>
-<li>pojo</li>
-<li>….</li>
-</ul>
-</li>
-<li>….</li>
-</ul>
-<h1 id="2-什么是模板方法设计模式"><a href="#2-什么是模板方法设计模式" class="headerlink" title="2. 什么是模板方法设计模式"></a>2. 什么是模板方法设计模式</h1><p>模板方法模式（Template Method Pattern）：定义一个操作中的算法的框架， 而将一些步骤延迟到子类中。 使得子类可以不改 变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<p>说人话：父类模板方法定义不变的流程，子类重写流程中的方法。</p>
-<h1 id="3-模板方法的实现"><a href="#3-模板方法的实现" class="headerlink" title="3. 模板方法的实现"></a>3. 模板方法的实现</h1><p><strong>Person.java (模板类)</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 开始一天(定义为final类,让子类必须运行此方法,属于模板方法定义的框架)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">day</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 调用基本方法，完成固定逻辑</span></span><br><span class="line">        getUp();</span><br><span class="line">        eat();</span><br><span class="line">        doMake();</span><br><span class="line">        sleep();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 起床</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getUp</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Get up&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 吃饭</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">eat</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Eat&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 做事情 (学生和老师做事情不一样,所以将此方法抽象为模板方法,让子类自己来实现)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 睡觉</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sleep</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Sleep&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>Teacher.java (实现类)</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Teacher</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 实现 Person 的模板类, 老师的任务是Teach</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Teach&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>Student.java (实现类)</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="comment">// 实现 Person 的模板类, 学生的任务是Study</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doMake</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Study&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-优缺点"><a href="#4-优缺点" class="headerlink" title="4. 优缺点"></a>4. 优缺点</h1><p><strong>优点</strong></p>
-<ol>
-<li><p>封装不变部分， 扩展可变部分， 把认为是不变部分的算法封装到父类实现， 而可变部分的则可以通过继承来继续扩展。</p>
-</li>
-<li><p>提取公共部分代码， 便于维护</p>
-</li>
-<li><p>行为由父类控制， 子类实现， 基本方法是由子类实现的， 因此子类可以通过扩展的方式增加相应的功能， 符合开闭原则。</p>
-</li>
-</ol>
-<p><strong>缺点</strong></p>
-<ol>
-<li><p>子类执行的结果影响了父类的结果，这和我们平时设计习惯颠倒了，在复杂项目中，会带来阅读上的难度。</p>
-</li>
-<li><p>可能引起子类泛滥和为了继承而继承的问题</p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
       </tags>
   </entry>
 </search>
