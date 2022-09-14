@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="HttpServletRequest是一个接口,全限定名称为:jakarta.servlet.http.HttpServletRequest,他是Servlet规范中的一员。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9. HttpServletRequest接口解析">
+<meta property="og:url" content="http://example.com/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="HttpServletRequest是一个接口,全限定名称为:jakarta.servlet.http.HttpServletRequest,他是Servlet规范中的一员。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-14T08:59:03.038Z">
+<meta property="article:modified_time" content="2022-09-14T09:27:57.830Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="JavaEE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/","path":"2022/09/14/JavaEE/9. HttpServletRequest 接口解析/","title":"9. HttpServletRequest接口解析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>9. HttpServletRequest接口解析 | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">24</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HttpServletRequest"><span class="nav-number">1.</span> <span class="nav-text">1. HttpServletRequest</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%AF%B7%E6%B1%82%E5%9F%9F-request"><span class="nav-number">2.</span> <span class="nav-text">2. 请求域 - request</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E8%BD%AC%E5%8F%91"><span class="nav-number">3.</span> <span class="nav-text">3. 转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-getParameter-%E5%92%8C-getAttribute-%E5%8C%BA%E5%88%86"><span class="nav-number">4.</span> <span class="nav-text">4. getParameter() 和 getAttribute() 区分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-HttpServletRequest-%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">5. HttpServletRequest 接口的其他常用方法</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="9. HttpServletRequest接口解析 | 安之">
+      <meta itemprop="description" content="HttpServletRequest是一个接口,全限定名称为:jakarta.servlet.http.HttpServletRequest,他是Servlet规范中的一员。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          9. HttpServletRequest接口解析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-14 16:59:03 / 修改时间：17:27:57" itemprop="dateCreated datePublished" datetime="2022-09-14T16:59:03+08:00">2022-09-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">HttpServletRequest是一个接口,全限定名称为:jakarta.servlet.http.HttpServletRequest,他是Servlet规范中的一员。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-HttpServletRequest"><a href="#1-HttpServletRequest" class="headerlink" title="1. HttpServletRequest"></a>1. HttpServletRequest</h1><blockquote>
+<p>   HttpServletRequest 是一个接口,全限定名称为 : jakarta.servlet.http.HttpServletRequest, 他是Servlet规范中的一员。</p>
+</blockquote>
+<p><strong>HttpServletRequest接口的父接口:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HttpServletRequest</span> <span class="keyword">extends</span> <span class="title class_">ServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>HttpServletRequest接口的实现类谁写的? HttpServletRequest对象是谁给创建的？</strong></p>
+<ul>
+<li><p>通过测试：org.apache.catalina.connector.RequestFacade 实现了 HttpServletRequest接口</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RequestFacade</span> <span class="keyword">implements</span> <span class="title class_">HttpServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试结果说明：Tomcat服务器（WEB服务器、WEB容器）实现了HttpServletRequest接口，还是说明了Tomcat服务器实现了Servlet规范。而对于我们javaweb程序员来说，实际上不需要关心这个，我们只需要面向接口编程即可。我们关心的是HttpServletRequest接口中有哪些方法，这些方法可以完成什么功能！！！！</p>
+</li>
+</ul>
+<p><strong>HttpServletRequest对象中都有什么信息？都包装了什么信息？</strong></p>
+<ul>
+<li>HttpServletRequest对象是Tomcat服务器负责创建的。这个对象中封装了什么信息？封装了HTTP的请求协议。</li>
+<li>实际上是用户发送请求的时候，遵循了HTTP协议，发送的是HTTP的请求协议，Tomcat服务器将HTTP协议中的信息以及数据全部解析出来，然后Tomcat服务器把这些信息封装到HttpServletRequest对象当中，传给了我们javaweb程序员。</li>
+<li>javaweb程序员面向HttpServletRequest接口编程，调用方法就可以获取到请求的信息了。</li>
+</ul>
+<p><strong>request和response对象的生命周期？</strong></p>
+<ul>
+<li>request对象和response对象，一个是请求对象，一个是响应对象。这两个对象只在当前请求中有效。</li>
+<li>一次请求对应一个request。</li>
+<li>两次请求则对应两个request。</li>
+<li>…..</li>
+</ul>
+<p><strong>HttpServletRequest接口中的常用方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,String[]&gt; getParameterMap() 这个是获取Map</span><br><span class="line">Enumeration&lt;String&gt; <span class="title function_">getParameterNames</span><span class="params">()</span> 这个是获取Map集合中所有的key</span><br><span class="line">String[] getParameterValues(String name) 根据key获取Map集合的value</span><br><span class="line">String <span class="title function_">getParameter</span><span class="params">(String name)</span>  获取value这个一维数组当中的第一个元素。这个方法最常用。</span><br><span class="line"><span class="comment">// 以上的4个方法，和获取用户提交的数据有关系。</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-请求域-request"><a href="#2-请求域-request" class="headerlink" title="2. 请求域 - request"></a>2. 请求域 - request</h1><blockquote>
+<p>   request实际上是一个请求域对象,相比于ServletContext的应用域,请求域范围就小的多了,生命周期也很短,请求域只在一次请求之内有效。</p>
+</blockquote>
+<p><strong>请求域对象的方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name, Object obj)</span>; <span class="comment">// 向域当中绑定数据。</span></span><br><span class="line">Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>; <span class="comment">// 从域当中根据name获取数据。</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span>; <span class="comment">// 将域当中绑定的数据移除</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>在使用过程中尽量使用小的域对象，因为小的域对象占用的资源较少。</p>
+<h1 id="3-转发"><a href="#3-转发" class="headerlink" title="3. 转发"></a>3. 转发</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一步：获取请求转发器对象</span></span><br><span class="line"><span class="type">RequestDispatcher</span> <span class="variable">dispatcher</span> <span class="operator">=</span> request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>);</span><br><span class="line"><span class="comment">// 第二步：调用转发器的forward方法完成跳转/转发</span></span><br><span class="line">dispatcher.forward(request,response);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一步和第二步代码可以联合在一起。</span></span><br><span class="line">request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>).forward(request,response);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>两个Servlet怎么共享数据</strong></p>
+<ul>
+<li>将数据放到ServletContext应用域当中，当然是可以的，但是应用域范围太大，占用资源太多。不建议使用。</li>
+<li>可以将数据放到request域当中，然后AServlet转发到BServlet，保证AServlet和BServlet在同一次请求当中，这样就可以做到两个Servlet，或者多个Servlet共享同一份数据。</li>
+</ul>
+<p><strong>转发的下一个资源必须是一个Servlet吗？</strong></p>
+<ul>
+<li>不一定，只要是Tomcat服务器当中的合法资源，都是可以转发的。例如：html….</li>
+<li>注意：转发的时候，路径的写法要注意，转发的路径以“&#x2F;”开始，不加项目名。</li>
+</ul>
+<h1 id="4-getParameter-和-getAttribute-区分"><a href="#4-getParameter-和-getAttribute-区分" class="headerlink" title="4. getParameter() 和 getAttribute() 区分"></a>4. getParameter() 和 getAttribute() 区分</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// uri?username=zhangsan&amp;userpwd=123&amp;sex=1</span></span><br><span class="line"><span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 之前一定是执行过：request.setAttribute(&quot;name&quot;, new Object())</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> request.getAttribute(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上两个方法的区别是什么？</span></span><br><span class="line"><span class="comment">// 第一个方法：获取的是用户在浏览器上提交的数据。</span></span><br><span class="line"><span class="comment">// 第二个方法：获取的是请求域当中绑定的数据。</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="5-HttpServletRequest-接口的其他常用方法"><a href="#5-HttpServletRequest-接口的其他常用方法" class="headerlink" title="5. HttpServletRequest 接口的其他常用方法"></a>5. HttpServletRequest 接口的其他常用方法</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取客户端的IP地址</span></span><br><span class="line"><span class="type">String</span> <span class="variable">remoteAddr</span> <span class="operator">=</span> request.getRemoteAddr();</span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求在请求行上提交数据。</span></span><br><span class="line"><span class="comment">// post请求在请求体中提交数据。</span></span><br><span class="line"><span class="comment">// 设置请求体的字符集。（显然这个方法是处理POST请求的乱码问题。这种方式并不能解决get请求的乱码问题。）</span></span><br><span class="line"><span class="comment">// Tomcat10之后，request请求体当中的字符集默认就是UTF-8，不需要设置字符集，不会出现乱码问题。</span></span><br><span class="line"><span class="comment">// Tomcat9前（包括9在内），如果前端请求体提交的是中文，后端获取之后出现乱码，怎么解决这个乱码？执行以下代码。</span></span><br><span class="line">request.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在Tomcat9之前（包括9），响应中文也是有乱码的，怎么解决这个响应的乱码？</span></span><br><span class="line">response.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"><span class="comment">// 在Tomcat10之后，包括10在内，响应中文的时候就不在出现乱码问题了。以上代码就不需要设置UTF-8了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意一个细节</span></span><br><span class="line"><span class="comment">// 在Tomcat10包括10在内之后的版本，中文将不再出现乱码。（这也体现了中文地位的提升。）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求乱码问题怎么解决？</span></span><br><span class="line"><span class="comment">// get请求发送的时候，数据是在请求行上提交的，不是在请求体当中提交的。</span></span><br><span class="line"><span class="comment">// get请求乱码怎么解决</span></span><br><span class="line"><span class="comment">// 方案：修改CATALINA_HOME/conf/server.xml配置文件</span></span><br><span class="line">&lt;Connector URIEncoding=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span><br><span class="line"><span class="comment">// 注意：从Tomcat8之后，URIEncoding的默认值就是UTF-8，所以GET请求也没有乱码问题了。</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 获取应用的根路径</span></span><br><span class="line"><span class="type">String</span> <span class="variable">contextPath</span> <span class="operator">=</span> request.getContextPath();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> request.getMethod();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求的URI</span></span><br><span class="line"><span class="type">String</span> <span class="variable">uri</span> <span class="operator">=</span> request.getRequestURI();  <span class="comment">// /aaa/testRequest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取servlet path</span></span><br><span class="line"><span class="type">String</span> <span class="variable">servletPath</span> <span class="operator">=</span> request.getServletPath(); <span class="comment">//   /testRequest</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/" title="9. HttpServletRequest接口解析">http://example.com/2022/09/14/JavaEE/9. HttpServletRequest 接口解析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/14/JavaEE/8.%20Web%E7%AB%99%E7%82%B9%E7%9A%84%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2%E5%92%8CWEB-INF%E7%9B%AE%E5%BD%95/" rel="prev" title="8. Web站点的欢迎界面和WEB-INF目录">
+                  <i class="fa fa-chevron-left"></i> 8. Web站点的欢迎界面和WEB-INF目录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">144k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:11</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
