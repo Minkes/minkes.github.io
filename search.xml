@@ -158,6 +158,54 @@
       </tags>
   </entry>
   <entry>
+    <title>11. 转发和重定向</title>
+    <url>/2022/09/15/JavaEE/11.%20%E8%BD%AC%E5%8F%91%E5%92%8C%E9%87%8D%E5%AE%9A%E5%90%91/</url>
+    <content><![CDATA[<h1 id="1-转发和重定向"><a href="#1-转发和重定向" class="headerlink" title="1. 转发和重定向"></a>1. 转发和重定向</h1><p><strong>转发</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取请求转发器对象</span></span><br><span class="line"><span class="type">RequestDispatcher</span> <span class="variable">dispatcher</span> <span class="operator">=</span> request.getRequestDispatcher(<span class="string">&quot;/dept/list&quot;</span>);</span><br><span class="line"><span class="comment">// 调用请求转发器对象的forward方法完成转发</span></span><br><span class="line">dispatcher.forward(request, response);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 合并一行代码</span></span><br><span class="line">request.getRequestDispatcher(<span class="string">&quot;/dept/list&quot;</span>).forward(request, response);</span><br><span class="line"><span class="comment">// 转发的时候是一次请求，不管你转发了多少次。都是一次请求。</span></span><br><span class="line"><span class="comment">// AServlet转发到BServlet，再转发到CServlet，再转发到DServlet，不管转发了多少次，都在同一个request当中。</span></span><br><span class="line"><span class="comment">// 这是因为调用forward方法的时候，会将当前的request和response对象传递给下一个Servlet。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>重定向</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注意：路径上要加一个项目名。为什么？</span></span><br><span class="line"><span class="comment">// 浏览器发送请求，请求路径上是需要添加项目名的。</span></span><br><span class="line"><span class="comment">// 以下这一行代码会将请求路径“/oa/dept/list”发送给浏览器</span></span><br><span class="line"><span class="comment">// 浏览器会自发的向服务器发送一次全新的请求：/oa/dept/list</span></span><br><span class="line">response.sendRedirect(<span class="string">&quot;/oa/dept/list&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-区别"><a href="#2-区别" class="headerlink" title="2. 区别"></a>2. 区别</h1><p><strong>形式上区别</strong></p>
+<ul>
+<li>转发（一次请求）<ul>
+<li>在浏览器地址栏上发送的请求是：<a href="http://localhost:8080/servlet10/a">http://localhost:8080/servlet10/a</a> ，最终请求结束之后，浏览器地址栏上的地址还是这个。没变。</li>
+</ul>
+</li>
+<li>重定向（两次请求）<ul>
+<li>在浏览器地址栏上发送的请求是：<a href="http://localhost:8080/servlet10/a">http://localhost:8080/servlet10/a</a> ，最终在浏览器地址栏上显示的地址是：<a href="http://localhost:8080/servlet10/b">http://localhost:8080/servlet10/b</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>本质区别</strong></p>
+<ul>
+<li>转发：是由WEB服务器来控制的。A资源跳转到B资源，这个跳转动作是Tomcat服务器内部完成的。</li>
+<li>重定向：是浏览器完成的。具体跳转到哪个资源，是浏览器说了算。</li>
+</ul>
+<h1 id="3-选择"><a href="#3-选择" class="headerlink" title="3. 选择"></a>3. 选择</h1><ul>
+<li><p>如果在上一个Servlet当中向request域当中绑定了数据，希望从下一个Servlet当中把request域里面的数据取出来，使用转发机制。</p>
+</li>
+<li><p>剩下所有的请求均使用重定向。（重定向使用较多。）</p>
+</li>
+<li><p>跳转的下一个资源有没有要求呢？必须是一个Servlet吗？</p>
+<ul>
+<li>不一定，跳转的资源只要是服务器内部合法的资源即可。包括：Servlet、JSP、HTML…..</li>
+</ul>
+</li>
+<li><p>转发会存在浏览器的刷新问题。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2. Servlet的生命周期</title>
     <url>/2022/09/12/JavaEE/2.%20Servlet%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<h1 id="1-什么是Servlet的生命周期"><a href="#1-什么是Servlet的生命周期" class="headerlink" title="1. 什么是Servlet的生命周期"></a>1. 什么是Servlet的生命周期</h1><ul>
@@ -774,73 +822,6 @@
       </tags>
   </entry>
   <entry>
-    <title>9. HttpServletRequest接口解析</title>
-    <url>/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="1-HttpServletRequest"><a href="#1-HttpServletRequest" class="headerlink" title="1. HttpServletRequest"></a>1. HttpServletRequest</h1><blockquote>
-<p>   HttpServletRequest 是一个接口,全限定名称为 : jakarta.servlet.http.HttpServletRequest, 他是Servlet规范中的一员。</p>
-</blockquote>
-<p><strong>HttpServletRequest接口的父接口:</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HttpServletRequest</span> <span class="keyword">extends</span> <span class="title class_">ServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>HttpServletRequest接口的实现类谁写的? HttpServletRequest对象是谁给创建的？</strong></p>
-<ul>
-<li><p>通过测试：org.apache.catalina.connector.RequestFacade 实现了 HttpServletRequest接口</p>
-  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RequestFacade</span> <span class="keyword">implements</span> <span class="title class_">HttpServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试结果说明：Tomcat服务器（WEB服务器、WEB容器）实现了HttpServletRequest接口，还是说明了Tomcat服务器实现了Servlet规范。而对于我们javaweb程序员来说，实际上不需要关心这个，我们只需要面向接口编程即可。我们关心的是HttpServletRequest接口中有哪些方法，这些方法可以完成什么功能！！！！</p>
-</li>
-</ul>
-<p><strong>HttpServletRequest对象中都有什么信息？都包装了什么信息？</strong></p>
-<ul>
-<li>HttpServletRequest对象是Tomcat服务器负责创建的。这个对象中封装了什么信息？封装了HTTP的请求协议。</li>
-<li>实际上是用户发送请求的时候，遵循了HTTP协议，发送的是HTTP的请求协议，Tomcat服务器将HTTP协议中的信息以及数据全部解析出来，然后Tomcat服务器把这些信息封装到HttpServletRequest对象当中，传给了我们javaweb程序员。</li>
-<li>javaweb程序员面向HttpServletRequest接口编程，调用方法就可以获取到请求的信息了。</li>
-</ul>
-<p><strong>request和response对象的生命周期？</strong></p>
-<ul>
-<li>request对象和response对象，一个是请求对象，一个是响应对象。这两个对象只在当前请求中有效。</li>
-<li>一次请求对应一个request。</li>
-<li>两次请求则对应两个request。</li>
-<li>…..</li>
-</ul>
-<p><strong>HttpServletRequest接口中的常用方法</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String,String[]&gt; getParameterMap() 这个是获取Map</span><br><span class="line">Enumeration&lt;String&gt; <span class="title function_">getParameterNames</span><span class="params">()</span> 这个是获取Map集合中所有的key</span><br><span class="line">String[] getParameterValues(String name) 根据key获取Map集合的value</span><br><span class="line">String <span class="title function_">getParameter</span><span class="params">(String name)</span>  获取value这个一维数组当中的第一个元素。这个方法最常用。</span><br><span class="line"><span class="comment">// 以上的4个方法，和获取用户提交的数据有关系。</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="2-请求域-request"><a href="#2-请求域-request" class="headerlink" title="2. 请求域 - request"></a>2. 请求域 - request</h1><blockquote>
-<p>   request实际上是一个请求域对象,相比于ServletContext的应用域,请求域范围就小的多了,生命周期也很短,请求域只在一次请求之内有效。</p>
-</blockquote>
-<p><strong>请求域对象的方法</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name, Object obj)</span>; <span class="comment">// 向域当中绑定数据。</span></span><br><span class="line">Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>; <span class="comment">// 从域当中根据name获取数据。</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span>; <span class="comment">// 将域当中绑定的数据移除</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong></p>
-<p>在使用过程中尽量使用小的域对象，因为小的域对象占用的资源较少。</p>
-<h1 id="3-转发"><a href="#3-转发" class="headerlink" title="3. 转发"></a>3. 转发</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一步：获取请求转发器对象</span></span><br><span class="line"><span class="type">RequestDispatcher</span> <span class="variable">dispatcher</span> <span class="operator">=</span> request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>);</span><br><span class="line"><span class="comment">// 第二步：调用转发器的forward方法完成跳转/转发</span></span><br><span class="line">dispatcher.forward(request,response);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一步和第二步代码可以联合在一起。</span></span><br><span class="line">request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>).forward(request,response);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><strong>两个Servlet怎么共享数据</strong></p>
-<ul>
-<li>将数据放到ServletContext应用域当中，当然是可以的，但是应用域范围太大，占用资源太多。不建议使用。</li>
-<li>可以将数据放到request域当中，然后AServlet转发到BServlet，保证AServlet和BServlet在同一次请求当中，这样就可以做到两个Servlet，或者多个Servlet共享同一份数据。</li>
-</ul>
-<p><strong>转发的下一个资源必须是一个Servlet吗？</strong></p>
-<ul>
-<li>不一定，只要是Tomcat服务器当中的合法资源，都是可以转发的。例如：html….</li>
-<li>注意：转发的时候，路径的写法要注意，转发的路径以“&#x2F;”开始，不加项目名。</li>
-</ul>
-<h1 id="4-getParameter-和-getAttribute-区分"><a href="#4-getParameter-和-getAttribute-区分" class="headerlink" title="4. getParameter() 和 getAttribute() 区分"></a>4. getParameter() 和 getAttribute() 区分</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// uri?username=zhangsan&amp;userpwd=123&amp;sex=1</span></span><br><span class="line"><span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 之前一定是执行过：request.setAttribute(&quot;name&quot;, new Object())</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> request.getAttribute(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上两个方法的区别是什么？</span></span><br><span class="line"><span class="comment">// 第一个方法：获取的是用户在浏览器上提交的数据。</span></span><br><span class="line"><span class="comment">// 第二个方法：获取的是请求域当中绑定的数据。</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="5-HttpServletRequest-接口的其他常用方法"><a href="#5-HttpServletRequest-接口的其他常用方法" class="headerlink" title="5. HttpServletRequest 接口的其他常用方法"></a>5. HttpServletRequest 接口的其他常用方法</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取客户端的IP地址</span></span><br><span class="line"><span class="type">String</span> <span class="variable">remoteAddr</span> <span class="operator">=</span> request.getRemoteAddr();</span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求在请求行上提交数据。</span></span><br><span class="line"><span class="comment">// post请求在请求体中提交数据。</span></span><br><span class="line"><span class="comment">// 设置请求体的字符集。（显然这个方法是处理POST请求的乱码问题。这种方式并不能解决get请求的乱码问题。）</span></span><br><span class="line"><span class="comment">// Tomcat10之后，request请求体当中的字符集默认就是UTF-8，不需要设置字符集，不会出现乱码问题。</span></span><br><span class="line"><span class="comment">// Tomcat9前（包括9在内），如果前端请求体提交的是中文，后端获取之后出现乱码，怎么解决这个乱码？执行以下代码。</span></span><br><span class="line">request.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在Tomcat9之前（包括9），响应中文也是有乱码的，怎么解决这个响应的乱码？</span></span><br><span class="line">response.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"><span class="comment">// 在Tomcat10之后，包括10在内，响应中文的时候就不在出现乱码问题了。以上代码就不需要设置UTF-8了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意一个细节</span></span><br><span class="line"><span class="comment">// 在Tomcat10包括10在内之后的版本，中文将不再出现乱码。（这也体现了中文地位的提升。）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求乱码问题怎么解决？</span></span><br><span class="line"><span class="comment">// get请求发送的时候，数据是在请求行上提交的，不是在请求体当中提交的。</span></span><br><span class="line"><span class="comment">// get请求乱码怎么解决</span></span><br><span class="line"><span class="comment">// 方案：修改CATALINA_HOME/conf/server.xml配置文件</span></span><br><span class="line">&lt;Connector URIEncoding=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span><br><span class="line"><span class="comment">// 注意：从Tomcat8之后，URIEncoding的默认值就是UTF-8，所以GET请求也没有乱码问题了。</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 获取应用的根路径</span></span><br><span class="line"><span class="type">String</span> <span class="variable">contextPath</span> <span class="operator">=</span> request.getContextPath();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> request.getMethod();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求的URI</span></span><br><span class="line"><span class="type">String</span> <span class="variable">uri</span> <span class="operator">=</span> request.getRequestURI();  <span class="comment">// /aaa/testRequest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取servlet path</span></span><br><span class="line"><span class="type">String</span> <span class="variable">servletPath</span> <span class="operator">=</span> request.getServletPath(); <span class="comment">//   /testRequest</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaEE</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaEE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>8. Web站点的欢迎界面和WEB-INF目录</title>
     <url>/2022/09/14/JavaEE/8.%20Web%E7%AB%99%E7%82%B9%E7%9A%84%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2%E5%92%8CWEB-INF%E7%9B%AE%E5%BD%95/</url>
     <content><![CDATA[<h1 id="1-Web站点的欢迎界面"><a href="#1-Web站点的欢迎界面" class="headerlink" title="1. Web站点的欢迎界面"></a>1. Web站点的欢迎界面</h1><ul>
@@ -915,6 +896,73 @@
 <li>打开浏览器访问：<a href="http://localhost:8080/servlet07/WEB-INF/welcome.html">http://localhost:8080/servlet07/WEB-INF/welcome.html</a> 出现了404错误。</li>
 <li>注意：放在WEB-INF目录下的资源是受保护的。在浏览器上不能够通过路径直接访问。所以像HTML、CSS、JS、image等静态资源一定要放到WEB-INF目录之外。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>9. HttpServletRequest接口解析</title>
+    <url>/2022/09/14/JavaEE/9.%20HttpServletRequest%20%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="1-HttpServletRequest"><a href="#1-HttpServletRequest" class="headerlink" title="1. HttpServletRequest"></a>1. HttpServletRequest</h1><blockquote>
+<p>   HttpServletRequest 是一个接口,全限定名称为 : jakarta.servlet.http.HttpServletRequest, 他是Servlet规范中的一员。</p>
+</blockquote>
+<p><strong>HttpServletRequest接口的父接口:</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">HttpServletRequest</span> <span class="keyword">extends</span> <span class="title class_">ServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>HttpServletRequest接口的实现类谁写的? HttpServletRequest对象是谁给创建的？</strong></p>
+<ul>
+<li><p>通过测试：org.apache.catalina.connector.RequestFacade 实现了 HttpServletRequest接口</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RequestFacade</span> <span class="keyword">implements</span> <span class="title class_">HttpServletRequest</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试结果说明：Tomcat服务器（WEB服务器、WEB容器）实现了HttpServletRequest接口，还是说明了Tomcat服务器实现了Servlet规范。而对于我们javaweb程序员来说，实际上不需要关心这个，我们只需要面向接口编程即可。我们关心的是HttpServletRequest接口中有哪些方法，这些方法可以完成什么功能！！！！</p>
+</li>
+</ul>
+<p><strong>HttpServletRequest对象中都有什么信息？都包装了什么信息？</strong></p>
+<ul>
+<li>HttpServletRequest对象是Tomcat服务器负责创建的。这个对象中封装了什么信息？封装了HTTP的请求协议。</li>
+<li>实际上是用户发送请求的时候，遵循了HTTP协议，发送的是HTTP的请求协议，Tomcat服务器将HTTP协议中的信息以及数据全部解析出来，然后Tomcat服务器把这些信息封装到HttpServletRequest对象当中，传给了我们javaweb程序员。</li>
+<li>javaweb程序员面向HttpServletRequest接口编程，调用方法就可以获取到请求的信息了。</li>
+</ul>
+<p><strong>request和response对象的生命周期？</strong></p>
+<ul>
+<li>request对象和response对象，一个是请求对象，一个是响应对象。这两个对象只在当前请求中有效。</li>
+<li>一次请求对应一个request。</li>
+<li>两次请求则对应两个request。</li>
+<li>…..</li>
+</ul>
+<p><strong>HttpServletRequest接口中的常用方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Map&lt;String,String[]&gt; getParameterMap() 这个是获取Map</span><br><span class="line">Enumeration&lt;String&gt; <span class="title function_">getParameterNames</span><span class="params">()</span> 这个是获取Map集合中所有的key</span><br><span class="line">String[] getParameterValues(String name) 根据key获取Map集合的value</span><br><span class="line">String <span class="title function_">getParameter</span><span class="params">(String name)</span>  获取value这个一维数组当中的第一个元素。这个方法最常用。</span><br><span class="line"><span class="comment">// 以上的4个方法，和获取用户提交的数据有关系。</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-请求域-request"><a href="#2-请求域-request" class="headerlink" title="2. 请求域 - request"></a>2. 请求域 - request</h1><blockquote>
+<p>   request实际上是一个请求域对象,相比于ServletContext的应用域,请求域范围就小的多了,生命周期也很短,请求域只在一次请求之内有效。</p>
+</blockquote>
+<p><strong>请求域对象的方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">setAttribute</span><span class="params">(String name, Object obj)</span>; <span class="comment">// 向域当中绑定数据。</span></span><br><span class="line">Object <span class="title function_">getAttribute</span><span class="params">(String name)</span>; <span class="comment">// 从域当中根据name获取数据。</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeAttribute</span><span class="params">(String name)</span>; <span class="comment">// 将域当中绑定的数据移除</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>在使用过程中尽量使用小的域对象，因为小的域对象占用的资源较少。</p>
+<h1 id="3-转发"><a href="#3-转发" class="headerlink" title="3. 转发"></a>3. 转发</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 第一步：获取请求转发器对象</span></span><br><span class="line"><span class="type">RequestDispatcher</span> <span class="variable">dispatcher</span> <span class="operator">=</span> request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>);</span><br><span class="line"><span class="comment">// 第二步：调用转发器的forward方法完成跳转/转发</span></span><br><span class="line">dispatcher.forward(request,response);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一步和第二步代码可以联合在一起。</span></span><br><span class="line">request.getRequestDispatcher(<span class="string">&quot;/b&quot;</span>).forward(request,response);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>两个Servlet怎么共享数据</strong></p>
+<ul>
+<li>将数据放到ServletContext应用域当中，当然是可以的，但是应用域范围太大，占用资源太多。不建议使用。</li>
+<li>可以将数据放到request域当中，然后AServlet转发到BServlet，保证AServlet和BServlet在同一次请求当中，这样就可以做到两个Servlet，或者多个Servlet共享同一份数据。</li>
+</ul>
+<p><strong>转发的下一个资源必须是一个Servlet吗？</strong></p>
+<ul>
+<li>不一定，只要是Tomcat服务器当中的合法资源，都是可以转发的。例如：html….</li>
+<li>注意：转发的时候，路径的写法要注意，转发的路径以“&#x2F;”开始，不加项目名。</li>
+</ul>
+<h1 id="4-getParameter-和-getAttribute-区分"><a href="#4-getParameter-和-getAttribute-区分" class="headerlink" title="4. getParameter() 和 getAttribute() 区分"></a>4. getParameter() 和 getAttribute() 区分</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// uri?username=zhangsan&amp;userpwd=123&amp;sex=1</span></span><br><span class="line"><span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 之前一定是执行过：request.setAttribute(&quot;name&quot;, new Object())</span></span><br><span class="line"><span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> request.getAttribute(<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上两个方法的区别是什么？</span></span><br><span class="line"><span class="comment">// 第一个方法：获取的是用户在浏览器上提交的数据。</span></span><br><span class="line"><span class="comment">// 第二个方法：获取的是请求域当中绑定的数据。</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="5-HttpServletRequest-接口的其他常用方法"><a href="#5-HttpServletRequest-接口的其他常用方法" class="headerlink" title="5. HttpServletRequest 接口的其他常用方法"></a>5. HttpServletRequest 接口的其他常用方法</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取客户端的IP地址</span></span><br><span class="line"><span class="type">String</span> <span class="variable">remoteAddr</span> <span class="operator">=</span> request.getRemoteAddr();</span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求在请求行上提交数据。</span></span><br><span class="line"><span class="comment">// post请求在请求体中提交数据。</span></span><br><span class="line"><span class="comment">// 设置请求体的字符集。（显然这个方法是处理POST请求的乱码问题。这种方式并不能解决get请求的乱码问题。）</span></span><br><span class="line"><span class="comment">// Tomcat10之后，request请求体当中的字符集默认就是UTF-8，不需要设置字符集，不会出现乱码问题。</span></span><br><span class="line"><span class="comment">// Tomcat9前（包括9在内），如果前端请求体提交的是中文，后端获取之后出现乱码，怎么解决这个乱码？执行以下代码。</span></span><br><span class="line">request.setCharacterEncoding(<span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在Tomcat9之前（包括9），响应中文也是有乱码的，怎么解决这个响应的乱码？</span></span><br><span class="line">response.setContentType(<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line"><span class="comment">// 在Tomcat10之后，包括10在内，响应中文的时候就不在出现乱码问题了。以上代码就不需要设置UTF-8了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意一个细节</span></span><br><span class="line"><span class="comment">// 在Tomcat10包括10在内之后的版本，中文将不再出现乱码。（这也体现了中文地位的提升。）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// get请求乱码问题怎么解决？</span></span><br><span class="line"><span class="comment">// get请求发送的时候，数据是在请求行上提交的，不是在请求体当中提交的。</span></span><br><span class="line"><span class="comment">// get请求乱码怎么解决</span></span><br><span class="line"><span class="comment">// 方案：修改CATALINA_HOME/conf/server.xml配置文件</span></span><br><span class="line">&lt;Connector URIEncoding=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span><br><span class="line"><span class="comment">// 注意：从Tomcat8之后，URIEncoding的默认值就是UTF-8，所以GET请求也没有乱码问题了。</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">// 获取应用的根路径</span></span><br><span class="line"><span class="type">String</span> <span class="variable">contextPath</span> <span class="operator">=</span> request.getContextPath();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求方式</span></span><br><span class="line"><span class="type">String</span> <span class="variable">method</span> <span class="operator">=</span> request.getMethod();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取请求的URI</span></span><br><span class="line"><span class="type">String</span> <span class="variable">uri</span> <span class="operator">=</span> request.getRequestURI();  <span class="comment">// /aaa/testRequest</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取servlet path</span></span><br><span class="line"><span class="type">String</span> <span class="variable">servletPath</span> <span class="operator">=</span> request.getServletPath(); <span class="comment">//   /testRequest</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Java 学习</category>
@@ -1890,169 +1938,6 @@
       </tags>
   </entry>
   <entry>
-    <title>14. 多线程(基础)</title>
-    <url>/2022/09/11/JavaSE/14.%20%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="14-1-线程的概念"><a href="#14-1-线程的概念" class="headerlink" title="14.1 线程的概念"></a>14.1 线程的概念</h1><blockquote>
-<p>对于一般程序而言，其结构大都可以分为一个入口、一个出口、一个顺次执行的语句序列。这样的语句结构称为进程，它是程序的一次动态执行，对应了代码加载、执行至完毕的全过程。<br>进程即是程序在处理机中的一次运行。在这样一个结构中不仅包含程序代码，也包括了系统资源的概念。<br>在单 CPU 计算机内部，微观上讲，同一时间只能有一个线程运行。实现多线程即从宏观上使多个作业同时执行。</p>
-</blockquote>
-<p>程序：为完成特定任务，用某种语言编写的一组指令的集合。<br>进程：运行中的程序。当你运行一个程序，系统就会为该进程分配空间。进程是程序的一次执行过程。是一个动态过程：有其自身产生、存在、消亡的过程。<br>线程：由进程创建的，进程的一个实体。一个进程可以有多个线程。<br>单线程：同一时刻，只允许执行一个线程。<br>多线程：同一时刻，可以执行多个线程。<br>并发：同一时刻，多个任务交替执行，造成一种貌似并行的状态。单核 CPU 实现的多任务就是并发。<br>并行：同一时刻，多个任务同时进行。多核 CPU 可以实现并行。</p>
-<h2 id="14-1-1-线程的结构"><a href="#14-1-1-线程的结构" class="headerlink" title="14.1.1 线程的结构"></a>14.1.1 线程的结构</h2><p>在 Java 中，线程由以下 3 部分组成：</p>
-<ul>
-<li>虚拟 CPU：封装在 java.lang.Thread 类中，控制着整个线程的运行</li>
-<li>执行的代码：传递给 Thread 类，由其控制按序执行</li>
-<li>处理的数据：传递给 Thread 类，是在代码执行过程中需要处理的数据</li>
-</ul>
-<h2 id="14-1-2-线程的状态"><a href="#14-1-2-线程的状态" class="headerlink" title="14.1.2 线程的状态"></a>14.1.2 线程的状态</h2><blockquote>
-<p>Java 的线程是通过包 java.lang 中定义的类 Thread 来实现的。当生成了一个 Thread 类后就产生了一个线程。通过该对象实例，可以启动线程、终止线程，或暂时挂起线程</p>
-</blockquote>
-<p>线程共有 4 种状态：新建（New）、可运行（Runnable）、死亡（Dead）、阻塞（Blocked）</p>
-<ul>
-<li><strong>新建（New）</strong>：线程对象刚刚创建，还未启动（New）。此时还处于不可运行状态，但已有了相应内存空间及其他资源</li>
-<li><strong>可运行（Runnable）</strong>：此时线程已经启动，处于线程的 run() 方法中。这种情况下线程可能正在运行；也可能没有运行，但只要 CPU 空闲就会立刻运行。可以运行但没在运行的线程都排在一个队列中，这个队列称为就绪队列。可运行状态下，运行中的线程处于运行状态（Running），未运行线程处于就绪状态（Ready）。调用 start() 方法可以让线程进入可运行状态。</li>
-<li><strong>死亡（Dead）</strong>：线程死亡（Terminated）的原因有两个：一是 run() 方法最后一个语句执行完毕，二是线程遇到异常退出</li>
-<li><strong>阻塞（Blocked）</strong>：一个正常运行的线程因为特殊原因被暂停执行，就进入阻塞状态（Blocked）。阻塞时线程不能进入就绪对流排队，必须等到引起阻塞的原因消除，才能重新进入队列排队。引起阻塞的方法很多，sleep() 和 wait() 是两个常用的阻塞方法</li>
-<li><strong>中断线程</strong>：<ul>
-<li><code>void interrupt()</code>：向一个线程发送一个中断请求，并把该线程的 interruptd 状态变为 true。中断阻塞线程的场合，会抛出 InterruptException 异常</li>
-<li><code>static boolean interrupted()</code>：检测当前线程是否被中断，并重置状态 interrupted 的值。连续调用该方法的场合，第二次调用会返回 false</li>
-<li><code>boolean isInterrupted()</code>：检测当前线程是否中断。不改变 interrupted 的值</li>
-</ul>
-</li>
-</ul>
-<h1 id="14-2-线程的使用"><a href="#14-2-线程的使用" class="headerlink" title="14.2 线程的使用"></a>14.2 线程的使用</h1><p>在 Java 中线程使用有两种方法：</p>
-<ol>
-<li><p>继承 <code>Thread</code> 类，重写 <code>run</code> 方法</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>		<span class="comment">//可见 Thread 也是实现了 Runable 接口</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实现 <code>Runable</code> 接口，重写 <code>run</code> 方法</p>
-</li>
-</ol>
-<h2 id="14-2-1-继承Thread类"><a href="#14-2-1-继承Thread类" class="headerlink" title="14.2.1 继承Thread类"></a>14.2.1 继承Thread类</h2><blockquote>
-<p>Thread 类是 Java 用于表示线程的类。那么，一个类被定义为其子类，则该类也能用来表示线程</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();</span><br><span class="line"> type.start();								<span class="comment">//开始线程</span></span><br><span class="line"> 											<span class="comment">//如果用 run 方法，则还是停留在主线程</span></span><br><span class="line"> 											<span class="comment">//  那样，相当于 串行。执行完毕才继续</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;						<span class="comment">//先继承 Thread 类</span></span><br><span class="line"> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">         System.out.println(i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);				<span class="comment">//休眠 100 毫秒</span></span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (i++ == <span class="number">10</span>) &#123;					<span class="comment">//i = 10 时停止循环</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>关于<code>start()</code> 方法</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">	...</span><br><span class="line">    start0();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">start0</span><span class="params">()</span>;					<span class="comment">//start0 是 native。即，底层方法</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><code>start()</code> 方法调用了一个 <code>start0()</code> 底层方法</li>
-<li><code>start0()</code> 是本地方法，由 JVM 调用，底层是 c&#x2F;c++ 实现</li>
-<li>真正的多线程效果，是 <code>start0()</code>，而不是 <code>run()</code></li>
-<li><code>start()</code> 方法调用 <code>start0() </code>方法后，该线程不一定会立刻执行，只是将线程变成了可运行状态。具体何时运行，由 CPU 统一调度</li>
-</ol>
-<h2 id="14-2-2-实现Runable接口"><a href="#14-2-2-实现Runable接口" class="headerlink" title="14.2.2 实现Runable接口"></a>14.2.2 实现Runable接口</h2><blockquote>
-<p>Runnable 是 Java 用以实现线程的接口。从根本上将，任何实现线程的类都必须实现该接口。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Runnable</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();					<span class="comment">//Runable 没有 start()方法</span></span><br><span class="line"> <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(type);				<span class="comment">//所以，这里使用了 静态代理</span></span><br><span class="line"> thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;				<span class="comment">//这部分和 Thread 相似</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         System.out.println(i &lt;&lt; i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (++i &gt; <span class="number">15</span>)&#123;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>关于静态代理</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runable</span> &#123;&#125;</span><br><span class="line">	...	</span><br><span class="line">	<span class="keyword">private</span> Runnable target;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="title function_">Thread</span><span class="params">(Runnable target)</span> &#123;	<span class="comment">//构造器</span></span><br><span class="line">     init(<span class="literal">null</span>, target, <span class="string">&quot;Thread-&quot;</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">     								<span class="comment">//这句话可以先理解为 this.target = target;</span></span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">         target.run();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//相当于，先创建了一个新线程，然后在新线程中调用 run 方法</span></span><br></pre></td></tr></table></figure>
-<h2 id="14-2-3-继承Thread和实现Runable的区别"><a href="#14-2-3-继承Thread和实现Runable的区别" class="headerlink" title="14.2.3 继承Thread和实现Runable的区别"></a>14.2.3 继承Thread和实现Runable的区别</h2><ol>
-<li>从 Java 设计来看，两者本质上没有区别。Thread 类本身就实现了 Runable 接口</li>
-<li>实现 Runable 接口的方式更加适合多个线程共享一个资源的情况，且避免了单继承的限制。建议使用。</li>
-</ol>
-<h2 id="14-2-4-线程中止"><a href="#14-2-4-线程中止" class="headerlink" title="14.2.4 线程中止"></a>14.2.4 线程中止</h2><ol>
-<li>当线程结束后，会自动退出</li>
-<li>还可以通过使用变量来控制 <code>run</code> 方法退出的方式来停止线程，即 通知方式。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line"> <span class="keyword">while</span> (active) &#123;					<span class="comment">//这个场合，只要外部控制 active 即可</span></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         Thread.sleep(<span class="number">1</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     move();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="14-2-5-线程的常用方法"><a href="#14-2-5-线程的常用方法" class="headerlink" title="14.2.5 线程的常用方法"></a>14.2.5 线程的常用方法</h2><ul>
-<li>setName(name)：设置线程名称，使之与参数 name 相同</li>
-<li>getName()：返回线程名称</li>
-<li>start()：线程开始执行。JVM 调用 start0 方法该方法会创建新的线程，新线程调用 run。</li>
-<li>run()：到下面玩跑步就是简单的方法调用，不会产生新线程。</li>
-<li>setPriority(int priority)：更改线程优先级getPriority()：获取线程优先级priority 范围：每个线程都有一个优先级。Java 线程调度采用如下优先级策略：<ul>
-<li>MAX_PRIORITY：最高优先级（10）</li>
-<li>MIN_PRIORITY：最低优先级（1）</li>
-<li>NORM_PRIORITY：不高不低，真是好极了的优先级（5）</li>
-<li>优先级高的先执行，优先级低的后执行</li>
-<li>每个线程创建时会被自动分配一个优先级。默认的场合，继承父类优先级</li>
-<li>任务紧急的线程，优先级较高</li>
-<li>同优先级线程按 “先进先出” 原则调度</li>
-</ul>
-</li>
-<li>sleep(int millsecond)：让线程休眠指定的时间该方法是 Thread 类的静态方法，可以直接调用</li>
-<li>interrupt()：中断线程（不是 中止）</li>
-<li>yield()：线程的礼让。让出 CPU 让其他线程执行。因为礼让的时间不确定，所以不一定礼让成功。本质是 RUNNING 切换为 READY，即让当前线程放弃执行权</li>
-<li>wait()：导致当前线程等待直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法才能唤醒此线程notify()、notifyAll()：唤醒因 wait() 阻塞的线程。这些方法（wait()、notify()、notifyAll()）只能在 synchrnized 方法或代码块中调用</li>
-<li>join()：线程的插队。插队的线程一旦插入成功，则必定先执行完插队线程的所有任务将导致其他线程的等待，直到 join() 方法的线程结束join(long timeout)：join，但是时间到后也能结束其他线程的等待</li>
-<li>isAlive()：测试当前线程是否在活动</li>
-<li>Thread.currentThread()：引用当前运行中的线程</li>
-</ul>
-<h2 id="14-2-6-用户线程和守护线程"><a href="#14-2-6-用户线程和守护线程" class="headerlink" title="14.2.6 用户线程和守护线程"></a>14.2.6 用户线程和守护线程</h2><ul>
-<li>用户线程：也叫工作线程。当线程任务执行完毕或通知方式结束</li>
-<li>守护线程：一般是为工作线程服务的。当所有线程结束，守护线程自动结束常见的守护线程：垃圾回收机制<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thraed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(bullet);</span><br><span class="line">thread.setDeamon(<span class="literal">true</span>);							<span class="comment">//这样，子线程被设置为主线程的守护线程</span></span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="14-2-7-线程的生命周期"><a href="#14-2-7-线程的生命周期" class="headerlink" title="14.2.7 线程的生命周期"></a>14.2.7 线程的生命周期</h2><p>线程的状态有</p>
-<ul>
-<li>NEW：尚未启动</li>
-<li>RUNNABLE：在 JVM 中执行的线程可细分为 READY 和 RUNNING</li>
-<li>BLOCKED：被阻塞等待监视器锁定的线程</li>
-<li>WAITING：正等待另一个线程执行特定动作的线程</li>
-<li>TIMED_WAITING：正等待另一个线程执行特定动作达到等待时间的线程</li>
-<li>TERMINATED：已退出的线程</li>
-</ul>
-<h1 id="14-3-线程的互斥"><a href="#14-3-线程的互斥" class="headerlink" title="14.3 线程的互斥"></a>14.3 线程的互斥</h1><blockquote>
-<p>在多线程编程，一些敏感数据不允许被多个线程同时访问。此时就用同步访问技术，保证数据在任意时刻，最多有一个线程同时访问，以保证数据的完整性。<br>也可以这样理解：线程同步，即当有一个线程对内存进行操作时，其他线程都不能对这个内存地址进行操作（被阻塞），直到该线程完成操作，再让下一线程进行操作。</p>
-</blockquote>
-<h2 id="14-3-1-互斥锁"><a href="#14-3-1-互斥锁" class="headerlink" title="14.3.1 互斥锁"></a>14.3.1 互斥锁</h2><blockquote>
-<p>在 Java 语言中，引入了 “对象互斥锁” 的概念，也称为监视器，来保证共享数据操作的完整性<br>每个对象都对应一个可称为 “互斥锁” 的标记，这个标记用来保证在任一时刻都只能有一个线程访问对象。<br>Java 语言中，有 2 种方式实现互斥锁：</p>
-<ul>
-<li>用关键字 volatile 声明一个共享数据（变量）。一般很少使用该关键字</li>
-<li>用关键字 synchronized 声明共享数据的一个方法或一个代码</li>
-</ul>
-</blockquote>
-<p>同步的局限性：导致程序的执行效率要降低。</p>
-<blockquote>
-<p>非静态的对象，同步方法的锁可以是 this，也可以是其他对象（要求是同一对象）<br>静态对象，同步方法的锁为当前类本身</p>
-</blockquote>
-<ol>
-<li><p>同步代码块</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (对象) &#123;		<span class="comment">//得到对象的锁，才能操作同步代码</span></span><br><span class="line">	需要被同步代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在第一个线程持有锁定标记时，如果另一个线程企图执行该代码块语句，将从对象中索取锁定标记。<br>因为此时该标记不可得，古该线程不能继续执行，而是加入等待队列。<br>程序运行完 synchronized 代码块后，锁定标记会被自动返还。即使该同步代码块执行过程中抛出异常也是如此。一个线程多次调用该同步代码块的场合，也会在最外层执行完毕后正确返还。</p>
-</li>
-<li><p>放在方法声明中，表示整个方法为同步方法</p>
-</li>
-</ol>
-<p>因为 synchronized 语句的参数必须是 this，因此允许下面这种简洁的写法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">	代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="14-3-2-线程死锁"><a href="#14-3-2-线程死锁" class="headerlink" title="14.3.2 线程死锁"></a>14.3.2 线程死锁</h2><blockquote>
-<p>多个线程都占用了对方的资源，不肯相让，就导致了死锁。编程时要避免死锁的产生。</p>
-</blockquote>
-<ul>
-<li>以下操作会释放锁<ol>
-<li>当前线程的同步方法、同步代码块执行结束。</li>
-<li>当前线程在同步方法、同步代码块中遇到 break、return</li>
-<li>当前线程在同步方法、同步代码块中出现了未处理的 Error</li>
-<li>当前线程在同步方法、同步代码块中执行了 wait() 方法，当前线程暂停，并释放锁</li>
-</ol>
-</li>
-<li>以下操作不会释放锁<ol>
-<li>执行同步方法、同步代码块时，程序调用 Thread.sleep() 或 Thread.yield() 方法暂停当前线程的执行，不会释放锁</li>
-<li>线程执行同步代码块时，其他线程调用了该线程的 suspend() 方法将该线程挂起，该线程不会释放锁所以，应尽量避免使用 suspend() 和 resume() 来控制线程</li>
-</ol>
-</li>
-</ul>
-<h1 id="14-4-线程的同步"><a href="#14-4-线程的同步" class="headerlink" title="14.4 线程的同步"></a>14.4 线程的同步</h1><blockquote>
-<p>Java 中，可以使用 wait()、notify()、notifyAll() 来协调线程间的运行速度关系。这些方法都被定义在 java.lang.Object 中<br>Java 中的每个对象实例都有两个线程队列和它相连。一个用以实现等待锁定标志的线程，另一个用来实现 wait() 和 notify() 的交互机制</p>
-</blockquote>
-<ul>
-<li>wait()：让当前线程释放所有其持有的 “对象互斥锁”，进入等待队列</li>
-<li>notify()、notifyAll()：唤醒一个或所有在等待队列中等待的线程，并将他们移入同一个等待 “对象互斥锁” 的队列。执行这些方法时如果没有等待中的线程，则其不会生效，也不会被保留到以后再生效<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.value == <span class="number">0</span>) key.wait();</span><br><span class="line">    key.value--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    key.value++;</span><br><span class="line">    key.nitifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-因为调用这些方法时必须持有对象的 “对象互斥锁”，所以上述方法只能在 synhronized 方法或代码块中执行。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>13. Java数据结构(集合)</title>
     <url>/2022/09/11/JavaSE/13.%20Java%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84(%E9%9B%86%E5%90%88)/</url>
     <content><![CDATA[<blockquote>
@@ -2450,6 +2335,169 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
+    <title>14. 多线程(基础)</title>
+    <url>/2022/09/11/JavaSE/14.%20%E5%A4%9A%E7%BA%BF%E7%A8%8B(%E5%9F%BA%E7%A1%80%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="14-1-线程的概念"><a href="#14-1-线程的概念" class="headerlink" title="14.1 线程的概念"></a>14.1 线程的概念</h1><blockquote>
+<p>对于一般程序而言，其结构大都可以分为一个入口、一个出口、一个顺次执行的语句序列。这样的语句结构称为进程，它是程序的一次动态执行，对应了代码加载、执行至完毕的全过程。<br>进程即是程序在处理机中的一次运行。在这样一个结构中不仅包含程序代码，也包括了系统资源的概念。<br>在单 CPU 计算机内部，微观上讲，同一时间只能有一个线程运行。实现多线程即从宏观上使多个作业同时执行。</p>
+</blockquote>
+<p>程序：为完成特定任务，用某种语言编写的一组指令的集合。<br>进程：运行中的程序。当你运行一个程序，系统就会为该进程分配空间。进程是程序的一次执行过程。是一个动态过程：有其自身产生、存在、消亡的过程。<br>线程：由进程创建的，进程的一个实体。一个进程可以有多个线程。<br>单线程：同一时刻，只允许执行一个线程。<br>多线程：同一时刻，可以执行多个线程。<br>并发：同一时刻，多个任务交替执行，造成一种貌似并行的状态。单核 CPU 实现的多任务就是并发。<br>并行：同一时刻，多个任务同时进行。多核 CPU 可以实现并行。</p>
+<h2 id="14-1-1-线程的结构"><a href="#14-1-1-线程的结构" class="headerlink" title="14.1.1 线程的结构"></a>14.1.1 线程的结构</h2><p>在 Java 中，线程由以下 3 部分组成：</p>
+<ul>
+<li>虚拟 CPU：封装在 java.lang.Thread 类中，控制着整个线程的运行</li>
+<li>执行的代码：传递给 Thread 类，由其控制按序执行</li>
+<li>处理的数据：传递给 Thread 类，是在代码执行过程中需要处理的数据</li>
+</ul>
+<h2 id="14-1-2-线程的状态"><a href="#14-1-2-线程的状态" class="headerlink" title="14.1.2 线程的状态"></a>14.1.2 线程的状态</h2><blockquote>
+<p>Java 的线程是通过包 java.lang 中定义的类 Thread 来实现的。当生成了一个 Thread 类后就产生了一个线程。通过该对象实例，可以启动线程、终止线程，或暂时挂起线程</p>
+</blockquote>
+<p>线程共有 4 种状态：新建（New）、可运行（Runnable）、死亡（Dead）、阻塞（Blocked）</p>
+<ul>
+<li><strong>新建（New）</strong>：线程对象刚刚创建，还未启动（New）。此时还处于不可运行状态，但已有了相应内存空间及其他资源</li>
+<li><strong>可运行（Runnable）</strong>：此时线程已经启动，处于线程的 run() 方法中。这种情况下线程可能正在运行；也可能没有运行，但只要 CPU 空闲就会立刻运行。可以运行但没在运行的线程都排在一个队列中，这个队列称为就绪队列。可运行状态下，运行中的线程处于运行状态（Running），未运行线程处于就绪状态（Ready）。调用 start() 方法可以让线程进入可运行状态。</li>
+<li><strong>死亡（Dead）</strong>：线程死亡（Terminated）的原因有两个：一是 run() 方法最后一个语句执行完毕，二是线程遇到异常退出</li>
+<li><strong>阻塞（Blocked）</strong>：一个正常运行的线程因为特殊原因被暂停执行，就进入阻塞状态（Blocked）。阻塞时线程不能进入就绪对流排队，必须等到引起阻塞的原因消除，才能重新进入队列排队。引起阻塞的方法很多，sleep() 和 wait() 是两个常用的阻塞方法</li>
+<li><strong>中断线程</strong>：<ul>
+<li><code>void interrupt()</code>：向一个线程发送一个中断请求，并把该线程的 interruptd 状态变为 true。中断阻塞线程的场合，会抛出 InterruptException 异常</li>
+<li><code>static boolean interrupted()</code>：检测当前线程是否被中断，并重置状态 interrupted 的值。连续调用该方法的场合，第二次调用会返回 false</li>
+<li><code>boolean isInterrupted()</code>：检测当前线程是否中断。不改变 interrupted 的值</li>
+</ul>
+</li>
+</ul>
+<h1 id="14-2-线程的使用"><a href="#14-2-线程的使用" class="headerlink" title="14.2 线程的使用"></a>14.2 线程的使用</h1><p>在 Java 中线程使用有两种方法：</p>
+<ol>
+<li><p>继承 <code>Thread</code> 类，重写 <code>run</code> 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>		<span class="comment">//可见 Thread 也是实现了 Runable 接口</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现 <code>Runable</code> 接口，重写 <code>run</code> 方法</p>
+</li>
+</ol>
+<h2 id="14-2-1-继承Thread类"><a href="#14-2-1-继承Thread类" class="headerlink" title="14.2.1 继承Thread类"></a>14.2.1 继承Thread类</h2><blockquote>
+<p>Thread 类是 Java 用于表示线程的类。那么，一个类被定义为其子类，则该类也能用来表示线程</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Type</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();</span><br><span class="line"> type.start();								<span class="comment">//开始线程</span></span><br><span class="line"> 											<span class="comment">//如果用 run 方法，则还是停留在主线程</span></span><br><span class="line"> 											<span class="comment">//  那样，相当于 串行。执行完毕才继续</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;						<span class="comment">//先继承 Thread 类</span></span><br><span class="line"> <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">         System.out.println(i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);				<span class="comment">//休眠 100 毫秒</span></span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (i++ == <span class="number">10</span>) &#123;					<span class="comment">//i = 10 时停止循环</span></span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>关于<code>start()</code> 方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">	...</span><br><span class="line">    start0();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">start0</span><span class="params">()</span>;					<span class="comment">//start0 是 native。即，底层方法</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>start()</code> 方法调用了一个 <code>start0()</code> 底层方法</li>
+<li><code>start0()</code> 是本地方法，由 JVM 调用，底层是 c&#x2F;c++ 实现</li>
+<li>真正的多线程效果，是 <code>start0()</code>，而不是 <code>run()</code></li>
+<li><code>start()</code> 方法调用 <code>start0() </code>方法后，该线程不一定会立刻执行，只是将线程变成了可运行状态。具体何时运行，由 CPU 统一调度</li>
+</ol>
+<h2 id="14-2-2-实现Runable接口"><a href="#14-2-2-实现Runable接口" class="headerlink" title="14.2.2 实现Runable接口"></a>14.2.2 实现Runable接口</h2><blockquote>
+<p>Runnable 是 Java 用以实现线程的接口。从根本上将，任何实现线程的类都必须实现该接口。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> <span class="type">Runnable</span> <span class="variable">type</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Type</span>();					<span class="comment">//Runable 没有 start()方法</span></span><br><span class="line"> <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(type);				<span class="comment">//所以，这里使用了 静态代理</span></span><br><span class="line"> thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Type</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;				<span class="comment">//这部分和 Thread 相似</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">     <span class="keyword">while</span> (<span class="literal">true</span>)&#123;</span><br><span class="line">         System.out.println(i &lt;&lt; i);</span><br><span class="line">         <span class="keyword">try</span> &#123;</span><br><span class="line">             Thread.sleep(<span class="number">100</span>);</span><br><span class="line">         &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">             e.printStackTrace();</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">if</span> (++i &gt; <span class="number">15</span>)&#123;</span><br><span class="line">             <span class="keyword">break</span>;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>关于静态代理</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Thread</span> <span class="keyword">implements</span> <span class="title class_">Runable</span> &#123;&#125;</span><br><span class="line">	...	</span><br><span class="line">	<span class="keyword">private</span> Runnable target;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="title function_">Thread</span><span class="params">(Runnable target)</span> &#123;	<span class="comment">//构造器</span></span><br><span class="line">     init(<span class="literal">null</span>, target, <span class="string">&quot;Thread-&quot;</span> + nextThreadNum(), <span class="number">0</span>);</span><br><span class="line">     								<span class="comment">//这句话可以先理解为 this.target = target;</span></span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (target != <span class="literal">null</span>) &#123;</span><br><span class="line">         target.run();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//相当于，先创建了一个新线程，然后在新线程中调用 run 方法</span></span><br></pre></td></tr></table></figure>
+<h2 id="14-2-3-继承Thread和实现Runable的区别"><a href="#14-2-3-继承Thread和实现Runable的区别" class="headerlink" title="14.2.3 继承Thread和实现Runable的区别"></a>14.2.3 继承Thread和实现Runable的区别</h2><ol>
+<li>从 Java 设计来看，两者本质上没有区别。Thread 类本身就实现了 Runable 接口</li>
+<li>实现 Runable 接口的方式更加适合多个线程共享一个资源的情况，且避免了单继承的限制。建议使用。</li>
+</ol>
+<h2 id="14-2-4-线程中止"><a href="#14-2-4-线程中止" class="headerlink" title="14.2.4 线程中止"></a>14.2.4 线程中止</h2><ol>
+<li>当线程结束后，会自动退出</li>
+<li>还可以通过使用变量来控制 <code>run</code> 方法退出的方式来停止线程，即 通知方式。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line"> <span class="keyword">while</span> (active) &#123;					<span class="comment">//这个场合，只要外部控制 active 即可</span></span><br><span class="line">     <span class="keyword">try</span> &#123;</span><br><span class="line">         Thread.sleep(<span class="number">1</span>);</span><br><span class="line">     &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">     &#125;</span><br><span class="line">     move();</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="14-2-5-线程的常用方法"><a href="#14-2-5-线程的常用方法" class="headerlink" title="14.2.5 线程的常用方法"></a>14.2.5 线程的常用方法</h2><ul>
+<li>setName(name)：设置线程名称，使之与参数 name 相同</li>
+<li>getName()：返回线程名称</li>
+<li>start()：线程开始执行。JVM 调用 start0 方法该方法会创建新的线程，新线程调用 run。</li>
+<li>run()：到下面玩跑步就是简单的方法调用，不会产生新线程。</li>
+<li>setPriority(int priority)：更改线程优先级getPriority()：获取线程优先级priority 范围：每个线程都有一个优先级。Java 线程调度采用如下优先级策略：<ul>
+<li>MAX_PRIORITY：最高优先级（10）</li>
+<li>MIN_PRIORITY：最低优先级（1）</li>
+<li>NORM_PRIORITY：不高不低，真是好极了的优先级（5）</li>
+<li>优先级高的先执行，优先级低的后执行</li>
+<li>每个线程创建时会被自动分配一个优先级。默认的场合，继承父类优先级</li>
+<li>任务紧急的线程，优先级较高</li>
+<li>同优先级线程按 “先进先出” 原则调度</li>
+</ul>
+</li>
+<li>sleep(int millsecond)：让线程休眠指定的时间该方法是 Thread 类的静态方法，可以直接调用</li>
+<li>interrupt()：中断线程（不是 中止）</li>
+<li>yield()：线程的礼让。让出 CPU 让其他线程执行。因为礼让的时间不确定，所以不一定礼让成功。本质是 RUNNING 切换为 READY，即让当前线程放弃执行权</li>
+<li>wait()：导致当前线程等待直到其他线程调用此对象的 notify() 方法或 notifyAll() 方法才能唤醒此线程notify()、notifyAll()：唤醒因 wait() 阻塞的线程。这些方法（wait()、notify()、notifyAll()）只能在 synchrnized 方法或代码块中调用</li>
+<li>join()：线程的插队。插队的线程一旦插入成功，则必定先执行完插队线程的所有任务将导致其他线程的等待，直到 join() 方法的线程结束join(long timeout)：join，但是时间到后也能结束其他线程的等待</li>
+<li>isAlive()：测试当前线程是否在活动</li>
+<li>Thread.currentThread()：引用当前运行中的线程</li>
+</ul>
+<h2 id="14-2-6-用户线程和守护线程"><a href="#14-2-6-用户线程和守护线程" class="headerlink" title="14.2.6 用户线程和守护线程"></a>14.2.6 用户线程和守护线程</h2><ul>
+<li>用户线程：也叫工作线程。当线程任务执行完毕或通知方式结束</li>
+<li>守护线程：一般是为工作线程服务的。当所有线程结束，守护线程自动结束常见的守护线程：垃圾回收机制<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Thread</span> <span class="variable">thraed</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(bullet);</span><br><span class="line">thread.setDeamon(<span class="literal">true</span>);							<span class="comment">//这样，子线程被设置为主线程的守护线程</span></span><br><span class="line">thread.start();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="14-2-7-线程的生命周期"><a href="#14-2-7-线程的生命周期" class="headerlink" title="14.2.7 线程的生命周期"></a>14.2.7 线程的生命周期</h2><p>线程的状态有</p>
+<ul>
+<li>NEW：尚未启动</li>
+<li>RUNNABLE：在 JVM 中执行的线程可细分为 READY 和 RUNNING</li>
+<li>BLOCKED：被阻塞等待监视器锁定的线程</li>
+<li>WAITING：正等待另一个线程执行特定动作的线程</li>
+<li>TIMED_WAITING：正等待另一个线程执行特定动作达到等待时间的线程</li>
+<li>TERMINATED：已退出的线程</li>
+</ul>
+<h1 id="14-3-线程的互斥"><a href="#14-3-线程的互斥" class="headerlink" title="14.3 线程的互斥"></a>14.3 线程的互斥</h1><blockquote>
+<p>在多线程编程，一些敏感数据不允许被多个线程同时访问。此时就用同步访问技术，保证数据在任意时刻，最多有一个线程同时访问，以保证数据的完整性。<br>也可以这样理解：线程同步，即当有一个线程对内存进行操作时，其他线程都不能对这个内存地址进行操作（被阻塞），直到该线程完成操作，再让下一线程进行操作。</p>
+</blockquote>
+<h2 id="14-3-1-互斥锁"><a href="#14-3-1-互斥锁" class="headerlink" title="14.3.1 互斥锁"></a>14.3.1 互斥锁</h2><blockquote>
+<p>在 Java 语言中，引入了 “对象互斥锁” 的概念，也称为监视器，来保证共享数据操作的完整性<br>每个对象都对应一个可称为 “互斥锁” 的标记，这个标记用来保证在任一时刻都只能有一个线程访问对象。<br>Java 语言中，有 2 种方式实现互斥锁：</p>
+<ul>
+<li>用关键字 volatile 声明一个共享数据（变量）。一般很少使用该关键字</li>
+<li>用关键字 synchronized 声明共享数据的一个方法或一个代码</li>
+</ul>
+</blockquote>
+<p>同步的局限性：导致程序的执行效率要降低。</p>
+<blockquote>
+<p>非静态的对象，同步方法的锁可以是 this，也可以是其他对象（要求是同一对象）<br>静态对象，同步方法的锁为当前类本身</p>
+</blockquote>
+<ol>
+<li><p>同步代码块</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (对象) &#123;		<span class="comment">//得到对象的锁，才能操作同步代码</span></span><br><span class="line">	需要被同步代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在第一个线程持有锁定标记时，如果另一个线程企图执行该代码块语句，将从对象中索取锁定标记。<br>因为此时该标记不可得，古该线程不能继续执行，而是加入等待队列。<br>程序运行完 synchronized 代码块后，锁定标记会被自动返还。即使该同步代码块执行过程中抛出异常也是如此。一个线程多次调用该同步代码块的场合，也会在最外层执行完毕后正确返还。</p>
+</li>
+<li><p>放在方法声明中，表示整个方法为同步方法</p>
+</li>
+</ol>
+<p>因为 synchronized 语句的参数必须是 this，因此允许下面这种简洁的写法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">	代码;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="14-3-2-线程死锁"><a href="#14-3-2-线程死锁" class="headerlink" title="14.3.2 线程死锁"></a>14.3.2 线程死锁</h2><blockquote>
+<p>多个线程都占用了对方的资源，不肯相让，就导致了死锁。编程时要避免死锁的产生。</p>
+</blockquote>
+<ul>
+<li>以下操作会释放锁<ol>
+<li>当前线程的同步方法、同步代码块执行结束。</li>
+<li>当前线程在同步方法、同步代码块中遇到 break、return</li>
+<li>当前线程在同步方法、同步代码块中出现了未处理的 Error</li>
+<li>当前线程在同步方法、同步代码块中执行了 wait() 方法，当前线程暂停，并释放锁</li>
+</ol>
+</li>
+<li>以下操作不会释放锁<ol>
+<li>执行同步方法、同步代码块时，程序调用 Thread.sleep() 或 Thread.yield() 方法暂停当前线程的执行，不会释放锁</li>
+<li>线程执行同步代码块时，其他线程调用了该线程的 suspend() 方法将该线程挂起，该线程不会释放锁所以，应尽量避免使用 suspend() 和 resume() 来控制线程</li>
+</ol>
+</li>
+</ul>
+<h1 id="14-4-线程的同步"><a href="#14-4-线程的同步" class="headerlink" title="14.4 线程的同步"></a>14.4 线程的同步</h1><blockquote>
+<p>Java 中，可以使用 wait()、notify()、notifyAll() 来协调线程间的运行速度关系。这些方法都被定义在 java.lang.Object 中<br>Java 中的每个对象实例都有两个线程队列和它相连。一个用以实现等待锁定标志的线程，另一个用来实现 wait() 和 notify() 的交互机制</p>
+</blockquote>
+<ul>
+<li>wait()：让当前线程释放所有其持有的 “对象互斥锁”，进入等待队列</li>
+<li>notify()、notifyAll()：唤醒一个或所有在等待队列中等待的线程，并将他们移入同一个等待 “对象互斥锁” 的队列。执行这些方法时如果没有等待中的线程，则其不会生效，也不会被保留到以后再生效<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    <span class="keyword">if</span> (key.value == <span class="number">0</span>) key.wait();</span><br><span class="line">    key.value--;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (key) &#123;</span><br><span class="line">    key.value++;</span><br><span class="line">    key.nitifyAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+因为调用这些方法时必须持有对象的 “对象互斥锁”，所以上述方法只能在 synhronized 方法或代码块中执行。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>15. IO流</title>
     <url>/2022/09/11/JavaSE/15.%20IO%E6%B5%81/</url>
     <content><![CDATA[<h1 id="15-1-文件"><a href="#15-1-文件" class="headerlink" title="15.1 文件"></a>15.1 文件</h1><blockquote>
@@ -2809,6 +2857,198 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
+    <title>3. 运算符</title>
+    <url>/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
+    <content><![CDATA[<blockquote>
+<p>运算符：一种特殊的符号，用于表示数据的运算、赋值和比较等。</p>
+</blockquote>
+<h1 id="3-1-算数运算符"><a href="#3-1-算数运算符" class="headerlink" title="3.1 算数运算符"></a>3.1 算数运算符</h1><blockquote>
+<p>算术运算符是对数值类型的变量进行运算的运算符，在 Java 程序中使用得非常多。其运算结果是一个数值量。</p>
+</blockquote>
+<ul>
+<li><p><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>：加、减、乘、除</p>
+<blockquote>
+<p><code>5 / 2 = 2;</code> 因为是 <code>int</code> 。 同理 <code>5.0 / 2 = 2.5</code></p>
+</blockquote>
+</li>
+<li><p><code>%</code>：取模符，就是取余数</p>
+<blockquote>
+<p><code>5 % 2 = 1</code> 5 除以 2 的 余数为 1</p>
+</blockquote>
+</li>
+<li><p><code>++</code>：自增</p>
+<blockquote>
+<p><code>++i</code>: 先自增后运算 |  <code>i++</code>: 先运算后自增</p>
+</blockquote>
+</li>
+<li><p><code>--</code>：自减</p>
+<blockquote>
+<p>与 <code>++</code> 同理</p>
+</blockquote>
+</li>
+<li><p><code>+</code>：字符串相加</p>
+</li>
+</ul>
+<h1 id="3-2-关系运算符"><a href="#3-2-关系运算符" class="headerlink" title="3.2 关系运算符"></a>3.2 关系运算符</h1><blockquote>
+<p>关系运算符结果都为 <code>boolean</code> 型，要么是 <code>ture</code> 要么是 <code>false</code>。其关系表达式经常用在 <code>if 结构</code>的条件中或循环结构的条件中。</p>
+</blockquote>
+<ul>
+<li><code>==</code>：相等于</li>
+<li><code>!=</code> : 不等于</li>
+<li><code>&lt;``&gt;</code>: 小于、大于</li>
+<li><code>&lt;=</code> <code>&gt;=</code> : 小于等于、大于等于</li>
+<li><code>instanceof</code> : 检查是否是类的对象</li>
+</ul>
+<p><strong>细节：</strong></p>
+<ol>
+<li><strong>关系运算符的结果都是 <code>boolean</code> 类型，即要么为 <code>true</code> 要么为 <code>false</code>。</strong></li>
+<li><strong>关系运算符的表达式被称为_关系表达式_</strong></li>
+<li><strong>比较运算符<code>==</code>要和赋值运算符<code>=</code>区分。(新手易混)</strong></li>
+<li><strong>Java 允许将 <code>==</code>、<code>!=</code>两种运算用于任何数据类型</strong></li>
+<li><strong>字符串的比较通常用 <code>equals()</code> 方法来比较。</strong></li>
+</ol>
+<h1 id="3-3-逻辑运算符"><a href="#3-3-逻辑运算符" class="headerlink" title="3.3 逻辑运算符"></a>3.3 逻辑运算符</h1><blockquote>
+<p>用于连接多个条件（多个关系表达式），最终的结果也是一个 <code>boolean</code> 值。</p>
+</blockquote>
+<ul>
+<li><p><code>&amp;&amp;</code>: <strong>短路与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+<li><p><code>&amp;</code>：<strong>逻辑与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
+<blockquote>
+<p><strong>区别：短路与当前者为<code>false</code>时就暂停不会去判断后者，而逻辑与会完成整个判断。在实际开发中多用短路与。因为效率更高。</strong></p>
+</blockquote>
+</li>
+<li><p><code>||</code>：<strong>短路或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+<li><p><code>|</code> ：<strong>逻辑或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
+<blockquote>
+<p><strong>区别：和短语与相同，若前者为true，就不会去判断后者的结果。</strong></p>
+</blockquote>
+</li>
+<li><p><code>！</code>：<strong>取反</strong>。<code>true</code>变成<code>false</code>，<code>false</code>变为<code>true</code>。</p>
+</li>
+<li><p><code>^</code>：<strong>逻辑异或</strong>。前后不同时为<code>true</code>，否则为<code>false</code>。</p>
+</li>
+</ul>
+<h1 id="3-4-赋值运算符"><a href="#3-4-赋值运算符" class="headerlink" title="3.4 赋值运算符"></a>3.4 赋值运算符</h1><blockquote>
+<p>将某个运算后的值，赋给指定变量</p>
+</blockquote>
+<ul>
+<li>基本赋值运算符：<code>=</code></li>
+<li>符合赋值运算符：<code>+=</code>、<code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code><blockquote>
+<p>a +&#x3D; b  &#x3D;&gt; a &#x3D; a + b;  &#x2F;&#x2F; 二者相等</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>细节:</strong></p>
+<ol>
+<li><strong>运算顺序从右往左。</strong></li>
+<li><strong>运算符左边只能是变量，右边可以是变量、表达式、常量值。</strong></li>
+<li><strong>复合赋值运算符会进行类型转换。</strong></li>
+</ol>
+<h1 id="3-5-三元运算符"><a href="#3-5-三元运算符" class="headerlink" title="3.5 三元运算符"></a>3.5 三元运算符</h1><blockquote>
+<p>基本语法：<code>条件表达式 ? 表达式1 : 表达式2;</code></p>
+</blockquote>
+<p>运算规则：如果条件表达式的结果为<code>true</code>， 则执行表达式1，否则执行表达式2。<br><strong>细节：</strong></p>
+<ol>
+<li><strong>表达式1和表达式2要为可以赋给接受变量的类型（可以自己转换）</strong></li>
+<li>**三元运算符可以转换为<code>if-else</code></li>
+<li><strong>三元运算符是一个整体。</strong></li>
+</ol>
+<h1 id="3-6-运算符优先级"><a href="#3-6-运算符优先级" class="headerlink" title="3.6 运算符优先级"></a>3.6 运算符优先级</h1><h1 id="3-7-标识符"><a href="#3-7-标识符" class="headerlink" title="3.7 标识符"></a>3.7 标识符</h1><blockquote>
+<p>Java 对各种变量、方法和类等命名时使用的字符序列称为标识符凡是自己可以起名字的地方都叫标识符</p>
+</blockquote>
+<h2 id="3-7-1-命名规则"><a href="#3-7-1-命名规则" class="headerlink" title="3.7.1 命名规则"></a>3.7.1 命名规则</h2><ol>
+<li>标识符由字母、数字、_或$组成。</li>
+<li>数字不能开头。</li>
+<li>不可以使用关键字和保留字。</li>
+<li>不能包含空格。</li>
+<li>可以使用任何的Unicode字符作为标识符。但不推荐。</li>
+</ol>
+<h2 id="3-7-2-命名规范"><a href="#3-7-2-命名规范" class="headerlink" title="3.7.2 命名规范"></a>3.7.2 命名规范</h2><ol>
+<li>包名：多单词组成时所有字母都小写：aaa.bbb.ccc</li>
+<li>类名、接口名：多单词组成时，采用大驼峰法，所有单词的首字母大写：XxxYyyZzz</li>
+<li>变量名、方法名：多单词组成时，采小驼峰法（驼峰法），第一个单词首字母小写，第二个开始每个单词首字母大写：xxxYyyZzz</li>
+<li>常量名：所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ</li>
+<li>更详细的规则查看 <a href="https://developer.aliyun.com/article/709470">Java 编码规范</a></li>
+</ol>
+<h1 id="3-8-输入与输出"><a href="#3-8-输入与输出" class="headerlink" title="3.8 输入与输出"></a>3.8 输入与输出</h1><blockquote>
+<p>为满足读取用户输入、输出的需求，Java 提供了几个基本类</p>
+</blockquote>
+<h2 id="3-8-1-Scanner-类"><a href="#3-8-1-Scanner-类" class="headerlink" title="3.8.1 Scanner 类"></a>3.8.1 Scanner 类</h2><blockquote>
+<p>在编程中，需要接收用户输入的数据，就可以使用键盘输入语句来获取。<code>Input.java</code> ，需要一个 扫描器（对象），就是 <code>Scanner</code>。<code>Scanner</code> 属于 <code>java.util</code> 包。其包含许多方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner; <span class="comment">// 1. 导入包名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Input</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in); <span class="comment">// 2. 创建对象</span></span><br><span class="line">        System.out.println(<span class="string">&quot;请输入一行字符：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> scanner.next(); <span class="comment">// 3. 接收用户输入</span></span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>构造方法：</strong></p>
+<ul>
+<li><code>new Scanner(System.in)</code>：该方法接收一个参数（输入源）。其中 <code>System.in</code> 代表标准输入流。默认情况指键盘。</li>
+</ul>
+<p><strong>常用方法：</strong></p>
+<ul>
+<li><code>String next()</code>：读取下一个输入对象<code>Scanner</code> 对象用空白（空格、水平制表符或回车换行符）作为输入的分隔元素</li>
+<li><code>Double nextDouble()</code>：读取下一个 <code>double</code></li>
+<li><code>Int nextInt()</code>：读取下一个<code> int</code></li>
+<li><code>String nextLine()</code>：读入当前行的所有输入，直到行尾</li>
+<li><code>boolean hasNext()</code>：输入中是否还有其他单词</li>
+<li><code>boolean hasNextInt()</code>、<code>boolean hasNextDouble()</code></li>
+</ul>
+<h2 id="3-8-2-格式化输出"><a href="#3-8-2-格式化输出" class="headerlink" title="3.8.2 格式化输出"></a>3.8.2 格式化输出</h2><blockquote>
+<p><code>System.out</code> 标准输出流。调用该流方法以输出内容至控制台窗口</p>
+</blockquote>
+<ul>
+<li><code>println(String s)</code>：输出字符，结束后换行</li>
+<li><code>print(String s)</code>：输出字符，结束后不换行</li>
+<li><code>println(int n)</code>、<code>println(char c)</code>、<code>println(Object obj)</code>……</li>
+<li><code>printf(String format, Object ... args)</code>：格式化输出<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.printf(<span class="string">&quot;%s测试%d&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="number">1</span>);	<span class="comment">// &lt;—— abcd测试1</span></span><br></pre></td></tr></table></figure>
+以 % 开头的 格式说明符 都用相应参数替换。格式说明符尾部的转换符表示要格式化的数值类型</li>
+</ul>
+<h1 id="3-9-进制"><a href="#3-9-进制" class="headerlink" title="3.9 进制"></a>3.9 进制</h1><ul>
+<li><strong>二进制</strong>：数字有 0 - 1，满 2 进 1，以 <code>0b</code> 或 <code>0B </code>开头</li>
+<li><strong>十进制</strong></li>
+<li><strong>八进制</strong>：0 - 7，满 8 进 1，以 <code>0 </code>开头表示</li>
+<li><strong>十六进制</strong>：0 - 9 及 A - F，满 16 进 1，以<code>0x </code>或 <code>0X </code>开头。此处的 A - F 不分大小写。</li>
+</ul>
+<h2 id="3-9-1-进制的转换"><a href="#3-9-1-进制的转换" class="headerlink" title="3.9.1 进制的转换"></a>3.9.1 进制的转换</h2><ul>
+<li><strong>其他进制 转 十进制</strong>：略</li>
+<li><strong>十进制 转 其他进制</strong>：将该数不断除以对象进制数，直到商为0为止，将每步得到的余数倒过来。</li>
+<li><strong>二进制 与 八进制 或 十六进制 互相转换</strong>：二进制 从低位开始，<strong>每 3 位一组</strong>，转成对应的 八进制 即可。反之同理。十六进制亦同理（<strong>每 4 位一组</strong>）。</li>
+</ul>
+<h2 id="3-9-2-原码、反码、补码"><a href="#3-9-2-原码、反码、补码" class="headerlink" title="3.9.2 原码、反码、补码"></a>3.9.2 原码、反码、补码</h2><ol>
+<li>二进制的最高位是符号位：0表示正数，1表示负数。</li>
+<li><strong>正数的原码、反码、补码都一样。</strong></li>
+<li>负数的反码 &#x3D; 原码符号位不变，其他位取反（0 变 1，1 变 0）</li>
+<li><strong>负数的补码 &#x3D; 反码 + 1。也就是说，负数的反码 &#x3D; 补码 - 1</strong></li>
+<li>0 的反码、补码都是 0。</li>
+<li>Java 没有无符号数。换言之，Java 的数都是有符号的。</li>
+<li><strong>计算机运算时，都是以补码的方式来运算的。</strong></li>
+<li><strong>当我们看运算结果时，要看其原码。</strong></li>
+</ol>
+<h1 id="3-10-位运算符"><a href="#3-10-位运算符" class="headerlink" title="3.10 位运算符"></a>3.10 位运算符</h1><ul>
+<li><code>&amp;</code> <strong>按位与</strong>：两位都为 1，结果为 1，否则为 0</li>
+<li><code>|</code>按位或**：两位有一个为 1，结果为 1，否则为 0</li>
+<li><code>^</code> <strong>按位异或</strong>：两位不同，结果为 1，否则为 0</li>
+<li><code>~</code> <strong>按位取反</strong>：把 0 变 1，1 变 0</li>
+<li><code>&gt;&gt;</code> <strong>算术右移</strong>：低位溢出，符号位不变，用符号位补溢出的高位</li>
+<li><code>&lt;&lt;</code> <strong>算数左移</strong>：符号位不变，低位补 0</li>
+<li><code>&gt;&gt;&gt;</code> <strong>逻辑右移（无符号右移）</strong>：低位溢出，高位补 0</li>
+</ul>
+<p><strong>细节:</strong></p>
+<ol>
+<li>位运算符只对整型、字符类型有效</li>
+<li>移位运算中，左侧操作 int 的场合，右侧操作数以 32 取模；long 的场合，右侧操作数以 64 取模。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2. 变量</title>
     <url>/2022/09/11/JavaSE/2.%20%E5%8F%98%E9%87%8F/</url>
     <content><![CDATA[<h1 id="2-1-变量介绍"><a href="#2-1-变量介绍" class="headerlink" title="2.1 变量介绍"></a>2.1 变量介绍</h1><blockquote>
@@ -3020,198 +3260,6 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <ol>
 <li>将<code>String</code> 转成基本数据类型时，要保证其能转换为有效数据。即不能把 “Hello” 转换成 <code>int</code>。</li>
 <li>如果格式不正确，会抛出异常，程序会中止。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3. 运算符</title>
-    <url>/2022/09/11/JavaSE/3.%20%E8%BF%90%E7%AE%97%E7%AC%A6/</url>
-    <content><![CDATA[<blockquote>
-<p>运算符：一种特殊的符号，用于表示数据的运算、赋值和比较等。</p>
-</blockquote>
-<h1 id="3-1-算数运算符"><a href="#3-1-算数运算符" class="headerlink" title="3.1 算数运算符"></a>3.1 算数运算符</h1><blockquote>
-<p>算术运算符是对数值类型的变量进行运算的运算符，在 Java 程序中使用得非常多。其运算结果是一个数值量。</p>
-</blockquote>
-<ul>
-<li><p><code>+</code>、<code>-</code>、<code>*</code>、<code>/</code>：加、减、乘、除</p>
-<blockquote>
-<p><code>5 / 2 = 2;</code> 因为是 <code>int</code> 。 同理 <code>5.0 / 2 = 2.5</code></p>
-</blockquote>
-</li>
-<li><p><code>%</code>：取模符，就是取余数</p>
-<blockquote>
-<p><code>5 % 2 = 1</code> 5 除以 2 的 余数为 1</p>
-</blockquote>
-</li>
-<li><p><code>++</code>：自增</p>
-<blockquote>
-<p><code>++i</code>: 先自增后运算 |  <code>i++</code>: 先运算后自增</p>
-</blockquote>
-</li>
-<li><p><code>--</code>：自减</p>
-<blockquote>
-<p>与 <code>++</code> 同理</p>
-</blockquote>
-</li>
-<li><p><code>+</code>：字符串相加</p>
-</li>
-</ul>
-<h1 id="3-2-关系运算符"><a href="#3-2-关系运算符" class="headerlink" title="3.2 关系运算符"></a>3.2 关系运算符</h1><blockquote>
-<p>关系运算符结果都为 <code>boolean</code> 型，要么是 <code>ture</code> 要么是 <code>false</code>。其关系表达式经常用在 <code>if 结构</code>的条件中或循环结构的条件中。</p>
-</blockquote>
-<ul>
-<li><code>==</code>：相等于</li>
-<li><code>!=</code> : 不等于</li>
-<li><code>&lt;``&gt;</code>: 小于、大于</li>
-<li><code>&lt;=</code> <code>&gt;=</code> : 小于等于、大于等于</li>
-<li><code>instanceof</code> : 检查是否是类的对象</li>
-</ul>
-<p><strong>细节：</strong></p>
-<ol>
-<li><strong>关系运算符的结果都是 <code>boolean</code> 类型，即要么为 <code>true</code> 要么为 <code>false</code>。</strong></li>
-<li><strong>关系运算符的表达式被称为_关系表达式_</strong></li>
-<li><strong>比较运算符<code>==</code>要和赋值运算符<code>=</code>区分。(新手易混)</strong></li>
-<li><strong>Java 允许将 <code>==</code>、<code>!=</code>两种运算用于任何数据类型</strong></li>
-<li><strong>字符串的比较通常用 <code>equals()</code> 方法来比较。</strong></li>
-</ol>
-<h1 id="3-3-逻辑运算符"><a href="#3-3-逻辑运算符" class="headerlink" title="3.3 逻辑运算符"></a>3.3 逻辑运算符</h1><blockquote>
-<p>用于连接多个条件（多个关系表达式），最终的结果也是一个 <code>boolean</code> 值。</p>
-</blockquote>
-<ul>
-<li><p><code>&amp;&amp;</code>: <strong>短路与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
-</li>
-<li><p><code>&amp;</code>：<strong>逻辑与</strong>。前后皆为<code>true</code>，则结果为<code>true</code>，否则为<code>false</code>。</p>
-<blockquote>
-<p><strong>区别：短路与当前者为<code>false</code>时就暂停不会去判断后者，而逻辑与会完成整个判断。在实际开发中多用短路与。因为效率更高。</strong></p>
-</blockquote>
-</li>
-<li><p><code>||</code>：<strong>短路或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
-</li>
-<li><p><code>|</code> ：<strong>逻辑或</strong>。前后有一个为<code>true</code>，则为<code>true</code>，否则为<code>false</code>。</p>
-<blockquote>
-<p><strong>区别：和短语与相同，若前者为true，就不会去判断后者的结果。</strong></p>
-</blockquote>
-</li>
-<li><p><code>！</code>：<strong>取反</strong>。<code>true</code>变成<code>false</code>，<code>false</code>变为<code>true</code>。</p>
-</li>
-<li><p><code>^</code>：<strong>逻辑异或</strong>。前后不同时为<code>true</code>，否则为<code>false</code>。</p>
-</li>
-</ul>
-<h1 id="3-4-赋值运算符"><a href="#3-4-赋值运算符" class="headerlink" title="3.4 赋值运算符"></a>3.4 赋值运算符</h1><blockquote>
-<p>将某个运算后的值，赋给指定变量</p>
-</blockquote>
-<ul>
-<li>基本赋值运算符：<code>=</code></li>
-<li>符合赋值运算符：<code>+=</code>、<code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code><blockquote>
-<p>a +&#x3D; b  &#x3D;&gt; a &#x3D; a + b;  &#x2F;&#x2F; 二者相等</p>
-</blockquote>
-</li>
-</ul>
-<p><strong>细节:</strong></p>
-<ol>
-<li><strong>运算顺序从右往左。</strong></li>
-<li><strong>运算符左边只能是变量，右边可以是变量、表达式、常量值。</strong></li>
-<li><strong>复合赋值运算符会进行类型转换。</strong></li>
-</ol>
-<h1 id="3-5-三元运算符"><a href="#3-5-三元运算符" class="headerlink" title="3.5 三元运算符"></a>3.5 三元运算符</h1><blockquote>
-<p>基本语法：<code>条件表达式 ? 表达式1 : 表达式2;</code></p>
-</blockquote>
-<p>运算规则：如果条件表达式的结果为<code>true</code>， 则执行表达式1，否则执行表达式2。<br><strong>细节：</strong></p>
-<ol>
-<li><strong>表达式1和表达式2要为可以赋给接受变量的类型（可以自己转换）</strong></li>
-<li>**三元运算符可以转换为<code>if-else</code></li>
-<li><strong>三元运算符是一个整体。</strong></li>
-</ol>
-<h1 id="3-6-运算符优先级"><a href="#3-6-运算符优先级" class="headerlink" title="3.6 运算符优先级"></a>3.6 运算符优先级</h1><h1 id="3-7-标识符"><a href="#3-7-标识符" class="headerlink" title="3.7 标识符"></a>3.7 标识符</h1><blockquote>
-<p>Java 对各种变量、方法和类等命名时使用的字符序列称为标识符凡是自己可以起名字的地方都叫标识符</p>
-</blockquote>
-<h2 id="3-7-1-命名规则"><a href="#3-7-1-命名规则" class="headerlink" title="3.7.1 命名规则"></a>3.7.1 命名规则</h2><ol>
-<li>标识符由字母、数字、_或$组成。</li>
-<li>数字不能开头。</li>
-<li>不可以使用关键字和保留字。</li>
-<li>不能包含空格。</li>
-<li>可以使用任何的Unicode字符作为标识符。但不推荐。</li>
-</ol>
-<h2 id="3-7-2-命名规范"><a href="#3-7-2-命名规范" class="headerlink" title="3.7.2 命名规范"></a>3.7.2 命名规范</h2><ol>
-<li>包名：多单词组成时所有字母都小写：aaa.bbb.ccc</li>
-<li>类名、接口名：多单词组成时，采用大驼峰法，所有单词的首字母大写：XxxYyyZzz</li>
-<li>变量名、方法名：多单词组成时，采小驼峰法（驼峰法），第一个单词首字母小写，第二个开始每个单词首字母大写：xxxYyyZzz</li>
-<li>常量名：所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ</li>
-<li>更详细的规则查看 <a href="https://developer.aliyun.com/article/709470">Java 编码规范</a></li>
-</ol>
-<h1 id="3-8-输入与输出"><a href="#3-8-输入与输出" class="headerlink" title="3.8 输入与输出"></a>3.8 输入与输出</h1><blockquote>
-<p>为满足读取用户输入、输出的需求，Java 提供了几个基本类</p>
-</blockquote>
-<h2 id="3-8-1-Scanner-类"><a href="#3-8-1-Scanner-类" class="headerlink" title="3.8.1 Scanner 类"></a>3.8.1 Scanner 类</h2><blockquote>
-<p>在编程中，需要接收用户输入的数据，就可以使用键盘输入语句来获取。<code>Input.java</code> ，需要一个 扫描器（对象），就是 <code>Scanner</code>。<code>Scanner</code> 属于 <code>java.util</code> 包。其包含许多方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner; <span class="comment">// 1. 导入包名</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Input</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in); <span class="comment">// 2. 创建对象</span></span><br><span class="line">        System.out.println(<span class="string">&quot;请输入一行字符：&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> scanner.next(); <span class="comment">// 3. 接收用户输入</span></span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>构造方法：</strong></p>
-<ul>
-<li><code>new Scanner(System.in)</code>：该方法接收一个参数（输入源）。其中 <code>System.in</code> 代表标准输入流。默认情况指键盘。</li>
-</ul>
-<p><strong>常用方法：</strong></p>
-<ul>
-<li><code>String next()</code>：读取下一个输入对象<code>Scanner</code> 对象用空白（空格、水平制表符或回车换行符）作为输入的分隔元素</li>
-<li><code>Double nextDouble()</code>：读取下一个 <code>double</code></li>
-<li><code>Int nextInt()</code>：读取下一个<code> int</code></li>
-<li><code>String nextLine()</code>：读入当前行的所有输入，直到行尾</li>
-<li><code>boolean hasNext()</code>：输入中是否还有其他单词</li>
-<li><code>boolean hasNextInt()</code>、<code>boolean hasNextDouble()</code></li>
-</ul>
-<h2 id="3-8-2-格式化输出"><a href="#3-8-2-格式化输出" class="headerlink" title="3.8.2 格式化输出"></a>3.8.2 格式化输出</h2><blockquote>
-<p><code>System.out</code> 标准输出流。调用该流方法以输出内容至控制台窗口</p>
-</blockquote>
-<ul>
-<li><code>println(String s)</code>：输出字符，结束后换行</li>
-<li><code>print(String s)</code>：输出字符，结束后不换行</li>
-<li><code>println(int n)</code>、<code>println(char c)</code>、<code>println(Object obj)</code>……</li>
-<li><code>printf(String format, Object ... args)</code>：格式化输出<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.printf(<span class="string">&quot;%s测试%d&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="number">1</span>);	<span class="comment">// &lt;—— abcd测试1</span></span><br></pre></td></tr></table></figure>
-以 % 开头的 格式说明符 都用相应参数替换。格式说明符尾部的转换符表示要格式化的数值类型</li>
-</ul>
-<h1 id="3-9-进制"><a href="#3-9-进制" class="headerlink" title="3.9 进制"></a>3.9 进制</h1><ul>
-<li><strong>二进制</strong>：数字有 0 - 1，满 2 进 1，以 <code>0b</code> 或 <code>0B </code>开头</li>
-<li><strong>十进制</strong></li>
-<li><strong>八进制</strong>：0 - 7，满 8 进 1，以 <code>0 </code>开头表示</li>
-<li><strong>十六进制</strong>：0 - 9 及 A - F，满 16 进 1，以<code>0x </code>或 <code>0X </code>开头。此处的 A - F 不分大小写。</li>
-</ul>
-<h2 id="3-9-1-进制的转换"><a href="#3-9-1-进制的转换" class="headerlink" title="3.9.1 进制的转换"></a>3.9.1 进制的转换</h2><ul>
-<li><strong>其他进制 转 十进制</strong>：略</li>
-<li><strong>十进制 转 其他进制</strong>：将该数不断除以对象进制数，直到商为0为止，将每步得到的余数倒过来。</li>
-<li><strong>二进制 与 八进制 或 十六进制 互相转换</strong>：二进制 从低位开始，<strong>每 3 位一组</strong>，转成对应的 八进制 即可。反之同理。十六进制亦同理（<strong>每 4 位一组</strong>）。</li>
-</ul>
-<h2 id="3-9-2-原码、反码、补码"><a href="#3-9-2-原码、反码、补码" class="headerlink" title="3.9.2 原码、反码、补码"></a>3.9.2 原码、反码、补码</h2><ol>
-<li>二进制的最高位是符号位：0表示正数，1表示负数。</li>
-<li><strong>正数的原码、反码、补码都一样。</strong></li>
-<li>负数的反码 &#x3D; 原码符号位不变，其他位取反（0 变 1，1 变 0）</li>
-<li><strong>负数的补码 &#x3D; 反码 + 1。也就是说，负数的反码 &#x3D; 补码 - 1</strong></li>
-<li>0 的反码、补码都是 0。</li>
-<li>Java 没有无符号数。换言之，Java 的数都是有符号的。</li>
-<li><strong>计算机运算时，都是以补码的方式来运算的。</strong></li>
-<li><strong>当我们看运算结果时，要看其原码。</strong></li>
-</ol>
-<h1 id="3-10-位运算符"><a href="#3-10-位运算符" class="headerlink" title="3.10 位运算符"></a>3.10 位运算符</h1><ul>
-<li><code>&amp;</code> <strong>按位与</strong>：两位都为 1，结果为 1，否则为 0</li>
-<li><code>|</code>按位或**：两位有一个为 1，结果为 1，否则为 0</li>
-<li><code>^</code> <strong>按位异或</strong>：两位不同，结果为 1，否则为 0</li>
-<li><code>~</code> <strong>按位取反</strong>：把 0 变 1，1 变 0</li>
-<li><code>&gt;&gt;</code> <strong>算术右移</strong>：低位溢出，符号位不变，用符号位补溢出的高位</li>
-<li><code>&lt;&lt;</code> <strong>算数左移</strong>：符号位不变，低位补 0</li>
-<li><code>&gt;&gt;&gt;</code> <strong>逻辑右移（无符号右移）</strong>：低位溢出，高位补 0</li>
-</ul>
-<p><strong>细节:</strong></p>
-<ol>
-<li>位运算符只对整型、字符类型有效</li>
-<li>移位运算中，左侧操作 int 的场合，右侧操作数以 32 取模；long 的场合，右侧操作数以 64 取模。</li>
 </ol>
 ]]></content>
       <categories>
