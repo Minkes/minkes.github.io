@@ -206,6 +206,84 @@
       </tags>
   </entry>
   <entry>
+    <title>12. Servlet注解开发与优化</title>
+    <url>/2022/09/24/JavaEE/12.%20Servlet%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="1-Servlet注解开发"><a href="#1-Servlet注解开发" class="headerlink" title="1. Servlet注解开发"></a>1. Servlet注解开发</h1><ul>
+<li><p>分析oa项目中的web.xml文件</p>
+<ul>
+<li>现在只是一个单标的CRUD，没有复杂的业务逻辑，很简单的一丢丢功能。web.xml文件中就有如此多的配置信息。如果采用这种方式，对于一个大的项目来说，这样的话web.xml文件会非常庞大，有可能最终会达到几十兆。</li>
+<li>在web.xml文件中进行servlet信息的配置，显然开发效率比较低，每一个都需要配置一下。</li>
+<li>而且在web.xml文件中的配置是很少被修改的，所以这种配置信息能不能直接写到java类当中呢？可以的。</li>
+</ul>
+</li>
+<li><p>Servlet3.0版本之后，推出了各种Servlet基于注解式开发。优点是什么？</p>
+<ul>
+<li>开发效率高，不需要编写大量的配置信息。直接在java类上使用注解进行标注。</li>
+<li>web.xml文件体积变小了。</li>
+</ul>
+</li>
+<li><p>并不是说注解有了之后，web.xml文件就不需要了：</p>
+<ul>
+<li>有一些需要变化的信息，还是要配置到web.xml文件中。一般都是 注解+配置文件 的开发模式。</li>
+<li>一些不会经常变化修改的配置建议使用注解。一些可能会被修改的建议写到配置文件中。</li>
+</ul>
+</li>
+<li><p>我们的第一个注解：</p>
+<ul>
+<li><pre><code class="java">  jakarta.servlet.annotation.WebServlet
+</code></pre>
+</li>
+<li><p>在Servlet类上使用：@WebServlet，WebServlet注解中有哪些属性呢？</p>
+<ul>
+<li>name属性：用来指定Servlet的名字。等同于：<servlet-name></li>
+<li>urlPatterns属性：用来指定Servlet的映射路径。可以指定多个字符串。<url-pattern></li>
+<li>loadOnStartUp属性：用来指定在服务器启动阶段是否加载该Servlet。等同于：<load-on-startup></li>
+<li>value属性：当注解的属性名是value的时候，使用注解的时候，value属性名是可以省略的。</li>
+<li>注意：不是必须将所有属性都写上，只需要提供需要的。（需要什么用什么。）</li>
+<li>注意：属性是一个数组，如果数组中只有一个元素，使用该注解的时候，属性值的大括号可以省略。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注解对象的使用格式：</p>
+<ul>
+<li>@注解名称(属性名&#x3D;属性值, 属性名&#x3D;属性值, 属性名&#x3D;属性值….)</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-使用模板方法设计模式优化oa项目"><a href="#2-使用模板方法设计模式优化oa项目" class="headerlink" title="2. 使用模板方法设计模式优化oa项目"></a>2. 使用模板方法设计模式优化oa项目</h1><ul>
+<li>上面的注解解决了配置文件的问题。但是现在的oa项目仍然存在一个比较臃肿的问题。<ul>
+<li>一个单标的CRUD，就写了6个Servlet。如果一个复杂的业务系统，这种开发方式，显然会导致类爆炸。（类的数量太大。）</li>
+<li>怎么解决这个类爆炸问题？可以使用模板方法设计模式。</li>
+</ul>
+</li>
+<li>怎么解决类爆炸问题？<ul>
+<li>以前的设计是一个请求一个Servlet类。1000个请求对应1000个Servlet类。导致类爆炸。</li>
+<li>可以这样做：一个请求对应一个方法。一个业务对应一个Servlet类。</li>
+<li>处理部门相关业务的对应一个DeptServlet。处理用户相关业务的对应一个UserServlet。处理银行卡卡片业务对应一个CardServlet。</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-纯粹的Servlet开发Web应用的缺陷"><a href="#3-纯粹的Servlet开发Web应用的缺陷" class="headerlink" title="3. 纯粹的Servlet开发Web应用的缺陷"></a>3. 纯粹的Servlet开发Web应用的缺陷</h1><ul>
+<li>va程序中编写前端代码，编写难度大。麻烦。</li>
+<li>java程序中编写前端代码，显然程序的耦合度非常高。</li>
+<li>java程序中编写前端代码，代码非常不美观。</li>
+<li>java程序中编写前端代码，维护成本太高。（非常难于维护）<ul>
+<li>修改小小的一个前端代码，只要有改动，就需要重新编译java代码，生成新的class文件，打一个新的war包，重新发布。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>13. session 和 cookie</title>
     <url>/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/</url>
     <content><![CDATA[<h1 id="1-session"><a href="#1-session" class="headerlink" title="1. session"></a>1. session</h1><ul>
@@ -402,18 +480,404 @@
 </ul>
 </li>
 <li><p>浏览器发送cookie给服务器了，服务器中的java程序怎么接收？</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Cookie[] cookies = request.getCookies(); <span class="comment">// 这个方法可能返回null</span></span><br><span class="line"><span class="keyword">if</span>(cookies != <span class="literal">null</span>)&#123;</span><br><span class="line">    <span class="keyword">for</span>(Cookie cookie : cookies)&#123;</span><br><span class="line">        <span class="comment">// 获取cookie的name</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> cookie.getName();</span><br><span class="line">        <span class="comment">// 获取cookie的value</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> cookie.getValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>14. JSP详解</title>
+    <url>/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h1 id="1-什么是JSP"><a href="#1-什么是JSP" class="headerlink" title="1. 什么是JSP"></a>1. 什么是JSP</h1><p>JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以&lt;%开头以%&gt;结束。</p>
+<p>JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。</p>
+<p>JSP是java程序。（JSP本质还是一个Servlet）</p>
+<p>JSP是：JavaServer Pages的缩写。（基于Java语言实现的服务器端的页面。）</p>
+<p>Servlet是JavaEE的13个子规范之一，那么JSP也是JavaEE的13个子规范之一。</p>
+<p>JSP是一套规范。所有的web容器&#x2F;web服务器都是遵循这套规范的，都是按照这套规范进行的“翻译”</p>
+<p>每一个web容器&#x2F;web服务器都会内置一个JSP翻译引擎。</p>
+<p><strong>关于index.jsp</strong></p>
 <ul>
-<li><pre><code class="java">  Cookie[] cookies = request.getCookies(); // 这个方法可能返回null
-  if(cookies != null)&#123;
-      for(Cookie cookie : cookies)&#123;
-          // 获取cookie的name
-          String name = cookie.getName();
-          // 获取cookie的value
-          String value = cookie.getValue();
-      &#125;
-  &#125;
-  
-</code></pre>
+<li><p>在WEB-INF目录之外创建一个index.jsp文件，然后这个文件中没有任何内容。</p>
+</li>
+<li><p>将上面的项目部署之后，启动服务器，打开浏览器，访问以下地址：</p>
+<ul>
+<li><a href="http://localhost:8080/jsp/index.jsp">http://localhost:8080/jsp/index.jsp</a> 展现在大家面前的是一个空白。</li>
+<li>实际上访问以上的这个：index.jsp，底层执行的是：index_jsp.class 这个java程序。</li>
+<li>这个index.jsp会被tomcat翻译生成index_jsp.java文件，然后tomcat服务器又会将index_jsp.java编译生成index_jsp.class文件</li>
+<li>访问index.jsp，实际上执行的是index_jsp.class中的方法。</li>
+</ul>
+</li>
+<li><p>JSP实际上就是一个Servlet。</p>
+<ul>
+<li>index.jsp访问的时候，会自动翻译生成index_jsp.java，会自动编译生成index_jsp.class，那么index_jsp 这就是一个类。</li>
+<li>index_jsp 类继承 HttpJspBase，而HttpJspBase类继承的是HttpServlet。所以index_jsp类就是一个Servlet类。</li>
+<li>jsp的生命周期和Servlet的生命周期完全相同。完全就是一个东西。没有任何区别。</li>
+<li>jsp和servlet一样，都是单例的。（假单例。）</li>
+</ul>
+</li>
+</ul>
+<p><strong>为什么第一次访问Jsp会比较慢?</strong></p>
+<ul>
+<li>第一次比较麻烦：<ul>
+<li>要把jsp文件翻译生成java源文件</li>
+<li>java源文件要编译生成class字节码文件</li>
+<li>然后通过class去创建servlet对象</li>
+<li>然后调用servlet对象的init方法</li>
+<li>最后调用servlet对象的service方法。</li>
+</ul>
+</li>
+<li>第二次就比较快了，为什么？<ul>
+<li>因为第二次直接调用单例servlet对象的service方法即可。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-JSP和Servlet的区别"><a href="#2-JSP和Servlet的区别" class="headerlink" title="2. JSP和Servlet的区别"></a>2. JSP和Servlet的区别</h1><p>职责不同：</p>
+<ul>
+<li>Servlet的职责是什么：收集数据。（Servlet的强项是逻辑处理，业务处理，然后链接数据库，获取&#x2F;收集数据。）</li>
+<li>JSP的职责是什么：展示数据。（JSP的强项是做数据的展示）</li>
+</ul>
+<h1 id="3-JSP的基础语法"><a href="#3-JSP的基础语法" class="headerlink" title="3. JSP的基础语法"></a>3. JSP的基础语法</h1><ul>
+<li>在jsp文件中直接编写文字，都会自动被翻译到哪里？<ul>
+<li>翻译到servlet类的service方法的out.write(“翻译到这里”)，直接翻译到双引号里，被java程序当做普通字符串打印输出到浏览器。</li>
+<li>在JSP中编写的HTML CSS JS代码，这些代码对于JSP来说只是一个普通的字符串。但是JSP把这个普通的字符串一旦输出到浏览器，浏览器就会对HTML CSS JS进行解释执行。展现一个效果。</li>
+</ul>
+</li>
+<li>JSP的page指令（这个指令后面再详细说，这里先解决一下中文乱码问题），解决响应时的中文乱码问题：<ul>
+<li>通过page指令来设置响应的内容类型，在内容类型的最后面添加：charset&#x3D;UTF-8<ul>
+<li>&lt;%@page contentType&#x3D;”text&#x2F;html;charset&#x3D;UTF-8”%&gt;，表示响应的内容类型是text&#x2F;html，采用的字符集UTF-8</li>
+<li>&lt;%@page import&#x3D;”java.util.List,java.util.ArrayList”%&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怎么在JSP中编写Java程序：<ul>
+<li>&lt;% java语句; %&gt;<ul>
+<li>在这个符号当中编写的被视为java程序，被翻译到Servlet类的service方法内部。</li>
+<li>这里你要细心点，你要思考，在&lt;% %&gt;这个符号里面写java代码的时候，你要时时刻刻的记住你正在“方法体”当中写代码，方法体中可以写什么，不可以写什么，你心里是否明白呢？</li>
+<li>在service方法当中编写的代码是有顺序的，方法体当中的代码要遵循自上而下的顺序依次逐行执行。</li>
+<li>service方法当中不能写静态代码块，不能写方法，不能定义成员变量。。。。。。</li>
+<li>在同一个JSP当中 &lt;%%&gt; 这个符号可以出现多个。</li>
+</ul>
+</li>
+<li>&lt;%! %&gt;<ul>
+<li>在这个符号当中编写的java程序会自动翻译到service方法之外。</li>
+<li>这个语法很少用，为什么？不建议使用，因为在service方法外面写静态变量和实例变量，都会存在线程安全问题，因为JSP就是servlet，servlet是单例的，多线程并发的环境下，这个静态变量和实例变量一旦有修改操作，必然会存在线程安全问题。</li>
+</ul>
+</li>
+<li>JSP的输出语句<ul>
+<li>怎么向浏览器上输出一个java变量。</li>
+<li>&lt;% String name &#x3D; “jack”;  out.write(“name &#x3D; “ + name); %&gt;</li>
+<li>注意：以上代码中的out是JSP的九大内置对象之一。可以直接拿来用。当然，必须只能在service方法内部使用。</li>
+<li>如果向浏览器上输出的内容中没有“java代码”，例如输出的字符串是一个固定的字符串，可以直接在jsp中编写，不需要写到&lt;%%&gt; 这里。</li>
+<li>如果输出的内容中含有“java代码”，这个时候可以使用以下语法格式：<ul>
+<li>&lt;%&#x3D; %&gt; 注意：在&#x3D;的后面编写要输出的内容。</li>
+<li>&lt;%&#x3D; %&gt; 这个符号会被翻译到哪里？最终翻译成什么？ <ul>
+<li>翻译成了这个java代码：   out.print();</li>
+<li>翻译到service方法当中了。</li>
+</ul>
+</li>
+<li>什么时候使用&lt;%&#x3D;%&gt; 输出呢？输出的内容中含有java的变量，输出的内容是一个动态的内容，不是一个死的字符串。如果输出的是一个固定的字符串，直接在JSP文件中编写即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在JSP中如何编写JSP的专业注释<ul>
+<li>&lt;%–JSP的专业注释，不会被翻译到java源代码当中。–%&gt;</li>
+<li><!--这种注释属于HTML的注释，这个注释信息仍然会被翻译到java源代码当中，不建议。--></li>
+</ul>
+</li>
+<li>JSP基础语法总结：<ul>
+<li>JSP中直接编写普通字符串<ul>
+<li>翻译到service方法的out.write(“这里”)</li>
+</ul>
+</li>
+<li>&lt;%%&gt;<ul>
+<li>翻译到service方法体内部，里面是一条一条的java语句。</li>
+</ul>
+</li>
+<li>&lt;%! %&gt;<ul>
+<li>翻译到service方法之外。</li>
+</ul>
+</li>
+<li>&lt;%&#x3D; %&gt;<ul>
+<li>翻译到service方法体内部，翻译为：out.print();</li>
+</ul>
+</li>
+<li>&lt;%@page  contentType&#x3D;”text&#x2F;html;charset&#x3D;UTF-8”%&gt;<ul>
+<li>page指令，通过contentType属性用来设置响应的内容类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-JSP指令"><a href="#4-JSP指令" class="headerlink" title="4. JSP指令"></a>4. JSP指令</h1><ul>
+<li><ul>
+<li><p>指令的作用：指导JSP的翻译引擎如何工作（指导当前的JSP翻译引擎如何翻译JSP文件。）</p>
+<ul>
+<li><p>指令包括哪些呢？</p>
+<ul>
+<li>include指令：包含指令，在JSP中完成静态包含，很少用了。（这里不讲）</li>
+<li>taglib指令：引入标签库的指令。这个到JJSTL标签库的时候再学习。现在先不管。</li>
+<li>page指令：目前重点学习一个page指令。</li>
+</ul>
+</li>
+<li><p>指令的使用语法是什么？</p>
+<ul>
+<li>&lt;%@指令名  属性名&#x3D;属性值  属性名&#x3D;属性值  属性名&#x3D;属性值….%&gt;</li>
+</ul>
+</li>
+<li><p>关于page指令当中都有哪些常用的属性呢？</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> session=<span class="string">&quot;true|false&quot;</span> %&gt;</span><br><span class="line"><span class="literal">true</span>表示启用JSP的内置对象session，表示一定启动session对象。没有session对象会创建。</span><br><span class="line">如果没有设置，默认值就是session=<span class="string">&quot;true&quot;</span></span><br><span class="line">session=<span class="string">&quot;false&quot;</span> 表示不启动内置对象session。当前JSP页面中无法使用内置对象session。</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/json&quot;</span> %&gt;</span><br><span class="line">contentType属性用来设置响应的内容类型</span><br><span class="line">但同时也可以设置字符集。</span><br><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/json;charset=UTF-8&quot;</span> %&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> pageEncoding=<span class="string">&quot;UTF-8&quot;</span> %&gt;</span><br><span class="line">pageEncoding=<span class="string">&quot;UTF-8&quot;</span> 表示设置响应时采用的字符集。</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.List, java.util.Date, java.util.ArrayList&quot;</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*&quot;</span> %&gt;</span><br><span class="line"><span class="keyword">import</span>语句，导包。</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> errorPage=<span class="string">&quot;/error.jsp&quot;</span> %&gt;</span><br><span class="line">当前页面出现异常之后，跳转到error.jsp页面。</span><br><span class="line">errorPage属性用来指定出错之后的跳转位置。</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> isErrorPage=<span class="string">&quot;true&quot;</span> %&gt;</span><br><span class="line">表示启用JSP九大内置对象之一：exception</span><br><span class="line">默认值是<span class="literal">false</span>。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="5-JSP的九大内置对象"><a href="#5-JSP的九大内置对象" class="headerlink" title="5. JSP的九大内置对象"></a>5. JSP的九大内置对象</h1><ul>
+<li><p>jakarta.servlet.jsp.PageContext pageContext       页面作用域</p>
+</li>
+<li><p>jakarta.servlet.http.HttpServletRequest request 请求作用域</p>
+</li>
+<li><p>jakarta.servlet.http.HttpSession session  会话作用域</p>
+</li>
+<li><p>jakarta.servlet.ServletContext application 应用作用域</p>
+<ul>
+<li>pageContext &lt; request &lt; session &lt; application</li>
+<li>以上四个作用域都有：setAttribute、getAttribute、removeAttribute方法。</li>
+<li>以上作用域的使用原则：尽可能使用小的域。</li>
+</ul>
+</li>
+<li><p>java.lang.Throwable exception   </p>
+</li>
+<li><p>jakarta.servlet.ServletConfig config</p>
+</li>
+<li><p>java.lang.Object page  （其实是this，当前的servlet对象）</p>
+</li>
+<li><p>jakarta.servlet.jsp.JspWriter out  （负责输出）</p>
+</li>
+<li><p>jakarta.servlet.http.HttpServletResponse response （负责响应）</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>15. EL表达式和JSTL标签库</title>
+    <url>/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/</url>
+    <content><![CDATA[<h1 id="1-EL表达式"><a href="#1-EL表达式" class="headerlink" title="1. EL表达式"></a>1. EL表达式</h1><ul>
+<li><p>EL表达式是干什么用的？</p>
+<ul>
+<li>Expression Language（表达式语言）</li>
+<li>EL表达式可以代替JSP中的java代码，让JSP文件中的程序看起来更加整洁，美观。</li>
+<li>JSP中夹杂着各种java代码，例如&lt;% java代码 %&gt;、&lt;%&#x3D;%&gt;等，导致JSP文件很混乱，不好看，不好维护。所以才有了后期的EL表达式。</li>
+<li>EL表达式可以算是JSP语法的一部分。EL表达式归属于JSP。</li>
+</ul>
+</li>
+<li><p>EL表达式出现在JSP中主要是：</p>
+<ul>
+<li>从某个作用域中取数据，然后将其转换成字符串，然后将其输出到浏览器。这就是EL表达式的功效。三大功效：<ul>
+<li>第一功效：从某个域中取数据。<ul>
+<li>四个域：<ul>
+<li>pageContext</li>
+<li>request</li>
+<li>session</li>
+<li>application</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第二功效：将取出的数据转成字符串。<ul>
+<li>如果是一个java对象，也会自动调用java对象的toString方法将其转换成字符串。</li>
+</ul>
+</li>
+<li>第三功效：将字符串输出到浏览器。<ul>
+<li>和这个一样：&lt;%&#x3D; %&gt;，将其输出到浏览器。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>EL表达式很好用，基本的语法格式：</p>
+<ul>
+<li>${表达式}</li>
+</ul>
+</li>
+<li><p>EL表达式的使用：</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">	<span class="comment">// 创建User对象</span></span><br><span class="line">	<span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">	user.setUsername(<span class="string">&quot;jackson&quot;</span>);</span><br><span class="line">	user.setPassword(<span class="string">&quot;1234&quot;</span>);</span><br><span class="line">	user.setAge(<span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将User对象存储到某个域当中。一定要存，因为EL表达式只能从某个范围中取数据。</span></span><br><span class="line">	<span class="comment">// 数据是必须存储到四大范围之一的。</span></span><br><span class="line">	request.setAttribute(<span class="string">&quot;userObj&quot;</span>, user);</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--使用EL表达式取--%&gt;</span><br><span class="line">$&#123;这个位置写什么？？？？这里写的一定是存储到域对象当中时的name&#125;</span><br><span class="line">要这样写：</span><br><span class="line">$&#123;userObj&#125;</span><br><span class="line">等同于java代码：&lt;%=request.getAttribute(<span class="string">&quot;userObj&quot;</span>)%&gt;</span><br><span class="line">你不要这样写：$&#123;<span class="string">&quot;userObj&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">面试题：</span><br><span class="line">	$&#123;abc&#125; 和 $&#123;<span class="string">&quot;abc&quot;</span>&#125;的区别是什么？</span><br><span class="line">		$&#123;abc&#125;表示从某个域中取出数据，并且被取的这个数据的name是<span class="string">&quot;abc&quot;</span>，之前一定有这样的代码: 域.setAttribute(<span class="string">&quot;abc&quot;</span>, 对象);</span><br><span class="line">		$&#123;<span class="string">&quot;abc&quot;</span>&#125; 表示直接将<span class="string">&quot;abc&quot;</span>当做普通字符串输出到浏览器。不会从某个域中取数据了。</span><br><span class="line"></span><br><span class="line">$&#123;userObj&#125; 底层是怎么做的？从域中取数据，取出user对象，然后调用user对象的toString方法，转换成字符串，输出到浏览器。</span><br><span class="line"></span><br><span class="line">&lt;%--如果想输出对象的属性值，怎么办？--%&gt;</span><br><span class="line">$&#123;userObj.username&#125; 使用这个语法的前提是：User对象有getUsername()方法。</span><br><span class="line">$&#123;userObj.password&#125; 使用这个语法的前提是：User对象有getPassword()方法。</span><br><span class="line">$&#123;userObj.age&#125; 使用这个语法的前提是：User对象有getAge()方法。</span><br><span class="line">$&#123;userObj.email&#125; 使用这个语法的前提是：User对象有getEmail()方法。</span><br><span class="line">EL表达式中的. 这个语法，实际上调用了底层的getXxx()方法。</span><br><span class="line">注意：如果没有对应的get方法，则出现异常。报<span class="number">500</span>错误。</span><br><span class="line"></span><br><span class="line">$&#123;userObj.addr222.zipcode&#125;</span><br><span class="line">以上EL表达式对应的java代码：</span><br><span class="line">user.getAddr222().getZipcode()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>EL表达式优先从小范围中读取数据。</p>
+<ul>
+<li>pageContext &lt; request &lt; session &lt; application</li>
+</ul>
+</li>
+<li><p>EL表达式中有四个隐含的隐式的范围：</p>
+<ul>
+<li>pageScope 对应的是 pageContext范围。</li>
+<li>requestScope 对应的是 request范围。</li>
+<li>sessionScope 对应的是 session范围。</li>
+<li>applicationScope 对应的是 application范围。</li>
+</ul>
+</li>
+<li><p>EL表达式对null进行了预处理。如果是null，则向浏览器输出一个空字符串。</p>
+</li>
+<li><p>EL表达式取数据的时候有两种形式：</p>
+<ul>
+<li>第一种：.  （大部分使用这种方式）</li>
+<li>第二种：[ ] （如果存储到域的时候，这个name中含有特殊字符，可以使用 [ ]）<ul>
+<li>request.setAttribute(“abc.def”, “zhangsan”);</li>
+<li>${requestScope.abc.def} 这样是无法取值的。</li>
+<li>应该这样：${requestScope[“abc.def”]}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>掌握使用EL表达式，怎么从Map集合中取数据：</p>
+<ul>
+<li>${map.key}</li>
+</ul>
+</li>
+<li><p>掌握使用EL表达式，怎么从数组和List集合中取数据：</p>
+<ul>
+<li>${数组[0]}</li>
+<li>${数组[1]}</li>
+<li>${list[0]}</li>
+</ul>
+</li>
+<li><p>page指令当中，有一个属性，可以忽略EL表达式</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> isELIgnored=<span class="string">&quot;true&quot;</span> %&gt;</span><br><span class="line">isELIgnored=<span class="string">&quot;true&quot;</span> 表示忽略EL表达式</span><br><span class="line">isELIgnored=<span class="string">&quot;false&quot;</span> 表示不忽略EL表达式。（这是默认值）</span><br><span class="line"></span><br><span class="line">isELIgnored=<span class="string">&quot;true&quot;</span> 这个是全局的控制。</span><br><span class="line"></span><br><span class="line">可以使用反斜杠进行局部控制：\$&#123;username&#125; 这样也可以忽略EL表达式。</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>通过EL表达式获取应用的根：</p>
+<ul>
+<li>${pageContext.request.contextPath}</li>
+</ul>
+</li>
+<li><p>EL表达式中其他的隐式对象：</p>
+<ul>
+<li>pageContext</li>
+<li>param</li>
+<li>paramValues</li>
+<li>initParam</li>
+</ul>
+</li>
+<li><p>EL表达式的运算符</p>
+<ul>
+<li>算术运算符<ul>
+<li>+、-、*、&#x2F;、%</li>
+</ul>
+</li>
+<li>关系运算符<ul>
+<li><input disabled="" type="checkbox"> &#x3D;&#x3D; eq !&#x3D; &gt; &gt;&#x3D; &lt; &lt;&#x3D;</li>
+</ul>
+</li>
+<li>逻辑运算符<ul>
+<li><input disabled="" type="checkbox"> !  &amp;&amp; ||  not and or</li>
+</ul>
+</li>
+<li>条件运算符<ul>
+<li><input disabled="" type="checkbox"> ? :</li>
+</ul>
+</li>
+<li>取值运算符<ul>
+<li>[ ]和.</li>
+</ul>
+</li>
+<li>empty运算符<ul>
+<li><input disabled="" type="checkbox"> empty运算符的结果是boolean类型</li>
+<li><input disabled="" type="checkbox"> ${empty param.username}</li>
+<li><input disabled="" type="checkbox"> ${not empty param.username}</li>
+<li><input disabled="" type="checkbox"> ${!empty param.password}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-JSTL标签库"><a href="#2-JSTL标签库" class="headerlink" title="2. JSTL标签库"></a>2. JSTL标签库</h1><ul>
+<li><p>什么是JSTL标签库？</p>
+<ul>
+<li>Java Standard Tag Lib（Java标准的标签库）</li>
+<li>JSTL标签库通常结合EL表达式一起使用。目的是让JSP中的java代码消失。</li>
+<li>标签是写在JSP当中的，但实际上最终还是要执行对应的java程序。（java程序在jar包当中。）</li>
+</ul>
+</li>
+<li><p>使用JSTL标签库的步骤：</p>
+<ul>
+<li><p>第一步：引入JSTL标签库对应的jar包。</p>
+<ul>
+<li>tomcat10之后引入的jar包是：<ul>
+<li>jakarta.servlet.jsp.jstl-2.0.0.jar</li>
+<li>jakarta.servlet.jsp.jstl-api-2.0.0.jar</li>
+</ul>
+</li>
+<li>在IDEA当中怎么引入？<ul>
+<li>在WEB-INF下新建lib目录，然后将jar包拷贝到lib当中。然后将其“Add Lib…”</li>
+<li>一定是要和mysql的数据库驱动一样，都是放在WEB-INF&#x2F;lib目录下的。</li>
+<li>什么时候需要将jar包放到WEB-INF&#x2F;lib目录下？如果这个jar是tomcat服务器没有的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>第二步：在JSP中引入要使用标签库。（使用taglib指令引入标签库。）</p>
+<ul>
+<li><p>JSTL提供了很多种标签，你要引入哪个标签？？？？重点掌握核心标签库。</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">这个就是核心标签库。</span><br><span class="line">prefix=<span class="string">&quot;这里随便起一个名字就行了，核心标签库，大家默认的叫做c，你随意。&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第三步：在需要使用标签的位置使用即可。表面使用的是标签，底层实际上还是java程序。</p>
+</li>
+</ul>
+</li>
+<li><p>JSTL标签的原理</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">以上uri后面的路径实际上指向了一个xxx.tld文件。</span><br><span class="line">tld文件实际上是一个xml配置文件。</span><br><span class="line">在tld文件中描述了“标签”和“java类”之间的关系。</span><br><span class="line">以上核心标签库对应的tld文件是：c.tld文件。它在哪里。</span><br><span class="line">在jakarta.servlet.jsp.jstl-<span class="number">2.0</span><span class="number">.0</span>.jar里面META-INF目录下，有一个c.tld文件。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>源码解析：配置文件tld解析</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;tag&gt;</span><br><span class="line">    &lt;description&gt;对该标签的描述&lt;/description&gt;</span><br><span class="line">    &lt;name&gt;<span class="keyword">catch</span>&lt;/name&gt; 标签的名字</span><br><span class="line">    &lt;tag-class&gt;org.apache.taglibs.standard.tag.common.core.CatchTag&lt;/tag-class&gt; 标签对应的java类。</span><br><span class="line">    &lt;body-content&gt;JSP&lt;/body-content&gt; 标签体当中可以出现的内容，如果是JSP，就表示标签体中可以出现符合JSP所有语法的代码。例如EL表达式。</span><br><span class="line">    &lt;attribute&gt;</span><br><span class="line">        &lt;description&gt;</span><br><span class="line">        	对这个属性的描述</span><br><span class="line">        &lt;/description&gt;</span><br><span class="line">        &lt;name&gt;<span class="keyword">var</span>&lt;/name&gt; 属性名</span><br><span class="line">        &lt;required&gt;<span class="literal">false</span>&lt;/required&gt; <span class="literal">false</span>表示该属性不是必须的。<span class="literal">true</span>表示该属性是必须的。</span><br><span class="line">        &lt;rtexprvalue&gt;<span class="literal">false</span>&lt;/rtexprvalue&gt; 这个描述说明了该属性是否支持EL表达式。<span class="literal">false</span>表示不支持。<span class="literal">true</span>表示支持EL表达式。</span><br><span class="line">    &lt;/attribute&gt;</span><br><span class="line">  &lt;/tag&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:<span class="keyword">catch</span> <span class="keyword">var</span>=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">	JSP....</span><br><span class="line">&lt;/c:<span class="keyword">catch</span>&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>jstl中的核心标签库core当中有哪些常用的标签呢？</p>
+<ul>
+<li><p>c:if</p>
+<ul>
+<li>&lt;c:if test&#x3D;”boolean类型，支持EL表达式”&gt;&lt;&#x2F;c: if&gt;</li>
+</ul>
+</li>
+<li><p>c:forEach</p>
+<ul>
+<li>&lt;c:forEach items&#x3D;”集合，支持EL表达式” var&#x3D;”集合中的元素” varStatus&#x3D;”元素状态对象”&gt; ${元素状态对象.count} &lt;&#x2F;c: forEach&gt;</li>
+<li>&lt;c:forEach var&#x3D;”i” begin&#x3D;”1” end&#x3D;”10” step&#x3D;”2”&gt; ${i} &lt;&#x2F;c: forEach&gt;</li>
+</ul>
+</li>
+<li><p>c:choose c:when c:otherwise</p>
+  <figure class="highlight jsp"><table><tr><td class="code"><pre><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 18&#125;&quot;</span>&gt;</span><br><span class="line">        青少年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 35&#125;&quot;</span>&gt;</span><br><span class="line">        青年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 55&#125;&quot;</span>&gt;</span><br><span class="line">        中年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:otherwise&gt;</span><br><span class="line">        老年</span><br><span class="line">    &lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 </ul>
 </li>
@@ -429,70 +893,203 @@
       </tags>
   </entry>
   <entry>
-    <title>12. Servlet注解开发与优化</title>
-    <url>/2022/09/24/JavaEE/12.%20Servlet%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91%E4%B8%8E%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="1-Servlet注解开发"><a href="#1-Servlet注解开发" class="headerlink" title="1. Servlet注解开发"></a>1. Servlet注解开发</h1><ul>
-<li><p>分析oa项目中的web.xml文件</p>
+    <title>16. Filter 过滤器</title>
+    <url>/2022/09/24/JavaEE/16.%20Filter%E8%BF%87%E6%BB%A4%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="Filter过滤器"><a href="#Filter过滤器" class="headerlink" title="Filter过滤器"></a>Filter过滤器</h1><ul>
+<li><p>Filter是什么，有什么用，执行原理是什么？</p>
 <ul>
-<li>现在只是一个单标的CRUD，没有复杂的业务逻辑，很简单的一丢丢功能。web.xml文件中就有如此多的配置信息。如果采用这种方式，对于一个大的项目来说，这样的话web.xml文件会非常庞大，有可能最终会达到几十兆。</li>
-<li>在web.xml文件中进行servlet信息的配置，显然开发效率比较低，每一个都需要配置一下。</li>
-<li>而且在web.xml文件中的配置是很少被修改的，所以这种配置信息能不能直接写到java类当中呢？可以的。</li>
+<li>Filter是过滤器。</li>
+<li>Filter可以在Servlet这个目标程序执行之前添加代码。也可以在目标Servlet执行之后添加代码。之前之后都可以添加过滤规则。</li>
+<li>一般情况下，都是在过滤器当中编写公共代码。</li>
 </ul>
 </li>
-<li><p>Servlet3.0版本之后，推出了各种Servlet基于注解式开发。优点是什么？</p>
+<li><p>一个过滤器怎么写呢？</p>
 <ul>
-<li>开发效率高，不需要编写大量的配置信息。直接在java类上使用注解进行标注。</li>
-<li>web.xml文件体积变小了。</li>
-</ul>
-</li>
-<li><p>并不是说注解有了之后，web.xml文件就不需要了：</p>
+<li><p>第一步：编写一个Java类实现一个接口：jarkata.servlet.Filter。并且实现这个接口当中所有的方法。</p>
 <ul>
-<li>有一些需要变化的信息，还是要配置到web.xml文件中。一般都是 注解+配置文件 的开发模式。</li>
-<li>一些不会经常变化修改的配置建议使用注解。一些可能会被修改的建议写到配置文件中。</li>
+<li>init方法：在Filter对象第一次被创建之后调用，并且只调用一次。</li>
+<li>doFilter方法：只要用户发送一次请求，则执行一次。发送N次请求，则执行N次。在这个方法中编写过滤规则。</li>
+<li>destroy方法：在Filter对象被释放&#x2F;销毁之前调用，并且只调用一次。</li>
 </ul>
 </li>
-<li><p>我们的第一个注解：</p>
+<li><p>第二步：在web.xml文件中对Filter进行配置。这个配置和Servlet很像。</p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>filter2<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>com.bjpowernode.javaweb.servlet.Filter2<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>filter2<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><pre><code class="java">  jakarta.servlet.annotation.WebServlet
-</code></pre>
+<li>或者使用注解：@WebFilter({“*.do”})</li>
+</ul>
 </li>
-<li><p>在Servlet类上使用：@WebServlet，WebServlet注解中有哪些属性呢？</p>
+</ul>
+</li>
+<li><p>注意：</p>
 <ul>
-<li>name属性：用来指定Servlet的名字。等同于：<servlet-name></li>
-<li>urlPatterns属性：用来指定Servlet的映射路径。可以指定多个字符串。<url-pattern></li>
-<li>loadOnStartUp属性：用来指定在服务器启动阶段是否加载该Servlet。等同于：<load-on-startup></li>
-<li>value属性：当注解的属性名是value的时候，使用注解的时候，value属性名是可以省略的。</li>
-<li>注意：不是必须将所有属性都写上，只需要提供需要的。（需要什么用什么。）</li>
-<li>注意：属性是一个数组，如果数组中只有一个元素，使用该注解的时候，属性值的大括号可以省略。</li>
+<li>Servlet对象默认情况下，在服务器启动的时候是不会新建对象的。</li>
+<li>Filter对象默认情况下，在服务器启动的时候会新建对象。</li>
+<li>Servlet是单例的。Filter也是单例的。（单实例。）</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p>注解对象的使用格式：</p>
+<li><p>目标Servlet是否执行，取决于两个条件：</p>
 <ul>
-<li>@注解名称(属性名&#x3D;属性值, 属性名&#x3D;属性值, 属性名&#x3D;属性值….)</li>
+<li>第一：在过滤器当中是否编写了：chain.doFilter(request, response); 代码。</li>
+<li>第二：用户发送的请求路径是否和Servlet的请求路径一致。</li>
+</ul>
+</li>
+<li><p>chain.doFilter(request, response); 这行代码的作用：</p>
+<ul>
+<li>执行下一个过滤器，如果下面没有过滤器了，执行最终的Servlet。</li>
+</ul>
+</li>
+<li><p>注意：Filter的优先级，天生的就比Servlet优先级高。</p>
+<ul>
+<li>&#x2F;a.do 对应一个Filter，也对应一个Servlet。那么一定是先执行Filter，然后再执行Servlet。</li>
+</ul>
+</li>
+<li><p>关于Filter的配置路径：</p>
+<ul>
+<li>&#x2F;a.do、&#x2F;b.do、&#x2F;dept&#x2F;save。这些配置方式都是精确匹配。</li>
+<li>&#x2F;* 匹配所有路径。</li>
+<li>*.do 后缀匹配。不要以 &#x2F; 开始</li>
+<li>&#x2F;dept&#x2F;*  前缀匹配。</li>
+</ul>
+</li>
+<li><p>在web.xml文件中进行配置的时候，Filter的执行顺序是什么？</p>
+<ul>
+<li>依靠filter-mapping标签的配置位置，越靠上优先级越高。</li>
+</ul>
+</li>
+<li><p>过滤器的调用顺序，遵循栈数据结构。</p>
+</li>
+<li><p>使用@WebFilter的时候，Filter的执行顺序是怎样的呢？</p>
+<ul>
+<li>执行顺序是：比较Filter这个类名。</li>
+<li>比如：FilterA和FilterB，则先执行FilterA。</li>
+<li>比如：Filter1和Filter2，则先执行Filter1.</li>
+</ul>
+</li>
+<li><p>Filter的生命周期？</p>
+<ul>
+<li>和Servlet对象生命周期一致。</li>
+<li>唯一的区别：Filter默认情况下，在服务器启动阶段就实例化。Servlet不会。</li>
+</ul>
+</li>
+<li><p>Filter过滤器这里有一个设计模式：</p>
+<ul>
+<li>责任链设计模式。</li>
+<li>过滤器最大的优点：<ul>
+<li>在程序编译阶段不会确定调用顺序。因为Filter的调用顺序是配置到web.xml文件中的，只要修改web.xml配置文件中filter-mapping的顺序就可以调整Filter的执行顺序。显然Filter的执行顺序是在程序运行阶段动态组合的。那么这种设计模式被称为责任链设计模式。</li>
+</ul>
+</li>
+<li>责任链设计模式最大的核心思想：<ul>
+<li>在程序运行阶段，动态的组合程序的调用顺序。</li>
 </ul>
 </li>
 </ul>
-<h1 id="2-使用模板方法设计模式优化oa项目"><a href="#2-使用模板方法设计模式优化oa项目" class="headerlink" title="2. 使用模板方法设计模式优化oa项目"></a>2. 使用模板方法设计模式优化oa项目</h1><ul>
-<li>上面的注解解决了配置文件的问题。但是现在的oa项目仍然存在一个比较臃肿的问题。<ul>
-<li>一个单标的CRUD，就写了6个Servlet。如果一个复杂的业务系统，这种开发方式，显然会导致类爆炸。（类的数量太大。）</li>
-<li>怎么解决这个类爆炸问题？可以使用模板方法设计模式。</li>
-</ul>
-</li>
-<li>怎么解决类爆炸问题？<ul>
-<li>以前的设计是一个请求一个Servlet类。1000个请求对应1000个Servlet类。导致类爆炸。</li>
-<li>可以这样做：一个请求对应一个方法。一个业务对应一个Servlet类。</li>
-<li>处理部门相关业务的对应一个DeptServlet。处理用户相关业务的对应一个UserServlet。处理银行卡卡片业务对应一个CardServlet。</li>
-</ul>
 </li>
 </ul>
-<h1 id="3-纯粹的Servlet开发Web应用的缺陷"><a href="#3-纯粹的Servlet开发Web应用的缺陷" class="headerlink" title="3. 纯粹的Servlet开发Web应用的缺陷"></a>3. 纯粹的Servlet开发Web应用的缺陷</h1><ul>
-<li>va程序中编写前端代码，编写难度大。麻烦。</li>
-<li>java程序中编写前端代码，显然程序的耦合度非常高。</li>
-<li>java程序中编写前端代码，代码非常不美观。</li>
-<li>java程序中编写前端代码，维护成本太高。（非常难于维护）<ul>
-<li>修改小小的一个前端代码，只要有改动，就需要重新编译java代码，生成新的class文件，打一个新的war包，重新发布。</li>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaEE</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaEE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>17. Listener监听器</title>
+    <url>/2022/09/24/JavaEE/17.%20Listener%E7%9B%91%E5%90%AC%E5%99%A8/</url>
+    <content><![CDATA[<h1 id="Listener监听器"><a href="#Listener监听器" class="headerlink" title="Listener监听器"></a>Listener监听器</h1><ul>
+<li><p>什么是监听器？</p>
+<ul>
+<li>监听器是Servlet规范中的一员。就像Filter一样。Filter也是Servlet规范中的一员。</li>
+<li>在Servlet中，所有的监听器接口都是以“Listener”结尾。</li>
+</ul>
+</li>
+<li><p>监听器有什么用？</p>
+<ul>
+<li>监听器实际上是Servlet规范留给我们javaweb程序员的特殊时机。</li>
+<li>特殊的时刻如果想执行这段代码，你需要想到使用对应的监听器。</li>
+</ul>
+</li>
+<li><p>Servlet规范中提供了哪些监听器？</p>
+<ul>
+<li>jakarta.servlet包下：<ul>
+<li>ServletContextListener</li>
+<li>ServletContextAttributeListener</li>
+<li>ServletRequestListener</li>
+<li>ServletRequestAttributeListener</li>
+</ul>
+</li>
+<li>jakarta.servlet.http包下：<ul>
+<li>HttpSessionListener</li>
+<li>HttpSessionAttributeListener<ul>
+<li>该监听器需要使用@WebListener注解进行标注。</li>
+<li>该监听器监听的是什么？是session域中数据的变化。只要数据变化，则执行相应的方法。主要监测点在session域对象上。</li>
+</ul>
+</li>
+<li>HttpSessionBindingListener<ul>
+<li>该监听器不需要使用@WebListener进行标注。</li>
+<li>假设User类实现了该监听器，那么User对象在被放入session的时候触发bind事件，User对象从session中删除的时候，触发unbind事件。</li>
+<li>假设Customer类没有实现该监听器，那么Customer对象放入session或者从session删除的时候，不会触发bind和unbind事件。</li>
+</ul>
+</li>
+<li>HttpSessionIdListener<ul>
+<li>session的id发生改变的时候，监听器中的唯一一个方法就会被调用。</li>
+</ul>
+</li>
+<li>HttpSessionActivationListener<ul>
+<li>监听session对象的钝化和活化的。</li>
+<li>钝化：session对象从内存存储到硬盘文件。</li>
+<li>活化：从硬盘文件把session恢复到内存。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>实现一个监听器的步骤：以ServletContextListener为例。</p>
+<ul>
+<li><p>第一步：编写一个类实现ServletContextListener接口。并且实现里面的方法。</p>
+  <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">contextInitialized</span><span class="params">(ServletContextEvent event)</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">contextDestroyed</span><span class="params">(ServletContextEvent event)</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>第二步：在web.xml文件中对ServletContextListener进行配置，如下：</p>
+  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>com.bjpowernode.javaweb.listener.MyServletContextListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>当然，第二步也可以不使用配置文件，也可以用注解，例如：@WebListener</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：所有监听器中的方法都是不需要javaweb程序员调用的，由服务器来负责调用？什么时候被调用呢？</p>
+<ul>
+<li>当某个特殊的事件发生（特殊的事件发生其实就是某个时机到了。）之后，被web服务器自动调用。</li>
+</ul>
+</li>
+<li><p>思考一个业务场景：</p>
+<ul>
+<li>请编写一个功能，记录该网站实时的在线用户的个数。</li>
+<li>我们可以通过服务器端有没有分配session对象，因为一个session代表了一个用户。有一个session就代表有一个用户。如果你采用这种逻辑去实现的话，session有多少个，在线用户就有多少个。这种方式的话：HttpSessionListener够用了。session对象只要新建，则count++，然后将count存储到ServletContext域当中，在页面展示在线人数即可。</li>
+<li>业务发生改变了，只统计登录的用户的在线数量，这个该怎么办？<ul>
+<li>session.setAttribute(“user”, userObj); </li>
+<li>用户登录的标志是什么？session中曾经存储过User类型的对象。那么这个时候可以让User类型的对象实现HttpSessionBindingListener监听器，只要User类型对象存储到session域中，则count++，然后将count++存储到ServletContext对象中。页面展示在线人数即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>实现oa项目中当前登录在线的人数。</p>
+<ul>
+<li>什么代表着用户登录了？<ul>
+<li>session.setAttribute(“user”, userObj); User类型的对象只要往session中存储过，表示有新用户登录。</li>
+</ul>
+</li>
+<li>什么代表着用户退出了？<ul>
+<li>session.removeAttribute(“user”); User类型的对象从session域中移除了。</li>
+<li>或者有可能是session销毁了。（session超时）</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3940,264 +4537,6 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
       </tags>
   </entry>
   <entry>
-    <title>6. 面向对象编程(基础)</title>
-    <url>/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/</url>
-    <content><![CDATA[<blockquote>
-<p>面向对象是一种开发软件的方法，使分析、设计和实现一个系统的方法尽可能接近人们认识一个系统的方法。包括三个方面：面向对象分析、面向对象设计、面向对象程序设计。<br>Java 语言是纯面向对象的语言。其所有数据类型都有相应的类，程序可以完全基于对象编写。</p>
-</blockquote>
-<h1 id="6-1-类与对象-OOP"><a href="#6-1-类与对象-OOP" class="headerlink" title="6.1 类与对象(OOP)"></a>6.1 类与对象(OOP)</h1><blockquote>
-<p><code>类</code> 就是数据类型。可以是 <code>int</code> 也可以是 <code>人类</code><br><code>对象</code> 就是其中具体的实例。可以是 <code>100</code> 也可以是 <code>韩顺平</code><br>从 <code>类</code> 到 <code>对象</code>，可以称为 创建一个对象，也可以说 实例化一个对象，或者 把对象实例化</p>
-<ol>
-<li>类 是抽象的、概念的，代表一类事物</li>
-<li>对象 是具体的、实际的，代表一个个具体事物</li>
-<li>类 是 对象 的模板，对象 是 类 的一个个体，对应一个实例</li>
-</ol>
-</blockquote>
-<p>下面，我们定义了一个类 Cat 并创建了一些 对象 cat1 cat2：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_1</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat1.name = <span class="string">&quot;福福&quot;</span>;</span><br><span class="line">		cat1.age = <span class="number">2</span>;</span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat2.name = <span class="string">&quot;妞子&quot;</span>;</span><br><span class="line">		cat2.age = <span class="number">1</span>;</span><br><span class="line">		System.out.println(cat1.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-1-1-属性-x2F-成员变量"><a href="#6-1-1-属性-x2F-成员变量" class="headerlink" title="6.1.1 属性&#x2F;成员变量"></a>6.1.1 属性&#x2F;成员变量</h2><blockquote>
-<p>从概念或叫法上看：成员变量 &#x3D; 属性 &#x3D; field（字段）</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中，<code>String name; </code>就是一个成员变量（属性）。<br>属性可以是基本数据类型，也可以是引用数据类型。</p>
-<ol>
-<li>属性的定义语法同变量。访问修饰符 属性类型 属性名<ul>
-<li>访问修饰符：控制属性的访问范围。有四种：<code>publie</code> <code>protected</code> <code>默认(空) private</code></li>
-</ul>
-</li>
-<li>属性的定义类型可以为任意类型，包含 基本类型 或 引用类型</li>
-<li>属性如果不赋值，有默认值。</li>
-</ol>
-<h2 id="6-1-2-创建对象"><a href="#6-1-2-创建对象" class="headerlink" title="6.1.2 创建对象"></a>6.1.2 创建对象</h2><ul>
-<li><p><strong>先声明再创建</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Cat cat1;  				    <span class="comment">//声明对象cat1</span></span><br><span class="line">cat1 = <span class="keyword">new</span> <span class="title class_">Cat</span>();			<span class="comment">//创建对象</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>直接创建</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br></pre></td></tr></table></figure>
-<p>注意事项：</p>
-</li>
-</ul>
-<ol>
-<li>声明对象的场合，只是在内存中建立了一个引用。此时，该地址引用不指向任何内存空间。对象的引用，也被称为对象的句柄。</li>
-<li>使用 new 运算符创建对象实例时，会为对象分配空间，就会调用类的构造方法。那之后，会将该段内存的首地址赋给刚才建立的引用。</li>
-</ol>
-<h2 id="6-1-3-访问对象"><a href="#6-1-3-访问对象" class="headerlink" title="6.1.3 访问对象"></a>6.1.3 访问对象</h2><blockquote>
-<p><strong>基本语法</strong>：<code>对象名.属性名</code></p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(cat1.name);</span><br></pre></td></tr></table></figure>
-<h2 id="6-1-4-类与对象的内存访问机制"><a href="#6-1-4-类与对象的内存访问机制" class="headerlink" title="6.1.4 类与对象的内存访问机制"></a>6.1.4 类与对象的内存访问机制</h2><blockquote>
-<p>栈：一般存放基本数据类型（局部变量）<br>堆：存放对象（如Cat cat1 &#x3D; new Cat()，是在这里开辟的空间）<br>方法区：常量池（常量，比如字符串），类加载信息</p>
-</blockquote>
-<ol>
-<li>创建对象时，先加载 类 信息，然后在 堆 中分配空间，栈 中的对象名被赋予指向那个空间的地址。</li>
-<li>之后进行指定初始化。该对象的 属性 中，是 基本数据类型 的直接记录在 堆 中；是 字符串 的记录一个地址，该地址指向 方法区，那里的常量池有该字符串。</li>
-</ol>
-<h1 id="6-2-成员方法"><a href="#6-2-成员方法" class="headerlink" title="6.2 成员方法"></a>6.2 成员方法</h1><p>在某些情况下，我们需要定义成员方法。比如 <code>Cat</code> 除了有属性（<code>name</code> <code>age</code>）外，还可以有一些行为比如玩耍。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">修饰符 返回数据类型 方法名(形参列表)&#123;</span><br><span class="line">	方法体语句;</span><br><span class="line">	returen 返回值;			<span class="comment">//返回数据类型是 void 的场合，return语句不是必须的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>方法名必须是一个合法的标识符</p>
-</li>
-<li><p>返回类型即返回值的类型。如果方法没有返回值，应声明为 void</p>
-</li>
-<li><p>修饰符段可以有几个不同的修饰符。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;哎咿呀~ 哎咿呀~&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>其中 public（访问修饰符）、static（static 关键字）、final（final 关键字）</p>
-</li>
-<li><p>参数列表是传递给方法的参数表。各个元素间以 , 分隔。每个元素由一个类型和一个标识符表示的参数组成。</p>
-</li>
-</ol>
-<p>特别地，<code>参数类型... 标识符</code> 这样的参数被称为可变参数</p>
-<ol start="5">
-<li>方法体是实际要执行的代码块。方法体一般用 return 作为方法的结束。</li>
-</ol>
-<p>使用 <code>成员方法</code>，能提高代码的复用性。而且能把实现的细节封装起来，供其他用户调用。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;				<span class="comment">//属性 name</span></span><br><span class="line">	<span class="type">int</span> age;					<span class="comment">//属性 age</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">()</span>&#123;		<span class="comment">//方法 speak()</span></span><br><span class="line">  		System.out.println(<span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<ol>
-<li>方法写好后，不去调用就不会输出</li>
-<li>先创建对象，然后调用方法即可</li>
-</ol>
-</blockquote>
-<p>下面，展示一个含有成员方法的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">       cat1.speak(<span class="number">10</span>, <span class="number">15</span>);				<span class="comment">//调用 speak 方法，并且给 n1 = 10, n2 = 15</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);	<span class="comment">//调用 speak2 方法,返回值赋给 r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//(int n1, int n2)形参列表，当前有两个形参 n1,n2</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       System.out.println(<span class="string">&quot;喵~&quot;</span> + n1 + <span class="string">&quot; + &quot;</span> + n2 +<span class="string">&quot; 的值是：&quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//int 表示方法执行后，返回一个 int 值</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       <span class="keyword">return</span> res;						<span class="comment">//返回 res 的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-2-1-方法的调用机制"><a href="#6-2-1-方法的调用机制" class="headerlink" title="6.2.1 方法的调用机制"></a>6.2.1 方法的调用机制</h2><p>以前文代码为例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);		</span><br><span class="line">...</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	</span><br><span class="line">   <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">   <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>当程序执行到方法时，在 栈 中开辟一个新的 栈空间。该空间里储存 <code>n1 = 15</code> <code>n2 = 135</code>，之后计算并储存结果 <code>res = 150</code></li>
-<li>当方法执行完毕，或执行到 <code>return</code> 语句时，就会返回</li>
-<li>把 新栈空间 中的 <code>res = 150</code> 返回 main栈 中调用方法的地方</li>
-<li>返回后，继续执行该方法的后续代码</li>
-</ol>
-<h2 id="6-2-2-使用细节"><a href="#6-2-2-使用细节" class="headerlink" title="6.2.2 使用细节"></a>6.2.2 使用细节</h2><ol>
-<li>访问修饰符：作用是控制方法的使用范围。<ul>
-<li>不写（默认访问控制范围）</li>
-<li>public：公共</li>
-<li>protected：受保护</li>
-<li>private：私有</li>
-</ul>
-</li>
-<li>返回数据类型：<ul>
-<li>一个方法最多有一个返回值。要返回多个结果可以使用 数组。</li>
-<li>返回类型为任意类型。包括 基本数据类型 和 引用数据类型。</li>
-<li>如果方法要求有返回数据类型，则方法体中最后的执行语句必为 <code>return</code> 值，且返回类型必须和 <code>return</code> 的值一致。</li>
-<li>如果 返回数据类型 为 <code>void</code>，则可以不写 <code>return </code>语句</li>
-</ul>
-</li>
-<li>方法名：<ul>
-<li>遵循驼峰命名法，最好见名知意，表达出该功能的意思。</li>
-</ul>
-</li>
-<li>参数列表（形参列表）：<ul>
-<li>一个方法可以有 0 个参数，也可以有多个参数。参数间用 , 间隔。</li>
-<li>参数类型可以为任意类型，包含 基本类型 和 引用类型。</li>
-<li>调用带参数的方法时，一定对应着 参数列表 传入 相同类型 或 兼容类型 的参数。</li>
-<li>方法定义时的参数称为 形式参数 ，简称 形参；方法调用时的参数（传入的参数）称为 实际参数，简称 实参。实参 与 形参 的类型、个数、顺序必须一致。</li>
-</ul>
-</li>
-<li>方法体：<ul>
-<li>写完成功能的具体语句。方法中不能再定义方法。即：方法不能嵌套定义。</li>
-</ul>
-</li>
-<li>调用细节：<ul>
-<li>同一个类中的方法调用，可以直接调用。</li>
-<li>跨类的方法调用，需要创建新对象，然后再调用方法。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C1</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">   m1();					<span class="comment">//同一个类中的方法调用，可以直接调用。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C2</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">C1</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">C1</span>();</span><br><span class="line">   c.m2();					<span class="comment">//跨类的方法调用，需要创建新对象，然后再调用方法。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<h2 id="6-2-3-成员方法传参机制"><a href="#6-2-3-成员方法传参机制" class="headerlink" title="6.2.3 成员方法传参机制"></a>6.2.3 成员方法传参机制</h2><p>Java 语言对对象采用的是 <strong>值传递</strong>，方法得到的总是那个传入对象的副本。</p>
-<ul>
-<li>方法不能修改基本数据类型的参数。基本数据类型传递的是一个值，形参不影响实参。</li>
-<li>方法可以改变对象参数的状态。引用类型传递的是一个地址，形参和实参指向一处，两者总会相关。但改变那个形参地址指向的场合，实参的指向不会改变。</li>
-</ul>
-<h1 id="6-3-方法递归调用"><a href="#6-3-方法递归调用" class="headerlink" title="6.3 方法递归调用"></a>6.3 方法递归调用</h1><blockquote>
-<p>递归：即方法自己调用自己，每次调用时传入不同变量。递归有助于编程者解决复杂问题，同时可以让代码变得简洁。</p>
-</blockquote>
-<blockquote>
-<p>下面，示范一个斐波那契数列方法</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">return</span> (fib(n - <span class="number">1</span>)) + (feb(n - <span class="number">2</span>));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-3-1-使用细节"><a href="#6-3-1-使用细节" class="headerlink" title="6.3.1 使用细节"></a>6.3.1 使用细节</h2><ol>
-<li>执行一个方法时，就创建一个新的受保护的独立 栈空间。</li>
-<li>方法的局部变量是独立的，不会相互影响。</li>
-<li>如果方法中使用的是引用变量，就会共享数据。</li>
-<li>递归必须向退出递归的条件逼近，否则就是无限递归，会提示 StackOverflowError “死龟”</li>
-<li>当一个方法执行完毕，或遇到 return 就会返回。遵守谁调用就返回给谁。同时当方法执行完毕或返回时，该方法也执行完毕。</li>
-</ol>
-<h1 id="6-4-方法重载"><a href="#6-4-方法重载" class="headerlink" title="6.4 方法重载"></a>6.4 方法重载</h1><blockquote>
-<p>方法重载（Overload）：Java 中允许同一类中，多个同名方法的存在，但要求 形参列表 不一致。这样，减轻了起名和记名的麻烦。</p>
-</blockquote>
-<p><strong>使用细节:</strong></p>
-<ol>
-<li>方法名：必须相同</li>
-<li>形参列表：必须不同（参数的类型、个数、顺序，这其中至少一个不同）</li>
-<li>返回值：无要求</li>
-</ol>
-<p><strong>签名：</strong><br>由于重载的存在，要完整的描述一个方法，要指定方法名及参数类型。这叫做方法的签名。<br>如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>两个方法的签名分别是：<code>act()</code> 和 <code>act(int n)</code></p>
-<h1 id="6-5-可变参数"><a href="#6-5-可变参数" class="headerlink" title="6.5 可变参数"></a>6.5 可变参数</h1><blockquote>
-<p>Java 允许将同一个类中多个同名同功能但参数个数不同的方法，封装成一个方法。</p>
-</blockquote>
-<p>语法：<code>访问修饰符 返回类型 方法名（数据类型... 形参名）&#123;代码块;&#125;</code></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">int</span>... n)</span>&#123;</span><br><span class="line">	<span class="comment">//此时，n 相当于一个 数组。</span></span><br><span class="line">	<span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> n.length;</span><br><span class="line">	<span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> n[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-5-1-使用细节"><a href="#6-5-1-使用细节" class="headerlink" title="6.5.1 使用细节"></a>6.5.1 使用细节</h2><ol>
-<li>可变参数 的实参可以是 0 个，也可以是 任意多 个。</li>
-<li>可变参数 的实参可以是数组</li>
-<li>可变参数 本质就是数组</li>
-</ol>
-<p>因此，出现：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>... n)</span>&#123;				<span class="comment">//这个方法与下面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>的场合，不能有方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>[] n)</span>&#123;				<span class="comment">//这个方法与上面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li><p>可变参数 和 普通参数 可以一起放在形参列表，但必须保证 可变参数 在最后</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">double</span> dou, <span class="type">int</span>... n)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>一个形参列表最多出现 一个 可变参数。</p>
-</li>
-</ol>
-<h1 id="6-6-作用域"><a href="#6-6-作用域" class="headerlink" title="6.6 作用域"></a>6.6 作用域</h1><ol>
-<li>在 Java 编程中，主要的变量就是 属性（成员变量）和 局部变量。</li>
-<li>我们说的 局部变量 一般是指在成员方法中定义的变量。</li>
-<li>作用域的分类<ul>
-<li>全局变量：也就是 属性，作用域为整个类体</li>
-<li>局部变量：除了属性外的其他变量。作用域为定义它的代码块中</li>
-</ul>
-</li>
-<li>全局变量（属性）可以不赋值直接使用，那个场合有默认值。局部变量必须赋值使用</li>
-</ol>
-<h2 id="6-6-1-使用细节"><a href="#6-6-1-使用细节" class="headerlink" title="6.6.1 使用细节"></a>6.6.1 使用细节</h2><ol>
-<li>属性 和 局部变量 可以重名，访问时遵循就近原则</li>
-<li>在同一作用域中，两个局部变量不能重名</li>
-<li>属性 的生命周期较长。其伴随对象的创建而创建，伴随对象的销毁而销毁。局部变量 生命周期较短。其伴随代码块的执行而创建，伴随代码块的结束而销毁。</li>
-<li>全局变量&#x2F;属性 可以被本类使用，也可以被其他类（通过对象）使用。局部变量 只能被本类的对应方法中调用</li>
-<li>全局变量&#x2F;属性 <strong>可以加</strong> 修饰符局部变量 <strong>不能加</strong> 修饰符</li>
-</ol>
-<h1 id="6-7-构造方法、构造器"><a href="#6-7-构造方法、构造器" class="headerlink" title="6.7 构造方法、构造器"></a>6.7 构造方法、构造器</h1><blockquote>
-<p>构造方法又叫构造器（constructor），是类的一种特殊的方法。它的主要作用是完成对新对象的初始化。</p>
-</blockquote>
-<p>语法：<code>[修饰符] 方法名(形参列表)&#123;方法体&#125;</code></p>
-<ol>
-<li>构造器的修饰符可以是默认。也可以是别的</li>
-<li>参数列表 规则同 成员方法</li>
-</ol>
-<p>以下示范一个构造器：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> mun;</span><br><span class="line">    <span class="comment">//下面这块就是构造器</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">T</span><span class="params">(String str, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">		name = str;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="6-7-1-使用细节"><a href="#6-7-1-使用细节" class="headerlink" title="6.7.1 使用细节"></a>6.7.1 使用细节</h2><ol>
-<li>构造器本质也是方法。所以，可以 构造器重载。</li>
-<li>构造器名 和 类名 相同</li>
-<li>构造器无返回值</li>
-<li>构造器是完成对象的初始化，而不是创建</li>
-<li>创建对象时，系统自动调用构造器</li>
-<li>如果程序员没有定义构造器，系统会自动给类生成一个无参构造器（默认构造器）</li>
-<li>一旦定义了自己的构造器，就不能用无参构造器了。除非显式的定义一个无参构造器</li>
-</ol>
-<h2 id="6-7-2-流程分析"><a href="#6-7-2-流程分析" class="headerlink" title="6.7.2 流程分析"></a>6.7.2 流程分析</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Amy&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pName, <span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">		name = pName;</span><br><span class="line">		age = pAge;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>加载 类信息（方法区）</li>
-<li>在 <strong>堆</strong> 中开辟空间（地址）</li>
-<li>完成对象初始化<ul>
-<li>首先默认初始化。<code>age = 0;</code> <code>name = null</code></li>
-<li>之后显式初始化。<code>age = 20;</code> <code>name = null</code>其中，显式初始化和代码块初始化按编写的先后顺序依次进行。</li>
-<li>之后构造器的初始化。<code>age = 10; name = &quot;Amy&quot;</code></li>
-</ul>
-</li>
-<li>把对象在 <strong>堆</strong> 中的 <strong>地址</strong>，返回给 <code>p1</code></li>
-</ol>
-<h1 id="6-8-this关键字"><a href="#6-8-this关键字" class="headerlink" title="6.8 this关键字"></a>6.8 <code>this</code>关键字</h1><blockquote>
-<p>JVM 会给每个对象分配 this 代表当前对象。<br>相当于在 堆 中，this 指向自己（对象）<br>在类定义的方法中，Java 会自动用 this 关键字把所有变量和方法引用结合在一起。<br>遇到有同名的局部变量的场合，需要程序员加入 this 关键字进行区分。不加入 this 关键字的场合，Java 遵循就近原则。</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面这个类的 <code>act()</code> 方法实际有 2 个参数。对其调用：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Example</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exmaple</span>();</span><br><span class="line">e.act(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
-<p>可见，出现在方法名前的参数 e，以及出现在方法名后的括号中的参数 100<br>出现在方法名前的参数被称为 <strong>隐式参数</strong>（也称为 方法调用的 目标 或 接收者）<br>出现在方法名后的参数被称为 <strong>显式参数</strong>，就是所谓的实参<br>在每一个方法中，用 this 指代隐式参数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时，再以相同方式调用方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">e.act(<span class="number">100</span>);					<span class="comment">// &lt;———— 相当于 e.n = 100;</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-8-1-使用方法"><a href="#6-8-1-使用方法" class="headerlink" title="6.8.1 使用方法"></a>6.8.1 使用方法</h2><ol>
-<li><code>this</code> 关键字可以用来访问本类的属性、方法、构造器</li>
-<li><code>this</code> 用于区分当前类的 属性 和 局部变量</li>
-<li>访问本类中成员方法的语法：<code>this.方法名</code></li>
-<li>访问构造器的语法：<code>this(参数列表);</code></li>
-<li>注意：只能在构造器中访问另一个构造器。而且，如果有这个语法，必须放置在第一条语句。</li>
-<li><code>this</code> 不能在类定义的 外部 使用，只能在类定义的 方法中 使用</li>
-</ol>
-]]></content>
-      <categories>
-        <category>Java 学习</category>
-        <category>JavaSE (韩顺平)</category>
-      </categories>
-      <tags>
-        <tag>Java 学习</tag>
-        <tag>JavaSE</tag>
-        <tag>韩顺平基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>7. 面向对象编程(中级)</title>
     <url>/2022/09/11/JavaSE/7.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E4%B8%AD%E7%BA%A7)/</url>
     <content><![CDATA[<blockquote>
@@ -4517,6 +4856,264 @@ LinkedHashSet 的构造器即调用了该父类构造器<figure class="highlight
 <h1 id="7-9-零钱通程序"><a href="#7-9-零钱通程序" class="headerlink" title="7.9 零钱通程序"></a>7.9 零钱通程序</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wlm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeApp</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">SmallChangeOop</span> <span class="variable">smallChangeOop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SmallChangeOop</span>();</span><br><span class="line">        smallChangeOop.menu();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeOop</span> &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">details</span> <span class="operator">=</span> <span class="string">&quot;------------零钱通明细------------&quot;</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">money</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">    <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br><span class="line">    <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 菜单</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">menu</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n=============零钱通菜单=============&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 1 零 钱 通 明 细&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 2 收 益 入 账&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 3 消      费&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 4 退      出&quot;</span>);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">&quot;请选择(1-4): &quot;</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                    show();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                    income();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                    pay();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;4&quot;</span>:</span><br><span class="line">                    exit();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (loop);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 零钱通明细</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(details);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 收入细明</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">income</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入入账金额： &quot;</span>);</span><br><span class="line">        money = scanner.nextDouble();</span><br><span class="line">        <span class="keyword">if</span>(money &lt;=<span class="number">0</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;存不进去，请输入正确金额&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        balance += money;</span><br><span class="line">        details += <span class="string">&quot;\n收益入账\t+&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">note</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">&quot;请输入消费金额 :&quot;</span>);</span><br><span class="line">        money = scanner.nextDouble();</span><br><span class="line">        <span class="keyword">if</span> (money &lt;= <span class="number">0</span> &amp;&amp; money &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;太贵了买不起，只能买1-100块钱的东西&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(balance &lt; money) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;买不起，存款不足啊！&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.print(<span class="string">&quot;请输入消费说明：&quot;</span>);</span><br><span class="line">        note = scanner.next();</span><br><span class="line">        balance -= money;</span><br><span class="line">        details += <span class="string">&quot;\n&quot;</span>+note+<span class="string">&quot;\t-&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 退出程序</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">exit</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            System.out.print(<span class="string">&quot;退出系统(y/n)? &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">choice</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;y&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                loop = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;n&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;输入有误,请重新输入！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.wlm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wlm</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SmallChangeSys</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 选择菜单并且给出相应的提示</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">loop</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 零钱通明细</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">details</span> <span class="operator">=</span> <span class="string">&quot;------------零钱通明细------------&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 收益入账</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">money</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">double</span> <span class="variable">balance</span> <span class="operator">=</span> <span class="number">0.0</span>;</span><br><span class="line">        <span class="type">Date</span> <span class="variable">date</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">SimpleDateFormat</span> <span class="variable">simpleDateFormat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleDateFormat</span>(<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消费</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">note</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;\n=============零钱通菜单=============&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 1 零 钱 通 明 细&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 2 收 益 入 账&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 3 消      费&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;\t\t\t 4 退      出&quot;</span>);</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">&quot;请选择(1-4): &quot;</span>);</span><br><span class="line">            key = scanner.next();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">switch</span> (key) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                    System.out.println(details);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入入账金额： &quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span>(money &lt;=<span class="number">0</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;存不进去，请输入正确金额&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    balance += money;</span><br><span class="line">                    details += <span class="string">&quot;\n收益入账\t+&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费金额 :&quot;</span>);</span><br><span class="line">                    money = scanner.nextDouble();</span><br><span class="line">                    <span class="keyword">if</span> (money &lt;= <span class="number">0</span> &amp;&amp; money &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;太贵了买不起，只能买1-100块钱的东西&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span>(balance &lt; money) &#123;</span><br><span class="line">                        System.out.println(<span class="string">&quot;买不起，存款不足啊！&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.print(<span class="string">&quot;请输入消费说明：&quot;</span>);</span><br><span class="line">                    note = scanner.next();</span><br><span class="line">                    balance -= money;</span><br><span class="line">                    details += <span class="string">&quot;\n&quot;</span>+note+<span class="string">&quot;\t-&quot;</span> + money + <span class="string">&quot;\t&quot;</span> + simpleDateFormat.format(<span class="keyword">new</span> <span class="title class_">Date</span>()) + <span class="string">&quot;\t&quot;</span> + balance;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&quot;4&quot;</span>:</span><br><span class="line">                    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">                        System.out.print(<span class="string">&quot;退出系统(y/n)? &quot;</span>);</span><br><span class="line">                        <span class="type">String</span> <span class="variable">choice</span> <span class="operator">=</span> scanner.next();</span><br><span class="line">                        <span class="keyword">if</span> (<span class="string">&quot;y&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            loop = <span class="literal">false</span>;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">&quot;n&quot;</span>.equals(choice)) &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            System.out.println(<span class="string">&quot;输入有误,请重新输入！&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    System.out.println(<span class="string">&quot;您的选择有误，请重新选择&quot;</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">while</span> (loop);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;已成功退出零钱通系统~&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Java 学习</category>
+        <category>JavaSE (韩顺平)</category>
+      </categories>
+      <tags>
+        <tag>Java 学习</tag>
+        <tag>JavaSE</tag>
+        <tag>韩顺平基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>6. 面向对象编程(基础)</title>
+    <url>/2022/09/11/JavaSE/6.%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B(%E5%9F%BA%E7%A1%80)/</url>
+    <content><![CDATA[<blockquote>
+<p>面向对象是一种开发软件的方法，使分析、设计和实现一个系统的方法尽可能接近人们认识一个系统的方法。包括三个方面：面向对象分析、面向对象设计、面向对象程序设计。<br>Java 语言是纯面向对象的语言。其所有数据类型都有相应的类，程序可以完全基于对象编写。</p>
+</blockquote>
+<h1 id="6-1-类与对象-OOP"><a href="#6-1-类与对象-OOP" class="headerlink" title="6.1 类与对象(OOP)"></a>6.1 类与对象(OOP)</h1><blockquote>
+<p><code>类</code> 就是数据类型。可以是 <code>int</code> 也可以是 <code>人类</code><br><code>对象</code> 就是其中具体的实例。可以是 <code>100</code> 也可以是 <code>韩顺平</code><br>从 <code>类</code> 到 <code>对象</code>，可以称为 创建一个对象，也可以说 实例化一个对象，或者 把对象实例化</p>
+<ol>
+<li>类 是抽象的、概念的，代表一类事物</li>
+<li>对象 是具体的、实际的，代表一个个具体事物</li>
+<li>类 是 对象 的模板，对象 是 类 的一个个体，对应一个实例</li>
+</ol>
+</blockquote>
+<p>下面，我们定义了一个类 Cat 并创建了一些 对象 cat1 cat2：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_1</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat1.name = <span class="string">&quot;福福&quot;</span>;</span><br><span class="line">		cat1.age = <span class="number">2</span>;</span><br><span class="line">		<span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">		cat2.name = <span class="string">&quot;妞子&quot;</span>;</span><br><span class="line">		cat2.age = <span class="number">1</span>;</span><br><span class="line">		System.out.println(cat1.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-1-属性-x2F-成员变量"><a href="#6-1-1-属性-x2F-成员变量" class="headerlink" title="6.1.1 属性&#x2F;成员变量"></a>6.1.1 属性&#x2F;成员变量</h2><blockquote>
+<p>从概念或叫法上看：成员变量 &#x3D; 属性 &#x3D; field（字段）</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>String name; </code>就是一个成员变量（属性）。<br>属性可以是基本数据类型，也可以是引用数据类型。</p>
+<ol>
+<li>属性的定义语法同变量。访问修饰符 属性类型 属性名<ul>
+<li>访问修饰符：控制属性的访问范围。有四种：<code>publie</code> <code>protected</code> <code>默认(空) private</code></li>
+</ul>
+</li>
+<li>属性的定义类型可以为任意类型，包含 基本类型 或 引用类型</li>
+<li>属性如果不赋值，有默认值。</li>
+</ol>
+<h2 id="6-1-2-创建对象"><a href="#6-1-2-创建对象" class="headerlink" title="6.1.2 创建对象"></a>6.1.2 创建对象</h2><ul>
+<li><p><strong>先声明再创建</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Cat cat1;  				    <span class="comment">//声明对象cat1</span></span><br><span class="line">cat1 = <span class="keyword">new</span> <span class="title class_">Cat</span>();			<span class="comment">//创建对象</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>直接创建</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Cat</span> <span class="variable">cat2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br></pre></td></tr></table></figure>
+<p>注意事项：</p>
+</li>
+</ul>
+<ol>
+<li>声明对象的场合，只是在内存中建立了一个引用。此时，该地址引用不指向任何内存空间。对象的引用，也被称为对象的句柄。</li>
+<li>使用 new 运算符创建对象实例时，会为对象分配空间，就会调用类的构造方法。那之后，会将该段内存的首地址赋给刚才建立的引用。</li>
+</ol>
+<h2 id="6-1-3-访问对象"><a href="#6-1-3-访问对象" class="headerlink" title="6.1.3 访问对象"></a>6.1.3 访问对象</h2><blockquote>
+<p><strong>基本语法</strong>：<code>对象名.属性名</code></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(cat1.name);</span><br></pre></td></tr></table></figure>
+<h2 id="6-1-4-类与对象的内存访问机制"><a href="#6-1-4-类与对象的内存访问机制" class="headerlink" title="6.1.4 类与对象的内存访问机制"></a>6.1.4 类与对象的内存访问机制</h2><blockquote>
+<p>栈：一般存放基本数据类型（局部变量）<br>堆：存放对象（如Cat cat1 &#x3D; new Cat()，是在这里开辟的空间）<br>方法区：常量池（常量，比如字符串），类加载信息</p>
+</blockquote>
+<ol>
+<li>创建对象时，先加载 类 信息，然后在 堆 中分配空间，栈 中的对象名被赋予指向那个空间的地址。</li>
+<li>之后进行指定初始化。该对象的 属性 中，是 基本数据类型 的直接记录在 堆 中；是 字符串 的记录一个地址，该地址指向 方法区，那里的常量池有该字符串。</li>
+</ol>
+<h1 id="6-2-成员方法"><a href="#6-2-成员方法" class="headerlink" title="6.2 成员方法"></a>6.2 成员方法</h1><p>在某些情况下，我们需要定义成员方法。比如 <code>Cat</code> 除了有属性（<code>name</code> <code>age</code>）外，还可以有一些行为比如玩耍。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">修饰符 返回数据类型 方法名(形参列表)&#123;</span><br><span class="line">	方法体语句;</span><br><span class="line">	returen 返回值;			<span class="comment">//返回数据类型是 void 的场合，return语句不是必须的</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>方法名必须是一个合法的标识符</p>
+</li>
+<li><p>返回类型即返回值的类型。如果方法没有返回值，应声明为 void</p>
+</li>
+<li><p>修饰符段可以有几个不同的修饰符。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">strictfp</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;哎咿呀~ 哎咿呀~&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>其中 public（访问修饰符）、static（static 关键字）、final（final 关键字）</p>
+</li>
+<li><p>参数列表是传递给方法的参数表。各个元素间以 , 分隔。每个元素由一个类型和一个标识符表示的参数组成。</p>
+</li>
+</ol>
+<p>特别地，<code>参数类型... 标识符</code> 这样的参数被称为可变参数</p>
+<ol start="5">
+<li>方法体是实际要执行的代码块。方法体一般用 return 作为方法的结束。</li>
+</ol>
+<p>使用 <code>成员方法</code>，能提高代码的复用性。而且能把实现的细节封装起来，供其他用户调用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">	String name;				<span class="comment">//属性 name</span></span><br><span class="line">	<span class="type">int</span> age;					<span class="comment">//属性 age</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">()</span>&#123;		<span class="comment">//方法 speak()</span></span><br><span class="line">  		System.out.println(<span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li>方法写好后，不去调用就不会输出</li>
+<li>先创建对象，然后调用方法即可</li>
+</ol>
+</blockquote>
+<p>下面，展示一个含有成员方法的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Code6_2</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">       <span class="type">Cat</span> <span class="variable">cat1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cat</span>();</span><br><span class="line">       cat1.speak(<span class="number">10</span>, <span class="number">15</span>);				<span class="comment">//调用 speak 方法，并且给 n1 = 10, n2 = 15</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);	<span class="comment">//调用 speak2 方法,返回值赋给 r</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">speak</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//(int n1, int n2)形参列表，当前有两个形参 n1,n2</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       System.out.println(<span class="string">&quot;喵~&quot;</span> + n1 + <span class="string">&quot; + &quot;</span> + n2 +<span class="string">&quot; 的值是：&quot;</span> + res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	<span class="comment">//int 表示方法执行后，返回一个 int 值</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">       <span class="keyword">return</span> res;						<span class="comment">//返回 res 的值</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-2-1-方法的调用机制"><a href="#6-2-1-方法的调用机制" class="headerlink" title="6.2.1 方法的调用机制"></a>6.2.1 方法的调用机制</h2><p>以前文代码为例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">		<span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> cat1.speak2(<span class="number">15</span>, <span class="number">135</span>);		</span><br><span class="line">...</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">speak2</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;	</span><br><span class="line">   <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> n1 + n2;</span><br><span class="line">   <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>当程序执行到方法时，在 栈 中开辟一个新的 栈空间。该空间里储存 <code>n1 = 15</code> <code>n2 = 135</code>，之后计算并储存结果 <code>res = 150</code></li>
+<li>当方法执行完毕，或执行到 <code>return</code> 语句时，就会返回</li>
+<li>把 新栈空间 中的 <code>res = 150</code> 返回 main栈 中调用方法的地方</li>
+<li>返回后，继续执行该方法的后续代码</li>
+</ol>
+<h2 id="6-2-2-使用细节"><a href="#6-2-2-使用细节" class="headerlink" title="6.2.2 使用细节"></a>6.2.2 使用细节</h2><ol>
+<li>访问修饰符：作用是控制方法的使用范围。<ul>
+<li>不写（默认访问控制范围）</li>
+<li>public：公共</li>
+<li>protected：受保护</li>
+<li>private：私有</li>
+</ul>
+</li>
+<li>返回数据类型：<ul>
+<li>一个方法最多有一个返回值。要返回多个结果可以使用 数组。</li>
+<li>返回类型为任意类型。包括 基本数据类型 和 引用数据类型。</li>
+<li>如果方法要求有返回数据类型，则方法体中最后的执行语句必为 <code>return</code> 值，且返回类型必须和 <code>return</code> 的值一致。</li>
+<li>如果 返回数据类型 为 <code>void</code>，则可以不写 <code>return </code>语句</li>
+</ul>
+</li>
+<li>方法名：<ul>
+<li>遵循驼峰命名法，最好见名知意，表达出该功能的意思。</li>
+</ul>
+</li>
+<li>参数列表（形参列表）：<ul>
+<li>一个方法可以有 0 个参数，也可以有多个参数。参数间用 , 间隔。</li>
+<li>参数类型可以为任意类型，包含 基本类型 和 引用类型。</li>
+<li>调用带参数的方法时，一定对应着 参数列表 传入 相同类型 或 兼容类型 的参数。</li>
+<li>方法定义时的参数称为 形式参数 ，简称 形参；方法调用时的参数（传入的参数）称为 实际参数，简称 实参。实参 与 形参 的类型、个数、顺序必须一致。</li>
+</ul>
+</li>
+<li>方法体：<ul>
+<li>写完成功能的具体语句。方法中不能再定义方法。即：方法不能嵌套定义。</li>
+</ul>
+</li>
+<li>调用细节：<ul>
+<li>同一个类中的方法调用，可以直接调用。</li>
+<li>跨类的方法调用，需要创建新对象，然后再调用方法。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">C1</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m1</span><span class="params">()</span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m2</span><span class="params">()</span>&#123;</span><br><span class="line">   m1();					<span class="comment">//同一个类中的方法调用，可以直接调用。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C2</span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m3</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="type">C1</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">C1</span>();</span><br><span class="line">   c.m2();					<span class="comment">//跨类的方法调用，需要创建新对象，然后再调用方法。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h2 id="6-2-3-成员方法传参机制"><a href="#6-2-3-成员方法传参机制" class="headerlink" title="6.2.3 成员方法传参机制"></a>6.2.3 成员方法传参机制</h2><p>Java 语言对对象采用的是 <strong>值传递</strong>，方法得到的总是那个传入对象的副本。</p>
+<ul>
+<li>方法不能修改基本数据类型的参数。基本数据类型传递的是一个值，形参不影响实参。</li>
+<li>方法可以改变对象参数的状态。引用类型传递的是一个地址，形参和实参指向一处，两者总会相关。但改变那个形参地址指向的场合，实参的指向不会改变。</li>
+</ul>
+<h1 id="6-3-方法递归调用"><a href="#6-3-方法递归调用" class="headerlink" title="6.3 方法递归调用"></a>6.3 方法递归调用</h1><blockquote>
+<p>递归：即方法自己调用自己，每次调用时传入不同变量。递归有助于编程者解决复杂问题，同时可以让代码变得简洁。</p>
+</blockquote>
+<blockquote>
+<p>下面，示范一个斐波那契数列方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">&gt;<span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">fib</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(n == <span class="number">1</span> || n == <span class="number">2</span>)&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">return</span> (fib(n - <span class="number">1</span>)) + (feb(n - <span class="number">2</span>));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-3-1-使用细节"><a href="#6-3-1-使用细节" class="headerlink" title="6.3.1 使用细节"></a>6.3.1 使用细节</h2><ol>
+<li>执行一个方法时，就创建一个新的受保护的独立 栈空间。</li>
+<li>方法的局部变量是独立的，不会相互影响。</li>
+<li>如果方法中使用的是引用变量，就会共享数据。</li>
+<li>递归必须向退出递归的条件逼近，否则就是无限递归，会提示 StackOverflowError “死龟”</li>
+<li>当一个方法执行完毕，或遇到 return 就会返回。遵守谁调用就返回给谁。同时当方法执行完毕或返回时，该方法也执行完毕。</li>
+</ol>
+<h1 id="6-4-方法重载"><a href="#6-4-方法重载" class="headerlink" title="6.4 方法重载"></a>6.4 方法重载</h1><blockquote>
+<p>方法重载（Overload）：Java 中允许同一类中，多个同名方法的存在，但要求 形参列表 不一致。这样，减轻了起名和记名的麻烦。</p>
+</blockquote>
+<p><strong>使用细节:</strong></p>
+<ol>
+<li>方法名：必须相同</li>
+<li>形参列表：必须不同（参数的类型、个数、顺序，这其中至少一个不同）</li>
+<li>返回值：无要求</li>
+</ol>
+<p><strong>签名：</strong><br>由于重载的存在，要完整的描述一个方法，要指定方法名及参数类型。这叫做方法的签名。<br>如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">()</span> &#123;&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>两个方法的签名分别是：<code>act()</code> 和 <code>act(int n)</code></p>
+<h1 id="6-5-可变参数"><a href="#6-5-可变参数" class="headerlink" title="6.5 可变参数"></a>6.5 可变参数</h1><blockquote>
+<p>Java 允许将同一个类中多个同名同功能但参数个数不同的方法，封装成一个方法。</p>
+</blockquote>
+<p>语法：<code>访问修饰符 返回类型 方法名（数据类型... 形参名）&#123;代码块;&#125;</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">int</span>... n)</span>&#123;</span><br><span class="line">	<span class="comment">//此时，n 相当于一个 数组。</span></span><br><span class="line">	<span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> n.length;</span><br><span class="line">	<span class="type">int</span> <span class="variable">num1</span> <span class="operator">=</span> n[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-5-1-使用细节"><a href="#6-5-1-使用细节" class="headerlink" title="6.5.1 使用细节"></a>6.5.1 使用细节</h2><ol>
+<li>可变参数 的实参可以是 0 个，也可以是 任意多 个。</li>
+<li>可变参数 的实参可以是数组</li>
+<li>可变参数 本质就是数组</li>
+</ol>
+<p>因此，出现：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>... n)</span>&#123;				<span class="comment">//这个方法与下面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的场合，不能有方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">met</span><span class="params">(<span class="type">int</span>[] n)</span>&#123;				<span class="comment">//这个方法与上面的方法不能构成重载</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><p>可变参数 和 普通参数 可以一起放在形参列表，但必须保证 可变参数 在最后</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">m</span><span class="params">(<span class="type">double</span> dou, <span class="type">int</span>... n)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个形参列表最多出现 一个 可变参数。</p>
+</li>
+</ol>
+<h1 id="6-6-作用域"><a href="#6-6-作用域" class="headerlink" title="6.6 作用域"></a>6.6 作用域</h1><ol>
+<li>在 Java 编程中，主要的变量就是 属性（成员变量）和 局部变量。</li>
+<li>我们说的 局部变量 一般是指在成员方法中定义的变量。</li>
+<li>作用域的分类<ul>
+<li>全局变量：也就是 属性，作用域为整个类体</li>
+<li>局部变量：除了属性外的其他变量。作用域为定义它的代码块中</li>
+</ul>
+</li>
+<li>全局变量（属性）可以不赋值直接使用，那个场合有默认值。局部变量必须赋值使用</li>
+</ol>
+<h2 id="6-6-1-使用细节"><a href="#6-6-1-使用细节" class="headerlink" title="6.6.1 使用细节"></a>6.6.1 使用细节</h2><ol>
+<li>属性 和 局部变量 可以重名，访问时遵循就近原则</li>
+<li>在同一作用域中，两个局部变量不能重名</li>
+<li>属性 的生命周期较长。其伴随对象的创建而创建，伴随对象的销毁而销毁。局部变量 生命周期较短。其伴随代码块的执行而创建，伴随代码块的结束而销毁。</li>
+<li>全局变量&#x2F;属性 可以被本类使用，也可以被其他类（通过对象）使用。局部变量 只能被本类的对应方法中调用</li>
+<li>全局变量&#x2F;属性 <strong>可以加</strong> 修饰符局部变量 <strong>不能加</strong> 修饰符</li>
+</ol>
+<h1 id="6-7-构造方法、构造器"><a href="#6-7-构造方法、构造器" class="headerlink" title="6.7 构造方法、构造器"></a>6.7 构造方法、构造器</h1><blockquote>
+<p>构造方法又叫构造器（constructor），是类的一种特殊的方法。它的主要作用是完成对新对象的初始化。</p>
+</blockquote>
+<p>语法：<code>[修饰符] 方法名(形参列表)&#123;方法体&#125;</code></p>
+<ol>
+<li>构造器的修饰符可以是默认。也可以是别的</li>
+<li>参数列表 规则同 成员方法</li>
+</ol>
+<p>以下示范一个构造器：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> mun;</span><br><span class="line">    <span class="comment">//下面这块就是构造器</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">T</span><span class="params">(String str, <span class="type">int</span> i)</span>&#123;</span><br><span class="line">		name = str;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-7-1-使用细节"><a href="#6-7-1-使用细节" class="headerlink" title="6.7.1 使用细节"></a>6.7.1 使用细节</h2><ol>
+<li>构造器本质也是方法。所以，可以 构造器重载。</li>
+<li>构造器名 和 类名 相同</li>
+<li>构造器无返回值</li>
+<li>构造器是完成对象的初始化，而不是创建</li>
+<li>创建对象时，系统自动调用构造器</li>
+<li>如果程序员没有定义构造器，系统会自动给类生成一个无参构造器（默认构造器）</li>
+<li>一旦定义了自己的构造器，就不能用无参构造器了。除非显式的定义一个无参构造器</li>
+</ol>
+<h2 id="6-7-2-流程分析"><a href="#6-7-2-流程分析" class="headerlink" title="6.7.2 流程分析"></a>6.7.2 流程分析</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Amy&quot;</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span>&#123;</span><br><span class="line">	String name;</span><br><span class="line">	<span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">20</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String pName, <span class="type">int</span> pAge)</span>&#123;</span><br><span class="line">		name = pName;</span><br><span class="line">		age = pAge;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>加载 类信息（方法区）</li>
+<li>在 <strong>堆</strong> 中开辟空间（地址）</li>
+<li>完成对象初始化<ul>
+<li>首先默认初始化。<code>age = 0;</code> <code>name = null</code></li>
+<li>之后显式初始化。<code>age = 20;</code> <code>name = null</code>其中，显式初始化和代码块初始化按编写的先后顺序依次进行。</li>
+<li>之后构造器的初始化。<code>age = 10; name = &quot;Amy&quot;</code></li>
+</ul>
+</li>
+<li>把对象在 <strong>堆</strong> 中的 <strong>地址</strong>，返回给 <code>p1</code></li>
+</ol>
+<h1 id="6-8-this关键字"><a href="#6-8-this关键字" class="headerlink" title="6.8 this关键字"></a>6.8 <code>this</code>关键字</h1><blockquote>
+<p>JVM 会给每个对象分配 this 代表当前对象。<br>相当于在 堆 中，this 指向自己（对象）<br>在类定义的方法中，Java 会自动用 this 关键字把所有变量和方法引用结合在一起。<br>遇到有同名的局部变量的场合，需要程序员加入 this 关键字进行区分。不加入 this 关键字的场合，Java 遵循就近原则。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Example</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个类的 <code>act()</code> 方法实际有 2 个参数。对其调用：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Example</span> <span class="variable">e</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Exmaple</span>();</span><br><span class="line">e.act(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>可见，出现在方法名前的参数 e，以及出现在方法名后的括号中的参数 100<br>出现在方法名前的参数被称为 <strong>隐式参数</strong>（也称为 方法调用的 目标 或 接收者）<br>出现在方法名后的参数被称为 <strong>显式参数</strong>，就是所谓的实参<br>在每一个方法中，用 this 指代隐式参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">act</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.n = n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，再以相同方式调用方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">e.act(<span class="number">100</span>);					<span class="comment">// &lt;———— 相当于 e.n = 100;</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-8-1-使用方法"><a href="#6-8-1-使用方法" class="headerlink" title="6.8.1 使用方法"></a>6.8.1 使用方法</h2><ol>
+<li><code>this</code> 关键字可以用来访问本类的属性、方法、构造器</li>
+<li><code>this</code> 用于区分当前类的 属性 和 局部变量</li>
+<li>访问本类中成员方法的语法：<code>this.方法名</code></li>
+<li>访问构造器的语法：<code>this(参数列表);</code></li>
+<li>注意：只能在构造器中访问另一个构造器。而且，如果有这个语法，必须放置在第一条语句。</li>
+<li><code>this</code> 不能在类定义的 外部 使用，只能在类定义的 方法中 使用</li>
+</ol>
 ]]></content>
       <categories>
         <category>Java 学习</category>

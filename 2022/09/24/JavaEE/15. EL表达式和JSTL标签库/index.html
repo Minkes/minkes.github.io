@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="EL表达式是干什么用的?">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15. EL表达式和JSTL标签库">
+<meta property="og:url" content="http://example.com/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="EL表达式是干什么用的?">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-24T15:48:20.499Z">
+<meta property="article:modified_time" content="2022-09-24T15:56:05.225Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="JavaEE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/","path":"2022/09/24/JavaEE/15. EL表达式和JSTL标签库/","title":"15. EL表达式和JSTL标签库"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>15. EL表达式和JSTL标签库 | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-EL%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">1. EL表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JSTL%E6%A0%87%E7%AD%BE%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">2. JSTL标签库</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="15. EL表达式和JSTL标签库 | 安之">
+      <meta itemprop="description" content="EL表达式是干什么用的?">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          15. EL表达式和JSTL标签库
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-24 23:48:20 / 修改时间：23:56:05" itemprop="dateCreated datePublished" datetime="2022-09-24T23:48:20+08:00">2022-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">EL表达式是干什么用的?</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-EL表达式"><a href="#1-EL表达式" class="headerlink" title="1. EL表达式"></a>1. EL表达式</h1><ul>
+<li><p>EL表达式是干什么用的？</p>
+<ul>
+<li>Expression Language（表达式语言）</li>
+<li>EL表达式可以代替JSP中的java代码，让JSP文件中的程序看起来更加整洁，美观。</li>
+<li>JSP中夹杂着各种java代码，例如&lt;% java代码 %&gt;、&lt;%&#x3D;%&gt;等，导致JSP文件很混乱，不好看，不好维护。所以才有了后期的EL表达式。</li>
+<li>EL表达式可以算是JSP语法的一部分。EL表达式归属于JSP。</li>
+</ul>
+</li>
+<li><p>EL表达式出现在JSP中主要是：</p>
+<ul>
+<li>从某个作用域中取数据，然后将其转换成字符串，然后将其输出到浏览器。这就是EL表达式的功效。三大功效：<ul>
+<li>第一功效：从某个域中取数据。<ul>
+<li>四个域：<ul>
+<li>pageContext</li>
+<li>request</li>
+<li>session</li>
+<li>application</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第二功效：将取出的数据转成字符串。<ul>
+<li>如果是一个java对象，也会自动调用java对象的toString方法将其转换成字符串。</li>
+</ul>
+</li>
+<li>第三功效：将字符串输出到浏览器。<ul>
+<li>和这个一样：&lt;%&#x3D; %&gt;，将其输出到浏览器。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>EL表达式很好用，基本的语法格式：</p>
+<ul>
+<li>${表达式}</li>
+</ul>
+</li>
+<li><p>EL表达式的使用：</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">	<span class="comment">// 创建User对象</span></span><br><span class="line">	<span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">	user.setUsername(<span class="string">&quot;jackson&quot;</span>);</span><br><span class="line">	user.setPassword(<span class="string">&quot;1234&quot;</span>);</span><br><span class="line">	user.setAge(<span class="number">50</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 将User对象存储到某个域当中。一定要存，因为EL表达式只能从某个范围中取数据。</span></span><br><span class="line">	<span class="comment">// 数据是必须存储到四大范围之一的。</span></span><br><span class="line">	request.setAttribute(<span class="string">&quot;userObj&quot;</span>, user);</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%--使用EL表达式取--%&gt;</span><br><span class="line">$&#123;这个位置写什么？？？？这里写的一定是存储到域对象当中时的name&#125;</span><br><span class="line">要这样写：</span><br><span class="line">$&#123;userObj&#125;</span><br><span class="line">等同于java代码：&lt;%=request.getAttribute(<span class="string">&quot;userObj&quot;</span>)%&gt;</span><br><span class="line">你不要这样写：$&#123;<span class="string">&quot;userObj&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">面试题：</span><br><span class="line">	$&#123;abc&#125; 和 $&#123;<span class="string">&quot;abc&quot;</span>&#125;的区别是什么？</span><br><span class="line">		$&#123;abc&#125;表示从某个域中取出数据，并且被取的这个数据的name是<span class="string">&quot;abc&quot;</span>，之前一定有这样的代码: 域.setAttribute(<span class="string">&quot;abc&quot;</span>, 对象);</span><br><span class="line">		$&#123;<span class="string">&quot;abc&quot;</span>&#125; 表示直接将<span class="string">&quot;abc&quot;</span>当做普通字符串输出到浏览器。不会从某个域中取数据了。</span><br><span class="line"></span><br><span class="line">$&#123;userObj&#125; 底层是怎么做的？从域中取数据，取出user对象，然后调用user对象的toString方法，转换成字符串，输出到浏览器。</span><br><span class="line"></span><br><span class="line">&lt;%--如果想输出对象的属性值，怎么办？--%&gt;</span><br><span class="line">$&#123;userObj.username&#125; 使用这个语法的前提是：User对象有getUsername()方法。</span><br><span class="line">$&#123;userObj.password&#125; 使用这个语法的前提是：User对象有getPassword()方法。</span><br><span class="line">$&#123;userObj.age&#125; 使用这个语法的前提是：User对象有getAge()方法。</span><br><span class="line">$&#123;userObj.email&#125; 使用这个语法的前提是：User对象有getEmail()方法。</span><br><span class="line">EL表达式中的. 这个语法，实际上调用了底层的getXxx()方法。</span><br><span class="line">注意：如果没有对应的get方法，则出现异常。报<span class="number">500</span>错误。</span><br><span class="line"></span><br><span class="line">$&#123;userObj.addr222.zipcode&#125;</span><br><span class="line">以上EL表达式对应的java代码：</span><br><span class="line">user.getAddr222().getZipcode()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>EL表达式优先从小范围中读取数据。</p>
+<ul>
+<li>pageContext &lt; request &lt; session &lt; application</li>
+</ul>
+</li>
+<li><p>EL表达式中有四个隐含的隐式的范围：</p>
+<ul>
+<li>pageScope 对应的是 pageContext范围。</li>
+<li>requestScope 对应的是 request范围。</li>
+<li>sessionScope 对应的是 session范围。</li>
+<li>applicationScope 对应的是 application范围。</li>
+</ul>
+</li>
+<li><p>EL表达式对null进行了预处理。如果是null，则向浏览器输出一个空字符串。</p>
+</li>
+<li><p>EL表达式取数据的时候有两种形式：</p>
+<ul>
+<li>第一种：.  （大部分使用这种方式）</li>
+<li>第二种：[ ] （如果存储到域的时候，这个name中含有特殊字符，可以使用 [ ]）<ul>
+<li>request.setAttribute(“abc.def”, “zhangsan”);</li>
+<li>${requestScope.abc.def} 这样是无法取值的。</li>
+<li>应该这样：${requestScope[“abc.def”]}</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>掌握使用EL表达式，怎么从Map集合中取数据：</p>
+<ul>
+<li>${map.key}</li>
+</ul>
+</li>
+<li><p>掌握使用EL表达式，怎么从数组和List集合中取数据：</p>
+<ul>
+<li>${数组[0]}</li>
+<li>${数组[1]}</li>
+<li>${list[0]}</li>
+</ul>
+</li>
+<li><p>page指令当中，有一个属性，可以忽略EL表达式</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> isELIgnored=<span class="string">&quot;true&quot;</span> %&gt;</span><br><span class="line">isELIgnored=<span class="string">&quot;true&quot;</span> 表示忽略EL表达式</span><br><span class="line">isELIgnored=<span class="string">&quot;false&quot;</span> 表示不忽略EL表达式。（这是默认值）</span><br><span class="line"></span><br><span class="line">isELIgnored=<span class="string">&quot;true&quot;</span> 这个是全局的控制。</span><br><span class="line"></span><br><span class="line">可以使用反斜杠进行局部控制：\$&#123;username&#125; 这样也可以忽略EL表达式。</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>通过EL表达式获取应用的根：</p>
+<ul>
+<li>${pageContext.request.contextPath}</li>
+</ul>
+</li>
+<li><p>EL表达式中其他的隐式对象：</p>
+<ul>
+<li>pageContext</li>
+<li>param</li>
+<li>paramValues</li>
+<li>initParam</li>
+</ul>
+</li>
+<li><p>EL表达式的运算符</p>
+<ul>
+<li>算术运算符<ul>
+<li>+、-、*、&#x2F;、%</li>
+</ul>
+</li>
+<li>关系运算符<ul>
+<li><input disabled="" type="checkbox"> &#x3D;&#x3D; eq !&#x3D; &gt; &gt;&#x3D; &lt; &lt;&#x3D;</li>
+</ul>
+</li>
+<li>逻辑运算符<ul>
+<li><input disabled="" type="checkbox"> !  &amp;&amp; ||  not and or</li>
+</ul>
+</li>
+<li>条件运算符<ul>
+<li><input disabled="" type="checkbox"> ? :</li>
+</ul>
+</li>
+<li>取值运算符<ul>
+<li>[ ]和.</li>
+</ul>
+</li>
+<li>empty运算符<ul>
+<li><input disabled="" type="checkbox"> empty运算符的结果是boolean类型</li>
+<li><input disabled="" type="checkbox"> ${empty param.username}</li>
+<li><input disabled="" type="checkbox"> ${not empty param.username}</li>
+<li><input disabled="" type="checkbox"> ${!empty param.password}</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-JSTL标签库"><a href="#2-JSTL标签库" class="headerlink" title="2. JSTL标签库"></a>2. JSTL标签库</h1><ul>
+<li><p>什么是JSTL标签库？</p>
+<ul>
+<li>Java Standard Tag Lib（Java标准的标签库）</li>
+<li>JSTL标签库通常结合EL表达式一起使用。目的是让JSP中的java代码消失。</li>
+<li>标签是写在JSP当中的，但实际上最终还是要执行对应的java程序。（java程序在jar包当中。）</li>
+</ul>
+</li>
+<li><p>使用JSTL标签库的步骤：</p>
+<ul>
+<li><p>第一步：引入JSTL标签库对应的jar包。</p>
+<ul>
+<li>tomcat10之后引入的jar包是：<ul>
+<li>jakarta.servlet.jsp.jstl-2.0.0.jar</li>
+<li>jakarta.servlet.jsp.jstl-api-2.0.0.jar</li>
+</ul>
+</li>
+<li>在IDEA当中怎么引入？<ul>
+<li>在WEB-INF下新建lib目录，然后将jar包拷贝到lib当中。然后将其“Add Lib…”</li>
+<li>一定是要和mysql的数据库驱动一样，都是放在WEB-INF&#x2F;lib目录下的。</li>
+<li>什么时候需要将jar包放到WEB-INF&#x2F;lib目录下？如果这个jar是tomcat服务器没有的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>第二步：在JSP中引入要使用标签库。（使用taglib指令引入标签库。）</p>
+<ul>
+<li><p>JSTL提供了很多种标签，你要引入哪个标签？？？？重点掌握核心标签库。</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">这个就是核心标签库。</span><br><span class="line">prefix=<span class="string">&quot;这里随便起一个名字就行了，核心标签库，大家默认的叫做c，你随意。&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>第三步：在需要使用标签的位置使用即可。表面使用的是标签，底层实际上还是java程序。</p>
+</li>
+</ul>
+</li>
+<li><p>JSTL标签的原理</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@taglib</span> prefix=<span class="string">&quot;c&quot;</span> uri=<span class="string">&quot;http://java.sun.com/jsp/jstl/core&quot;</span> %&gt;</span><br><span class="line">以上uri后面的路径实际上指向了一个xxx.tld文件。</span><br><span class="line">tld文件实际上是一个xml配置文件。</span><br><span class="line">在tld文件中描述了“标签”和“java类”之间的关系。</span><br><span class="line">以上核心标签库对应的tld文件是：c.tld文件。它在哪里。</span><br><span class="line">在jakarta.servlet.jsp.jstl-<span class="number">2.0</span><span class="number">.0</span>.jar里面META-INF目录下，有一个c.tld文件。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>源码解析：配置文件tld解析</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;tag&gt;</span><br><span class="line">    &lt;description&gt;对该标签的描述&lt;/description&gt;</span><br><span class="line">    &lt;name&gt;<span class="keyword">catch</span>&lt;/name&gt; 标签的名字</span><br><span class="line">    &lt;tag-class&gt;org.apache.taglibs.standard.tag.common.core.CatchTag&lt;/tag-class&gt; 标签对应的java类。</span><br><span class="line">    &lt;body-content&gt;JSP&lt;/body-content&gt; 标签体当中可以出现的内容，如果是JSP，就表示标签体中可以出现符合JSP所有语法的代码。例如EL表达式。</span><br><span class="line">    &lt;attribute&gt;</span><br><span class="line">        &lt;description&gt;</span><br><span class="line">        	对这个属性的描述</span><br><span class="line">        &lt;/description&gt;</span><br><span class="line">        &lt;name&gt;<span class="keyword">var</span>&lt;/name&gt; 属性名</span><br><span class="line">        &lt;required&gt;<span class="literal">false</span>&lt;/required&gt; <span class="literal">false</span>表示该属性不是必须的。<span class="literal">true</span>表示该属性是必须的。</span><br><span class="line">        &lt;rtexprvalue&gt;<span class="literal">false</span>&lt;/rtexprvalue&gt; 这个描述说明了该属性是否支持EL表达式。<span class="literal">false</span>表示不支持。<span class="literal">true</span>表示支持EL表达式。</span><br><span class="line">    &lt;/attribute&gt;</span><br><span class="line">  &lt;/tag&gt;</span><br><span class="line"></span><br><span class="line">&lt;c:<span class="keyword">catch</span> <span class="keyword">var</span>=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line">	JSP....</span><br><span class="line">&lt;/c:<span class="keyword">catch</span>&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>jstl中的核心标签库core当中有哪些常用的标签呢？</p>
+<ul>
+<li><p>c:if</p>
+<ul>
+<li>&lt;c:if test&#x3D;”boolean类型，支持EL表达式”&gt;&lt;&#x2F;c: if&gt;</li>
+</ul>
+</li>
+<li><p>c:forEach</p>
+<ul>
+<li>&lt;c:forEach items&#x3D;”集合，支持EL表达式” var&#x3D;”集合中的元素” varStatus&#x3D;”元素状态对象”&gt; ${元素状态对象.count} &lt;&#x2F;c: forEach&gt;</li>
+<li>&lt;c:forEach var&#x3D;”i” begin&#x3D;”1” end&#x3D;”10” step&#x3D;”2”&gt; ${i} &lt;&#x2F;c: forEach&gt;</li>
+</ul>
+</li>
+<li><p>c:choose c:when c:otherwise</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;c:choose&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 18&#125;&quot;</span>&gt;</span><br><span class="line">        青少年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 35&#125;&quot;</span>&gt;</span><br><span class="line">        青年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:when test=<span class="string">&quot;$&#123;param.age &lt; 55&#125;&quot;</span>&gt;</span><br><span class="line">        中年</span><br><span class="line">    &lt;/c:when&gt;</span><br><span class="line">    &lt;c:otherwise&gt;</span><br><span class="line">        老年</span><br><span class="line">    &lt;/c:otherwise&gt;</span><br><span class="line">&lt;/c:choose&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/" title="15. EL表达式和JSTL标签库">http://example.com/2022/09/24/JavaEE/15. EL表达式和JSTL标签库/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/" rel="prev" title="14. JSP详解">
+                  <i class="fa fa-chevron-left"></i> 14. JSP详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/24/JavaEE/16.%20Filter%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="next" title="16. Filter 过滤器">
+                  16. Filter 过滤器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">182k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:46</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>

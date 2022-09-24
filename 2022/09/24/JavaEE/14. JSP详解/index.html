@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以结束。JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14. JSP详解">
+<meta property="og:url" content="http://example.com/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以结束。JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-24T15:33:46.184Z">
+<meta property="article:modified_time" content="2022-09-24T15:57:00.586Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="JavaEE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/","path":"2022/09/24/JavaEE/14. JSP详解/","title":"14. JSP详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>14. JSP详解 | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFJSP"><span class="nav-number">1.</span> <span class="nav-text">1. 什么是JSP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JSP%E5%92%8CServlet%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">2. JSP和Servlet的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-JSP%E7%9A%84%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">3. JSP的基础语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-JSP%E6%8C%87%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">4. JSP指令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-JSP%E7%9A%84%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">5. JSP的九大内置对象</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="14. JSP详解 | 安之">
+      <meta itemprop="description" content="JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以<%开头以%>结束。JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          14. JSP详解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-24 23:33:46 / 修改时间：23:57:00" itemprop="dateCreated datePublished" datetime="2022-09-24T23:33:46+08:00">2022-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以<%开头以%>结束。JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-什么是JSP"><a href="#1-什么是JSP" class="headerlink" title="1. 什么是JSP"></a>1. 什么是JSP</h1><p>JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以&lt;%开头以%&gt;结束。</p>
+<p>JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。</p>
+<p>JSP是java程序。（JSP本质还是一个Servlet）</p>
+<p>JSP是：JavaServer Pages的缩写。（基于Java语言实现的服务器端的页面。）</p>
+<p>Servlet是JavaEE的13个子规范之一，那么JSP也是JavaEE的13个子规范之一。</p>
+<p>JSP是一套规范。所有的web容器&#x2F;web服务器都是遵循这套规范的，都是按照这套规范进行的“翻译”</p>
+<p>每一个web容器&#x2F;web服务器都会内置一个JSP翻译引擎。</p>
+<p><strong>关于index.jsp</strong></p>
+<ul>
+<li><p>在WEB-INF目录之外创建一个index.jsp文件，然后这个文件中没有任何内容。</p>
+</li>
+<li><p>将上面的项目部署之后，启动服务器，打开浏览器，访问以下地址：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/jsp/index.jsp">http://localhost:8080/jsp/index.jsp</a> 展现在大家面前的是一个空白。</li>
+<li>实际上访问以上的这个：index.jsp，底层执行的是：index_jsp.class 这个java程序。</li>
+<li>这个index.jsp会被tomcat翻译生成index_jsp.java文件，然后tomcat服务器又会将index_jsp.java编译生成index_jsp.class文件</li>
+<li>访问index.jsp，实际上执行的是index_jsp.class中的方法。</li>
+</ul>
+</li>
+<li><p>JSP实际上就是一个Servlet。</p>
+<ul>
+<li>index.jsp访问的时候，会自动翻译生成index_jsp.java，会自动编译生成index_jsp.class，那么index_jsp 这就是一个类。</li>
+<li>index_jsp 类继承 HttpJspBase，而HttpJspBase类继承的是HttpServlet。所以index_jsp类就是一个Servlet类。</li>
+<li>jsp的生命周期和Servlet的生命周期完全相同。完全就是一个东西。没有任何区别。</li>
+<li>jsp和servlet一样，都是单例的。（假单例。）</li>
+</ul>
+</li>
+</ul>
+<p><strong>为什么第一次访问Jsp会比较慢?</strong></p>
+<ul>
+<li>第一次比较麻烦：<ul>
+<li>要把jsp文件翻译生成java源文件</li>
+<li>java源文件要编译生成class字节码文件</li>
+<li>然后通过class去创建servlet对象</li>
+<li>然后调用servlet对象的init方法</li>
+<li>最后调用servlet对象的service方法。</li>
+</ul>
+</li>
+<li>第二次就比较快了，为什么？<ul>
+<li>因为第二次直接调用单例servlet对象的service方法即可。</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-JSP和Servlet的区别"><a href="#2-JSP和Servlet的区别" class="headerlink" title="2. JSP和Servlet的区别"></a>2. JSP和Servlet的区别</h1><p>职责不同：</p>
+<ul>
+<li>Servlet的职责是什么：收集数据。（Servlet的强项是逻辑处理，业务处理，然后链接数据库，获取&#x2F;收集数据。）</li>
+<li>JSP的职责是什么：展示数据。（JSP的强项是做数据的展示）</li>
+</ul>
+<h1 id="3-JSP的基础语法"><a href="#3-JSP的基础语法" class="headerlink" title="3. JSP的基础语法"></a>3. JSP的基础语法</h1><ul>
+<li>在jsp文件中直接编写文字，都会自动被翻译到哪里？<ul>
+<li>翻译到servlet类的service方法的out.write(“翻译到这里”)，直接翻译到双引号里，被java程序当做普通字符串打印输出到浏览器。</li>
+<li>在JSP中编写的HTML CSS JS代码，这些代码对于JSP来说只是一个普通的字符串。但是JSP把这个普通的字符串一旦输出到浏览器，浏览器就会对HTML CSS JS进行解释执行。展现一个效果。</li>
+</ul>
+</li>
+<li>JSP的page指令（这个指令后面再详细说，这里先解决一下中文乱码问题），解决响应时的中文乱码问题：<ul>
+<li>通过page指令来设置响应的内容类型，在内容类型的最后面添加：charset&#x3D;UTF-8<ul>
+<li>&lt;%@page contentType&#x3D;”text&#x2F;html;charset&#x3D;UTF-8”%&gt;，表示响应的内容类型是text&#x2F;html，采用的字符集UTF-8</li>
+<li>&lt;%@page import&#x3D;”java.util.List,java.util.ArrayList”%&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怎么在JSP中编写Java程序：<ul>
+<li>&lt;% java语句; %&gt;<ul>
+<li>在这个符号当中编写的被视为java程序，被翻译到Servlet类的service方法内部。</li>
+<li>这里你要细心点，你要思考，在&lt;% %&gt;这个符号里面写java代码的时候，你要时时刻刻的记住你正在“方法体”当中写代码，方法体中可以写什么，不可以写什么，你心里是否明白呢？</li>
+<li>在service方法当中编写的代码是有顺序的，方法体当中的代码要遵循自上而下的顺序依次逐行执行。</li>
+<li>service方法当中不能写静态代码块，不能写方法，不能定义成员变量。。。。。。</li>
+<li>在同一个JSP当中 &lt;%%&gt; 这个符号可以出现多个。</li>
+</ul>
+</li>
+<li>&lt;%! %&gt;<ul>
+<li>在这个符号当中编写的java程序会自动翻译到service方法之外。</li>
+<li>这个语法很少用，为什么？不建议使用，因为在service方法外面写静态变量和实例变量，都会存在线程安全问题，因为JSP就是servlet，servlet是单例的，多线程并发的环境下，这个静态变量和实例变量一旦有修改操作，必然会存在线程安全问题。</li>
+</ul>
+</li>
+<li>JSP的输出语句<ul>
+<li>怎么向浏览器上输出一个java变量。</li>
+<li>&lt;% String name &#x3D; “jack”;  out.write(“name &#x3D; “ + name); %&gt;</li>
+<li>注意：以上代码中的out是JSP的九大内置对象之一。可以直接拿来用。当然，必须只能在service方法内部使用。</li>
+<li>如果向浏览器上输出的内容中没有“java代码”，例如输出的字符串是一个固定的字符串，可以直接在jsp中编写，不需要写到&lt;%%&gt; 这里。</li>
+<li>如果输出的内容中含有“java代码”，这个时候可以使用以下语法格式：<ul>
+<li>&lt;%&#x3D; %&gt; 注意：在&#x3D;的后面编写要输出的内容。</li>
+<li>&lt;%&#x3D; %&gt; 这个符号会被翻译到哪里？最终翻译成什么？ <ul>
+<li>翻译成了这个java代码：   out.print();</li>
+<li>翻译到service方法当中了。</li>
+</ul>
+</li>
+<li>什么时候使用&lt;%&#x3D;%&gt; 输出呢？输出的内容中含有java的变量，输出的内容是一个动态的内容，不是一个死的字符串。如果输出的是一个固定的字符串，直接在JSP文件中编写即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在JSP中如何编写JSP的专业注释<ul>
+<li>&lt;%–JSP的专业注释，不会被翻译到java源代码当中。–%&gt;</li>
+<li><!--这种注释属于HTML的注释，这个注释信息仍然会被翻译到java源代码当中，不建议。--></li>
+</ul>
+</li>
+<li>JSP基础语法总结：<ul>
+<li>JSP中直接编写普通字符串<ul>
+<li>翻译到service方法的out.write(“这里”)</li>
+</ul>
+</li>
+<li>&lt;%%&gt;<ul>
+<li>翻译到service方法体内部，里面是一条一条的java语句。</li>
+</ul>
+</li>
+<li>&lt;%! %&gt;<ul>
+<li>翻译到service方法之外。</li>
+</ul>
+</li>
+<li>&lt;%&#x3D; %&gt;<ul>
+<li>翻译到service方法体内部，翻译为：out.print();</li>
+</ul>
+</li>
+<li>&lt;%@page  contentType&#x3D;”text&#x2F;html;charset&#x3D;UTF-8”%&gt;<ul>
+<li>page指令，通过contentType属性用来设置响应的内容类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="4-JSP指令"><a href="#4-JSP指令" class="headerlink" title="4. JSP指令"></a>4. JSP指令</h1><ul>
+<li><ul>
+<li><p>指令的作用：指导JSP的翻译引擎如何工作（指导当前的JSP翻译引擎如何翻译JSP文件。）</p>
+<ul>
+<li><p>指令包括哪些呢？</p>
+<ul>
+<li>include指令：包含指令，在JSP中完成静态包含，很少用了。（这里不讲）</li>
+<li>taglib指令：引入标签库的指令。这个到JJSTL标签库的时候再学习。现在先不管。</li>
+<li>page指令：目前重点学习一个page指令。</li>
+</ul>
+</li>
+<li><p>指令的使用语法是什么？</p>
+<ul>
+<li>&lt;%@指令名  属性名&#x3D;属性值  属性名&#x3D;属性值  属性名&#x3D;属性值….%&gt;</li>
+</ul>
+</li>
+<li><p>关于page指令当中都有哪些常用的属性呢？</p>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> session=<span class="string">&quot;true|false&quot;</span> %&gt;</span><br><span class="line"><span class="literal">true</span>表示启用JSP的内置对象session，表示一定启动session对象。没有session对象会创建。</span><br><span class="line">如果没有设置，默认值就是session=<span class="string">&quot;true&quot;</span></span><br><span class="line">session=<span class="string">&quot;false&quot;</span> 表示不启动内置对象session。当前JSP页面中无法使用内置对象session。</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/json&quot;</span> %&gt;</span><br><span class="line">contentType属性用来设置响应的内容类型</span><br><span class="line">但同时也可以设置字符集。</span><br><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">&quot;text/json;charset=UTF-8&quot;</span> %&gt;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> pageEncoding=<span class="string">&quot;UTF-8&quot;</span> %&gt;</span><br><span class="line">pageEncoding=<span class="string">&quot;UTF-8&quot;</span> 表示设置响应时采用的字符集。</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.List, java.util.Date, java.util.ArrayList&quot;</span> %&gt;</span><br><span class="line">&lt;%<span class="meta">@page</span> <span class="keyword">import</span>=<span class="string">&quot;java.util.*&quot;</span> %&gt;</span><br><span class="line"><span class="keyword">import</span>语句，导包。</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> errorPage=<span class="string">&quot;/error.jsp&quot;</span> %&gt;</span><br><span class="line">当前页面出现异常之后，跳转到error.jsp页面。</span><br><span class="line">errorPage属性用来指定出错之后的跳转位置。</span><br></pre></td></tr></table></figure>
+  <figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> isErrorPage=<span class="string">&quot;true&quot;</span> %&gt;</span><br><span class="line">表示启用JSP九大内置对象之一：exception</span><br><span class="line">默认值是<span class="literal">false</span>。</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="5-JSP的九大内置对象"><a href="#5-JSP的九大内置对象" class="headerlink" title="5. JSP的九大内置对象"></a>5. JSP的九大内置对象</h1><ul>
+<li><p>jakarta.servlet.jsp.PageContext pageContext       页面作用域</p>
+</li>
+<li><p>jakarta.servlet.http.HttpServletRequest request 请求作用域</p>
+</li>
+<li><p>jakarta.servlet.http.HttpSession session  会话作用域</p>
+</li>
+<li><p>jakarta.servlet.ServletContext application 应用作用域</p>
+<ul>
+<li>pageContext &lt; request &lt; session &lt; application</li>
+<li>以上四个作用域都有：setAttribute、getAttribute、removeAttribute方法。</li>
+<li>以上作用域的使用原则：尽可能使用小的域。</li>
+</ul>
+</li>
+<li><p>java.lang.Throwable exception   </p>
+</li>
+<li><p>jakarta.servlet.ServletConfig config</p>
+</li>
+<li><p>java.lang.Object page  （其实是this，当前的servlet对象）</p>
+</li>
+<li><p>jakarta.servlet.jsp.JspWriter out  （负责输出）</p>
+</li>
+<li><p>jakarta.servlet.http.HttpServletResponse response （负责响应）</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/" title="14. JSP详解">http://example.com/2022/09/24/JavaEE/14. JSP详解/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/" rel="prev" title="13. session 和 cookie">
+                  <i class="fa fa-chevron-left"></i> 13. session 和 cookie
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/24/JavaEE/15.%20EL%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8CJSTL%E6%A0%87%E7%AD%BE%E5%BA%93/" rel="next" title="15. EL表达式和JSTL标签库">
+                  15. EL表达式和JSTL标签库 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">182k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:46</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/24/JavaEE/14.%20JSP%E8%AF%A6%E8%A7%A3/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
