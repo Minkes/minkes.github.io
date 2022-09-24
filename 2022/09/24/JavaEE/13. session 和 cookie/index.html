@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="session 就是 B&#x2F;S 结构系统的会话机制,用户打开浏览器,进行一系列的操作后,再关闭浏览器,这一整个过程叫做一次会话.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13. session 和 cookie">
+<meta property="og:url" content="http://example.com/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="session 就是 B&#x2F;S 结构系统的会话机制,用户打开浏览器,进行一系列的操作后,再关闭浏览器,这一整个过程叫做一次会话.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-24T15:07:39.054Z">
+<meta property="article:modified_time" content="2022-09-24T15:15:13.963Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="JavaEE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/","path":"2022/09/24/JavaEE/13. session 和 cookie/","title":"13. session 和 cookie"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>13. session 和 cookie | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">4</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">28</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-session"><span class="nav-number">1.</span> <span class="nav-text">1. session</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="13. session 和 cookie | 安之">
+      <meta itemprop="description" content="session 就是 B/S 结构系统的会话机制,用户打开浏览器,进行一系列的操作后,再关闭浏览器,这一整个过程叫做一次会话.">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          13. session 和 cookie
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-24 23:07:39 / 修改时间：23:15:13" itemprop="dateCreated datePublished" datetime="2022-09-24T23:07:39+08:00">2022-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/JavaEE/" itemprop="url" rel="index"><span itemprop="name">JavaEE</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">session 就是 B/S 结构系统的会话机制,用户打开浏览器,进行一系列的操作后,再关闭浏览器,这一整个过程叫做一次会话.</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="1-session"><a href="#1-session" class="headerlink" title="1. session"></a>1. session</h1><ul>
+<li><p><strong>什么是会话？</strong></p>
+<ul>
+<li>会话对应的英语单词：session</li>
+<li>用户打开浏览器，进行一系列操作，然后最终将浏览器关闭，这个整个过程叫做：一次会话。会话在服务器端也有一个对应的java对象，这个java对象叫做：session。</li>
+<li>什么是一次请求：用户在浏览器上点击了一下，然后到页面停下来，可以粗略认为是一次请求。请求对应的服务器端的java对象是：request。</li>
+<li>一个会话当中包含多次请求。（一次会话对应N次请求。）</li>
+</ul>
+</li>
+<li><p>在java的servlet规范当中，session对应的类名：HttpSession（jarkata.servlet.http.HttpSession）</p>
+</li>
+<li><p>session机制属于B&#x2F;S结构的一部分。如果使用php语言开发WEB项目，同样也是有session这种机制的。session机制实际上是一个规范。然后不同的语言对这种会话机制都有实现。</p>
+</li>
+<li><p>session对象最主要的作用是：保存会话状态。（用户登录成功了，这是一种登录成功的状态，你怎么把登录成功的状态一直保存下来呢？使用session对象可以保留会话状态。）</p>
+</li>
+<li><p><strong>为什么需要session对象来保存会话状态呢？</strong></p>
+<ul>
+<li>因为HTTP协议是一种无状态协议。</li>
+<li>什么是无状态：请求的时候，B和S是连接的，但是请求结束之后，连接就断了。为什么要这么做？HTTP协议为什么要设计成这样？因为这样的无状态协议，可以降低服务器的压力。请求的瞬间是连接的，请求结束之后，连接断开，这样服务器压力小。</li>
+<li>只要B和S断开了，那么关闭浏览器这个动作，服务器知道吗？<ul>
+<li>不知道。服务器是不知道浏览器关闭的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>张三打开一个浏览器A，李四打开一个浏览器B，访问服务器之后，在服务器端会生成：</strong></p>
+<ul>
+<li>张三专属的session对象</li>
+<li>李四专属的session对象</li>
+</ul>
+</li>
+<li><p><strong>为什么不使用request对象保存会话状态？为什么不使用ServletContext对象保存会话状态？</strong></p>
+<ul>
+<li>request.setAttribute()存，request.getAttribute()取，ServletContext也有这个方法。request是请求域。ServletContext是应用域。</li>
+<li>request是一次请求一个对象。</li>
+<li>ServletContext对象是服务器启动的时候创建，服务器关闭的时候销毁，这个ServletContext对象只有一个。</li>
+<li>ServletContext对象的域太大。</li>
+<li>request请求域（HttpServletRequest）、session会话域（HttpSession）、application域（ServletContext）</li>
+<li>request &lt; session &lt; application</li>
+</ul>
+</li>
+<li><p><strong>session对象的实现原理。</strong></p>
+<ul>
+<li>HttpSession session &#x3D; request.getSession();</li>
+<li>这行代码很神奇。张三访问的时候获取的session对象就是张三的。李四访问的时候获取的session对象就是李四的。</li>
+</ul>
+</li>
+<li><p><strong>session的实现原理：</strong></p>
+<ul>
+<li>JSESSIONID&#x3D;xxxxxx  这个是以Cookie的形式保存在浏览器的内存中的。浏览器只要关闭。这个cookie就没有了。</li>
+<li>session列表是一个Map，map的key是sessionid，map的value是session对象。</li>
+<li>用户第一次请求，服务器生成session对象，同时生成id，将id发送给浏览器。</li>
+<li>用户第二次请求，自动将浏览器内存中的id发送给服务器，服务器根据id查找session对象。</li>
+<li>关闭浏览器，内存消失，cookie消失，sessionid消失，会话等同于结束。</li>
+</ul>
+</li>
+<li><p><strong>Cookie禁用了，session还能找到吗？</strong></p>
+<ul>
+<li>cookie禁用是什么意思？服务器正常发送cookie给浏览器，但是浏览器不要了。拒收了。并不是服务器不发了。</li>
+<li>找不到了。每一次请求都会获取到新的session对象。</li>
+<li>cookie禁用了，session机制还能实现吗？<ul>
+<li>可以。需要使用URL重写机制。</li>
+<li><a target="_blank" rel="noopener" href="http://localhost:8080/servlet12/test/session;jsessionid=19D1C99560DCBF84839FA43D58F56E16">http://localhost:8080/servlet12/test/session;jsessionid=19D1C99560DCBF84839FA43D58F56E16</a></li>
+<li>URL重写机制会提高开发者的成本。开发人员在编写任何请求路径的时候，后面都要添加一个sessionid，给开发带来了很大的难度，很大的成本。所以大部分的网站都是这样设计的：你要是禁用cookie，你就别用了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>域对象：</strong></p>
+<ul>
+<li>request（对应的类名：HttpServletRequest）<ul>
+<li>请求域（请求级别的）</li>
+</ul>
+</li>
+<li>session（对应的类名：HttpSession）<ul>
+<li>会话域（用户级别的）</li>
+</ul>
+</li>
+<li>application（对应的类名：ServletContext）<ul>
+<li>应用域（项目级别的，所有用户共享的。）</li>
+</ul>
+</li>
+<li>这三个域对象的大小关系<ul>
+<li>request &lt; session &lt; application</li>
+</ul>
+</li>
+<li>他们三个域对象都有以下三个公共的方法：<ul>
+<li>setAttribute（向域当中绑定数据）</li>
+<li>getAttribute（从域当中获取数据）</li>
+<li>removeAttribute（删除域当中的数据）</li>
+</ul>
+</li>
+<li>使用原则：尽量使用小的域。</li>
+</ul>
+</li>
+<li><p>销毁session对象：</p>
+<ul>
+<li>&#96;&#96;&#96;java<br>  session.invalidate();  <figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Cookie</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">**session的实现原理中，每一个session对象都会关联一个sessionid**，例如：</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">JSESSIONID=41C481F0224664BDB28E95081D23D5B8</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">以上的这个键值对数据其实就是cookie对象。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">对于session关联的cookie来说，这个cookie是被保存在浏览器的“运行内存”当中。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">只要浏览器不关闭，用户再次发送请求的时候，会自动将运行内存中的cookie发送给服务器。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">例如，这个Cookie: JSESSIONID=41C481F0224664BDB28E95081D23D5B8就会再次发送给服务器。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">服务器就是根据41C481F0224664BDB28E95081D23D5B8这个值来找到对应的session对象的。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">**cookie最终是保存在浏览器客户端上的**。</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">可以保存在运行内存中。（浏览器只要关闭cookie就消失了。）</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">也可以保存在硬盘文件中。（永久保存。）</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">**cookie有啥用呢**？</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cookie和session机制其实都是为了保存会话的状态。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cookie是将会话的状态保存在浏览器客户端上。（cookie数据存储在浏览器客户端上的。）</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">session是将会话的状态保存在服务器端上。（session对象是存储在服务器上。）</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">为什么要有cookie和session机制呢？因为HTTP协议是无状态 无连接协议。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">**cookie的经典案例**</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">京东商城，在未登录的情况下，向购物车中放几件商品。然后关闭商城，再次打开浏览器，访问京东商城的时候，购物车中的商品还在，这是怎么做的？我没有登录，为什么购物车中还有商品呢？</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">将购物车中的商品编号放到cookie当中，cookie保存在硬盘文件当中。这样即使关闭浏览器。硬盘上的cookie还在。下一次再打开京东商城的时候，查看购物车的时候，会自动读取本地硬盘中存储的cookie，拿到商品编号，动态展示购物车中的商品。</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">京东存储购物车中商品的cookie可能是这样的：productIds=xxxxx,yyyy,zzz,kkkk</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">注意：cookie如果清除掉，购物车中的商品就消失了。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">126邮箱中有一个功能：十天内免登录</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">这个功能也是需要cookie来实现的。</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">怎么实现的呢？</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">用户输入正确的用户名和密码，并且同时选择十天内免登录。登录成功后。浏览器客户端会保存一个cookie，这个cookie中保存了用户名和密码等信息，这个cookie是保存在硬盘文件当中的，十天有效。在十天内用户再次访问126的时候，浏览器自动提交126的关联的cookie给服务器，服务器接收到cookie之后，获取用户名和密码，验证，通过之后，自动登录成功。</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">怎么让cookie失效？</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">十天过后自动失效。</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">或者改密码。</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">或者在客户端浏览器上清除cookie。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">cookie机制和session机制其实都不属于java中的机制，实际上cookie机制和session机制都是HTTP协议的一部分。php开发中也有cookie和session机制，只要是你是做web开发，不管是什么编程语言，cookie和session机制都是需要的。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">HTTP协议中规定：任何一个cookie都是由name和value组成的。name和value都是字符串类型的。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">在java的servlet中，对cookie提供了哪些支持呢？</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">提供了一个Cookie类来专门表示cookie数据。jakarta.servlet.http.Cookie;</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">java程序怎么把cookie数据发送给浏览器呢？response.addCookie(cookie);</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">在HTTP协议中是这样规定的：当浏览器发送请求的时候，会自动携带该path下的cookie数据给服务器。（URL。）</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">关于cookie的有效时间</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">怎么用java设置cookie的有效时间</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">cookie.setMaxAge(60 * 60); 设置cookie在一小时之后失效。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">没有设置有效时间：默认保存在浏览器的运行内存中，浏览器关闭则cookie消失。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">只要设置cookie的有效时间 &gt; 0，这个cookie一定会存储到硬盘文件当中。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">设置cookie的有效时间 = 0 呢？</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">cookie被删除，同名cookie被删除。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">设置cookie的有效时间 &lt; 0 呢？</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">保存在运行内存中。和不设置一样。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">关于cookie的path，cookie关联的路径：</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">假设现在发送的请求路径是“http://localhost:8080/servlet13/cookie/generate”生成的cookie，如果cookie没有设置path，默认的path是什么？</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">默认的path是：http://localhost:8080/servlet13/cookie 以及它的子路径。</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">也就是说，以后只要浏览器的请求路径是http://localhost:8080/servlet13/cookie 这个路径以及这个路径下的子路径，cookie都会被发送到服务器。</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">手动设置cookie的path</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">cookie.setPath(“/servlet13”); 表示只要是这个servlet13项目的请求路径，都会提交这个cookie给服务器。</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="string">浏览器发送cookie给服务器了，服务器中的java程序怎么接收？</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="string">```java</span></span><br><span class="line">        <span class="attribute">Cookie[] cookies = request.getCookies(); // 这个方法可能返回null</span></span><br><span class="line"><span class="attribute">        if(cookies != null)&#123;</span></span><br><span class="line"><span class="attribute">            for(Cookie cookie</span><span class="punctuation"> :</span> <span class="string">cookies)&#123;</span></span><br><span class="line">                // 获取cookie的name</span><br><span class="line">                String name = cookie.getName();</span><br><span class="line">                // 获取cookie的value</span><br><span class="line">                String value = cookie.getValue();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/" title="13. session 和 cookie">http://example.com/2022/09/24/JavaEE/13. session 和 cookie/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/JavaEE/" rel="tag"><i class="fa fa-tag"></i> JavaEE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/24/JavaEE/12.%20Servlet%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91%E4%B8%8E%E4%BC%98%E5%8C%96/" rel="prev" title="12. Servlet注解开发与优化">
+                  <i class="fa fa-chevron-left"></i> 12. Servlet注解开发与优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">170k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:34</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/24/JavaEE/13.%20session%20%E5%92%8C%20cookie/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
