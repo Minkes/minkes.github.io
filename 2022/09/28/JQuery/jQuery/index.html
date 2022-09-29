@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="jQuery 是 js原生库 用于封装一些js操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery">
+<meta property="og:url" content="http://example.com/2022/09/28/JQuery/jQuery/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="jQuery 是 js原生库 用于封装一些js操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-28T13:37:06.950Z">
+<meta property="article:modified_time" content="2022-09-29T08:42:31.997Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="jQuery">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/09/28/JQuery/jQuery/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/28/JQuery/jQuery/","path":"2022/09/28/JQuery/jQuery/","title":"jQuery"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>jQuery | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dom%E5%AF%B9%E8%B1%A1%E5%92%8CjQuery%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">dom对象和jQuery对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">id选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">class选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.3.</span> <span class="nav-text">标签选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%8D%95%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">表单选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#each%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">each语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jQuery%E4%B8%BAdom%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">jQuery为dom绑定事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jQuery-ajax"><span class="nav-number">6.</span> <span class="nav-text">jQuery-ajax</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/28/JQuery/jQuery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="jQuery | 安之">
+      <meta itemprop="description" content="jQuery 是 js原生库 用于封装一些js操作">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          jQuery
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-28 21:37:06" itemprop="dateCreated datePublished" datetime="2022-09-28T21:37:06+08:00">2022-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-29 16:42:31" itemprop="dateModified" datetime="2022-09-29T16:42:31+08:00">2022-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/jQuery/" itemprop="url" rel="index"><span itemprop="name">jQuery</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/28/JQuery/jQuery/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/28/JQuery/jQuery/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">jQuery 是 js原生库 用于封装一些js操作</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>   jQuery是js库,相当于Java的工具类,库是存放东西的,jQuery是存放Js代码的地方,放的是js代码写的function。</p>
+</blockquote>
+<h1 id="dom对象和jQuery对象"><a href="#dom对象和jQuery对象" class="headerlink" title="dom对象和jQuery对象"></a>dom对象和jQuery对象</h1><p><strong>dom 对象</strong></p>
+<p>使用javascript的语法创建的对象叫做dom对象， 也就是js对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj=  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;txt1&quot;</span>);  obj是dom对象，也叫做js对象</span><br><span class="line">obj.<span class="property">value</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>jQuery 对象</strong></p>
+<p>使用jquery语法表示对象叫做jquery对象， 注意：jquery表示的对象都是数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例如  <span class="keyword">var</span> jobj =  $(<span class="string">&quot;#txt1&quot;</span>)obj就是使用jquery语法表示的对象。也就是jquery对象。 它是一个数组。</span><br><span class="line">现在数组中就一个值。</span><br></pre></td></tr></table></figure>
+
+<p>dom对象可以和jquery对象相互的转换。<br>dom对象可以转为jquery ， 语法： $(dom对象)<br>jquery对象也可以转为dom对象， 语法： 从数组中获取第一个对象， 第一个对象就是dom对象， 使用[0]或者get{0).</p>
+<p>为什么要进行dom和jquery的转换：目的是要使用对象的方法，或者方法。<br>当你的dom对象时，可以使用dom对象的属性或者方法， 如果你要想使用jquery提供的函数，必须是jquery对象才可以</p>
+<h1 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h1><h2 id="id选择器"><a href="#id选择器" class="headerlink" title="id选择器"></a>id选择器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#dom对象的id值&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p> 通过dom对象的id定位dom对象的。 通过id找对象， id在当前页面中是唯一值。</p>
+<h2 id="class选择器"><a href="#class选择器" class="headerlink" title="class选择器"></a>class选择器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;.class样式名)</span></span><br></pre></td></tr></table></figure>
+
+<p>class表示css中的样式， 使用样式的名称定位dom对象的。</p>
+<h2 id="标签选择器"><a href="#标签选择器" class="headerlink" title="标签选择器"></a>标签选择器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;标签名称&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="表单选择器"><a href="#表单选择器" class="headerlink" title="表单选择器"></a>表单选择器</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用&lt;input&gt;标签的type属性值，定位dom对象的方式。</span><br><span class="line">语法： $(<span class="string">&quot;:type属性值&quot;</span>)</span><br><span class="line">例如： $(<span class="string">&quot;:text&quot;</span>) ,选择的是所有的单行文本框，</span><br><span class="line">	  $(<span class="string">&quot;:button&quot;</span>) ,选择的是所有的按钮。</span><br></pre></td></tr></table></figure>
+
+<h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><blockquote>
+<p>  在定位了dom对象后，根据一些条件筛选dom对象。过滤器有是一个字符串，用来筛选dom对象的。过滤器不能单独使用， 必须和选择器一起使用。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）$(<span class="string">&quot;选择器:first&quot;</span>) : 第一个dom对象</span><br><span class="line"><span class="number">2</span>）$(<span class="string">&quot;选择器:last&quot;</span>): 数组中的最后一个dom对象</span><br><span class="line"><span class="number">3</span>）$(<span class="string">&quot;选择器:eq(数组的下标)&quot;</span>) ：获取指定下标的dom对象</span><br><span class="line"><span class="number">4</span>）$(<span class="string">&quot;选择器:lt(下标)&quot;</span>) ： 获取小于下标的所有dom对象</span><br><span class="line"><span class="number">5</span>）$(<span class="string">&quot;选择器:gt(下标)&quot;</span>) ： 获取大于下标的所有dom对象</span><br></pre></td></tr></table></figure>
+
+<p><strong>表单属性过滤器</strong></p>
+<p>根据表单中dom对象的状态情况，定位dom对象的。</p>
+<p>启用状态:<strong>enabled</strong><br>不可用状态:<strong>disabled</strong><br>选择状态:<strong>checked</strong> 例如radio， checkbox </p>
+<h1 id="each语法"><a href="#each语法" class="headerlink" title="each语法"></a>each语法</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment">//数组</span></span><br><span class="line"><span class="keyword">var</span> json = &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;lisi&quot;</span>,<span class="string">&quot;age&quot;</span>:<span class="number">20</span> &#125; </span><br><span class="line"><span class="keyword">var</span> obj = $(<span class="string">&quot;:text&quot;</span>);</span><br><span class="line">语法： $.<span class="title function_">each</span>( 循环的内容， 处理函数 ) ：表示使用jquery的each，循环数组，每个数组成员，都会执行后面的“处理函数”一次。</span><br><span class="line"><span class="attr">$</span>: 相当于是java的一个类名</span><br><span class="line"><span class="attr">each</span>:就是类中的静态方法。</span><br><span class="line">静态方法调用，可以使用 类名.方法名称 </span><br><span class="line"></span><br><span class="line">处理函数:<span class="keyword">function</span>(<span class="params">index, emelent</span>) :</span><br><span class="line">    index, element都是自定义的形参， 名称自定义。</span><br><span class="line">    index：循环的索引</span><br><span class="line">	element：数组中的成员</span><br><span class="line">js循环数组：</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.<span class="property">length</span>;i++)&#123;</span><br><span class="line">     <span class="keyword">var</span> item = arr[i]; <span class="comment">//数组成员</span></span><br><span class="line">     <span class="comment">//操作数组成员</span></span><br><span class="line">     <span class="title function_">shuchu</span>( i , item);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">shuchu</span>(<span class="params">index, emlemnt</span>)&#123;</span><br><span class="line">    输出index ，element</span><br><span class="line">&#125;</span><br><span class="line">jquery对象.<span class="title function_">each</span>( <span class="keyword">function</span>(<span class="params">index,element</span>) &#123;&#125; )</span><br></pre></td></tr></table></figure>
+
+<h1 id="jQuery为dom绑定事件"><a href="#jQuery为dom绑定事件" class="headerlink" title="jQuery为dom绑定事件"></a>jQuery为dom绑定事件</h1><blockquote>
+<p>  $(选择器).事件名称( 事件的处理函数)</p>
+</blockquote>
+<p>$(选择器)：定位dom对象， dom对象可以有多个， 这些dom对象都绑定事件了<br>事件名称：就是js中事件去掉on的部分， 例如 js中的单击事件 onclick(),<br>        jquery中的事件名称，就是click，都是小写的。<br>事件的处理函数：就是一个function ，当事件发生时，执行这个函数的内容。</p>
+<p>例如给id是btn的按钮绑定单击事件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;#btn&quot;</span>).<span class="title function_">click</span>(<span class="title function_">funtion</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;btn按钮单击了&quot;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>on 事件绑定</strong></p>
+<blockquote>
+<p>   $(选择器).on( 事件名称 , 事件的处理函数)</p>
+</blockquote>
+<p>事件名称： 就是js事件中去掉on的部分， 例如js中onclick ,这里就是click<br>事件的处理函数： function 定义。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn&quot;</span>&gt;</span></span><br><span class="line">$(&quot;#btn&quot;).on(&quot;click&quot;, function() &#123; 处理按钮单击 &#125; )</span><br></pre></td></tr></table></figure>
+
+<h1 id="jQuery-ajax"><a href="#jQuery-ajax" class="headerlink" title="jQuery-ajax"></a>jQuery-ajax</h1><blockquote>
+<p>  jQuery中的ajax请求其实是封装了XMLHttpRequest的操作,简化了请求的处理</p>
+</blockquote>
+<ol>
+<li>$.ajax() : jquery中实现ajax的核心函数。</li>
+<li>$.post() : 使用post方式做ajax请求。</li>
+<li>$.get() : 使用get方式发送ajax请求。</li>
+</ol>
+<p>**$.post()和$.get() 他们在内部都是调用的 $.ajax() **</p>
+<p>语法: $.ajax(  {名称:值， 名称1:值1….. } )</p>
+<p>参数说明:</p>
+<ol>
+<li>async:是一个boolean类型的值， 默认是true ，表示异步请求的。可以不写async这个配置项<br>        xmlHttp.open(get,url,true),第三个参数一样的意思。</li>
+<li>contentType: 一个字符串，表示从浏览器发送服务器的参数的类型。 可以不写。<br>                例如你想表示请求的参数是json格式的， 可以写application&#x2F;json</li>
+<li>data: 可以是字符串，数组，json，表示请求的参数和参数值。 常用的是json格式的数据</li>
+<li>dataType: 表示期望从服务器端返回的数据格式，可选的有： xml ， html ，text ，json<br>      当我们使用$.ajax()发送请求时， 会把dataType的值发送给服务器， 那我们的servlet能够<br>        读取到dataType的值，就知道你的浏览器需要的是 json或者xml的数据，那么服务器就可以<br>        返回你需要的数据格式。</li>
+<li>error: 一个function ，表示当请求发生错误时，执行的函数。<br>    error:function() {   发生错误时执行  }  </li>
+<li>sucess:一个function , 请求成功了，从服务器端返回了数据，会执行success指定函数<br>      之前使用XMLHttpRequest对象， 当<code>readyState==4&amp;&amp;status==200</code>的时候。</li>
+<li>url:请求的地址</li>
+<li>type:请求方式，get或者post， 不用区分大小写。 默认是get方式。</li>
+</ol>
+<p>  <strong>主要使用的是 url , data ,dataType, success .</strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/28/JQuery/jQuery/" title="jQuery">http://example.com/2022/09/28/JQuery/jQuery/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/jQuery/" rel="tag"><i class="fa fa-tag"></i> jQuery</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/25/JavaEE/18.%20AJAX%20%E8%AF%A6%E8%A7%A3/" rel="prev" title="18. AJAX 详解">
+                  <i class="fa fa-chevron-left"></i> 18. AJAX 详解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">202k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:04</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/28/JQuery/jQuery/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
