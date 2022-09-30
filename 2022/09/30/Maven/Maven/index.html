@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hannotate+SC:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Maven 仓库管理详解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven">
+<meta property="og:url" content="http://example.com/2022/09/30/Maven/Maven/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="Maven 仓库管理详解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930180432955.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930183125806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930183201659.png">
+<meta property="article:published_time" content="2022-09-30T08:59:50.892Z">
+<meta property="article:modified_time" content="2022-09-30T10:42:50.804Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="Java 学习">
+<meta property="article:tag" content="Maven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930180432955.png">
+
+
+<link rel="canonical" href="http://example.com/2022/09/30/Maven/Maven/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/09/30/Maven/Maven/","path":"2022/09/30/Maven/Maven/","title":"Maven"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Maven | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">7</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">项目的组成部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E5%BC%80%E5%8F%91%E9%A1%B9%E7%9B%AE%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">传统开发项目的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Maven的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">Maven的项目构建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">5.</span> <span class="nav-text">Maven的核心概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">6.</span> <span class="nav-text">Maven的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven-%E8%AF%A6%E8%A7%A3"><span class="nav-number">7.</span> <span class="nav-text">Maven 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven%E7%9A%84%E7%BA%A6%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="nav-number">7.1.</span> <span class="nav-text">Maven的约定目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mvn-complie"><span class="nav-number">7.2.</span> <span class="nav-text">mvn complie</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%93%E5%BA%93"><span class="nav-number">7.3.</span> <span class="nav-text">仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POM"><span class="nav-number">7.4.</span> <span class="nav-text">POM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E3%80%81%E5%91%BD%E4%BB%A4%E3%80%81%E6%8F%92%E4%BB%B6"><span class="nav-number">7.5.</span> <span class="nav-text">生命周期、命令、插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#idea%E8%AE%BE%E7%BD%AEMaven"><span class="nav-number">8.</span> <span class="nav-text">idea设置Maven</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4-scope"><span class="nav-number">9.</span> <span class="nav-text">Maven的依赖范围(scope)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven%E7%9A%84%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">10.</span> <span class="nav-text">Maven的常用操作</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/30/Maven/Maven/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Maven | 安之">
+      <meta itemprop="description" content="Maven 仓库管理详解">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Maven
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-30 16:59:50 / 修改时间：18:42:50" itemprop="dateCreated datePublished" datetime="2022-09-30T16:59:50+08:00">2022-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java 学习</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java-%E5%AD%A6%E4%B9%A0/Maven/" itemprop="url" rel="index"><span itemprop="name">Maven</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/09/30/Maven/Maven/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/09/30/Maven/Maven/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+            <div class="post-description">Maven 仓库管理详解</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="项目的组成部分"><a href="#项目的组成部分" class="headerlink" title="项目的组成部分"></a>项目的组成部分</h1><p>完成一个java项目，需要做哪些工作<br>1.分析项目要做什么，知道项目有哪些组成部分。<br>2.设计项目，通过哪些步骤，使用哪些技术。需要多少人， 多长的时间。<br>3.组建团队，招人， 购置设备，服务器， 软件， 笔记本。<br>4.开发人员写代码。 开发人员需要测试自己写代码。 重复多次的工作。<br>5.测试人员，测试项目功能是否符合要求。<br>  测试开发人员提交代码-如果测试有问题–需要开发人员修改–在提交代码给测试<br>  –测试人员在测试代码-如果还有问题-在交给开发人员-开发人员在提交-在测试<br>  直到-测试代码通过。</p>
+<h1 id="传统开发项目的问题"><a href="#传统开发项目的问题" class="headerlink" title="传统开发项目的问题"></a>传统开发项目的问题</h1><ol>
+<li>很多模块，模块之间有关系， 手工管理关系，比较繁琐。</li>
+<li>需要很多第三方功能， 需要很多jar文件，需要手工从网络中获取各个jar</li>
+<li>需要管理jar的版本， 你需要的是mysql.5.1.5.jar 拿你不能给给一个mysql.4.0.jar</li>
+<li>管理jar文件之间的依赖， 你的项目要使用a.jar 需要使用b.jar里面的类。<br> 必须首先获取到b.jar才可以， 然后才能使用a.jar.</li>
+</ol>
+<p> a.jar需要b.jar这个关系叫做依赖， 或者你的项目中要使用mysql的驱动， 也可以叫做项目依赖mysql驱动。<br> a.class使用b.class， a依赖b类</p>
+<h1 id="Maven的作用"><a href="#Maven的作用" class="headerlink" title="Maven的作用"></a>Maven的作用</h1><ol>
+<li>maven可以管理jar文件</li>
+<li>自动下载jar和他的文档，源代码</li>
+<li>管理jar直接的依赖， a.jar需要b.jar ， maven会自动下载b.jar</li>
+<li>管理你需要的jar版本</li>
+<li>帮你编译程序，把java编译为class</li>
+<li>帮你测试你的代码是否正确。</li>
+<li>帮你打包文件，形成jar文件，或者war文件</li>
+<li>帮你部署项目</li>
+</ol>
+<h1 id="Maven的项目构建"><a href="#Maven的项目构建" class="headerlink" title="Maven的项目构建"></a>Maven的项目构建</h1><ol>
+<li>清理， 把之前项目编译的东西删除掉，我新的编译代码做准备。</li>
+<li>编译， 把程序源代码编译为执行代码， java-class文件批量的，maven可以同时把成千上百的文件编译为class。javac 不一样，javac一次编译一个文件。</li>
+<li>测试， maven可以执行测试程序代码，验证你的功能是否正确。批量的，maven同时执行多个测试代码，同时测试很多功能。</li>
+<li>报告， 生成测试结果的文件， 测试通过没有。</li>
+<li>打包， 把你的项目中所有的class文件，配置文件等所有资源放到一个压缩文件中。这个压缩文件就是项目的结果文件， 通常java程序，压缩文件是jar扩展名的。对于web应用，压缩文件扩展名是.war</li>
+<li>安装， 把5中生成的文件jar，war安装到本机仓库</li>
+<li>部署， 把程序安装好可以执行。</li>
+</ol>
+<h1 id="Maven的核心概念"><a href="#Maven的核心概念" class="headerlink" title="Maven的核心概念"></a>Maven的核心概念</h1><ol>
+<li><p>POM ： 一个文件 名称是pom.xml ,  pom翻译过来叫做项目对象模型。 maven把一个项目当做一个模型使用。控制maven构建项目的过程，管理jar依赖。</p>
+</li>
+<li><p>约定的目录结构 ： maven项目的目录和文件的位置都是规定的。</p>
+</li>
+<li><p>坐标 ： 是一个唯一的字符串，用来表示资源的。</p>
+</li>
+<li><p>依赖管理 ： 管理你的项目可以使用jar文件</p>
+</li>
+<li><p>仓库管理（了解） ：你的资源存放的位置</p>
+</li>
+<li><p>生命周期 (了解) ： maven工具构建项目的过程，就是生命周期。</p>
+</li>
+<li><p>插件和目标（了解）：执行maven构建的时候用的工具是插件</p>
+</li>
+<li><p>继承</p>
+</li>
+<li><p>聚合</p>
+</li>
+</ol>
+<h1 id="Maven的安装"><a href="#Maven的安装" class="headerlink" title="Maven的安装"></a>Maven的安装</h1><ol>
+<li>从官网下载maven的安装包</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930180432955.png" alt="image-20220930180432955"></p>
+<ol start="2">
+<li><p>解压安装包,安装路径不能是中文</p>
+</li>
+<li><p>配置环境变量 </p>
+<p>在系统的环境变量中指定一个M2_HOME的名称,他的目录为Maven的安装目录 <strong>例如:</strong><code>E:\apache-maven-3.8.6</code>, 再把M2_HOME加入到Path之中,在所有路径之前加入<code>%M2_HOME%\bin</code></p>
+</li>
+<li><p>验证 在cmd中输入 <code>mvn -v</code>  出现如下内容，maven安装，配置正确。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)</span><br><span class="line">Maven home: E:\apache-maven-3.8.6</span><br><span class="line">Java version: 1.8.0_201, vendor: Oracle Corporation, runtime: E:\Java\jdk1.8.0_201\jre</span><br><span class="line">Default locale: zh_CN, platform encoding: GBK</span><br><span class="line">OS name: <span class="string">&quot;windows 10&quot;</span>, version: <span class="string">&quot;10.0&quot;</span>, <span class="built_in">arch</span>: <span class="string">&quot;amd64&quot;</span>, family: <span class="string">&quot;windows&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:需要先配置JDK</strong></p>
+<h1 id="Maven-详解"><a href="#Maven-详解" class="headerlink" title="Maven 详解"></a>Maven 详解</h1></li>
+</ol>
+<h2 id="Maven的约定目录"><a href="#Maven的约定目录" class="headerlink" title="Maven的约定目录"></a>Maven的约定目录</h2><p>每一个maven项目在磁盘中都是一个文件夹（项目-Hello）<br>Hello&#x2F;<br>—&#x2F;src<br>——&#x2F;main           #放你主程序java代码和配置文件<br>———-&#x2F;java       #你的程序包和包中的java文件<br>———-&#x2F;resources  #你的java程序中要使用的配置文件</p>
+<p>——&#x2F;test  #放测试程序代码和文件的（可以没有）<br>———-&#x2F;java       #测试程序包和包中的java文件<br>———-&#x2F;resources  #测试java程序中要使用的配置文件</p>
+<p>—&#x2F;pom.xml  #maven的核心文件（maven项目必须有）</p>
+<h2 id="mvn-complie"><a href="#mvn-complie" class="headerlink" title="mvn complie"></a>mvn complie</h2><blockquote>
+<p>  mvn compile 编译src&#x2F;main目录下的所有java文件的。</p>
+</blockquote>
+<ol>
+<li><p>为什么要下载<br>maven工具执行的操作需要很多插件（java类–jar文件）完成的</p>
+</li>
+<li><p>下载什么东西了<br>jar文件–叫做插件–插件是完成某些功能</p>
+</li>
+<li><p>下载的东西存放到哪里了。<br>默认仓库（本机仓库）：<br>C:\Users\（登录操作系统的用户名）Administrator.m2\repository</p>
+</li>
+</ol>
+<pre><code>Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-parameter-documenter-2.0.9.pom
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://repo.maven.apache.org/">https://repo.maven.apache.org</a> ：中央仓库的地址</p>
+<p>执行mvn compile， 结果是在项目的根目录下生成target目录（结果目录），<br>maven编译的java程序，最后的class文件都放在target目录中</p>
+<p>设置本机存放资源的目录位置(设置本机仓库)：</p>
+<ol>
+<li><p>修改maven的配置文件， maven安装目录&#x2F;conf&#x2F;settings.xml<br>先备份 settings.xml</p>
+</li>
+<li><p>修改 <localRepository>  指定你的目录（不要使用中文目录）</p>
+</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">E</span>:\apache-maven-<span class="number">3</span>.<span class="number">8</span>.<span class="number">6</span>\repository</span><br></pre></td></tr></table></figure>
+
+<h2 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h2><ol>
+<li><p>仓库是什么： 仓库是存放东西的， 存放maven使用的jar 和 我们项目使用的jar</p>
+<blockquote>
+<p>  maven使用的插件（各种jar）</p>
+<p>  我项目使用的jar(第三方的工具)</p>
+</blockquote>
+</li>
+<li><p>仓库的分类</p>
+<blockquote>
+<p>  本地仓库， 就是你的个人计算机上的文件夹，存放各种jar</p>
+<p>  远程仓库， 在互联网上的，使用网络才能使用的仓库</p>
+<ol>
+<li>中央仓库，最权威的， 所有的开发人员都共享使用的一个集中的仓库，<br><a target="_blank" rel="noopener" href="https://repo.maven.apache.org/">https://repo.maven.apache.org</a> ：中央仓库的地址</li>
+<li>中央仓库的镜像：就是中央仓库的备份， 在各大洲，重要的城市都是镜像。</li>
+<li>私服，在公司内部，在局域网中使用的， 不是对外使用的。</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<p>  3）仓库的使用，maven仓库的使用不需要人为参与。<br>     开发人员需要使用mysql驱动—&gt;maven首先查本地仓库—&gt;私服—&gt;镜像—&gt;中央仓库</p>
+<h2 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h2><ol>
+<li><p>坐标：唯一值， 在互联网中唯一标识一个项目的</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>公司域名的倒写<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>自定义项目名称<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>自定版本号<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  <a target="_blank" rel="noopener" href="https://mvnrepository.com/">https://mvnrepository.com/</a> 搜索使用的中央仓库， 使用groupId 或者 artifactId作为搜索条件</p>
+</li>
+<li><p>packaging： 打包后压缩文件的扩展名，默认是jar ，web应用是war packaging 可以不写， 默认是jar</p>
+</li>
+<li><p>依赖: dependencies 和dependency ，相当于是 java代码中import</p>
+<p>你的项目中要使用的各种资源说明， 比我的项目要使用mysql驱动</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--依赖  java代码中 import --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>properties：设置属性</p>
+</li>
+<li><p>build ： maven在进行项目的构建时， 配置信息，例如指定编译java代码使用的jdk的版本等</p>
+</li>
+</ol>
+<h2 id="生命周期、命令、插件"><a href="#生命周期、命令、插件" class="headerlink" title="生命周期、命令、插件"></a>生命周期、命令、插件</h2><p>maven的生命周期：就是maven构建项目的过程，清理，编译，测试，报告，打包，安装，部署<br>maven的命令：maven独立使用，通过命令，完成maven的生命周期的执行。<br>maven可以使用命令，完成项目的清理，编译，测试等等</p>
+<p>maven的插件： maven命令执行时，真正完成功能的是插件，插件就是一些jar文件， 一些类。</p>
+<ol>
+<li>单元测试（测试方法）：用的是junit， junit是一个专门测试的框架（工具）。<br>junit测试的内容： 测试的是类中的方法， 每一个方法都是独立测试的。方法是测试的基本单位（单元）。</li>
+</ol>
+<blockquote>
+<p>  maven借助单元测试，批量的测试你类中的大量方法是否符合预期的。</p>
+</blockquote>
+<ol start="2">
+<li><p>使用步骤</p>
+<ol>
+<li><p>加入依赖，在pom.xml加入单元测试依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 单元测试 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在maven项目中的src&#x2F;test&#x2F;java目录下，创建测试程序。<br>推荐的创建类和方法的提示：</p>
+<ul>
+<li>测试类的名称 是Test + 你要测试的类名</li>
+<li>测试的方法名称 是：Test + 方法名称</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span>&#123;</span><br><span class="line">    测试HelloMaven的add方法是否正确</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//其中testAdd叫做测试方法，它的定义规则</span></span><br><span class="line"><span class="comment">//1.方法是public的，必须的</span></span><br><span class="line"><span class="comment">//2.方法没有返回值， 必须的</span></span><br><span class="line"><span class="comment">//3.方法名称是自定义的，推荐是Test + 方法名称</span></span><br><span class="line"><span class="comment">//4.在方法的上面加入 @Test</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>mvn compile</p>
+<p>编译main&#x2F;java&#x2F;目录下的java 为class文件， 同时把class拷贝到 target&#x2F;classes目录下面</p>
+<p>把main&#x2F;resources目录下的所有文件 都拷贝到target&#x2F;classes目录下</p>
+</li>
+</ol>
+<p>​    </p>
+<h1 id="idea设置Maven"><a href="#idea设置Maven" class="headerlink" title="idea设置Maven"></a>idea设置Maven</h1><blockquote>
+<p>  idea中有内置的Maven,但是我们一般不适用内置的Maven,因为内置的Maven在设置和修改的时候不方便,我们需要自己下载Maven并在idea中配置</p>
+</blockquote>
+<ol>
+<li>file–settings–Build</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930183125806.png" alt="image-20220930183125806"></p>
+<ol start="2">
+<li>file–other settings–Settings for New Project</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20220930183201659.png" alt="image-20220930183201659"></p>
+<p><strong>使用Maven模板创建项目</strong></p>
+<ol>
+<li>maven-archetype-quickstart : 普通的java项目</li>
+<li>maven-archetype-webapp : web工程</li>
+</ol>
+<h1 id="Maven的依赖范围-scope"><a href="#Maven的依赖范围-scope" class="headerlink" title="Maven的依赖范围(scope)"></a>Maven的依赖范围(scope)</h1><p>scope的值有 compile, test, provided ,默认是compile<br>scope:表示依赖使用的范围，也就是在maven构建项目的那些阶段中起作用。<br>maven构建项目  编译， 测试 ，打包， 安装 ，部署 过程（阶段）</p>
+<p><strong>junit的依赖范围是 test</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>a<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>b<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意:</strong></p>
+<p>在写项目的中的用到的所有依赖（jar ） ，必须在本地仓库中有。没有必须通过maven下载， 包括provided的都必须下载。</p>
+<p>你在servlet需要继承HttpServlet( provided) , 你使用的HttpServlet是maven仓库中的。</p>
+<p>当你的写好的程序， 放到 tomat服务器中运行时， 此时你的程序中不包含servlet的jar<br>因为tomcat提供了 servlet的.jar</p>
+<h1 id="Maven的常用操作"><a href="#Maven的常用操作" class="headerlink" title="Maven的常用操作"></a>Maven的常用操作</h1><ol>
+<li>maven的属性设置<br><properties> 设置maven的常用属性</li>
+<li>maven的全局变量<br>自定义的属性<ol>
+<li>在<properties> 通过自定义标签声明变量（标签名就是变量名）</li>
+<li>在pom.xml文件中的其它位置，使用 ${标签名} 使用变量的值</li>
+</ol>
+</li>
+</ol>
+<p>自定义全局变量一般是定义 依赖的版本号， 当你的项目中要使用多个相同的版本号，<br>先使用全局变量定义， 在使用${变量名}</p>
+<ol start="3">
+<li>资源插件</li>
+</ol>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span><span class="comment">&lt;!--所在的目录--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">includes</span>&gt;</span><span class="comment">&lt;!--包括目录下的.properties,.xml 文件都会扫描到--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">	&lt;!—filtering 选项 false 不启用过滤器， *.property 已经起到过滤的作用了 --&gt;</span><br><span class="line">	<span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>  作用： mybatis课程中会用到这个作用</p>
+<blockquote>
+<p>  默认没有使用resources的时候， maven执行编译代码时， 会把src&#x2F;main&#x2F;resource目录中的文件拷贝到target&#x2F;classes目录中。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/09/30/Maven/Maven/" title="Maven">http://example.com/2022/09/30/Maven/Maven/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Java-%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> Java 学习</a>
+              <a href="/tags/Maven/" rel="tag"><i class="fa fa-tag"></i> Maven</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/28/JQuery/jQuery/" rel="prev" title="jQuery">
+                  <i class="fa fa-chevron-left"></i> jQuery
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">209k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:10</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/09/30/Maven/Maven/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>
