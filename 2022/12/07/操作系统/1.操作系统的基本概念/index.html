@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#000"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#000">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gen+Jyuu+Gothic+Normal:300,300italic,400,400italic,700,700italic%7CMonaco:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="操作系统的基本概念1. 概念功能和目标1.1 概念电脑的组成：裸机+操作系统+软件  操作系统(Operating System,OS) 是指控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的系统软件。 1.2 功能和目标  用户接口：  命令接口（允许用户直接使用）  联机命令接口：用户说一句，系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安之">
+<meta property="og:url" content="http://example.com/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="安之">
+<meta property="og:description" content="操作系统的基本概念1. 概念功能和目标1.1 概念电脑的组成：裸机+操作系统+软件  操作系统(Operating System,OS) 是指控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的系统软件。 1.2 功能和目标  用户接口：  命令接口（允许用户直接使用）  联机命令接口：用户说一句，系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207171529871.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207172242055.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207172424626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207173209001.png">
+<meta property="og:image" content="c:\Users\wlm\AppData\Roaming\Typora\typora-user-images\image-20221213195604505.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213202516856.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213203058447.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213203228666.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204155301.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204415300.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204709565.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213205817174.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210007566.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210412793.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210825025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210927009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211037493.png">
+<meta property="og:image" content="c:\Users\wlm\AppData\Roaming\Typora\typora-user-images\image-20221213211150288.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211215164.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211728398.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213212001181.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213212443827.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213213109236.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162153137.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162345334.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162433115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162832556.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163423002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163506269.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163553950.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163607352.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163617579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163634384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164141031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164505144.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164604171.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164853481.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164907552.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215165250145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215170326660.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215170559570.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215171846820.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215172245938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215172619460.png">
+<meta property="article:published_time" content="2022-12-07T09:08:28.605Z">
+<meta property="article:modified_time" content="2022-12-15T09:33:21.945Z">
+<meta property="article:author" content="MiK">
+<meta property="article:tag" content="安之">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207171529871.png">
+
+
+<link rel="canonical" href="http://example.com/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/","path":"2022/12/07/操作系统/1.操作系统的基本概念/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | 安之</title>
+  
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-minkes.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/clicklove.js"></script>
+<link rel="alternate" href="/atom.xml" title="安之" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">安之</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">临渊羡鱼不如退而结网</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">56</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">操作系统的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%A6%82%E5%BF%B5%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">1. 概念功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 功能和目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.</span> <span class="nav-text">2. 操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%B9%B6%E5%8F%91"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%85%B1%E4%BA%AB"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E8%99%9A%E6%8B%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 虚拟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%BC%82%E6%AD%A5"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 异步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E4%B8%8E%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">3. 操作系统的发展与分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%89%8B%E5%B7%A5%E6%93%8D%E4%BD%9C%E9%98%B6%E6%AE%B5"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 手工操作阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 单道批处理系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 多道批处理系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 分时操作系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5 实时操作系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E5%92%8C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">1.4.</span> <span class="nav-text">4. 操作系统的运行机制和体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-0-%E4%BB%80%E4%B9%88%E6%98%AF%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.0 什么是指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.1 操作系统内核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.5.</span> <span class="nav-text">5. 中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="nav-number">1.5.1.</span> <span class="nav-text">5.1 中断机制的诞生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-%E4%B8%AD%E6%96%AD%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="nav-number">1.5.2.</span> <span class="nav-text">5.2 中断的概念和作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-%E4%B8%AD%E6%96%AD%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.5.3.</span> <span class="nav-text">5.3 中断的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-%E5%A4%96%E4%B8%AD%E6%96%AD%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">1.5.4.</span> <span class="nav-text">5.4 外中断的处理过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">6. 系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%EF%BC%8C%E6%9C%89%E4%BD%95%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">1.6.1.</span> <span class="nav-text">6.1 什么是系统调用，有何作用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.6.2.</span> <span class="nav-text">6.2 系统调用和库函数的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%83%8C%E5%90%8E%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">1.6.3.</span> <span class="nav-text">6.3 系统调用背后的过程</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="MiK"
+      src="/images/user.jpg">
+  <p class="site-author-name" itemprop="name">MiK</p>
+  <div class="site-description" itemprop="description">安之的学习小窝</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Minkes" title="Github → https:&#x2F;&#x2F;github.com&#x2F;Minkes" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/user.jpg">
+      <meta itemprop="name" content="MiK">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="安之">
+      <meta itemprop="description" content="安之的学习小窝">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | 安之">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-07 17:08:28" itemprop="dateCreated datePublished" datetime="2022-12-07T17:08:28+08:00">2022-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-15 17:33:21" itemprop="dateModified" datetime="2022-12-15T17:33:21+08:00">2022-12-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="操作系统的基本概念"><a href="#操作系统的基本概念" class="headerlink" title="操作系统的基本概念"></a>操作系统的基本概念</h1><h2 id="1-概念功能和目标"><a href="#1-概念功能和目标" class="headerlink" title="1. 概念功能和目标"></a>1. 概念功能和目标</h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a>1.1 概念</h3><p>电脑的组成：裸机+操作系统+软件</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207171529871.png" alt="image-20221207171529871"></p>
+<p><strong>操作系统(Operating System,OS)</strong> 是指控制和管理整个计算机系统的硬件和软件资源，并合理地组织调度计算机的工作和资源的分配，以提供给用户和其他软件方便的接口和环境，它是计算机系统中最基本的<strong>系统软件</strong>。</p>
+<h3 id="1-2-功能和目标"><a href="#1-2-功能和目标" class="headerlink" title="1.2 功能和目标"></a>1.2 功能和目标</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207172242055.png" alt="image-20221207172242055"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207172424626.png" alt="image-20221207172424626"></p>
+<p>用户接口：</p>
+<ol>
+<li><p>命令接口（允许用户直接使用）</p>
+<ol>
+<li><p>联机命令接口：用户说一句，系统做一句</p>
+<p>相当于在windows打开cmd 输入一句执行一句</p>
+</li>
+<li><p>脱机命令接口：用户说一堆，系统做一堆</p>
+<p>相当于将需要的一堆命令作为dat批处理文件，直接运行</p>
+</li>
+</ol>
+</li>
+<li><p>程序接口（允许用户通过程序间接使用）由一组系统调用组成（程序接口&#x3D;系统调用）</p>
+</li>
+</ol>
+<p><strong>系统调用 &#x3D; 广义指令</strong></p>
+<p>GUI:图形用户界面，用户可以使用形象的图形界面进行操作</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221207173209001.png" alt="image-20221207173209001"></p>
+<p>操作系统作为最接近硬件的层次，需要提供的功能和目标是<strong>实现对硬件机器的拓展</strong>，没有任何软件支持的计算机成为<strong>裸机</strong>。在裸机上安装的操作系统，可以提供资源管理功能和方便用户的服务功能，将裸机改造成功能更强、使用更方便的机器，</p>
+<p>通常把覆盖了软件的机器成为扩充机器，又称之为<strong>虚拟机</strong></p>
+<h2 id="2-操作系统的特征"><a href="#2-操作系统的特征" class="headerlink" title="2. 操作系统的特征"></a>2. 操作系统的特征</h2><h3 id="2-1-并发"><a href="#2-1-并发" class="headerlink" title="2.1 并发"></a>2.1 并发</h3><p><strong>并发</strong>：指两个或多个事件在同一时间间隔内发生。这些事件宏观上是同时发生的，但微观上是交替发生的操作系统的并发性指计算机系统中同时存在着多个运行着的程序。</p>
+<p>一个单核处理机(CPU)同一时刻只能执行一个程序，因此操作系统会负责协调多个程序交替执行（这些程序微观上是交替执行的，但宏观上看起来就像在同时执行)，事实上，操作系统就是伴随着“多道程序技术”而出现的，因此，操作系统和程序并发是一起诞生的。</p>
+<p>当今的计算机，一般都是多核CPU,比如Intel的第八代i3处理器就是4核CPU,这意味着同一时刻可以有4个程序并行执行，但是操作系统对的并发性依然必不可少，当代人使用计算机绝对有4个以上的程序需要同时工作。</p>
+<h3 id="2-2-共享"><a href="#2-2-共享" class="headerlink" title="2.2 共享"></a>2.2 共享</h3><p><strong>共享</strong>即资源共享，是指系统中的资源可供内存中多个并发执行的进程共同使用。</p>
+<p><img src="C:\Users\wlm\AppData\Roaming\Typora\typora-user-images\image-20221213195604505.png" alt="image-20221213195604505"></p>
+<p>所谓的“同时”往往是宏观上的，而在微观上，这些进程可能是交替地对该资源进行访问的（即分时共享）</p>
+<p><strong>两者之间的关系（并发和共享）</strong></p>
+<p>并发性指计算机系统中同时存在着多个运行着的程序。<br>共享性是指系统中的资源可供内存中多个并发执行的进程共同使用。</p>
+<h3 id="2-3-虚拟"><a href="#2-3-虚拟" class="headerlink" title="2.3 虚拟"></a>2.3 虚拟</h3><p><strong>虚拟</strong>是指把一个物理上的实体变为若干个逻辑上的对应物。物理实体（前者）是实际存在的，而逻辑上对应物（后者)是用户感受到的。</p>
+<p><strong>背景知识</strong>：一个程序需要放入内存并给它分配CPU才能执行</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213202516856.png" alt="image-20221213202516856"></p>
+<h3 id="2-4-异步"><a href="#2-4-异步" class="headerlink" title="2.4 异步"></a>2.4 异步</h3><p>异步是指，在多道程序环境下，允许多个程序并发执行，但由于资源有限，进程的执行不是一贯到底的，而是走走停停，以不可预知的速度向前推进，这就是进程的异步性。</p>
+<p>如果失去了并发性，则系统只能串行地处理各个进程，每个进程的执会一贯到底。只有系统拥有并发性，才有可能导致异步性。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213203058447.png" alt="image-20221213203058447"></p>
+<h2 id="3-操作系统的发展与分类"><a href="#3-操作系统的发展与分类" class="headerlink" title="3. 操作系统的发展与分类"></a>3. 操作系统的发展与分类</h2><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213203228666.png" alt="image-20221213203228666"></p>
+<h3 id="3-1-手工操作阶段"><a href="#3-1-手工操作阶段" class="headerlink" title="3.1 手工操作阶段"></a>3.1 手工操作阶段</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204155301.png" alt="image-20221213204155301"></p>
+<h3 id="3-2-单道批处理系统"><a href="#3-2-单道批处理系统" class="headerlink" title="3.2 单道批处理系统"></a>3.2 单道批处理系统</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204415300.png" alt="image-20221213204415300"></p>
+<h3 id="3-3-多道批处理系统"><a href="#3-3-多道批处理系统" class="headerlink" title="3.3 多道批处理系统"></a>3.3 多道批处理系统</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213204709565.png" alt="image-20221213204709565"></p>
+<h3 id="3-4-分时操作系统"><a href="#3-4-分时操作系统" class="headerlink" title="3.4 分时操作系统"></a>3.4 分时操作系统</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213205817174.png" alt="image-20221213205817174"></p>
+<h3 id="3-5-实时操作系统"><a href="#3-5-实时操作系统" class="headerlink" title="3.5 实时操作系统"></a>3.5 实时操作系统</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210007566.png" alt="image-20221213210007566"></p>
+<h2 id="4-操作系统的运行机制和体系结构"><a href="#4-操作系统的运行机制和体系结构" class="headerlink" title="4. 操作系统的运行机制和体系结构"></a>4. 操作系统的运行机制和体系结构</h2><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210412793.png" alt="image-20221213210412793"></p>
+<h3 id="4-0-什么是指令"><a href="#4-0-什么是指令" class="headerlink" title="4.0 什么是指令"></a>4.0 什么是指令</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210825025.png" alt="image-20221213210825025"></p>
+<p><strong>新的问题：</strong><br>有的指令“人畜无害”。比如：加、减、乘、除这些普通的运算指令。<br>有的指令有很高的权限。比如：内存清零指令。如果用户程序可以使用这个指令，就意味着一个用户可以将其他用户的内存数据随意清零，这样做显然是很危险的。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213210927009.png" alt="image-20221213210927009"></p>
+<p><strong>CPU如何判断当前是否可以执行特权指令?</strong></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211037493.png" alt="image-20221213211037493"></p>
+<p><img src="C:\Users\wlm\AppData\Roaming\Typora\typora-user-images\image-20221213211150288.png" alt="image-20221213211150288"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211215164.png" alt="image-20221213211215164"></p>
+<h3 id="4-1-操作系统内核"><a href="#4-1-操作系统内核" class="headerlink" title="4.1 操作系统内核"></a>4.1 操作系统内核</h3><p>Yo~生活经验：我们安装完Windows操作系统后，会发现操作系统提供了多种多样的功能，比如“记事本”、“任务管理器”。然而，这些功能并不是必不可少的。即使没有“任务管理器”，我们仍然可以使用计算机。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213211728398.png" alt="image-20221213211728398"></p>
+<p><strong>内核</strong>是计算机上配置的<strong>底层</strong>软件，是操作系统最基本、最核心的部分。</p>
+<p>实现操作系统内核功能的那些程序就是<strong>内核程序</strong>。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213212001181.png" alt="image-20221213212001181"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213212443827.png" alt="image-20221213212443827"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221213213109236.png" alt="image-20221213213109236"></p>
+<h2 id="5-中断和异常"><a href="#5-中断和异常" class="headerlink" title="5. 中断和异常"></a>5. 中断和异常</h2><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162153137.png" alt="image-20221215162153137"></p>
+<h3 id="5-1-中断机制的诞生"><a href="#5-1-中断机制的诞生" class="headerlink" title="5.1 中断机制的诞生"></a>5.1 中断机制的诞生</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162345334.png" alt="image-20221215162345334"></p>
+<p><strong>本质</strong>：发生中断就意味着需要操作系统介入，开展管理工作</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162433115.png" alt="image-20221215162433115"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215162832556.png" alt="image-20221215162832556"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163423002.png" alt="image-20221215163423002"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163506269.png" alt="image-20221215163506269"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163553950.png" alt="image-20221215163553950"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163607352.png" alt="image-20221215163607352"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163617579.png" alt="image-20221215163617579"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215163634384.png" alt="image-20221215163634384"></p>
+<h3 id="5-2-中断的概念和作用"><a href="#5-2-中断的概念和作用" class="headerlink" title="5.2 中断的概念和作用"></a>5.2 中断的概念和作用</h3><ol>
+<li>当中断发生时，CPU立即进入<strong>核心态</strong></li>
+<li>当中断发生后，当前运行的进程暂停运行，并由操作系统内核对中断进行处理</li>
+<li>对于不同的中断信号，会进行不同的处理</li>
+</ol>
+<p>发生了中断，就意味着需要操作系统介入，开展管理工作。由于操作系统的管理工作（比如进程切换、分配&#x2F;O设备等)需要使用特权指令，因此CPU要从用户态转为核心态。<strong>中断</strong>可以使CPU从<strong>用户态切换为核心态，使操作系统获得计算机的控制权</strong>。有了中断，才能实现多道程序并发执行。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164141031.png" alt="image-20221215164141031"></p>
+<h3 id="5-3-中断的分类"><a href="#5-3-中断的分类" class="headerlink" title="5.3 中断的分类"></a>5.3 中断的分类</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164505144.png" alt="image-20221215164505144"></p>
+<p>另一类的中断分类方式：</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164604171.png" alt="image-20221215164604171"></p>
+<h3 id="5-4-外中断的处理过程"><a href="#5-4-外中断的处理过程" class="headerlink" title="5.4 外中断的处理过程"></a>5.4 外中断的处理过程</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164853481.png" alt="image-20221215164853481"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215164907552.png" alt="image-20221215164907552"></p>
+<h2 id="6-系统调用"><a href="#6-系统调用" class="headerlink" title="6. 系统调用"></a>6. 系统调用</h2><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215165250145.png" alt="image-20221215165250145"></p>
+<p>“系统调用”是操作系统提供给应用程序（程序员&#x2F;编程人员）使用的接口，可以理解为一种可供应用程序调用的特殊函数，应用程序可以发出系统调用请求来获得操作系统的服务。</p>
+<h3 id="6-1-什么是系统调用，有何作用？"><a href="#6-1-什么是系统调用，有何作用？" class="headerlink" title="6.1 什么是系统调用，有何作用？"></a>6.1 什么是系统调用，有何作用？</h3><p>应用程序通过系统调用请求操作系统的服务。系统中的各种共享资源都由操作系统统一掌管，因此在用户程序中，凡是与资源有关的操作（如存储分配、&#x2F;O操作、文件管理等），都必须通过系统调用的方式向操作系统提出服务请求，由操作系统代为完成。这样可以保证系统的稳定性和安全性，防止用户进行非法操作。</p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215170326660.png" alt="image-20221215170326660"></p>
+<h3 id="6-2-系统调用和库函数的区别"><a href="#6-2-系统调用和库函数的区别" class="headerlink" title="6.2 系统调用和库函数的区别"></a>6.2 系统调用和库函数的区别</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215170559570.png" alt="image-20221215170559570"></p>
+<p>不涉及系统调用的库函数：如“取绝对值”的函数</p>
+<p>涉及系统调用的库函数：如“创建一个新文件”的函数</p>
+<h3 id="6-3-系统调用背后的过程"><a href="#6-3-系统调用背后的过程" class="headerlink" title="6.3 系统调用背后的过程"></a>6.3 系统调用背后的过程</h3><p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215171846820.png" alt="image-20221215171846820"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215172245938.png" alt="image-20221215172245938"></p>
+<p><img src="https://raw.githubusercontent.com/Minkes/BlogImage/master/image-20221215172619460.png" alt="image-20221215172619460"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+  <div class="end-slogan" style="text-align:center;font-size:18px;letter-spacing:10px;user-seclect:none;color:#bbb">
+  ----------- 本文结束啦<i class="fa fa-star"></i>感谢您阅读-----------
+  </div>		
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>MiK
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="">http://example.com/2022/12/07/操作系统/1.操作系统的基本概念/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/05/SqlServer/18.%E5%87%BD%E6%95%B0-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B-%E8%A7%A6%E5%8F%91%E5%99%A8/" rel="prev" title="18.函数-存储过程-触发器">
+                  <i class="fa fa-chevron-left"></i> 18.函数-存储过程-触发器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MiK</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">270k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:05</span>
+  </span>
+</div>
+
+
+<!-- 计数 -->
+
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+<!-- 网站运行时间的设置 -->
+<span id="times">载入时间中...</span>
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("09/01/2022 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("times").innerHTML = "博客已运行 "+dnum +" 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+setInterval("createtime()",250);
+</script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+
+
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-minkes.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":["nick"],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2022/12/07/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+
+</html>

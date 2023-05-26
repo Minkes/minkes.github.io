@@ -184,7 +184,7 @@ body {
   background: var(--body-bg-color);
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: Hannotate SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Gen Jyuu Gothic Normal, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1em;
   line-height: 2;
   min-height: 100%;
@@ -197,7 +197,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Hannotate SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Gen Jyuu Gothic Normal, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 30px 0 15px;
@@ -1205,7 +1205,7 @@ header.header {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Hannotate SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Gen Jyuu Gothic Normal, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 1.375em;
   font-weight: normal;
   line-height: 1.5;
@@ -1895,7 +1895,7 @@ header.header {
   width: 4px;
 }
 .post-body {
-  font-family: Hannotate SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Gen Jyuu Gothic Normal, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   overflow-wrap: break-word;
 }
 @media (min-width: 1200px) {
@@ -2082,7 +2082,7 @@ header.header {
 }
 .posts-expand .post-meta-container {
   color: #999;
-  font-family: Hannotate SC, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: Gen Jyuu Gothic Normal, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   font-size: 0.75em;
   margin-top: 3px;
 }
